@@ -9,3 +9,196 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Identity {
+  performer
+  client
+}
+
+enum Gender {
+  male
+  female
+  other
+}
+
+enum ClientType {
+  individual
+  corporate
+}
+
+enum Status {
+  completed
+  expired
+  valid
+}
+
+enum Properties {
+  public
+  private
+}
+
+model users {
+  id         Int          @id @default(autoincrement())
+  uuid       String       @default(uuid())
+  username   String       @db.VarChar(255)
+  password   String       @db.VarChar(255)
+  email      String       @unique
+  identity   Identity
+  icon       String?      @db.VarChar(255)
+  name       String       @db.VarChar(255)
+  createdAt  DateTime     @default(now()) @map("create_at")
+  updatedAt  DateTime     @updatedAt @map("updated_at")
+  performers performers[]
+  clients    clients[]
+  reviews    reviews[]
+}
+
+model user_like {
+  id         Int      @id @default(autoincrement())
+  subject_id Int
+  target_id  Int
+  createdAt  DateTime @default(now()) @map("create_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+}
+
+model performers {
+  id                  Int                   @id @default(autoincrement())
+  users               users                 @relation(fields: [users_id], references: [id])
+  users_id            Int
+  years_of_exp        Int                   @default(0)
+  birthday            DateTime?             @db.Date
+  contact_number      Int
+  gender              Gender
+  description         String?               @db.Text
+  social_media_url    String?               @db.VarChar(255)
+  createdAt           DateTime              @default(now()) @map("create_at")
+  updatedAt           DateTime              @updatedAt @map("updated_at")
+  events              events[]
+  performers_hashtags performers_hashtags[]
+  events_applications events_applications[]
+  eprofile            eprofile[]
+  teams_performers    teams_performers[]
+}
+
+model eprofile {
+  id            Int        @id @default(autoincrement())
+  performers    performers @relation(fields: [performers_id], references: [id])
+  performers_id Int
+  content       Json
+  createdAt     DateTime   @default(now()) @map("create_at")
+  updatedAt     DateTime   @updatedAt @map("updated_at")
+}
+
+model teams {
+  id                  Int                   @id @default(autoincrement())
+  name                String                @db.VarChar(255)
+  introduction        String?               @db.Text
+  createdAt           DateTime              @default(now()) @map("create_at")
+  updatedAt           DateTime              @updatedAt @map("updated_at")
+  events_applications events_applications[]
+  teams_performers    teams_performers[]
+}
+
+model teams_performers {
+  id            Int        @id @default(autoincrement())
+  teams         teams      @relation(fields: [teams_id], references: [id])
+  teams_id      Int
+  performers    performers @relation(fields: [performers_id], references: [id])
+  performers_id Int
+}
+
+model clients {
+  id                   Int        @id @default(autoincrement())
+  user                 users      @relation(fields: [userId], references: [id])
+  userId               Int        @map("user_id")
+  name                 String     @db.VarChar(255)
+  contact_number       Int
+  description          String?    @db.Text
+  contact_email        String?    @db.VarChar(255)
+  client_type          ClientType
+  business_address     String?    @db.VarChar(255)
+  business_BR_no       String?    @db.VarChar(255)
+  business_website_url String?    @db.VarChar(255)
+  createdAt            DateTime   @default(now()) @map("create_at")
+  updatedAt            DateTime   @updatedAt @map("updated_at")
+  events               events[]
+}
+
+model reviews {
+  id               Int      @id @default(autoincrement())
+  events           events   @relation(fields: [events_id], references: [id])
+  events_id        Int
+  users            users    @relation(fields: [users_id], references: [id])
+  users_id         Int
+  comments_content String?  @db.Text
+  score            Float
+  createdAt        DateTime @default(now()) @map("create_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+}
+
+model events {
+  id                  Int                   @id @default(autoincrement())
+  performers          performers            @relation(fields: [performers_id], references: [id])
+  performers_id       Int
+  clients             clients               @relation(fields: [clientsId], references: [id])
+  clientsId           Int
+  wage_offer          Decimal               @db.Decimal(8, 2)
+  start_date          DateTime?             @db.Date
+  end_date            DateTime?             @db.Date
+  regearsal_needed    Boolean
+  start_time          DateTime?             @db.Time()
+  image               String?
+  end_time            DateTime?             @db.Time()
+  venue_image_name    String?               @db.VarChar(255)
+  description         String?               @db.Text
+  location            String                @db.VarChar(255)
+  status              Status                @default(valid)
+  properties          Properties            @default(public)
+  is_shown            Boolean               @default(true)
+  date_published      DateTime
+  createdAt           DateTime              @default(now()) @map("create_at")
+  updatedAt           DateTime              @updatedAt @map("updated_at")
+  reviews             reviews[]
+  events_hashtags     events_hashtags[]
+  events_applications events_applications[]
+}
+
+model events_hashtags {
+  id                 Int             @id @default(autoincrement())
+  events             events          @relation(fields: [events_id], references: [id])
+  events_id          Int
+  hashtag_details    hashtag_details @relation(fields: [hashtag_details_id], references: [id])
+  hashtag_details_id Int
+}
+
+model hashtag_details {
+  id                  Int                   @id @default(autoincrement())
+  name                String?               @db.VarChar(255)
+  createdAt           DateTime              @default(now()) @map("create_at")
+  updatedAt           DateTime              @updatedAt @map("updated_at")
+  events_hashtags     events_hashtags[]
+  events_applications events_applications[]
+  performers_hashtags performers_hashtags[]
+}
+
+model performers_hashtags {
+  id                 Int             @id @default(autoincrement())
+  performers         performers      @relation(fields: [performers_id], references: [id])
+  performers_id      Int
+  hashtag_details    hashtag_details @relation(fields: [hashtag_details_id], references: [id])
+  hashtag_details_id Int
+}
+
+model events_applications {
+  id                 Int             @id @default(autoincrement())
+  events             events          @relation(fields: [events_id], references: [id])
+  events_id          Int
+  performers         performers      @relation(fields: [performers_id], references: [id])
+  performers_id      Int
+  hashtag_details    hashtag_details @relation(fields: [hashtag_details_id], references: [id])
+  hashtag_details_id Int
+  teams              teams           @relation(fields: [team_id], references: [id])
+  team_id            Int
+  createdAt          DateTime        @default(now()) @map("create_at")
+  updatedAt          DateTime        @updatedAt @map("updated_at")
+}
