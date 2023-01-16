@@ -9,5 +9,5 @@ export const userController = new UserController(userService)
 import { userRoutes } from "./router/userRouter"
 
 export const routes = express.Router()
-routes.use("/users", userRoutes)
 
+routes.use("/users", userRoutes)
