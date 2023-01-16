@@ -1,5 +1,7 @@
 Project name : Joasis
 
+##GIT: https://github.com/scarlettyeung/c23-cas-project-1-tw
+
 ##ERD:
 Wire-frame: https://www.figma.com/file/4IyrIlR6agVs3zk3CDlLXs/Busker-Wireframe?node-id=0%3A1&t=TuCmbrn57i37rgzQ-0
 
