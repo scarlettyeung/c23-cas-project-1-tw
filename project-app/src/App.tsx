@@ -1,21 +1,21 @@
-import React from "react";
-import "./App.css";
-const REACT_APP_BACKEND_URL = "http://localhost:8080"
+import React from 'react';
+import './App.css';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import { useRootSelector } from './redux/store';
 
 function App() {
-  async function loadData() {
-    const res = await fetch(`${REACT_APP_BACKEND_URL}/test`);
-    const resp = await res.json();
-    console.log(resp);
-  }
-  loadData();
-  return (
-    <div className="App">
-      <header className="App-header">
-        <div></div>
-      </header>
-    </div>
-  );
+	const isAuth = useRootSelector((state) => state.auth.isAuth);
+	console.log(isAuth);
+
+	return (
+		<div className='App'>
+			<header className='App-header'>
+				<div>App</div>
+				<div>{isAuth ? <Home /> : <Login />}</div>
+			</header>
+		</div>
+	);
 }
 
 export default App;
