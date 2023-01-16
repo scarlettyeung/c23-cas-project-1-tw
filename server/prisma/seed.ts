@@ -1,4 +1,6 @@
 import { PrismaClient } from "@prisma/client"
+import { hashPassword } from "../utils/hash"
+
 const prisma = new PrismaClient()
 
 async function main() {
@@ -10,28 +12,28 @@ async function main() {
     data: [
       {
         username: "ken",
-        password: "1234",
+        password: await hashPassword("1234"),
         email: "ken@gmail.com",
         identity: "performer",
         name: "ken",
       },
       {
         username: "maple",
-        password: "1234",
+        password: await hashPassword("1234"),
         email: "maple@gmail.com",
         identity: "performer",
         name: "maple",
       },
       {
         username: "scarlett",
-        password: "1234",
+        password: await hashPassword("1234"),
         email: "scarlett@gmail.com",
         identity: "client",
         name: "scarlett",
       },
       {
         username: "may",
-        password: "1234",
+        password: await hashPassword("1234"),
         email: "may@gmail.com",
         identity: "client",
         name: "may",
