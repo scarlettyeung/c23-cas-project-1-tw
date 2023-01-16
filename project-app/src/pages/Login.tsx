@@ -1,8 +1,8 @@
-import React from 'react';
-import { useState } from 'react';
-import { login } from '../redux/auth';
-import { useRootDispatch } from '../redux/store';
+import React, { useState } from 'react';
+import { loginThunk } from '../redux/auth';
 // import { useLocation, useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+import { useRootDispatch } from '../redux/store';
 
 function Login() {
 	// const navigate = useNavigate();
@@ -15,7 +15,12 @@ function Login() {
 
 	const submitLogin = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		dispatch(login(userEmail));
+		dispatch(loginThunk({ userEmail, userPassword }))
+			.unwrap()
+			// .then(() => navigate('/'))
+			.catch((err) => {
+				alert(err.message);
+			});
 		// navigate(targetPathname);
 	};
 	return (

@@ -1,4 +1,12 @@
 export interface AuthState {
 	isAuth: boolean;
-	userEmail: string | null;
+	uuid: string | null;
+	loading: boolean;
+	error: string | undefined;
+}
+
+export interface JWTPayload {
+	username: string;
+	uuid: string;
+	identity: string;
 }
