@@ -1,16 +1,9 @@
 Project name : Joasis
 
-<<<<<<< HEAD
-ERD: https://erd.surge.sh/
-Wire-frame: https://www.figma.com/file/4IyrIlR6agVs3zk3CDlLXs/Busker-Wireframe?node-id=0%3A1&t=TuCmbrn57i37rgzQ-0
-
-Flow: https://www.figma.com/file/TXmxX3UfaOnuYHxqVoI6gk/Flow?node-id=0%3A1&t=Bd1LMevwqrXRq0Wj-0
-=======
 ##ERD:
 Wire-frame: https://www.figma.com/file/4IyrIlR6agVs3zk3CDlLXs/Busker-Wireframe?node-id=0%3A1&t=TuCmbrn57i37rgzQ-0
 
 ##Flow: https://www.figma.com/file/TXmxX3UfaOnuYHxqVoI6gk/Flow?node-id=0%3A1&t=Bd1LMevwqrXRq0Wj-0
->>>>>>> ed275bb8fed5bfbc31369bb3c93e81a3cdcaee99
 
 git / server structure
 =======================================
