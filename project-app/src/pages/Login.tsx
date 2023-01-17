@@ -1,60 +1,60 @@
+
 import React, { useState } from 'react';
 import { loginThunk } from '../redux/auth';
-// import { useLocation, useNavigate } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom';
 import { useRootDispatch } from '../redux/store';
+import "../styles/login.css";
+import { useNavigate } from 'react-router-dom';
+
 
 function Login() {
-	// const navigate = useNavigate();
-	// const location = useLocation();
-	// const targetPathname = location.state?.from.pathname || '/';
 
-	const dispatch = useRootDispatch();
-	const [userEmail, setUserEmail] = useState('');
-	const [userPassword, setUserPassword] = useState('');
+  const dispatch = useRootDispatch();
+  const [userEmail, setUserEmail] = useState('');
+  const [userPassword, setUserPassword] = useState('');
 
-	const submitLogin = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		dispatch(loginThunk({ userEmail, userPassword }))
-			.unwrap()
-			// .then(() => navigate('/'))
-			.catch((err) => {
-				alert(err.message);
-			});
-		// navigate(targetPathname);
-	};
-	return (
-		<div>
-			<h1>Login</h1>
-			<form onSubmit={submitLogin}>
-				<div>
-					<label htmlFor='userEmail'>Email</label>
-					<input
-						id='userEmail'
-						type='text'
-						value={userEmail}
-						onChange={(e) => setUserEmail(e.target.value)}
-					></input>
-				</div>
-				<br></br>
-				<div>
-					<label htmlFor='userPassword'>Password</label>
-					<input
-						id='userPassword'
-						type='text'
-						value={userPassword}
-						onChange={(e) => setUserPassword(e.target.value)}
-					></input>
-				</div>
-				<div>
-					<input type='submit' value='Submit' />
-				</div>
-				<div>
-					<input type='button' value='register' />
-				</div>
-			</form>
-		</div>
-	);
+  const submitLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(loginThunk({ userEmail, userPassword }))
+      .unwrap()
+      // .then(() => navigate('/'))
+      .catch((err) => {
+        alert(err.message);
+      });
+    // navigate(targetPathname);
+  };
+  return (
+    <div>
+      <img className='logo' src='../../joasisLogo.png' />
+      <form onSubmit={submitLogin}>
+        <div>
+          <input
+            className='loginInput'
+            id='userEmail'
+            type='text'
+            placeholder='Email'
+            value={userEmail}
+            onChange={(e) => setUserEmail(e.target.value)}
+          ></input>
+        </div>
+        <div>
+          <label htmlFor='userPassword'>Password</label>
+          <input
+            className='loginInput'
+            id='userPassword'
+            type='password'
+            placeholder='Password'
+            value={userPassword}
+            onChange={(e) => setUserPassword(e.target.value)}
+          ></input>
+        </div>
+        <div>
+          <input type='submit' value='LOGIN' className='login' />
+        </div>
+        <div>
+          <input type='button' value='REGISTER' className='register' />
+        </div>
+      </form>
+    </div>
+  );
 }
-
 export default Login;

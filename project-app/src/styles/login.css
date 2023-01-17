@@ -1,0 +1,57 @@
+.logo {
+  width: 200px;
+  margin-bottom: 20px;
+  margin-top:50px;
+}
+.loginInput {
+  width: 65vw;
+  /* height: 25px; */
+  background: #EFEFEF;
+  padding: 12px;
+  border:0;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+input[type="text"], textarea {
+  background-color : #EFEFEF; 
+  padding-left: 12px;
+}
+
+input[type="password"], textarea {
+  background-color : #EFEFEF; 
+  padding-left: 12px;
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: checkbox;
+     -moz-appearance: checkbox;
+          appearance: checkbox;
+  display: inline-block;
+  width: auto;
+}
+
+.rememberMeAndForgotPassword {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.login {
+  border: 0;
+  width: 65vw;
+  padding: 12px;
+  border-radius: 6px;
+  /* margin-bottom: 20px; */
+}
+
+.register {
+  border: 0;
+  width: 65vw;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+
+}
+
