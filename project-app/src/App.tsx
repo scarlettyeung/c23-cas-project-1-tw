@@ -10,14 +10,14 @@ import MyRoutes from './components/MyRoutes';
 import './App.css';
 
 function App() {
-	const isAuth = useRootSelector((state) => state.auth.isAuth);
-	console.log(isAuth);
+  const isAuth = useRootSelector((state) => state.auth.isAuth);
+  console.log(isAuth);
 
-	return (
-		<div className='App'>
-			<MyRoutes />
-		</div>
-	);
+  return (
+    <div className='App'>
+      <MyRoutes />
+    </div>
+  );
 }
 
 export default App;
