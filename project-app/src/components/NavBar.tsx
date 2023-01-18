@@ -12,7 +12,7 @@ function Navbar() {
 	return (
 		<>
 			<nav className='navbar'>
-				<a onClick={() => navigate('home', { replace: true })}>HOME</a>
+				<a onClick={() => navigate('/', { replace: true })}>HOME</a>
 				<a onClick={() => navigate('events', { replace: true })}>EVENTS</a>
 				<a onClick={() => navigate('chatRoom', { replace: true })}>CHATROOM</a>
 				<a onClick={() => navigate('about', { replace: true })}>ABOUT</a>

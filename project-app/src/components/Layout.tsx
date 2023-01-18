@@ -1,12 +1,12 @@
-import { Outlet } from 'react-router-dom';
+import React from 'react';
 import Header from './Header';
 import Navbar from './NavBar';
 
-function Layout() {
+function Layout(props: React.PropsWithChildren) {
 	return (
 		<>
 			<Header />
-			<Outlet />
+			{props.children}
 			<Navbar />
 		</>
 	);

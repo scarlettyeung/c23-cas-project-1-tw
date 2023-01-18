@@ -15,11 +15,6 @@ function App() {
 
 	return (
 		<div className='App'>
-			<div>
-				<Logout />
-				<br></br>
-				<TestBtn />
-			</div>
 			<MyRoutes />
 		</div>
 	);

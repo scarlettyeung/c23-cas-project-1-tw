@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { loginThunk } from '../redux/auth';
 import { useRootDispatch } from '../redux/store';
 import '../styles/login.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Login() {
 	const dispatch = useRootDispatch();
+	const navigate = useNavigate();
+	const location = useLocation();
 	const [userEmail, setUserEmail] = useState('');
 	const [userPassword, setUserPassword] = useState('');
 
@@ -13,15 +15,16 @@ function Login() {
 		e.preventDefault();
 		dispatch(loginThunk({ userEmail, userPassword }))
 			.unwrap()
-			// .then(() => navigate('/'))
+			.then(() => navigate('/'))
 			.catch((err) => {
 				alert(err.message);
 			});
-		// navigate(targetPathname);
+		const targetPathname = location.state?.from.pathname || '/';
+		navigate(targetPathname);
 	};
 	return (
 		<div>
-			<img className='logo' src='../../joasisLogo.png' />
+			<img className='logo' src='../../joasisLogo.png' alt='Joasis logo' />
 			<form onSubmit={submitLogin}>
 				<div>
 					<input
@@ -44,12 +47,12 @@ function Login() {
 						onChange={(e) => setUserPassword(e.target.value)}
 					></input>
 				</div>
-				<div>
+				<p>
 					<input type='submit' value='LOGIN' className='login' />
-				</div>
-				<div>
+				</p>
+				<p>
 					<input type='button' value='REGISTER' className='register' />
-				</div>
+				</p>
 			</form>
 		</div>
 	);
