@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { AuthState, JWTPayload } from './state';
+import type { PayloadAction } from '@reduxjs/toolkit';
 import { loginThunk, testThunk } from '../auth/index';
 import jwt_decode from 'jwt-decode';
 
@@ -17,17 +18,15 @@ initAuthState = {
 	exp: undefined,
 	error: undefined,
 };
-// if (auth_storage){
-// 	 initAuthState = JSON.parse(auth_storage)
-// }else{
-// }
+
 // Step 2 - Slice
 const authSlice = createSlice({
 	name: 'auth',
 	initialState: initAuthState,
 	reducers: {
-		logout: () => {
+		logout: (state) => {
 			console.log('reducer logout');
+			state.isAuth = false;
 			localStorage.removeItem('token');
 		},
 	},
