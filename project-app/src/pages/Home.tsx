@@ -1,13 +1,11 @@
 import React from 'react';
-// import { useRootSelector } from '../redux/store';
+
 function Home() {
-  // const userEmail = useRootSelector((state) => state.auth.userEmail);
-  return (
-    <div>
-      <h1>Home</h1>
-      {/* <div>Hi, {userEmail?.toUpperCase()}</div> */}
-    </div>
-  );
+	return (
+		<div>
+			<h1>Welcome toHome Page</h1>
+		</div>
+	);
 }
 
 export default Home;
