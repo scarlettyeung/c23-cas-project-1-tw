@@ -6,7 +6,6 @@ function Header() {
 	return (
 		<div>
 			<Search />
-			<h1>Header</h1>
 			<Logout />
 			<TestBtn />
 		</div>

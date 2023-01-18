@@ -1,5 +1,6 @@
 import { taggedTemplateExpression } from '@babel/types';
 import React, { useState } from 'react';
+import '../styles/search.css';
 
 function Search() {
 	const [query, setQuery] = useState('');
@@ -17,22 +18,28 @@ function Search() {
 	];
 
 	return (
-		<div className='search'>
+		<div className='app'>
 			<input
 				type='text'
 				placeholder='Search...'
 				className='search'
 				onChange={(e) => setQuery(e.target.value)}
 			/>
-			<ul className='list'>
-				{tags
-					.filter((tags) => tags.name.toLowerCase().includes(query))
-					.map((tags) => (
-						<li key={tags.id} className='tagsItem'>
-							{tags.name}
-						</li>
-					))}
-			</ul>
+
+			<table className='list'>
+				<tbody>
+					<tr>
+						<th>Tags Name</th>
+					</tr>
+					{tags
+						.filter((tags) => tags.name.toLowerCase().includes(query))
+						.map((tag) => (
+							<tr key={tag.id}>
+								<td>{tag.name}</td>
+							</tr>
+						))}
+				</tbody>
+			</table>
 		</div>
 	);
 }
