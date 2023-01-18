@@ -29,19 +29,25 @@ export class UserController {
           res.status(400).json({ message: "wrong password" })
           return
         }
-
+        logger.info(`the user is : ${user?.username}`)
+        const exp = new Date(
+          new Date().setTime(new Date().getTime() + 5 * 60 * 1000)
+        )
+        // after 5 min
         const payload = {
           uuid: user.uuid,
           username: user.username,
           identity: user.identity,
+          exp: exp,
         }
 
         const token = jwtSimple.encode(payload, jwt.jwtSecret)
-
+        logger.info(`Token send ,will exp in : ${payload.exp}`)
         res.status(200).json({ message: "login success", data: token })
       }
     } catch (e) {
       logger.error(e)
+      res.status(500).json({ message: "login fail" })
     }
   }
 
@@ -56,6 +62,15 @@ export class UserController {
       } else {
         res.status(400).json({ message: "no such user" })
       }
+    } catch (e) {
+      logger.error(e)
+      res.status(500).json({ message: "internal server error" })
+    }
+  }
+
+  forTest = async (req: Request, res: Response) => {
+    try {
+      res.status(200).json({ message: "Hi user! you a login " })
     } catch (e) {
       logger.error(e)
       res.status(500).json({ message: "internal server error" })

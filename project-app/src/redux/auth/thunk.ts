@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+// import { AuthState } from './state';
 
 export const loginThunk = createAsyncThunk<
 	string,
@@ -20,10 +21,28 @@ export const loginThunk = createAsyncThunk<
 		});
 
 		const JWT_token = await resp.json();
-		console.log(JWT_token);
 
 		return JWT_token.data;
 	} catch (error) {
 		return thunkAPI.rejectWithValue('AUTH Login failed');
+	}
+});
+
+export const testThunk = createAsyncThunk<any>('users/forTest', async (_, thunkAPI) => {
+	try {
+		const path = process.env.REACT_APP_API_BASE;
+		const resp = await fetch(`${path}users/forTest`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({}),
+		});
+		const data = await resp.json();
+		console.log(data.message);
+		return data;
+	} catch (error) {
+		console.log(error);
+		return;
 	}
 });
