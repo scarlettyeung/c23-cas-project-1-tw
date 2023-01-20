@@ -71,3 +71,5 @@ export function CardsCarousel() {
 		</Carousel>
 	);
 }
+
+export default CardsCarousel;

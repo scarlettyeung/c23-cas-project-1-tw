@@ -9,7 +9,7 @@ body {
 		'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	padding: 80px 10px 10px 10px;
+	padding: 80px 10px 80px 10px;
 }
 
 .HeaderLogo {

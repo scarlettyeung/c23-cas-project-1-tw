@@ -2,7 +2,7 @@ import React from 'react';
 
 function ChatRoom() {
 	return (
-		<div>
+		<div className='Body'>
 			<div className='Title'>ChatRoom Page</div>
 		</div>
 	);
