@@ -70,6 +70,107 @@ async function main() {
       },
     ],
   })
+
+  await prisma.hashtagDetail.createMany({
+    data: [
+      {
+        name: "singer",
+      },
+      {
+        name: "DJ",
+      },
+      {
+        name: "musician",
+      },
+      {
+        name: "juggling",
+      },
+      {
+        name: "emcee(MC)",
+      },
+      {
+        name: "comedian",
+      },
+      {
+        name: "clowning ",
+      },
+      {
+        name: "magician",
+      },
+      {
+        name: "fire dancer",
+      },
+      {
+        name: "fire breather",
+      },
+      {
+        name: "Aerial and Acrobatic Performer",
+      },
+      {
+        name: "burlesque",
+      },
+      {
+        name: "drawer",
+      },
+      {
+        name: "balloon twister",
+      },
+      {
+        name: "performance artist",
+      },
+      {
+        name: "sketchers",
+      },
+      {
+        name: "graffiti artist",
+      },
+      {
+        name: "sketcher ",
+      },
+      {
+        name: "acapello",
+      },
+      {
+        name: "beatboxer",
+      },
+      {
+        name: "rapper",
+      },
+      {
+        name: "charity events",
+      },
+      {
+        name: "internal corporate event",
+      },
+      {
+        name: "annual dinner",
+      },
+      {
+        name: "concert",
+      },
+      {
+        name: "party",
+      },
+      {
+        name: "carnival",
+      },
+      {
+        name: "wedding",
+      },
+      {
+        name: "celebration",
+      },
+      {
+        name: "luncheon",
+      },
+      {
+        name: "ceremony",
+      },
+      {
+        name: "others",
+      },
+    ],
+  })
 }
 main()
   .then(async () => {
