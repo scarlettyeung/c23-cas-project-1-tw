@@ -37,81 +37,97 @@ enum Properties {
   private
 }
 
-model users {
-  id         Int          @id @default(autoincrement())
-  uuid       String       @default(uuid())
-  username   String       @db.VarChar(255)
-  password   String       @db.VarChar(255)
-  email      String       @unique
+model User {
+  id         Int         @id @default(autoincrement())
+  uuid       String      @default(uuid())
+  username   String      @db.VarChar(255)
+  password   String      @db.VarChar(255)
+  email      String      @unique
   identity   Identity
-  icon       String?      @db.VarChar(255)
-  name       String       @db.VarChar(255)
-  createdAt  DateTime     @default(now()) @map("create_at")
-  updatedAt  DateTime     @updatedAt @map("updated_at")
-  performers performers[]
-  clients    clients[]
-  reviews    reviews[]
+  icon       String?     @db.VarChar(255)
+  createdAt  DateTime    @default(now()) @map("create_at")
+  updatedAt  DateTime    @updatedAt @map("updated_at")
+  performers Performer[]
+  clients    Client[]
+  reviews    Review[]
+
+  @@map("users")
 }
 
-model user_like {
+model UserLike {
   id         Int      @id @default(autoincrement())
   subject_id Int
   target_id  Int
   createdAt  DateTime @default(now()) @map("create_at")
   updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@map("user_like")
 }
 
-model performers {
-  id                  Int                   @id @default(autoincrement())
-  users               users                 @relation(fields: [users_id], references: [id])
+model Performer {
+  id                  Int                 @id @default(autoincrement())
+  users               User                @relation(fields: [users_id], references: [id])
   users_id            Int
-  years_of_exp        Int                   @default(0)
-  birthday            DateTime?             @db.Date
+  name                String?
+  years_of_exp        Int                 @default(0)
+  birthday            DateTime?           @db.Date
   contact_number      Int
-  gender              Gender
-  description         String?               @db.Text
-  social_media_url    String?               @db.VarChar(255)
-  createdAt           DateTime              @default(now()) @map("create_at")
-  updatedAt           DateTime              @updatedAt @map("updated_at")
-  events              events[]
-  performers_hashtags performers_hashtags[]
-  events_applications events_applications[]
-  eprofile            eprofile[]
-  teams_performers    teams_performers[]
+  gender              Gender              @default(other)
+  description         String?             @db.Text
+  twitter_url         String?             @db.VarChar(255)
+  facebook_url        String?             @db.VarChar(255)
+  ig_url              String?             @db.VarChar(255)
+  youtube_url         String?             @db.VarChar(255)
+  createdAt           DateTime            @default(now()) @map("create_at")
+  updatedAt           DateTime            @updatedAt @map("updated_at")
+  events              Event[]
+  performers_hashtags PerformersHashtag[]
+  events_applications EventsApplication[]
+  e_profile           Eprofile[]
+  teams_performers    TeamsPerformer[]
+
+  @@map("performer")
 }
 
-model eprofile {
-  id            Int        @id @default(autoincrement())
-  performers    performers @relation(fields: [performers_id], references: [id])
+model Eprofile {
+  id            Int       @id @default(autoincrement())
+  performers    Performer @relation(fields: [performers_id], references: [id])
   performers_id Int
   content       Json
-  createdAt     DateTime   @default(now()) @map("create_at")
-  updatedAt     DateTime   @updatedAt @map("updated_at")
+  createdAt     DateTime  @default(now()) @map("create_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  @@map("e_profile")
 }
 
-model teams {
-  id                  Int                   @id @default(autoincrement())
-  name                String                @db.VarChar(255)
-  introduction        String?               @db.Text
-  createdAt           DateTime              @default(now()) @map("create_at")
-  updatedAt           DateTime              @updatedAt @map("updated_at")
-  events_applications events_applications[]
-  teams_performers    teams_performers[]
+model Team {
+  id                  Int                 @id @default(autoincrement())
+  name                String              @db.VarChar(255)
+  introduction        String?             @db.Text
+  createdAt           DateTime            @default(now()) @map("create_at")
+  updatedAt           DateTime            @updatedAt @map("updated_at")
+  events_applications EventsApplication[]
+  teams_performers    TeamsPerformer[]
+
+  @@map("team")
 }
 
-model teams_performers {
-  id            Int        @id @default(autoincrement())
-  teams         teams      @relation(fields: [teams_id], references: [id])
+model TeamsPerformer {
+  id            Int       @id @default(autoincrement())
+  teams         Team      @relation(fields: [teams_id], references: [id])
   teams_id      Int
-  performers    performers @relation(fields: [performers_id], references: [id])
+  performers    Performer @relation(fields: [performers_id], references: [id])
   performers_id Int
+
+  @@map("teams_performer")
 }
 
-model clients {
+model Client {
   id                   Int        @id @default(autoincrement())
-  user                 users      @relation(fields: [userId], references: [id])
-  userId               Int        @map("user_id")
-  name                 String     @db.VarChar(255)
+  users                User       @relation(fields: [users_id], references: [id])
+  users_id             Int        @map("user_id")
+  name                 String?    @db.VarChar(255)
+  gender               Gender     @default(other)
   contact_number       Int
   description          String?    @db.Text
   contact_email        String?    @db.VarChar(255)
@@ -121,84 +137,98 @@ model clients {
   business_website_url String?    @db.VarChar(255)
   createdAt            DateTime   @default(now()) @map("create_at")
   updatedAt            DateTime   @updatedAt @map("updated_at")
-  events               events[]
+  events               Event[]
+
+  @@map("client")
 }
 
-model reviews {
+model Review {
   id               Int      @id @default(autoincrement())
-  events           events   @relation(fields: [events_id], references: [id])
+  events           Event    @relation(fields: [events_id], references: [id])
   events_id        Int
-  users            users    @relation(fields: [users_id], references: [id])
+  users            User     @relation(fields: [users_id], references: [id])
   users_id         Int
   comments_content String?  @db.Text
   score            Float
   createdAt        DateTime @default(now()) @map("create_at")
   updatedAt        DateTime @updatedAt @map("updated_at")
+
+  @@map("review")
 }
 
-model events {
-  id                  Int                   @id @default(autoincrement())
-  performers          performers            @relation(fields: [performers_id], references: [id])
+model Event {
+  id                  Int                 @id @default(autoincrement())
+  performers          Performer           @relation(fields: [performers_id], references: [id])
   performers_id       Int
-  clients             clients               @relation(fields: [clientsId], references: [id])
-  clientsId           Int
-  wage_offer          Decimal               @db.Decimal(8, 2)
-  start_date          DateTime?             @db.Date
-  end_date            DateTime?             @db.Date
+  clients             Client              @relation(fields: [clients_id], references: [id])
+  clients_id          Int
+  wage_offer          Decimal             @db.Decimal(8, 2)
+  start_date          DateTime?           @db.Date
+  end_date            DateTime?           @db.Date
   regearsal_needed    Boolean
-  start_time          DateTime?             @db.Time()
+  start_time          DateTime?           @db.Time()
   image               String?
-  end_time            DateTime?             @db.Time()
-  venue_image_name    String?               @db.VarChar(255)
-  description         String?               @db.Text
-  location            String                @db.VarChar(255)
-  status              Status                @default(valid)
-  properties          Properties            @default(public)
-  is_shown            Boolean               @default(true)
+  end_time            DateTime?           @db.Time()
+  venue_image_name    String?             @db.VarChar(255)
+  description         String?             @db.Text
+  location            String              @db.VarChar(255)
+  status              Status              @default(valid)
+  properties          Properties          @default(public)
+  is_shown            Boolean             @default(true)
   date_published      DateTime
-  createdAt           DateTime              @default(now()) @map("create_at")
-  updatedAt           DateTime              @updatedAt @map("updated_at")
-  reviews             reviews[]
-  events_hashtags     events_hashtags[]
-  events_applications events_applications[]
+  createdAt           DateTime            @default(now()) @map("create_at")
+  updatedAt           DateTime            @updatedAt @map("updated_at")
+  reviews             Review[]
+  events_hashtags     EventsHashtag[]
+  events_applications EventsApplication[]
+
+  @@map("event")
 }
 
-model events_hashtags {
-  id                 Int             @id @default(autoincrement())
-  events             events          @relation(fields: [events_id], references: [id])
+model EventsHashtag {
+  id                 Int           @id @default(autoincrement())
+  events             Event         @relation(fields: [events_id], references: [id])
   events_id          Int
-  hashtag_details    hashtag_details @relation(fields: [hashtag_details_id], references: [id])
+  hashtag_details    HashtagDetail @relation(fields: [hashtag_details_id], references: [id])
   hashtag_details_id Int
+
+  @@map("events_hashtag")
 }
 
-model hashtag_details {
-  id                  Int                   @id @default(autoincrement())
-  name                String?               @db.VarChar(255)
-  createdAt           DateTime              @default(now()) @map("create_at")
-  updatedAt           DateTime              @updatedAt @map("updated_at")
-  events_hashtags     events_hashtags[]
-  events_applications events_applications[]
-  performers_hashtags performers_hashtags[]
+model HashtagDetail {
+  id                  Int                 @id @default(autoincrement())
+  name                String?             @db.VarChar(255)
+  createdAt           DateTime            @default(now()) @map("create_at")
+  updatedAt           DateTime            @updatedAt @map("updated_at")
+  events_hashtags     EventsHashtag[]
+  events_applications EventsApplication[]
+  performers_hashtags PerformersHashtag[]
+
+  @@map("hashtag_detail")
 }
 
-model performers_hashtags {
-  id                 Int             @id @default(autoincrement())
-  performers         performers      @relation(fields: [performers_id], references: [id])
+model PerformersHashtag {
+  id                 Int           @id @default(autoincrement())
+  performers         Performer     @relation(fields: [performers_id], references: [id])
   performers_id      Int
-  hashtag_details    hashtag_details @relation(fields: [hashtag_details_id], references: [id])
+  hashtag_details    HashtagDetail @relation(fields: [hashtag_details_id], references: [id])
   hashtag_details_id Int
+
+  @@map("performers_hashtag")
 }
 
-model events_applications {
-  id                 Int             @id @default(autoincrement())
-  events             events          @relation(fields: [events_id], references: [id])
+model EventsApplication {
+  id                 Int           @id @default(autoincrement())
+  events             Event         @relation(fields: [events_id], references: [id])
   events_id          Int
-  performers         performers      @relation(fields: [performers_id], references: [id])
+  performers         Performer     @relation(fields: [performers_id], references: [id])
   performers_id      Int
-  hashtag_details    hashtag_details @relation(fields: [hashtag_details_id], references: [id])
+  hashtag_details    HashtagDetail @relation(fields: [hashtag_details_id], references: [id])
   hashtag_details_id Int
-  teams              teams           @relation(fields: [team_id], references: [id])
+  teams              Team          @relation(fields: [team_id], references: [id])
   team_id            Int
-  createdAt          DateTime        @default(now()) @map("create_at")
-  updatedAt          DateTime        @updatedAt @map("updated_at")
+  createdAt          DateTime      @default(now()) @map("create_at")
+  updatedAt          DateTime      @updatedAt @map("updated_at")
+
+  @@map("events_application")
 }

@@ -5,7 +5,7 @@ export interface AuthState {
 	uuid?: string | null;
 	identity?: string | null;
 	exp?: Date | string;
-	error?: string | undefined;
+	error?: string;
 }
 
 export interface JWTPayload {
