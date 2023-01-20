@@ -1,6 +1,5 @@
-import { taggedTemplateExpression } from '@babel/types';
 import React, { useState } from 'react';
-import '../styles/search.css';
+import '../../styles/search.css';
 
 function Search() {
 	const [query, setQuery] = useState('');
@@ -16,17 +15,24 @@ function Search() {
 		{ id: 9, name: 'clowning' },
 		{ id: 10, name: 'magician ' },
 	];
+	// const handleOnclick = () => {
+	// 	const searchTags = tags?.length > 0 && tags?.filter((u) => u?.name === Text);
+	// 	setUserList(searchTags);
+	// };
 
 	return (
-		<div className='app'>
+		<div className='SearchBar'>
 			<input
 				type='text'
 				placeholder='Search...'
 				className='search'
 				onChange={(e) => setQuery(e.target.value)}
 			/>
+			{/* <button disabled={!Text} onClick={handleOnclick} type='submit'>
+				Search
+			</button> */}
 
-			<table className='list'>
+			{/* <table className='list'>
 				<tbody>
 					<tr>
 						<th>Tags Name</th>
@@ -39,7 +45,7 @@ function Search() {
 							</tr>
 						))}
 				</tbody>
-			</table>
+			</table> */}
 		</div>
 	);
 }

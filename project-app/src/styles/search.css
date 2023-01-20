@@ -1,4 +1,4 @@
-.app {
+.SearchBar {
 	margin: 20px;
 	display: flex;
 	flex-direction: column;
@@ -9,7 +9,7 @@
 	padding: 10px;
 	font-size: 20px;
 }
-
+/* 
 .list {
 	padding: 0;
 	list-style: none;
@@ -43,4 +43,4 @@ th {
 td {
 	width: 250px;
 	font-size: 20px;
-}
+} */

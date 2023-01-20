@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Login from '../pages/Login';
-import Register from '../pages/Register';
+// import Register from '../pages/Register';
 import Home from '../pages/Home';
 import ChatRoom from '../pages/ChatRoom';
 import Events from '../pages/Events';
@@ -12,7 +12,7 @@ function MyRoutes() {
 	return (
 		<Routes>
 			<Route path='/login' element={<Login />} />
-			<Route path='/register' element={<Register />} />
+			{/* <Route path='/register' element={<Register />} /> */}
 
 			<Route path='/' element={<PrivateRoute />}>
 				<Route element={<Home />} index />

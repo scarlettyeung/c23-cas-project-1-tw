@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from './Header';
-import Navbar from './NavBar';
+import Header from './Layout/Header';
+import Navbar from './Layout/NavBar';
 
 function Layout(props: React.PropsWithChildren) {
 	return (

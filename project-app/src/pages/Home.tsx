@@ -1,9 +1,12 @@
 import React from 'react';
+import { CardsCarousel } from '../components/HomePage/CardsCarousel';
 
 function Home() {
 	return (
 		<div>
-			<h1>Welcome toHome Page</h1>
+			<div className='Title'>PERFORMANCE</div>
+			<CardsCarousel />
+			<div className='Title'>EVENTS</div>
 		</div>
 	);
 }
