@@ -11,7 +11,8 @@
     "clean": "rm -rf build",
     "move": "cp -r public build/public && cp -r private build/private",
     "format": "yarn prettier --write .",
-    "check": "yarn prettier --check ."
+    "check": "yarn prettier --check .",
+    "reseed": "yarn prisma migrate reset"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"

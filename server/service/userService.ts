@@ -5,7 +5,7 @@ const prisma = new PrismaClient()
 
 export class UserService {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor() {}
+  constructor() { }
 
   async getLoginInfo(email: string) {
     try {
@@ -92,9 +92,21 @@ export class UserService {
     facebook_url: string | null,
     twitter_url: string | null,
     youtube_url: string | null,
-    ig_url: string | null
+    ig_url: string | null,
+    hashtagArr: number[]
   ) {
     logger.info("createPerformer call in UserService")
+    interface hashtagToInput {
+      hashtag_details_id: number;
+    }
+    const hashtagToInput: hashtagToInput[] = []
+
+    for (const hashtag of hashtagArr) {
+      const id: hashtagToInput = { hashtag_details_id: hashtag }
+      hashtagToInput.push(id)
+    }
+
+
 
     await prisma.user.create({
       data: {
@@ -115,11 +127,20 @@ export class UserService {
             twitter_url: twitter_url,
             youtube_url: youtube_url,
             ig_url: ig_url,
+            performers_hashtags: {
+              createMany: {
+                data:
+                  hashtagToInput
+              }
+            }
           },
         },
+
       },
     })
   }
+
+
   async createIndividualClient(
     identitySelect: Identity,
     icon: string | null,
@@ -170,14 +191,6 @@ export class UserService {
   ) {
     logger.info("createCorporateClient call in UserService")
 
-    // if contact_email is null  , contact_email = login email
-    // let emailToSet
-    // if (!contact_email) {
-    //   emailToSet = email
-    // } else if (contact_email) {
-    //   emailToSet = contact_email
-    // }
-
     await prisma.user.create({
       data: {
         identity: identitySelect, //not null
@@ -200,19 +213,5 @@ export class UserService {
       },
     })
   }
-  // async createUser(
-  //   identitySelect: Identity,
-  //   email: string,
-  //   password: string,
-  //   username: string
-  // ) {
-  //   await prisma.user.create({
-  //     data: {
-  //       identity: identitySelect,
-  //       email: email,
-  //       password: password,
-  //       username: username,
-  //     },
-  //   })
-  // }
+
 }

@@ -6,14 +6,12 @@ import jwt from "../utils/jwt"
 import { checkPassword, hashPassword } from "../utils/hash"
 
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
   login = async (req: Request, res: Response) => {
     try {
       logger.info("login function call in UserController")
-      // const { email, password } = req.body
-      const email = req.body.email
-      const password = req.body.password
+      const { email, password } = req.body
       logger.info(email)
       logger.info(password)
 
@@ -107,6 +105,7 @@ export class UserController {
         business_address,
         business_BR_no,
         business_website_url,
+        hashtagArr
       } = await req.body
 
       //// --- to check the info --- ////
@@ -118,15 +117,9 @@ export class UserController {
         return
       }
 
-      let setExpYear: number
-      if (!years_of_exp) {
-        setExpYear = 0
-        logger.info("setExpYear is ")
-        logger.info(setExpYear)
-      } else {
+      let setExpYear = 0
+      if (years_of_exp) {
         setExpYear = years_of_exp
-        logger.info("setExpYear is ")
-        logger.info(setExpYear)
       }
 
       let setEmail: string
@@ -155,7 +148,6 @@ export class UserController {
           !email ||
           !password ||
           !username ||
-          !years_of_exp ||
           !contact_number ||
           !gender
         ) {
@@ -180,7 +172,8 @@ export class UserController {
           facebook_url,
           twitter_url,
           youtube_url,
-          ig_url
+          ig_url,
+          hashtagArr
         )
 
         res.status(200).json({ message: "User performer create!" })
