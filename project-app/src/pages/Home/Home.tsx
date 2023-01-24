@@ -1,6 +1,6 @@
 import React from 'react';
-import { CardsCarousel } from '../components/HomePage/CardsCarousel';
-import { EventsCard } from '../components/HomePage/EventsCard';
+import { CardsCarousel } from './componments/CardsCarousel';
+import { EventsCard } from './componments/EventsCard';
 
 function Home() {
 	return (

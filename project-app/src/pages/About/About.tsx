@@ -1,5 +1,5 @@
 import React from 'react';
-import UserCardImage from '../components/AboutPage/Profile';
+import UserCardImage from './components/Profile';
 
 function About() {
 	return (

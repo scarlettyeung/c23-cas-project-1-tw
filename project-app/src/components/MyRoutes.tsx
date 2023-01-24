@@ -1,13 +1,13 @@
 import { Route, Routes } from 'react-router-dom';
 import Login from '../pages/Login';
 // import Register from '../pages/Register';
-import Home from '../pages/Home';
-import ChatRoom from '../pages/ChatRoom';
-import Events from '../pages/Events';
-import About from '../pages/About';
+import Home from '../pages/Home/Home';
+import ChatRoom from '../pages/Chat/ChatRoom';
+import Events from '../pages/Events/Events';
+import About from '../pages/About/About';
 import NotFound from '../pages/NotFound';
 import PrivateRoute from './PrivateRoute';
-import CreateEventPage from '../pages/CreateEventPage';
+import CreateEventPage from '../pages/Events/components/CreateEventPage';
 
 function MyRoutes() {
 	return (

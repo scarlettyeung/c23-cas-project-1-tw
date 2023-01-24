@@ -1,5 +1,5 @@
 import React from 'react';
-import { BadgeCard } from '../components/EventPage/EventCard';
+import { BadgeCard } from './components/EventCard';
 
 function Events() {
 	return (

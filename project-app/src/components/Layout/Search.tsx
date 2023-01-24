@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NativeSelect, TextInput } from '@mantine/core';
 import '../../styles/search.css';
+import { IconHash } from '@tabler/icons';
 
 function Search() {
 	// const [query, setQuery] = useState('');
@@ -16,8 +17,8 @@ function Search() {
 			styles={{
 				input: {
 					fontWeight: 500,
-					borderTopLeftRadius: 0,
-					borderBottomLeftRadius: 0,
+					borderTopLeftRadius: 10,
+					borderBottomLeftRadius: 10,
 				},
 			}}
 		/>
@@ -31,9 +32,10 @@ function Search() {
 	return (
 		<TextInput
 			type='string'
-			placeholder='Search ...'
+			placeholder='Pick a hashtag'
 			rightSection={select}
 			rightSectionWidth={100}
+			icon={<IconHash size={14} />}
 		/>
 	);
 	// <div className='SearchBar'>
