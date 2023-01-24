@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NativeSelect, TextInput } from '@mantine/core';
+import { NativeSelect, Select, TextInput } from '@mantine/core';
 import '../../styles/search.css';
 import { IconHash } from '@tabler/icons';
 
@@ -33,8 +33,8 @@ function Search() {
 		<TextInput
 			type='string'
 			placeholder='Pick a hashtag'
-			rightSection={select}
-			rightSectionWidth={100}
+			rightSection={<Select data={data} searchable value='Performers' z-index={1} />}
+			rightSectionWidth={120}
 			icon={<IconHash size={14} />}
 		/>
 	);
