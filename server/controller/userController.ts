@@ -4,9 +4,11 @@ import { logger } from "../utils/logger"
 import jwtSimple from "jwt-simple"
 import jwt from "../utils/jwt"
 import { checkPassword, hashPassword } from "../utils/hash"
+import { ClientType, Identity } from "@prisma/client"
+import { Bearer } from "permit"
 
 export class UserController {
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
   login = async (req: Request, res: Response) => {
     try {
@@ -35,14 +37,29 @@ export class UserController {
         const exp = new Date(
           new Date().setTime(new Date().getTime() + 5 * 60 * 1000)
         )
+
         // after 5 min
-        const payload = {
+        interface Payload {
+          uuid: string
+          username: string
+          identity: Identity
+          clientType: undefined | ClientType
+          exp: Date
+        }
+        const payload: Payload = {
           uuid: user.uuid,
           username: user.username,
           identity: user.identity,
+          clientType: undefined,
           exp: exp,
         }
 
+        if (user.clients[0]) {
+          payload.clientType = user.clients[0].client_type
+        }
+
+        logger.info("payload is :")
+        console.dir(payload)
         const token = jwtSimple.encode(payload, jwt.jwtSecret)
         logger.info(`Token send ,will exp in : ${payload.exp}`)
         res.status(200).json({ message: "login success", data: token })
@@ -72,9 +89,8 @@ export class UserController {
 
   forTest = async (req: Request, res: Response) => {
     try {
-      const test = req.body.test
       logger.info("Testing")
-      logger.info(test)
+
       res.status(200).json({ message: "Hi user! you a login " })
     } catch (e) {
       logger.error(e)
@@ -105,7 +121,7 @@ export class UserController {
         business_address,
         business_BR_no,
         business_website_url,
-        hashtagArr
+        hashtagArr,
       } = await req.body
 
       //// --- to check the info --- ////
@@ -253,6 +269,45 @@ export class UserController {
       logger.error(e)
       res.status(500).json({ message: "createUser fail" })
       return
+    }
+  }
+
+  getUserinfo = async (req: Request, res: Response) => {
+    try {
+      logger.info("Testing")
+      const uuidFromUrl = req.params.uuid
+      logger.info("uuid from url")
+      logger.info(uuidFromUrl)
+      const permit = new Bearer({ query: "access_token" })
+      const token = permit.check(req)
+      const payload = jwtSimple.decode(token, jwt.jwtSecret)
+      const uuidFromJWT = payload.uuid
+      if (uuidFromUrl != uuidFromJWT) {
+        res.status(400).json({ message: "unauthorized edit" })
+      }
+
+      // const uuid = await req.body.uuid
+      // const Identity = await req.body.Identity
+      // const info = await this.userService
+      res.status(200).json({ message: "get user info " })
+    } catch (e) {
+      logger.error(e)
+      res.status(400).json({ message: "err user id" })
+      return
+    }
+  }
+
+  editUserinfo = async (req: Request, res: Response) => {
+    logger.info("edit User info")
+    const uuidFromUrl = req.params.uuid
+    logger.info("uuid from url")
+    logger.info(uuidFromUrl)
+    const permit = new Bearer({ query: "access_token" })
+    const token = permit.check(req)
+    const payload = jwtSimple.decode(token, jwt.jwtSecret)
+    const uuidFromJWT = payload.uuid
+    if (uuidFromUrl != uuidFromJWT) {
+      res.status(400).json({ message: "unauthorized edit" })
     }
   }
 }

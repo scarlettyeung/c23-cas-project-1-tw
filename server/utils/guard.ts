@@ -79,28 +79,21 @@ export async function tokenExpUpdate(
   next: Express.NextFunction
 ) {
   try {
+    logger.info("in token Exp Update function")
     const token = permit.check(req)
     if (!token) {
       return res.status(401).json({ msg: "Permission Denied" })
     }
     const payload = jwtSimple.decode(token, jwt.jwtSecret)
     // is not compulsory
-    const exp = payload.exp
-    logger.info(" check payload in guar.ts", payload, exp)
 
-    const now = new Date()
-    if (exp > now) {
-      logger.info("JWT not yet expired")
-      // keep doing something
-      return next()
-    } else {
-      logger.info("JWT expired")
-
-      // should login but how it is font end function
-      payload.isAuth = false
-      return next()
-    }
+    const newExp = new Date(
+      new Date().setTime(new Date().getTime() + 5 * 60 * 1000)
+    )
+    payload.exp = newExp
+    // should do something
+    return next()
   } catch (error) {
-    return res.status(401).json({ msg: "Permission Denied" })
+    return res.status(400).json({ msg: "Token update fail" })
   }
 }
