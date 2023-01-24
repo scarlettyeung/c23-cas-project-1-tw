@@ -39,7 +39,7 @@ enum Properties {
 
 model User {
   id         Int         @id @default(autoincrement())
-  uuid       String      @default(uuid())
+  uuid       String      @unique @default(uuid())
   username   String      @db.VarChar(255)
   password   String      @db.VarChar(255)
   email      String      @unique
@@ -162,6 +162,7 @@ model Event {
   performers_id       Int
   clients             Client              @relation(fields: [clients_id], references: [id])
   clients_id          Int
+  title               String
   wage_offer          Decimal             @db.Decimal(8, 2)
   start_date          DateTime?           @db.Date
   end_date            DateTime?           @db.Date
