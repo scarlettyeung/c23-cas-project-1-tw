@@ -7,8 +7,8 @@ import Events from '../pages/Events/Events';
 import About from '../pages/About/About';
 import NotFound from '../pages/NotFound';
 import PrivateRoute from './PrivateRoute';
-import CreateEventPage from '../pages/Events/CreateEventPage';
-import EventsInner from '../pages/Events/EventsInner';
+import CreateEventPage from '../pages/CreateEventPage';
+import EventDetail from '../pages/EventDetail';
 import React from 'react';
 
 function MyRoutes() {
@@ -20,7 +20,7 @@ function MyRoutes() {
 			<Route path='/' element={<PrivateRoute />}>
 				<Route element={<Home />} index />
 				<Route path='events' element={<Events />} />
-				<Route path='events-detail/:eventsId' element={<EventsInner />} />
+				<Route path='events-detail/:eventsId' element={<EventDetail />} />
 				<Route path='createEventsPage' element={<CreateEventPage />} />
 				<Route path='chatRoom' element={<ChatRoom />} />
 				<Route path='about' element={<About />} />

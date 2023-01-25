@@ -1,5 +1,5 @@
 import React from 'react';
-import CreateEvents from './components/CreateEvents';
+import CreateEvents from './Events/components/CreateEvents';
 
 function CreateEventPage() {
 	return (
