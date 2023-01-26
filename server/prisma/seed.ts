@@ -6,11 +6,24 @@ enum TagType {
   Performer = "performer",
   Event = "event",
 }
+enum Status {
+  completed = "completed",
+  expired = "expired",
+  valid = "valid",
+}
+
+enum Properties {
+  public = "public",
+  private = "private",
+}
 async function main() {
+  await prisma.hashtagDetail.deleteMany()
+  await prisma.event.deleteMany()
   await prisma.performer.deleteMany()
   await prisma.client.deleteMany()
   await prisma.user.deleteMany()
   console.log("deleteMany run")
+
   await prisma.user.createMany({
     data: [
       {
@@ -18,12 +31,14 @@ async function main() {
         password: await hashPassword("1234"),
         email: "ken@gmail.com",
         identity: "performer",
+        icon: "icon1.jpeg",
       },
       {
         username: "maple",
         password: await hashPassword("1234"),
         email: "maple@gmail.com",
         identity: "performer",
+        icon: "icon2.jpeg",
       },
       {
         username: "scarlett",
@@ -37,8 +52,16 @@ async function main() {
         email: "may@gmail.com",
         identity: "client",
       },
+      {
+        username: "Peter",
+        password: await hashPassword("1234"),
+        email: "peter@gmail.com",
+        identity: "performer",
+        icon: "icon3.jpeg",
+      },
     ],
   })
+
   await prisma.performer.createMany({
     data: [
       {
@@ -215,6 +238,77 @@ async function main() {
       {
         name: "Others",
         tag_type: TagType.Event,
+      },
+    ],
+  })
+
+  const userId = await prisma.user.findMany({
+    select: {
+      id: true,
+      performers: { select: { id: true } },
+      clients: { select: { id: true } },
+    },
+  })
+  console.log(userId[0])
+  console.log(userId[1])
+  console.log(userId[2])
+  console.log(userId[3])
+  console.log(userId[4])
+  await prisma.event.createMany({
+    data: [
+      {
+        performers_id: userId[0].performers[0].id,
+        clients_id: userId[2].clients[0].id,
+        title: "Wedding",
+        wage_offer: 8888,
+        start_date: new Date("2023-10-10"),
+        end_date: new Date("2023-10-10"),
+        rehearsal_needed: false,
+        start_time: new Date("15:30:00"),
+        end_time: new Date("19:30:00"),
+        image: "event1.jpeg",
+        description: "MC need!!!!! 求婚宴司儀，婚禮司儀!!!",
+        location: "CWB",
+        status: Status.valid,
+        properties: Properties.public,
+        is_shown: true,
+        date_published: new Date("2023-3-15"),
+      },
+      {
+        performers_id: userId[1].performers[0].id,
+        clients_id: userId[3].clients[0].id,
+        title: "百日宴",
+        wage_offer: 8888,
+        start_date: new Date("2023-12-12"),
+        end_date: new Date("2023-12-12"),
+        rehearsal_needed: false,
+        start_time: new Date("10:30:00"),
+        end_time: new Date("13:30:00"),
+        image: "event2.jpeg",
+        description: "魔術表演 小朋友魔術!!!",
+        location: "TST",
+        status: Status.valid,
+        properties: Properties.public,
+        is_shown: true,
+        date_published: new Date("2023-3-10"),
+      },
+      {
+        performers_id: userId[1].performers[0].id,
+        clients_id: userId[3].clients[0].id,
+        title: "生日會",
+        wage_offer: 4800,
+        start_date: new Date("2023-09-01"),
+        end_date: new Date("2023-09-01"),
+        rehearsal_needed: false,
+        start_time: new Date("12:30:00"),
+        end_time: new Date("15:30:00"),
+        image: "event3.jpeg",
+        description: "音樂、舞蹈及劇場表演",
+        location: "YuenLong",
+        status: Status.valid,
+        properties: Properties.public,
+        is_shown: true,
+        date_published: new Date("2023-3-10"),
       },
     ],
   })
