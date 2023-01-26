@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { NativeSelect, Select, TextInput } from '@mantine/core';
+import React from 'react';
+import { Select, TextInput } from '@mantine/core';
 import '../../styles/search.css';
 import { IconHash } from '@tabler/icons';
 
@@ -11,18 +11,18 @@ function Search() {
 		{ value: 'Events', label: 'Events' },
 	];
 
-	const select = (
-		<NativeSelect
-			data={data}
-			styles={{
-				input: {
-					fontWeight: 500,
-					borderTopLeftRadius: 10,
-					borderBottomLeftRadius: 10,
-				},
-			}}
-		/>
-	);
+	// const select = (
+	// 	<NativeSelect
+	// 		data={data}
+	// 		styles={{
+	// 			input: {
+	// 				fontWeight: 500,
+	// 				borderTopLeftRadius: 10,
+	// 				borderBottomLeftRadius: 10,
+	// 			},
+	// 		}}
+	// 	/>
+	// );
 
 	// const handleOnclick = () => {
 	// 	const searchTags = tags?.length > 0 && tags?.filter((u) => u?.name === Text);

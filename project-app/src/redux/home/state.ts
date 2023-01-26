@@ -1,4 +1,7 @@
-import { ExecOptionsWithStringEncoding } from 'child_process';
+export interface EventState {
+	eventArr: Event[];
+	loading: 'idle' | 'pending' | 'succeeded' | 'failed';
+}
 
 export enum Status {
 	Completed = 'completed',
@@ -11,9 +14,11 @@ export enum Properties {
 	Private = 'private',
 }
 
-export interface EventsState {
+export interface Event {
+	id: number;
+	error?: string;
 	performers_id?: string | null;
-	clients_id: string;
+	clients_id: number;
 	title: string;
 	wage_offer: number;
 	start_date: Date;

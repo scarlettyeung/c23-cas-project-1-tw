@@ -1,15 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch, TypedUseSelectorHook, useSelector } from 'react-redux';
 import { AuthState, authReducer } from './auth';
+import { EventState, eventsReducer } from './home';
 import logger from 'redux-logger';
 
 // Step 1 - State
 export interface RootState {
 	auth: AuthState;
+	event: EventState;
 }
 
 // Step 2 - Reducer (Function)
-const rootReducer = { auth: authReducer };
+const rootReducer = { auth: authReducer, event: eventsReducer };
 
 // Step 3 - configureStore
 export const store = configureStore({
