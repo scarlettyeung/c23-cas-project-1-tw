@@ -2,7 +2,10 @@ import { PrismaClient } from "@prisma/client"
 import { hashPassword } from "../utils/hash"
 
 const prisma = new PrismaClient()
-
+enum TagType {
+  Performer = "performer",
+  Event = "event",
+}
 async function main() {
   await prisma.performer.deleteMany()
   await prisma.client.deleteMany()
@@ -74,100 +77,144 @@ async function main() {
   await prisma.hashtagDetail.createMany({
     data: [
       {
-        name: "singer",
+        name: "Singer",
+        tag_type: TagType.Performer,
       },
       {
         name: "DJ",
+        tag_type: TagType.Performer,
       },
       {
-        name: "musician",
+        name: "Musician",
+        tag_type: TagType.Performer,
       },
       {
-        name: "juggling",
+        name: "Juggling",
+        tag_type: TagType.Performer,
       },
       {
-        name: "emcee(MC)",
+        name: "Dancer",
+        tag_type: TagType.Performer,
       },
       {
-        name: "comedian",
+        name: "Mime",
+        tag_type: TagType.Performer,
       },
       {
-        name: "clowning ",
+        name: "Emcee(MC)",
+        tag_type: TagType.Performer,
       },
       {
-        name: "magician",
+        name: "Comedian",
+        tag_type: TagType.Performer,
       },
       {
-        name: "fire dancer",
+        name: "Clowning",
+        tag_type: TagType.Performer,
       },
       {
-        name: "fire breather",
+        name: "Fire Dancer",
+        tag_type: TagType.Performer,
+      },
+      {
+        name: "Fire Breather",
+        tag_type: TagType.Performer,
       },
       {
         name: "Aerial and Acrobatic Performer",
+        tag_type: TagType.Performer,
       },
       {
-        name: "burlesque",
+        name: "Burlesque",
+        tag_type: TagType.Performer,
       },
       {
-        name: "drawer",
+        name: "Drawer",
+        tag_type: TagType.Performer,
       },
       {
-        name: "balloon twister",
+        name: "Balloon Twister",
+        tag_type: TagType.Performer,
       },
       {
-        name: "performance artist",
+        name: "Performance Artist",
+        tag_type: TagType.Performer,
       },
       {
-        name: "sketchers",
+        name: "Sketchers",
+        tag_type: TagType.Performer,
       },
       {
-        name: "graffiti artist",
+        name: "Graffiti Artist",
+        tag_type: TagType.Performer,
       },
       {
-        name: "sketcher ",
+        name: "Acapello",
+        tag_type: TagType.Performer,
       },
       {
-        name: "acapello",
+        name: "Beatboxer",
+        tag_type: TagType.Performer,
       },
       {
-        name: "beatboxer",
+        name: "Puppetry",
+        tag_type: TagType.Performer,
       },
       {
-        name: "rapper",
+        name: "Rapper",
+        tag_type: TagType.Performer,
       },
       {
-        name: "charity events",
+        name: "Lion Dance",
+        tag_type: TagType.Performer,
       },
       {
-        name: "internal corporate event",
+        name: "Others",
+        tag_type: TagType.Performer,
       },
       {
-        name: "annual dinner",
+        name: "Charity Event",
+        tag_type: TagType.Event,
       },
       {
-        name: "concert",
+        name: "Internal Corporate Event",
+        tag_type: TagType.Event,
       },
       {
-        name: "party",
+        name: "Annual Dinner",
+        tag_type: TagType.Event,
       },
       {
-        name: "carnival",
+        name: "Concert",
+        tag_type: TagType.Event,
       },
       {
-        name: "wedding",
+        name: "Party",
+        tag_type: TagType.Event,
       },
       {
-        name: "celebration",
+        name: "Carnival",
+        tag_type: TagType.Event,
       },
       {
-        name: "luncheon",
+        name: "Wedding",
+        tag_type: TagType.Event,
       },
       {
-        name: "ceremony",
+        name: "Celebration",
+        tag_type: TagType.Event,
       },
       {
-        name: "others",
+        name: "Luncheon",
+        tag_type: TagType.Event,
+      },
+      {
+        name: "Ceremony",
+        tag_type: TagType.Event,
+      },
+      {
+        name: "Others",
+        tag_type: TagType.Event,
       },
     ],
   })
