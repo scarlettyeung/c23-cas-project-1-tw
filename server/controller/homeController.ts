@@ -5,14 +5,21 @@ import { logger } from "../utils/logger"
 export class HomeController {
   constructor(private homeService: HomeService) {}
 
-  getAllEvents = async (req: Request, res: Response) => {
+  getAllHomeData = async (req: Request, res: Response) => {
     try {
       const events = await this.homeService.getAllEvents()
-      res.status(200).json({ message: "Load events success!", events: events })
+      const performers = await this.homeService.getAllPerformers()
+      res
+        .status(200)
+        .json({
+          message: "Load events and performers success!",
+          events: events,
+          performers: performers,
+        })
       return
     } catch (e) {
       logger.info(e)
-      res.status(400).json({ message: "Load events fail" })
+      res.status(400).json({ message: "Load events and performers fail" })
       return
     }
   }

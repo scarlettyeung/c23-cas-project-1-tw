@@ -1,19 +1,25 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Event } from './state';
+import { Event, Performer } from './state';
 
-export const getAllEventsThunk = createAsyncThunk<{ message: string; events: Event[] }>(
-	'home',
-	async (_, thunkAPI) => {
-		try {
-			const path = process.env.REACT_APP_API_BASE;
-			const resp = await fetch(`${path}home`);
-			const data = await resp.json();
-			console.log('get all events!!!!!!!!!!!');
-			console.dir(data);
-			return data;
-		} catch (error) {
-			console.log(error);
-			return;
-		}
-	},
-);
+export const getAllDataThunk = createAsyncThunk<{
+	message: string;
+	events: Event[];
+	performers: Performer[];
+}>('home', async (_, thunkAPI) => {
+	try {
+		const path = process.env.REACT_APP_API_BASE;
+		const jwt = localStorage.getItem('token');
+		const resp = await fetch(`${path}home`, {
+			headers: {
+				Authorization: `Bearer ${jwt}`,
+			},
+		});
+		const data = await resp.json();
+		console.log('get all events!!!!!!!!!!!');
+		console.dir(data);
+		return data;
+	} catch (error) {
+		console.log(error);
+		return;
+	}
+});

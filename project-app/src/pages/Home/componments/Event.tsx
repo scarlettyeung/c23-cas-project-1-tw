@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { createStyles, SimpleGrid, Card, Image, Text, Container, AspectRatio } from '@mantine/core';
-import { getAllEventsThunk } from '../../../redux/home';
+import { getAllDataThunk } from '../../../redux/home';
 import { useRootDispatch, useRootSelector } from '../../../redux/store';
 import { PacmanLoader } from 'react-spinners';
 
@@ -23,33 +23,35 @@ const useStyles = createStyles((theme) => ({
 export function EventsCard() {
 	const { classes } = useStyles();
 	const dispatch = useRootDispatch();
-	const loading = useRootSelector((state) => state.event.loading);
-	const eventArr = useRootSelector((state) => state.event.eventArr);
+	const loading = useRootSelector((state) => state.home.loading);
+	const eventArr = useRootSelector((state) => state.home.eventArr);
 
 	useEffect(() => {
-		dispatch(getAllEventsThunk());
+		dispatch(getAllDataThunk());
 	}, [dispatch]);
 
-	const cards = eventArr.map((event) => (
-		<Card
-			key={`event-${event.id}`}
-			p='md'
-			radius='md'
-			component='a'
-			href='#'
-			className={classes.card}
-		>
-			<AspectRatio ratio={1920 / 1080}>
-				<Image src={event.image} />
-			</AspectRatio>
-			<Text color='dimmed' size='xs' transform='uppercase' weight={700} mt='md'>
-				{event.description}
-			</Text>
-			<Text className={classes.title} mt={5}>
-				{event.title}
-			</Text>
-		</Card>
-	));
+	const cards =
+		eventArr &&
+		eventArr.map((event) => (
+			<Card
+				key={`event-${event.id}`}
+				p='md'
+				radius='md'
+				component='a'
+				href='#'
+				className={classes.card}
+			>
+				<AspectRatio ratio={1920 / 1080}>
+					<Image src={event.image} />
+				</AspectRatio>
+				<Text color='dimmed' size='xs' transform='uppercase' weight={700} mt='md'>
+					{event.description}
+				</Text>
+				<Text className={classes.title} mt={5}>
+					{event.title}
+				</Text>
+			</Card>
+		));
 	console.log('========load data========');
 	console.dir(cards);
 	return (

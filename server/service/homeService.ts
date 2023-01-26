@@ -23,4 +23,28 @@ export class HomeService {
       return
     }
   }
+
+  async getAllPerformers() {
+    try {
+      const performers = await prisma.user.findMany({
+        where: {
+          identity: "performer",
+        },
+        select: {
+          id: true,
+          uuid: true,
+          username: true,
+          icon: true,
+        },
+        take: 10,
+      })
+      await prisma.$disconnect()
+      logger.info(performers)
+      return performers
+    } catch (e) {
+      logger.info(e)
+      await prisma.$disconnect()
+      return
+    }
+  }
 }
