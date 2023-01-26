@@ -5,6 +5,7 @@ import {
   Identity,
   ClientType,
   Gender,
+  TagType,
 } from "@prisma/client"
 
 const prisma = new PrismaClient()
@@ -134,6 +135,19 @@ export class UserService {
     })
     await prisma.$disconnect()
     return user?.email
+  }
+  // get all performer hashtags
+  async getAllPerformerHashtag(tag_type: TagType) {
+    const tags = prisma.hashtagDetail.findMany({
+      where: {
+        tag_type: TagType.performer,
+      },
+      select: {
+        name: true,
+        id: true,
+      },
+    })
+    return tags
   }
   //////--- end of check user info--- ////
 
