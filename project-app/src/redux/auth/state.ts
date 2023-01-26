@@ -1,3 +1,13 @@
+export enum AccountType {
+	Performer = 'performer',
+	Client = 'individual',
+	CorporateClient = 'corporate',
+}
+export enum Gender {
+	Male = 'male',
+	Female = 'female',
+	Other = 'other',
+}
 export interface AuthState {
 	isAuth: boolean;
 	loading: boolean;
@@ -5,7 +15,23 @@ export interface AuthState {
 	uuid?: string | null;
 	identity?: string | null;
 	exp?: Date | string;
-	error?: string;
+	error?: string | undefined;
+	//register
+	accountType?: AccountType | null;
+	email?: string | null;
+	password?: string | null;
+	password2?: string | null;
+	//performer
+	tagId?: number | null;
+	firstName?: string | null;
+	lastName?: string | null;
+	gender?: Gender | null;
+	experience?: number | null;
+	birthday?: Date | null;
+	contact?: number | null;
+	teams?: string | null;
+	descriptions?: string | null;
+	socialMediaUrl?: string | null;
 }
 
 export interface JWTPayload {
@@ -21,3 +47,7 @@ export interface JWTPayload {
 // 	identity: user.identity,
 // 	exp: exp,
 // };
+
+// export interface RegisterState {
+// 	accountType?: AccountType | null;
+// }
