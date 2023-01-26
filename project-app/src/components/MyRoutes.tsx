@@ -7,8 +7,8 @@ import Events from '../pages/Events/Events';
 import About from '../pages/About/About';
 import NotFound from '../pages/NotFound';
 import PrivateRoute from './PrivateRoute';
-import CreateEventPage from '../pages/CreateEventPage';
-import EventDetail from '../pages/EventDetail';
+import CreateEventPage from '../pages/Events/components/CreateEvents';
+import EventDetail from '../pages/Events/EventDetailPage';
 import React from 'react';
 
 function MyRoutes() {
