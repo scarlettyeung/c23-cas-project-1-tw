@@ -166,7 +166,7 @@ model Event {
   wage_offer          Decimal             @db.Decimal(8, 2)
   start_date          DateTime?           @db.Date
   end_date            DateTime?           @db.Date
-  regearsal_needed    Boolean
+  rehearsal_needed    Boolean
   start_time          DateTime?           @db.Time()
   image               String?
   end_time            DateTime?           @db.Time()
