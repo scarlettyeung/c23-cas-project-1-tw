@@ -4,7 +4,7 @@ import { logger } from "../utils/logger"
 import jwtSimple from "jwt-simple"
 import jwt from "../utils/jwt"
 import { checkPassword, hashPassword } from "../utils/hash"
-import { ClientType, Identity } from "@prisma/client"
+import { Payload } from "../utils/guard"
 import { Bearer } from "permit"
 
 export class UserController {
@@ -39,13 +39,7 @@ export class UserController {
         )
 
         // after 5 min
-        interface Payload {
-          uuid: string
-          username: string
-          identity: Identity
-          clientType: undefined | ClientType
-          exp: Date
-        }
+
         const payload: Payload = {
           uuid: user.uuid,
           username: user.username,
@@ -89,12 +83,27 @@ export class UserController {
 
   forTest = async (req: Request, res: Response) => {
     try {
-      logger.info("Testing")
+      logger.info("===========================")
+      logger.info("==========Testing==========")
+      logger.info("===========================")
 
-      res.status(200).json({ message: "Hi user! you a login " })
+      const payloadFromRes = res.locals.payload
+      if (payloadFromRes) {
+        logger.info("the payload is ")
+        console.dir(payloadFromRes)
+      }
+
+      const newToken = res.locals.token
+      logger.info("get the newToken !!")
+      console.dir(newToken)
+
+      return res
+        .status(200)
+        .json({ message: "Hi user! you a login ", token: newToken })
     } catch (e) {
       logger.error(e)
       res.status(500).json({ message: "internal server error" })
+      return
     }
   }
 
@@ -274,22 +283,49 @@ export class UserController {
 
   getUserinfo = async (req: Request, res: Response) => {
     try {
-      logger.info("Testing")
+      logger.info("getUserinfo")
       const uuidFromUrl = req.params.uuid
       logger.info("uuid from url")
       logger.info(uuidFromUrl)
-      const permit = new Bearer({ query: "access_token" })
-      const token = permit.check(req)
-      const payload = jwtSimple.decode(token, jwt.jwtSecret)
-      const uuidFromJWT = payload.uuid
-      if (uuidFromUrl != uuidFromJWT) {
-        res.status(400).json({ message: "unauthorized edit" })
+      let data
+      // need check the Individual ro type first
+      const identity = (await this.userService.getUserIdentity(uuidFromUrl))
+        ?.identity
+
+      logger.info("Your identity is ")
+      if (identity === "performer") {
+        data = await this.userService.getPerformersProfilePageInfo(uuidFromUrl)
+      } else if (identity === "client") {
+        const clientType = (
+          await this.userService.getClientType(uuidFromUrl)
+        )[0].clients[0].client_type
+        logger.info("Your clientType is ", clientType)
+        if (clientType === "individual") {
+          data = await this.userService.getIndividualClientInfoPageInfo(
+            uuidFromUrl
+          )
+          logger.info(data)
+          logger.info("get Individual info ")
+        } else if (clientType === "corporate") {
+          data = await this.userService.getCorporateClientInfoPageInfo(
+            uuidFromUrl
+          )
+          logger.info(data)
+          logger.info("get Corporate info ")
+        } else {
+          logger.info("can't find clientType")
+          res.status(400).json({ message: "can't find clientType" })
+        }
+      } else {
+        logger.info("can't find identity")
+        res.status(400).json({ message: "can't find identity" })
       }
 
+      logger.info("get data at Controller")
       // const uuid = await req.body.uuid
       // const Identity = await req.body.Identity
       // const info = await this.userService
-      res.status(200).json({ message: "get user info " })
+      res.status(200).json({ message: "get user info ", data })
     } catch (e) {
       logger.error(e)
       res.status(400).json({ message: "err user id" })
@@ -297,17 +333,139 @@ export class UserController {
     }
   }
 
-  editUserinfo = async (req: Request, res: Response) => {
-    logger.info("edit User info")
-    const uuidFromUrl = req.params.uuid
-    logger.info("uuid from url")
-    logger.info(uuidFromUrl)
-    const permit = new Bearer({ query: "access_token" })
-    const token = permit.check(req)
-    const payload = jwtSimple.decode(token, jwt.jwtSecret)
-    const uuidFromJWT = payload.uuid
-    if (uuidFromUrl != uuidFromJWT) {
+  getUserSettingInfo = async (req: Request, res: Response) => {
+    try {
+      logger.info("getUserSettingInfo call")
+      const permit = new Bearer({ query: "access_token" })
+      const token = permit.check(req)
+      const payload = jwtSimple.decode(token, jwt.jwtSecret)
+      logger.info(`Access token, the payload is `)
+      console.dir(payload)
+      const identity = payload.identity
+      const clientType = payload.clientType
+      const uuid = payload.uuid
+      let data
+      if (identity === "performer") {
+        logger.info("You are performer")
+        data = await this.userService.getPerformersSettingPageInfo(uuid)
+      } else if (identity === "client") {
+        if (clientType === "individual") {
+          logger.info("You are individual client")
+          data = await this.userService.getIndividualClientInfoPageInfo(uuid)
+        } else if (clientType === "corporate") {
+          logger.info("You are corporate client")
+          data = await this.userService.getCorporateClientInfoPageInfo(uuid)
+        } else {
+          logger.info("who are u Unauthorized")
+          res.status(401).json({ message: "Unauthorized " })
+        }
+      } else {
+        logger.info("who are u Unauthorized")
+        res.status(401).json({ message: "Unauthorized " })
+      }
+      console.dir(data)
+      res.status(200).json({ message: "getUserSettingInfo  ", data })
+    } catch (e) {
+      logger.error(e)
+      res.status(401).json({ message: "Unauthorized " })
+      return
+    }
+  }
+
+  editUserSettingInfo = async (req: Request, res: Response) => {
+    try {
+      logger.info("edit User setting info")
+      const permit = new Bearer({ query: "access_token" })
+      const token = permit.check(req)
+      const payload = jwtSimple.decode(token, jwt.jwtSecret)
+      console.dir(payload)
+      // const uuid = payload.uuid
+      const identity = payload.identity
+      const clientType = payload.clientType
+
+      // const {
+      //   icon,
+      //   oldPassword,
+      //   newPassword,
+      //   username,
+      //   yearsOfExp,
+      //   birthday,
+      //   contactNumber,
+      //   gender,
+      //   description,
+      //   name,
+      //   facebookUrl,
+      //   twitterUrl,
+      //   youtubeUrl,
+      //   igUrl,
+      //   hashtagArr,
+      // } = req.body
+
+      //// --- to check the info --- ////
+
+      // let setExpYear = 0
+      // if (yearsOfExp) {
+      //   setExpYear = yearsOfExp
+      // }
+
+      // let setEmail: string
+      // if (contact_email === null) {
+      //   setEmail = email
+      //   logger.info("can not find contact_email , setEmail is ")
+      //   logger.info(setEmail)
+      //   logger.info(email)
+      // } else {
+      //   setEmail = await contact_email
+      //   logger.info("find contact_email , setEmail is ")
+      //   logger.info(email)
+      //   logger.info(setEmail)
+      // }
+
+      // const setBirthday: Date = new Date(birthday)
+      // const user = await this.userService.getLoginInfo(email)
+      // const result = checkPassword(user?.password, oldPassword)
+      // if (result)
+      // const setPass word: string = await hashPassword(password)
+
+      //// --- end of check info --- ////
+
+      if (identity === "performer") {
+        // await this.userService.editPerformersInfo(uuid,null)
+        res.status(200).json({ message: "edit performer setting info done" })
+      } else if (identity === "client") {
+        if (clientType === "individual") {
+          res
+            .status(200)
+            .json({ message: "edit individual client setting info done" })
+        } else if (clientType === "corporate") {
+          res
+            .status(200)
+            .json({ message: "edit corporate client setting info done" })
+        } else {
+          res.status(400).json({ message: "unauthorized edit" })
+          return
+        }
+      } else {
+        res.status(400).json({ message: "unauthorized edit" })
+        return
+      }
+      res.status(400).json({ message: "unauthorized edit" })
+    } catch (e) {
       res.status(400).json({ message: "unauthorized edit" })
     }
   }
+
+  // editUserinfo = async (req: Request, res: Response) => {
+  //   logger.info("edit User info")
+  //   const uuidFromUrl = req.params.uuid
+  //   logger.info("uuid from url")
+  //   logger.info(uuidFromUrl)
+  //   const permit = new Bearer({ query: "access_token" })
+  //   const token = permit.check(req)
+  //   const payload = jwtSimple.decode(token, jwt.jwtSecret)
+  //   const uuidFromJWT = payload.uuid
+  //   if (uuidFromUrl != uuidFromJWT) {
+  //     res.status(400).json({ message: "unauthorized edit" })
+  //   }
+  // }
 }

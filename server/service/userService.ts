@@ -1,5 +1,11 @@
 import { logger } from "../utils/logger"
-import { PrismaClient, Identity, ClientType, Gender } from "@prisma/client"
+import {
+  PrismaClient,
+  Prisma,
+  Identity,
+  ClientType,
+  Gender,
+} from "@prisma/client"
 
 const prisma = new PrismaClient()
 
@@ -29,7 +35,8 @@ export class UserService {
           },
         },
       })
-
+      logger.info("get login info in UserService ")
+      logger.info(user)
       await prisma.$disconnect()
       // return
       return user
@@ -72,17 +79,29 @@ export class UserService {
 
   async getUserIdentity(uuid: string) {
     logger.info("getUserIdentity call in UserService")
+    logger.info("in UserService uuid is ")
+    logger.info(uuid)
+    try {
+      const userIdentity = await prisma.user.findFirst({
+        where: {
+          uuid: uuid,
+          // id: 2,
+        },
+        select: {
+          identity: true,
+        },
+      })
 
-    const userIdentity = await prisma.user.findMany({
-      where: {
-        uuid: uuid,
-      },
-      select: {
-        identity: true,
-      },
-    })
-    await prisma.$disconnect()
-    return userIdentity
+      logger.info("in UserService userIdentity is ")
+      // logger.info(userIdentity)
+      console.dir(userIdentity)
+      await prisma.$disconnect()
+      return userIdentity
+    } catch (e) {
+      logger.debug(e)
+      await prisma.$disconnect()
+      return
+    }
   }
 
   async getClientType(uuid: string) {
@@ -170,6 +189,11 @@ export class UserService {
             performers_hashtags: {
               createMany: {
                 data: hashtagToInput,
+              },
+            },
+            e_profile: {
+              create: {
+                content: Prisma.JsonNull,
               },
             },
           },
@@ -338,6 +362,8 @@ export class UserService {
       },
     })
 
+    logger.info(info)
+    logger.info("get info in UserService")
     await prisma.$disconnect()
     return info
   }
@@ -426,12 +452,6 @@ export class UserService {
     return userInfo
   }
 
-  // async editPerformersInfo(uuid: string) {
-  //   const info = await prisma.user.update()
-  //   await prisma.$disconnect()
-  //   return info,
-  // }
-
   async getIndividualClientSettingPageInfo(uuid: string) {
     logger.info("get Individual Client Setting Info, call in UserService")
     const userInfo = await prisma.user.findUnique({
@@ -446,6 +466,16 @@ export class UserService {
         email: true,
         password: true,
         identity: true,
+        clients: {
+          select: {
+            name: true,
+            gender: true,
+            contact_number: true,
+            contact_email: true,
+            description: true,
+            client_type: true,
+          },
+        },
       },
     })
 
@@ -464,38 +494,112 @@ export class UserService {
         id: true,
         icon: true,
         username: true,
-        // email: true,
-        // password: true,
-        // identity: true,
-        performers: {
+        email: true,
+        password: true,
+        identity: true,
+        clients: {
           select: {
-            years_of_exp: true,
-            // birthday: true,
-            contact_number: true,
+            name: true,
             gender: true,
-            // name: true,
+            contact_number: true,
+            contact_email: true,
             description: true,
-            facebook_url: true,
-            twitter_url: true,
-            youtube_url: true,
-            ig_url: true,
-            performers_hashtags: {
-              select: {
-                hashtag_details_id: true,
-              },
+            client_type: true,
+            business_address: true,
+            business_BR_no: true,
+            business_website_url: true,
+          },
+        },
+      },
+    })
+    await prisma.$disconnect()
+    return userInfo
+  }
+
+  async editPerformersSettingInfo(
+    uuid: string,
+    icon: string, // should give the default icon to display
+    password: string,
+    username: string,
+    yearsOfExp: number,
+    birthday: Date | null,
+    contactNumber: number,
+    gender: Gender,
+    description: string | null,
+    name: string | null,
+    facebookUrl: string | null,
+    twitterUrl: string | null,
+    youtubeUrl: string | null,
+    igUrl: string | null,
+    hashtagArr: number[]
+  ) {
+    interface HashtagToInput {
+      hashtag_details_id: number
+    }
+    const hashtagToInput: HashtagToInput[] = []
+
+    for (const hashtag of hashtagArr) {
+      const id: HashtagToInput = { hashtag_details_id: hashtag }
+      hashtagToInput.push(id)
+    }
+
+    const userPerformer = await prisma.user.findFirst({
+      where: {
+        uuid: uuid,
+      },
+      select: {
+        id: true,
+      },
+    })
+
+    const userPerformerId = userPerformer?.id
+
+    // const userPerformerhashtags = await prisma.performersHashtag.findMany({
+    //   where: {
+    //     performers_id: userPerformerId,
+    //   },
+    //   select: {
+    //     hashtag_details_id: true,
+    //   },
+    // })
+
+    // const hashtagToDel: HashtagToInput[] = []
+
+    for (const hashtag of hashtagArr) {
+      const id: HashtagToInput = { hashtag_details_id: hashtag }
+      hashtagToInput.push(id)
+    }
+
+    await prisma.user.update({
+      where: {
+        uuid: uuid,
+      },
+      data: {
+        icon: icon,
+        username: username,
+        password: password,
+        performers: {
+          update: {
+            where: {
+              id: userPerformerId,
             },
-            events: {
-              select: {
-                title: true,
-              },
-            },
-            teams_performers: {
-              select: {
-                teams: {
-                  select: {
-                    id: true,
-                    name: true,
-                  },
+            data: {
+              years_of_exp: yearsOfExp,
+              birthday: birthday,
+              contact_number: contactNumber, //not null
+              gender: gender, //not null
+              description: description,
+              name: name,
+              facebook_url: facebookUrl,
+              twitter_url: twitterUrl,
+              youtube_url: youtubeUrl,
+              ig_url: igUrl,
+              performers_hashtags: {
+                deleteMany: {
+                  //del all ?
+                },
+                createMany: {
+                  data: hashtagToInput,
                 },
               },
             },
@@ -505,11 +609,62 @@ export class UserService {
     })
 
     await prisma.$disconnect()
-    return userInfo
+    return
   }
-  //////--- end of setting page (Profile) Info --- ////
 
-  async eProfile(uuid: string) {
-    // const info = await prisma.user.upsert
+  ////--- end of setting page (Profile) Info --- ////
+
+  async getEProfile(isOwner: boolean, performerId: number) {
+    const eProfile = await prisma.performer.findUnique({
+      where: {
+        id: performerId,
+      },
+      select: {
+        e_profile: {
+          select: {
+            content: true,
+          },
+        },
+      },
+    })
+    await prisma.$disconnect()
+    return eProfile
+  }
+
+  async editEProfile(uuid: string, obj: Prisma.JsonObject) {
+    // const objToAdd = JSON.stringify(obj) as Prisma.JsonObject
+    const objToAdd = obj as Prisma.InputJsonValue
+    // const objToAdd = JSON.stringify(obj)
+    const performers = await prisma.user.findUnique({
+      where: {
+        uuid: uuid,
+      },
+      select: {
+        performers: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    })
+    if (performers) {
+      const performersID = performers!.performers[0].id
+      await prisma.eprofile.update({
+        data: {
+          content: objToAdd,
+          performers: {
+            connect: {},
+          },
+        },
+        where: {
+          id: performersID,
+        },
+      })
+      console.log(performersID)
+    } else {
+      logger.error("cannot find user's performers_id ")
+      // console.log(performersID)
+    }
+    await prisma.$disconnect()
   }
 }

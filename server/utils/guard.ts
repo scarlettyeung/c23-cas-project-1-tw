@@ -4,8 +4,17 @@ import Express from "express"
 import { userService } from "../routes"
 import { Bearer } from "permit"
 import { logger } from "./logger"
+import { ClientType, Identity } from "@prisma/client"
 
 const permit = new Bearer({ query: "access_token" })
+
+export interface Payload {
+  uuid: string
+  username: string
+  identity: Identity
+  clientType: undefined | ClientType
+  exp: Date
+}
 
 export async function isLoggedIn(
   req: Express.Request,
@@ -68,6 +77,7 @@ export async function checkTokenExp(
         .status(401)
         .json({ msg: "login session expired, place login again" })
     }
+    return next()
   } catch (error) {
     return res.status(401).json({ msg: "Permission Denied" })
   }
@@ -86,12 +96,28 @@ export async function tokenExpUpdate(
     }
     const payload = jwtSimple.decode(token, jwt.jwtSecret)
     // is not compulsory
+    logger.info("the old payload is ")
+    console.dir(payload)
 
     const newExp = new Date(
       new Date().setTime(new Date().getTime() + 5 * 60 * 1000)
     )
+
+    if (!payload.clientType) {
+      payload.clientType = undefined
+    }
+
     payload.exp = newExp
     // should do something
+    logger.info("the new payload is ")
+    console.dir(payload)
+    //give a new token
+    const newToken = jwtSimple.encode(payload, jwt.jwtSecret)
+    logger.info("new token is ")
+    console.dir(newToken)
+    // return newToken
+    // if want to pass the payload in res(middleware) ;;
+    res.locals.token = newToken
     return next()
   } catch (error) {
     return res.status(400).json({ msg: "Token update fail" })
