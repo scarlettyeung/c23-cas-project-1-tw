@@ -59,6 +59,7 @@ export class UserController {
 
         const payload: Payload = {
           uuid: user.uuid,
+          id: user.id,
           username: user.username,
           identity: user.identity,
           performerId: performersId,
@@ -381,17 +382,28 @@ export class UserController {
       const identity = payload.identity
       const clientType = payload.clientType
       const uuid = payload.uuid
-      let data
+      const userId = payload.id
+      let userInfo
+
       if (identity === "performer") {
         logger.info("You are performer")
-        data = await this.userService.getPerformersSettingPageInfo(uuid)
+        userInfo = await this.userService.getPerformersSettingPageInfo(
+          uuid,
+          userId
+        )
       } else if (identity === "client") {
         if (clientType === "individual") {
           logger.info("You are individual client")
-          data = await this.userService.getIndividualClientInfoPageInfo(uuid)
+          userInfo = await this.userService.getIndividualClientSettingPageInfo(
+            uuid,
+            userId
+          )
         } else if (clientType === "corporate") {
           logger.info("You are corporate client")
-          data = await this.userService.getCorporateClientInfoPageInfo(uuid)
+          userInfo = await this.userService.getIndividualClientSettingPageInfo(
+            uuid,
+            userId
+          )
         } else {
           logger.info("who are u Unauthorized")
           res.status(401).json({ message: "Unauthorized " })
@@ -402,12 +414,13 @@ export class UserController {
         res.status(401).json({ message: "Unauthorized " })
         return
       }
-      console.dir(data)
-      if (data) {
-        res.status(200).json({ message: "getUserSettingInfo", data })
+
+      if (userInfo) {
+        console.dir(userInfo, { depth: null })
+        res.status(200).json({ message: "getUserSettingInfo", userInfo })
         return
       } else {
-        res.status(200).json({ message: "err to get user info" })
+        res.status(400).json({ message: "err to get user info" })
         return
       }
     } catch (e) {

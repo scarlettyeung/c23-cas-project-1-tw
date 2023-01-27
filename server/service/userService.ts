@@ -575,9 +575,10 @@ export class UserService {
   //////--- end of showProfile Info --- ////
 
   //////--- part of setting page (Profile) Info --- ////
-  async getPerformersSettingPageInfo(uuid: string) {
+  async getPerformersSettingPageInfo(uuid: string, userId: number) {
     try {
       logger.info("get Performers Setting Info, call in UserService")
+
       const userInfo = await prisma.user.findUnique({
         where: {
           uuid: uuid,
@@ -622,7 +623,23 @@ export class UserService {
         },
       })
 
+      const userScore = await prisma.review.aggregate({
+        _avg: {
+          score: true,
+        },
+        where: {
+          users_id: userId,
+        },
+      })
+
+      const userAvgScore = { avgScore: 0 }
+      if (userScore._avg.score) {
+        userAvgScore.avgScore = userScore._avg.score
+      }
+
       await prisma.$disconnect()
+      if (!userInfo) return
+      userInfo.performers[0]["avgScore"] = userAvgScore.avgScore
       return userInfo
     } catch (e) {
       logger.debug(e)
@@ -631,7 +648,7 @@ export class UserService {
     }
   }
 
-  async getIndividualClientSettingPageInfo(uuid: string) {
+  async getIndividualClientSettingPageInfo(uuid: string, userId: number) {
     try {
       logger.info("get Individual Client Setting Info, call in UserService")
       const userInfo = await prisma.user.findUnique({
@@ -659,7 +676,23 @@ export class UserService {
         },
       })
 
+      const userScore = await prisma.review.aggregate({
+        _avg: {
+          score: true,
+        },
+        where: {
+          users_id: userId,
+        },
+      })
+
+      const userAvgScore = { avgScore: 0 }
+      if (userScore._avg.score) {
+        userAvgScore.avgScore = userScore._avg.score
+      }
+
       await prisma.$disconnect()
+      if (!userInfo) return
+      userInfo.clients[0]["avgScore"] = userAvgScore.avgScore
       return userInfo
     } catch (e) {
       logger.debug(e)
@@ -668,7 +701,7 @@ export class UserService {
     }
   }
 
-  async getCorporateClientSettingPageInfo(uuid: string) {
+  async getCorporateClientSettingPageInfo(uuid: string, userId: number) {
     try {
       logger.info("get Corporate Client Setting Page call in UserService")
       const userInfo = await prisma.user.findUnique({
@@ -698,7 +731,23 @@ export class UserService {
           },
         },
       })
+      const userScore = await prisma.review.aggregate({
+        _avg: {
+          score: true,
+        },
+        where: {
+          users_id: userId,
+        },
+      })
+
+      const userAvgScore = { avgScore: 0 }
+      if (userScore._avg.score) {
+        userAvgScore.avgScore = userScore._avg.score
+      }
+
       await prisma.$disconnect()
+      if (!userInfo) return
+      userInfo.clients[0]["avgScore"] = userAvgScore.avgScore
       return userInfo
     } catch (e) {
       logger.debug(e)

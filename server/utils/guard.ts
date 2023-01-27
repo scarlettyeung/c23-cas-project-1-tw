@@ -10,6 +10,7 @@ const permit = new Bearer({ query: "access_token" })
 
 export interface Payload {
   uuid: string
+  id: number
   username: string
   identity: Identity
   performerId: number | undefined
