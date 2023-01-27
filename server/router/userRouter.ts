@@ -16,5 +16,5 @@ userRoutes.post(
 )
 userRoutes.get("/getInfo/:uuid", isLoggedIn, userController.getUserinfo)
 userRoutes.get("/getSettingInfo", isLoggedIn, userController.getUserSettingInfo)
-userRoutes.get("/editInfo", isLoggedIn, userController.editUserSettingInfo)
+userRoutes.put("/editInfo", isLoggedIn, userController.editUserSettingInfo)
 //Apart from login  , place add checkTokenExp and isLoggedIn , tokenExpUpdate where should I give the new token or payload
