@@ -6,6 +6,7 @@ import jwt from "../utils/jwt"
 import { checkPassword, hashPassword } from "../utils/hash"
 import { Payload } from "../utils/guard"
 import { Bearer } from "permit"
+import { ClientType } from "@prisma/client"
 
 export class UserController {
   constructor(private userService: UserService) {}
@@ -14,8 +15,6 @@ export class UserController {
     try {
       logger.info("login function call in UserController")
       const { email, password } = req.body
-      logger.info(email)
-      logger.info(password)
 
       if (!email || !password) {
         res.status(400).json({ message: "missing email or password" })
@@ -24,8 +23,6 @@ export class UserController {
 
       const user = await this.userService.getLoginInfo(email)
 
-      logger.info("user?.password")
-      logger.info(user?.password)
       if (!user) {
         res.status(400).json({ message: "Invalid email or password" })
         return
@@ -39,17 +36,37 @@ export class UserController {
         const exp = new Date(
           new Date().setTime(new Date().getTime() + 5 * 60 * 1000)
         )
+        logger.info("performersID,clientId")
+        let performersId: number | undefined = undefined
+        let clientId: number | undefined = undefined
+        let clientType: ClientType | undefined = undefined
+        if (user.performers[0]) {
+          performersId = user.performers[0].id
+        }
+
+        if (user.clients[0]) {
+          clientId = user.clients[0].id
+          clientType = user.clients[0].client_type
+        }
 
         // after 5 min
+        logger.info("line44")
+        console.dir(performersId)
+        console.dir(clientId)
+        console.dir(clientType)
+
+        // const clientType = user.clients[0].client_type
 
         const payload: Payload = {
           uuid: user.uuid,
           username: user.username,
           identity: user.identity,
-          clientType: undefined,
+          performerId: performersId,
+          clientId: clientId,
+          clientType: clientType,
           exp: exp,
         }
-
+        logger.info("line54")
         if (user.clients[0]) {
           payload.clientType = user.clients[0].client_type
         }

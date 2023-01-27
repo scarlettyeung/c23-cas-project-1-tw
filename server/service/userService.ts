@@ -18,6 +18,7 @@ export class UserService {
   async getLoginInfo(email: string) {
     try {
       logger.info("getLoginInfo call in UserService")
+
       const user = await prisma.user.findFirst({
         where: {
           email: email,
@@ -29,17 +30,23 @@ export class UserService {
           email: true,
           password: true,
           identity: true,
+          performers: {
+            select: {
+              id: true,
+            },
+          },
           clients: {
             select: {
+              id: true,
               client_type: true,
             },
           },
         },
       })
+
       logger.info("get login info in UserService ")
       logger.info(user)
       await prisma.$disconnect()
-      // return
       return user
     } catch (e) {
       logger.debug(e)
@@ -114,10 +121,10 @@ export class UserService {
   }
 
   async getUserIdentity(uuid: string) {
-    logger.info("getUserIdentity call in UserService")
-    logger.info("in UserService uuid is ")
-    logger.info(uuid)
     try {
+      logger.info("getUserIdentity call in UserService")
+      logger.info("in UserService uuid is ")
+      logger.info(uuid)
       const userIdentity = await prisma.user.findFirst({
         where: {
           uuid: uuid,

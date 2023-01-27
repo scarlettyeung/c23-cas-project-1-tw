@@ -12,6 +12,8 @@ export interface Payload {
   uuid: string
   username: string
   identity: Identity
+  performerId: number | undefined
+  clientId: number | undefined
   clientType: undefined | ClientType
   exp: Date
 }
