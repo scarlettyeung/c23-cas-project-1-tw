@@ -72,33 +72,45 @@ export class UserService {
   }
 
   async getUserByEmail(email: string) {
-    logger.info("getUserEmail call in UserService")
+    try {
+      logger.info("getUserEmail call in UserService")
 
-    const userEmail = await prisma.user.findMany({
-      where: {
-        email: email,
-      },
-      select: {
-        email: true,
-      },
-    })
-    await prisma.$disconnect()
-    return userEmail
+      const userEmail = await prisma.user.findMany({
+        where: {
+          email: email,
+        },
+        select: {
+          email: true,
+        },
+      })
+      await prisma.$disconnect()
+      return userEmail
+    } catch (e) {
+      logger.debug(e)
+      await prisma.$disconnect()
+      return
+    }
   }
 
   async getUserByUUID(uuid: string) {
-    logger.info("getUserByUUID call in UserService")
+    try {
+      logger.info("getUserByUUID call in UserService")
 
-    const userUUID = await prisma.user.findMany({
-      where: {
-        uuid: uuid,
-      },
-      select: {
-        uuid: true,
-      },
-    })
-    await prisma.$disconnect()
-    return userUUID
+      const userUUID = await prisma.user.findMany({
+        where: {
+          uuid: uuid,
+        },
+        select: {
+          uuid: true,
+        },
+      })
+      await prisma.$disconnect()
+      return userUUID
+    } catch (e) {
+      logger.debug(e)
+      await prisma.$disconnect()
+      return
+    }
   }
 
   async getUserIdentity(uuid: string) {
@@ -129,63 +141,87 @@ export class UserService {
   }
 
   async getClientType(uuid: string) {
-    logger.info("getUserIdentity call in UserService")
+    try {
+      logger.info("getUserIdentity call in UserService")
 
-    const clientType = await prisma.user.findMany({
-      where: {
-        uuid: uuid,
-      },
-      select: {
-        clients: {
-          select: {
-            client_type: true,
+      const clientType = await prisma.user.findMany({
+        where: {
+          uuid: uuid,
+        },
+        select: {
+          clients: {
+            select: {
+              client_type: true,
+            },
           },
         },
-      },
-    })
-    await prisma.$disconnect()
-    return clientType
+      })
+      await prisma.$disconnect()
+      return clientType
+    } catch (e) {
+      logger.error(e)
+      await prisma.$disconnect()
+      return
+    }
   }
 
   async getUserEmail(uuid: string) {
-    logger.info("getUserEmail call in UserService")
-
-    const email = await prisma.user.findUnique({
-      where: {
-        uuid: uuid,
-      },
-      select: {
-        email: true,
-      },
-    })
-    await prisma.$disconnect()
-    return email
+    try {
+      logger.info("getUserEmail call in UserService")
+      const email = await prisma.user.findUnique({
+        where: {
+          uuid: uuid,
+        },
+        select: {
+          email: true,
+        },
+      })
+      await prisma.$disconnect()
+      return email
+    } catch (e) {
+      logger.error(e)
+      await prisma.$disconnect()
+      return
+    }
   }
 
   async checkEmail(email: string) {
-    const user = await prisma.user.findFirst({
-      where: {
-        email: email,
-      },
-      select: {
-        email: true,
-      },
-    })
-    await prisma.$disconnect()
-    return user?.email
+    try {
+      const user = await prisma.user.findFirst({
+        where: {
+          email: email,
+        },
+        select: {
+          email: true,
+        },
+      })
+      await prisma.$disconnect()
+      return user?.email
+    } catch (e) {
+      logger.debug(e)
+      await prisma.$disconnect()
+      return
+    }
   }
   // get all performer hashtags
   async getAllPerformerHashtag(tag_type: TagType) {
-    const tags = prisma.hashtagDetail.findMany({
-      where: {
-        tag_type: TagType.performer,
-      },
-      select: {
-        name: true,
-        id: true,
-      },
-    })
-    return tags
+    try {
+      const tags = prisma.hashtagDetail.findMany({
+        where: {
+          tag_type: tag_type,
+        },
+        select: {
+          name: true,
+          id: true,
+        },
+      })
+      await prisma.$disconnect()
+      return tags
+    } catch (e) {
+      logger.debug(e)
+      await prisma.$disconnect()
+      return
+    }
   }
   //////--- end of check user info--- ////
 
@@ -208,52 +244,92 @@ export class UserService {
     igUrl: string | null,
     hashtagArr: number[]
   ) {
-    logger.info("createPerformer call in UserService")
-    interface HashtagToInput {
-      hashtag_details_id: number
-    }
-    const hashtagToInput: HashtagToInput[] = []
+    try {
+      logger.info("createPerformer call in UserService")
+      interface HashtagToInput {
+        hashtag_details_id: number
+      }
+      const hashtagToInput: HashtagToInput[] = []
 
-    for (const hashtag of hashtagArr) {
-      const id: HashtagToInput = { hashtag_details_id: hashtag }
-      hashtagToInput.push(id)
-    }
+      for (const hashtag of hashtagArr) {
+        const id: HashtagToInput = { hashtag_details_id: hashtag }
+        hashtagToInput.push(id)
+      }
 
-    await prisma.user.create({
-      data: {
-        identity: identitySelect, //not null
-        icon: icon,
-        email: email, //not null
-        password: password, //not null
-        username: username, //not null
-        performers: {
-          create: {
-            years_of_exp: yearsOfExp, //not null >> 0
-            birthday: birthday,
-            contact_number: contactNumber, //not null
-            gender: gender, //not null
-            description: description,
-            name: name,
-            facebook_url: facebookUrl,
-            twitter_url: twitterUrl,
-            youtube_url: youtubeUrl,
-            ig_url: igUrl,
-            performers_hashtags: {
-              createMany: {
-                data: hashtagToInput,
+      const defaultObj = {
+        header: {
+          iconPosition: "mid",
+          headerImage: "default",
+          colorStyle: "black",
+          displayTab: "about",
+        },
+        page: [
+          {
+            page: 1,
+            title: "About me",
+            style: "about",
+            main_color: "black",
+            contents: [
+              {
+                headline: "",
+                content: "",
+                media: [
+                  {
+                    media_id: 1,
+                    media_name: "",
+                    media_type: "",
+                    is_main: "true",
+                  },
+                ],
               },
-            },
-            e_profile: {
-              create: {
-                content: Prisma.JsonNull,
+            ],
+          },
+        ],
+      }
+
+      const defaultJson = JSON.stringify(defaultObj)
+
+      await prisma.user.create({
+        data: {
+          identity: identitySelect, //not null
+          icon: icon,
+          email: email, //not null
+          password: password, //not null
+          username: username, //not null
+          performers: {
+            create: {
+              years_of_exp: yearsOfExp, //not null >> 0
+              birthday: birthday,
+              contact_number: contactNumber, //not null
+              gender: gender, //not null
+              description: description,
+              name: name,
+              facebook_url: facebookUrl,
+              twitter_url: twitterUrl,
+              youtube_url: youtubeUrl,
+              ig_url: igUrl,
+              performers_hashtags: {
+                createMany: {
+                  data: hashtagToInput,
+                },
+              },
+              e_profile: {
+                create: {
+                  content: defaultJson,
+                },
               },
             },
           },
         },
-      },
-    })
+      })
 
-    await prisma.$disconnect()
+      await prisma.$disconnect()
+      return
+    } catch (e) {
+      logger.debug(e)
+      await prisma.$disconnect()
+      return
+    }
   }
 
   async createIndividualClient(
@@ -268,28 +344,35 @@ export class UserService {
     contactNumber: number,
     contactEmail: string | null
   ) {
-    logger.info("createIndividualClient call in UserService")
+    try {
+      logger.info("createIndividualClient call in UserService")
 
-    await prisma.user.create({
-      data: {
-        identity: identitySelect, //not null
-        icon: icon,
-        email: email, //not null
-        password: password, //not null
-        username: username, //not null
-        clients: {
-          create: {
-            client_type: clientType, //not null
-            name: name, //not null
-            gender: gender, //not null
-            contact_number: contactNumber, //not null
-            contact_email: contactEmail, // default = email
+      await prisma.user.create({
+        data: {
+          identity: identitySelect, //not null
+          icon: icon,
+          email: email, //not null
+          password: password, //not null
+          username: username, //not null
+          clients: {
+            create: {
+              client_type: clientType, //not null
+              name: name, //not null
+              gender: gender, //not null
+              contact_number: contactNumber, //not null
+              contact_email: contactEmail, // default = email
+            },
           },
         },
-      },
-    })
+      })
 
-    await prisma.$disconnect()
+      await prisma.$disconnect()
+      return
+    } catch (e) {
+      logger.debug(e)
+      await prisma.$disconnect()
+      return
+    }
   }
 
   async createCorporateClient(
@@ -307,271 +390,314 @@ export class UserService {
     businessBRNo: string,
     businessWebsiteUrl: string | null
   ) {
-    logger.info("createCorporateClient call in UserService")
+    try {
+      logger.info("createCorporateClient call in UserService")
 
-    await prisma.user.create({
-      data: {
-        identity: identitySelect, //not null
-        icon: icon,
-        email: email, //not null
-        password: password, //not null
-        username: username, //not null
-        clients: {
-          create: {
-            client_type: clientType, //not null
-            name: name, //not null
-            gender: gender, //not null
-            contact_number: contactNumber, //not null
-            contact_email: contactEmail,
-            business_address: businessAddress, //not null
-            business_BR_no: businessBRNo, //not null
-            business_website_url: businessWebsiteUrl,
+      await prisma.user.create({
+        data: {
+          identity: identitySelect, //not null
+          icon: icon,
+          email: email, //not null
+          password: password, //not null
+          username: username, //not null
+          clients: {
+            create: {
+              client_type: clientType, //not null
+              name: name, //not null
+              gender: gender, //not null
+              contact_number: contactNumber, //not null
+              contact_email: contactEmail,
+              business_address: businessAddress, //not null
+              business_BR_no: businessBRNo, //not null
+              business_website_url: businessWebsiteUrl,
+            },
           },
         },
-      },
-    })
+      })
 
-    await prisma.$disconnect()
+      await prisma.$disconnect()
+      return
+    } catch (e) {
+      logger.debug(e)
+      await prisma.$disconnect()
+      return
+    }
   }
   //////--- end of Register --- ////
 
   //////--- part of showProfile Info --- ////
 
   async getPerformersProfilePageInfo(uuid: string) {
-    logger.info("get Performers Info call in UserService")
-    const info = await prisma.user.findUnique({
-      where: {
-        uuid: uuid,
-      },
-      select: {
-        uuid: true,
-        id: true,
-        icon: true,
-        username: true,
-        performers: {
-          select: {
-            years_of_exp: true,
-            contact_number: true,
-            gender: true,
-            description: true,
-            facebook_url: true,
-            twitter_url: true,
-            youtube_url: true,
-            ig_url: true,
-            performers_hashtags: {
-              select: {
-                hashtag_details_id: true,
+    try {
+      logger.info("get Performers Info call in UserService")
+      const info = await prisma.user.findUnique({
+        where: {
+          uuid: uuid,
+        },
+        select: {
+          uuid: true,
+          id: true,
+          icon: true,
+          username: true,
+          performers: {
+            select: {
+              years_of_exp: true,
+              contact_number: true,
+              gender: true,
+              description: true,
+              facebook_url: true,
+              twitter_url: true,
+              youtube_url: true,
+              ig_url: true,
+              performers_hashtags: {
+                select: {
+                  hashtag_details_id: true,
+                },
               },
-            },
-            events: {
-              select: {
-                title: true,
+              events: {
+                select: {
+                  title: true,
+                },
               },
-            },
-            teams_performers: {
-              select: {
-                teams: {
-                  select: {
-                    id: true,
-                    name: true,
+              teams_performers: {
+                select: {
+                  teams: {
+                    select: {
+                      id: true,
+                      name: true,
+                    },
                   },
                 },
               },
             },
           },
         },
-      },
-    })
+      })
 
-    await prisma.$disconnect()
-    return info
+      await prisma.$disconnect()
+      return info
+    } catch (e) {
+      logger.debug(e)
+      await prisma.$disconnect()
+      return
+    }
   }
 
   async getIndividualClientInfoPageInfo(uuid: string) {
-    logger.info("get Individual Client Info call in UserService")
-
-    const info = await prisma.user.findUnique({
-      where: {
-        uuid: uuid,
-      },
-      select: {
-        uuid: true,
-        id: true,
-        icon: true,
-        username: true,
-        email: true,
-        password: true,
-        identity: true,
-        clients: {
-          select: {
-            gender: true,
-            description: true,
-            client_type: true,
-            events: {
-              select: {
-                title: true,
+    try {
+      logger.info("get Individual Client Info call in UserService")
+      const info = await prisma.user.findUnique({
+        where: {
+          uuid: uuid,
+        },
+        select: {
+          uuid: true,
+          id: true,
+          icon: true,
+          username: true,
+          email: true,
+          password: true,
+          identity: true,
+          clients: {
+            select: {
+              gender: true,
+              description: true,
+              client_type: true,
+              events: {
+                select: {
+                  title: true,
+                },
               },
             },
           },
         },
-      },
-    })
+      })
 
-    logger.info(info)
-    logger.info("get info in UserService")
-    await prisma.$disconnect()
-    return info
+      logger.info(info)
+      logger.info("get info in UserService")
+      await prisma.$disconnect()
+      return info
+    } catch (e) {
+      logger.debug(e)
+      await prisma.$disconnect()
+      return
+    }
   }
 
   async getCorporateClientInfoPageInfo(uuid: string) {
-    const info = await prisma.user.findUnique({
-      where: {
-        uuid: uuid,
-      },
-      select: {
-        uuid: true,
-        id: true,
-        icon: true,
-        username: true,
-        email: true,
-        password: true,
-        identity: true,
-        clients: {
-          select: {
-            gender: true,
-            description: true,
-            client_type: true,
-            business_address: true,
-            business_BR_no: true,
-            business_website_url: true,
-            events: {
-              select: {
-                title: true,
+    try {
+      logger.info("call get Corporate Client InfoPage Info in userService")
+      const info = await prisma.user.findUnique({
+        where: {
+          uuid: uuid,
+        },
+        select: {
+          uuid: true,
+          id: true,
+          icon: true,
+          username: true,
+          email: true,
+          password: true,
+          identity: true,
+          clients: {
+            select: {
+              gender: true,
+              description: true,
+              client_type: true,
+              business_address: true,
+              business_BR_no: true,
+              business_website_url: true,
+              events: {
+                select: {
+                  title: true,
+                },
               },
             },
           },
         },
-      },
-    })
+      })
 
-    await prisma.$disconnect()
-    return info
+      await prisma.$disconnect()
+      return info
+    } catch (e) {
+      logger.debug(e)
+      await prisma.$disconnect()
+      return
+    }
   }
   //////--- end of showProfile Info --- ////
 
   //////--- part of setting page (Profile) Info --- ////
   async getPerformersSettingPageInfo(uuid: string) {
-    logger.info("get Performers Setting Info, call in UserService")
-    const userInfo = await prisma.user.findUnique({
-      where: {
-        uuid: uuid,
-      },
-      select: {
-        uuid: true,
-        id: true,
-        icon: true,
-        username: true,
-        email: true,
-        password: true,
-        identity: true,
-        performers: {
-          select: {
-            years_of_exp: true,
-            birthday: true,
-            contact_number: true,
-            gender: true,
-            name: true,
-            description: true,
-            facebook_url: true,
-            twitter_url: true,
-            youtube_url: true,
-            ig_url: true,
-            performers_hashtags: {
-              select: {
-                hashtag_details_id: true,
+    try {
+      logger.info("get Performers Setting Info, call in UserService")
+      const userInfo = await prisma.user.findUnique({
+        where: {
+          uuid: uuid,
+        },
+        select: {
+          uuid: true,
+          id: true,
+          icon: true,
+          username: true,
+          email: true,
+          password: true,
+          identity: true,
+          performers: {
+            select: {
+              years_of_exp: true,
+              birthday: true,
+              contact_number: true,
+              gender: true,
+              name: true,
+              description: true,
+              facebook_url: true,
+              twitter_url: true,
+              youtube_url: true,
+              ig_url: true,
+              performers_hashtags: {
+                select: {
+                  hashtag_details_id: true,
+                },
               },
-            },
-            teams_performers: {
-              select: {
-                teams: {
-                  select: {
-                    id: true,
-                    name: true,
+              teams_performers: {
+                select: {
+                  teams: {
+                    select: {
+                      id: true,
+                      name: true,
+                    },
                   },
                 },
               },
             },
           },
         },
-      },
-    })
+      })
 
-    await prisma.$disconnect()
-    return userInfo
+      await prisma.$disconnect()
+      return userInfo
+    } catch (e) {
+      logger.debug(e)
+      await prisma.$disconnect()
+      return
+    }
   }
 
   async getIndividualClientSettingPageInfo(uuid: string) {
-    logger.info("get Individual Client Setting Info, call in UserService")
-    const userInfo = await prisma.user.findUnique({
-      where: {
-        uuid: uuid,
-      },
-      select: {
-        uuid: true,
-        id: true,
-        icon: true,
-        username: true,
-        email: true,
-        password: true,
-        identity: true,
-        clients: {
-          select: {
-            name: true,
-            gender: true,
-            contact_number: true,
-            contact_email: true,
-            description: true,
-            client_type: true,
+    try {
+      logger.info("get Individual Client Setting Info, call in UserService")
+      const userInfo = await prisma.user.findUnique({
+        where: {
+          uuid: uuid,
+        },
+        select: {
+          uuid: true,
+          id: true,
+          icon: true,
+          username: true,
+          email: true,
+          password: true,
+          identity: true,
+          clients: {
+            select: {
+              name: true,
+              gender: true,
+              contact_number: true,
+              contact_email: true,
+              description: true,
+              client_type: true,
+            },
           },
         },
-      },
-    })
+      })
 
-    await prisma.$disconnect()
-    return userInfo
+      await prisma.$disconnect()
+      return userInfo
+    } catch (e) {
+      logger.debug(e)
+      await prisma.$disconnect()
+      return
+    }
   }
 
   async getCorporateClientSettingPageInfo(uuid: string) {
-    logger.info("get Corporate Client Setting Page call in UserService")
-    const userInfo = await prisma.user.findUnique({
-      where: {
-        uuid: uuid,
-      },
-      select: {
-        uuid: true,
-        id: true,
-        icon: true,
-        username: true,
-        email: true,
-        password: true,
-        identity: true,
-        clients: {
-          select: {
-            name: true,
-            gender: true,
-            contact_number: true,
-            contact_email: true,
-            description: true,
-            client_type: true,
-            business_address: true,
-            business_BR_no: true,
-            business_website_url: true,
+    try {
+      logger.info("get Corporate Client Setting Page call in UserService")
+      const userInfo = await prisma.user.findUnique({
+        where: {
+          uuid: uuid,
+        },
+        select: {
+          uuid: true,
+          id: true,
+          icon: true,
+          username: true,
+          email: true,
+          password: true,
+          identity: true,
+          clients: {
+            select: {
+              name: true,
+              gender: true,
+              contact_number: true,
+              contact_email: true,
+              description: true,
+              client_type: true,
+              business_address: true,
+              business_BR_no: true,
+              business_website_url: true,
+            },
           },
         },
-      },
-    })
-    await prisma.$disconnect()
-    return userInfo
+      })
+      await prisma.$disconnect()
+      return userInfo
+    } catch (e) {
+      logger.debug(e)
+      await prisma.$disconnect()
+      return
+    }
   }
 
   async editPerformersSettingInfo(
@@ -591,79 +717,87 @@ export class UserService {
     igUrl: string | null,
     hashtagArr: number[]
   ) {
-    interface HashtagToInput {
-      hashtag_details_id: number
-    }
-    const hashtagToInput: HashtagToInput[] = []
+    try {
+      logger.info("edit Performers Setting Info call in userService")
+      interface HashtagToInput {
+        hashtag_details_id: number
+      }
+      const hashtagToInput: HashtagToInput[] = []
 
-    for (const hashtag of hashtagArr) {
-      const id: HashtagToInput = { hashtag_details_id: hashtag }
-      hashtagToInput.push(id)
-    }
+      for (const hashtag of hashtagArr) {
+        const id: HashtagToInput = { hashtag_details_id: hashtag }
+        hashtagToInput.push(id)
+      }
 
-    const userPerformer = await prisma.user.findFirst({
-      where: {
-        uuid: uuid,
-      },
-      select: {
-        performers: {
-          select: {
-            id: true,
+      const userPerformer = await prisma.user.findFirst({
+        where: {
+          uuid: uuid,
+        },
+        select: {
+          performers: {
+            select: {
+              id: true,
+            },
           },
         },
-      },
-    })
+      })
 
-    const userPerformerId = userPerformer?.performers[0].id
-    logger.info(userPerformerId)
+      const userPerformerId = userPerformer?.performers[0].id
+      logger.info(userPerformerId)
 
-    const userPerformerHashtagsToDel = await prisma.performersHashtag.findMany({
-      where: {
-        performers_id: userPerformerId,
-      },
-      select: {
-        hashtag_details_id: true,
-      },
-    })
+      const userPerformerHashtagsToDel =
+        await prisma.performersHashtag.findMany({
+          where: {
+            performers_id: userPerformerId,
+          },
+          select: {
+            hashtag_details_id: true,
+          },
+        })
 
-    await prisma.user.update({
-      where: {
-        uuid: uuid,
-      },
-      data: {
-        icon: icon,
-        username: username,
-        password: password,
-        performers: {
-          update: {
-            where: {
-              id: userPerformerId,
-            },
-            data: {
-              years_of_exp: yearsOfExp,
-              birthday: birthday,
-              contact_number: contactNumber, //not null
-              gender: gender, //not null
-              description: description,
-              name: name,
-              facebook_url: facebookUrl,
-              twitter_url: twitterUrl,
-              youtube_url: youtubeUrl,
-              ig_url: igUrl,
-              performers_hashtags: {
-                deleteMany: userPerformerHashtagsToDel,
-                createMany: {
-                  data: hashtagToInput,
+      await prisma.user.update({
+        where: {
+          uuid: uuid,
+        },
+        data: {
+          icon: icon,
+          username: username,
+          password: password,
+          performers: {
+            update: {
+              where: {
+                id: userPerformerId,
+              },
+              data: {
+                years_of_exp: yearsOfExp,
+                birthday: birthday,
+                contact_number: contactNumber, //not null
+                gender: gender, //not null
+                description: description,
+                name: name,
+                facebook_url: facebookUrl,
+                twitter_url: twitterUrl,
+                youtube_url: youtubeUrl,
+                ig_url: igUrl,
+                performers_hashtags: {
+                  deleteMany: userPerformerHashtagsToDel,
+                  createMany: {
+                    data: hashtagToInput,
+                  },
                 },
               },
             },
           },
         },
-      },
-    })
+      })
 
-    await prisma.$disconnect()
-    return
+      await prisma.$disconnect()
+      return
+    } catch (e) {
+      logger.debug(e)
+      await prisma.$disconnect()
+      return
+    }
   }
 
   async editIndividualClientSettingInfo(
@@ -677,48 +811,55 @@ export class UserService {
     contactNumber: number,
     contactEmail: string
   ) {
-    const userClient = await prisma.user.findFirst({
-      where: {
-        uuid: uuid,
-      },
-      select: {
-        id: true,
-      },
-    })
+    try {
+      logger.info("edit Individual Client Setting Info call in userService")
+      const userClient = await prisma.user.findFirst({
+        where: {
+          uuid: uuid,
+        },
+        select: {
+          id: true,
+        },
+      })
 
-    if (!userClient) {
-      return
-    }
-    const userClientId = userClient?.id
+      if (!userClient) {
+        return
+      }
+      const userClientId = userClient?.id
 
-    await prisma.user.update({
-      where: {
-        uuid: uuid,
-      },
-      data: {
-        icon: icon,
-        username: username,
-        password: password,
-        clients: {
-          update: {
-            where: {
-              id: userClientId,
-            },
-            data: {
-              gender: gender,
-              description: description,
-              name: name,
-              contact_number: contactNumber,
-              contact_email: contactEmail,
+      await prisma.user.update({
+        where: {
+          uuid: uuid,
+        },
+        data: {
+          icon: icon,
+          username: username,
+          password: password,
+          clients: {
+            update: {
+              where: {
+                id: userClientId,
+              },
+              data: {
+                gender: gender,
+                description: description,
+                name: name,
+                contact_number: contactNumber,
+                contact_email: contactEmail,
+              },
             },
           },
         },
-      },
-    })
+      })
 
-    logger.info("edited Individual Client Setting Info")
-    await prisma.$disconnect()
-    return
+      logger.info("edited Individual Client Setting Info")
+      await prisma.$disconnect()
+      return
+    } catch (e) {
+      logger.debug(e)
+      await prisma.$disconnect()
+      return
+    }
   }
 
   async editCorporateClientSettingInfo(
@@ -735,105 +876,168 @@ export class UserService {
     businessBRNo: string,
     businessWebsiteUrl: string | null
   ) {
-    const userClient = await prisma.user.findFirst({
-      where: {
-        uuid: uuid,
-      },
-      select: {
-        id: true,
-      },
-    })
+    try {
+      logger.info("edit Corporate Client Setting Info call in userService")
+      const userClient = await prisma.user.findFirst({
+        where: {
+          uuid: uuid,
+        },
+        select: {
+          id: true,
+        },
+      })
 
-    if (!userClient) {
-      return
-    }
-    const userClientId = userClient?.id
+      if (!userClient) {
+        return
+      }
+      const userClientId = userClient?.id
 
-    await prisma.user.update({
-      where: {
-        uuid: uuid,
-      },
-      data: {
-        icon: icon,
-        username: username,
-        password: password,
-        clients: {
-          update: {
-            where: {
-              id: userClientId,
-            },
-            data: {
-              gender: gender,
-              description: description,
-              name: name,
-              contact_number: contactNumber,
-              contact_email: contactEmail,
-              business_address: businessAddress,
-              business_BR_no: businessBRNo,
-              business_website_url: businessWebsiteUrl,
+      await prisma.user.update({
+        where: {
+          uuid: uuid,
+        },
+        data: {
+          icon: icon,
+          username: username,
+          password: password,
+          clients: {
+            update: {
+              where: {
+                id: userClientId,
+              },
+              data: {
+                gender: gender,
+                description: description,
+                name: name,
+                contact_number: contactNumber,
+                contact_email: contactEmail,
+                business_address: businessAddress,
+                business_BR_no: businessBRNo,
+                business_website_url: businessWebsiteUrl,
+              },
             },
           },
         },
-      },
-    })
+      })
 
-    logger.info("edited Individual Client Setting Info")
-    await prisma.$disconnect()
-    return
+      logger.info("edited Individual Client Setting Info")
+      await prisma.$disconnect()
+      return
+    } catch (e) {
+      logger.debug(e)
+      await prisma.$disconnect()
+      return
+    }
   }
   ////--- end of setting page (Profile) Info --- ////
 
-  async getEProfile(performerId: number) {
-    const eProfile = await prisma.performer.findUnique({
-      where: {
-        id: performerId,
-      },
-      select: {
-        e_profile: {
-          select: {
-            content: true,
+  async getEProfile(uuid: string) {
+    try {
+      logger.info("get EProfile in userService")
+      // const eProfile = await prisma.performer.findUnique({
+      //   where: {
+      //     id: performerId,
+      //   },
+      //   select: {
+      //     e_profile: {
+      //       select: {
+      //         content: true,
+      //       },
+      //     },
+      //   },
+      // })
+
+      const eProfile = await prisma.user.findUnique({
+        where: {
+          uuid: uuid,
+        },
+        select: {
+          performers: {
+            select: {
+              e_profile: {
+                select: {
+                  content: true,
+                },
+              },
+            },
           },
         },
-      },
-    })
-    await prisma.$disconnect()
-    return eProfile
+      })
+      await prisma.$disconnect()
+      return eProfile
+    } catch (e) {
+      logger.debug(e)
+      await prisma.$disconnect()
+      return
+    }
   }
 
   async editEProfile(uuid: string, obj: Prisma.JsonObject) {
-    // const objToAdd = JSON.stringify(obj) as Prisma.JsonObject
-    const objToAdd = obj as Prisma.InputJsonValue
-    // const objToAdd = JSON.stringify(obj)
-    const performers = await prisma.user.findUnique({
-      where: {
-        uuid: uuid,
-      },
-      select: {
-        performers: {
-          select: {
-            id: true,
-          },
-        },
-      },
-    })
-    if (performers) {
-      const performersID = performers!.performers[0].id
-      await prisma.eprofile.update({
-        data: {
-          content: objToAdd,
-          performers: {
-            connect: {},
-          },
-        },
+    try {
+      logger.info("edit EProfile in userService")
+
+      // logger.info("uuid", uuid)
+      // logger.info("obj")
+      // console.dir(obj, { depth: null })
+
+      // const objToAdd = JSON.stringify(obj) as Prisma.JsonObject
+      // const objToAdd = obj as Prisma.InputJsonValue
+      const objToAdd = JSON.stringify(obj)
+      logger.info(objToAdd)
+      const performers = await prisma.user.findUnique({
         where: {
-          id: performersID,
+          uuid: uuid,
+        },
+        select: {
+          performers: {
+            select: {
+              id: true,
+            },
+          },
         },
       })
-      console.log(performersID)
-    } else {
-      logger.error("cannot find user's performers_id ")
-      // console.log(performersID)
+
+      if (performers) {
+        const performersID = performers!.performers[0].id
+        logger.info("performersID")
+        logger.info(performersID)
+
+        const eProfileId = (
+          await prisma.eprofile.findFirst({
+            where: {
+              performers_id: performersID,
+            },
+            select: {
+              id: true,
+            },
+          })
+        )?.id
+        if (eProfileId) {
+          const eprofile = await prisma.eprofile.update({
+            where: {
+              id: eProfileId,
+            },
+            data: {
+              content: objToAdd,
+            },
+            select: {
+              content: true,
+            },
+          })
+          await prisma.$disconnect()
+          return eprofile.content
+        } else {
+          logger.error("cannot find user's performers's eProfile' ")
+          return
+          // console.log(performersID)
+        }
+      }
+      await prisma.$disconnect()
+      return
+    } catch (e) {
+      logger.debug(e)
+      await prisma.$disconnect()
+      return
     }
-    await prisma.$disconnect()
   }
 }

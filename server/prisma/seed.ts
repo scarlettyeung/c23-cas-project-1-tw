@@ -80,6 +80,21 @@ async function main() {
       },
     ],
   })
+
+  const defaultJson = `{"header":{"iconPosition":"mid","headerImage":"default","colorStyle":"black","displayTab":"about"},"page":[{"page":1,"title":"About me","style":"about","main_color":"black","contents":[{"headline":"","content":"","media":[{"media_id":1,"media_name":"","media_type":"","is_main":"true"}]}]}]}`
+  await prisma.eprofile.createMany({
+    data: [
+      {
+        performers_id: 1,
+        content: defaultJson,
+      },
+      {
+        performers_id: 2,
+        content: defaultJson,
+      },
+    ],
+  })
+
   await prisma.client.createMany({
     data: [
       {
@@ -249,11 +264,7 @@ async function main() {
       clients: { select: { id: true } },
     },
   })
-  console.log(userId[0])
-  console.log(userId[1])
-  console.log(userId[2])
-  console.log(userId[3])
-  console.log(userId[4])
+
   await prisma.event.createMany({
     data: [
       {

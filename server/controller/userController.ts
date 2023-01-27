@@ -59,10 +59,12 @@ export class UserController {
         const token = jwtSimple.encode(payload, jwt.jwtSecret)
         logger.info(`Token send ,will exp in : ${payload.exp}`)
         res.status(200).json({ message: "login success", data: token })
+        return
       }
     } catch (e) {
       logger.error(e)
       res.status(500).json({ message: "login fail" })
+      return
     }
   }
 
@@ -70,16 +72,17 @@ export class UserController {
     try {
       const { email } = req.body
       const userResult = await this.userService.getUserByEmail(email)
-
-      if (userResult.length > 0) {
+      if (userResult && userResult.length > 0) {
         res.json({ message: "found user", data: userResult })
         return
       } else {
         res.status(400).json({ message: "no such user" })
+        return
       }
     } catch (e) {
       logger.error(e)
       res.status(500).json({ message: "internal server error" })
+      return
     }
   }
 
@@ -310,9 +313,9 @@ export class UserController {
       if (identity === "performer") {
         data = await this.userService.getPerformersProfilePageInfo(uuidFromUrl)
       } else if (identity === "client") {
-        const clientType = (
-          await this.userService.getClientType(uuidFromUrl)
-        )[0].clients[0].client_type
+        const clientType = (await this.userService.getClientType(
+          uuidFromUrl
+        ))![0].clients[0].client_type
         logger.info("Your clientType is ", clientType)
         if (clientType === "individual") {
           data = await this.userService.getIndividualClientInfoPageInfo(
@@ -375,10 +378,12 @@ export class UserController {
         } else {
           logger.info("who are u Unauthorized")
           res.status(401).json({ message: "Unauthorized " })
+          return
         }
       } else {
         logger.info("who are u Unauthorized")
         res.status(401).json({ message: "Unauthorized " })
+        return
       }
       console.dir(data)
       if (data) {
@@ -528,17 +533,71 @@ export class UserController {
     }
   }
 
-  // editUserinfo = async (req: Request, res: Response) => {
-  //   logger.info("edit User info")
-  //   const uuidFromUrl = req.params.uuid
-  //   logger.info("uuid from url")
-  //   logger.info(uuidFromUrl)
-  //   const permit = new Bearer({ query: "access_token" })
-  //   const token = permit.check(req)
-  //   const payload = jwtSimple.decode(token, jwt.jwtSecret)
-  //   const uuidFromJWT = payload.uuid
-  //   if (uuidFromUrl != uuidFromJWT) {
-  //     res.status(400).json({ message: "unauthorized edit" })
-  //   }
-  // }
+  getEProfile = async (req: Request, res: Response) => {
+    try {
+      logger.info("get User EProfile")
+      const uuidFromUrl = req.params.uuid
+      logger.info(uuidFromUrl)
+
+      const identity = (await this.userService.getUserIdentity(uuidFromUrl))
+        ?.identity
+
+      if (identity != "performer") {
+        res.status(400).json({ message: "can find User EProfile" })
+        return
+      }
+
+      const eProfileInfo = (await this.userService.getEProfile(uuidFromUrl))
+        ?.performers[0].e_profile[0].content
+
+      console.dir(eProfileInfo)
+
+      res
+        .status(200)
+        .json({ message: "get User EProfile", eProfileInfo: eProfileInfo })
+      return
+    } catch (e) {
+      logger.error(e)
+      res.status(400).json({ message: "unauthorized edit" })
+      return
+    }
+  }
+
+  editEProfile = async (req: Request, res: Response) => {
+    try {
+      logger.info("edit User EProfile")
+      const uuidFromUrl = req.params.uuid
+      const permit = new Bearer({ query: "access_token" })
+      const token = permit.check(req)
+      const payload = jwtSimple.decode(token, jwt.jwtSecret)
+      const uuidFromJWT = payload.uuid
+      logger.info("uuid from url and JWT")
+      logger.info(uuidFromUrl)
+      logger.info(uuidFromJWT)
+      if (uuidFromUrl != uuidFromJWT) {
+        res.status(400).json({ message: "unauthorized edit" })
+        return
+      }
+      const editGetFromRes = req.body.toEdit
+
+      // const editJsonFile = JSON.stringify(editGetFromRes)
+      // logger.info("editGetFromRes")
+      // console.dir(editGetFromRes, { depth: null })
+      // logger.info("editJsonFile")
+      // logger.info(editJsonFile)
+
+      const eProfileInfo = await this.userService.editEProfile(
+        uuidFromJWT,
+        editGetFromRes
+      )
+      res
+        .status(200)
+        .json({ message: "edit User EProfile", eProfileInfo: eProfileInfo })
+      return
+    } catch (e) {
+      logger.error(e)
+      res.status(400).json({ message: "unauthorized edit" })
+      return
+    }
+  }
 }
