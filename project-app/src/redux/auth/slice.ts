@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AuthState, JWTPayload } from './state';
+import { AccountType, AuthState, Gender, JWTPayload } from './state';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { loginThunk, testThunk } from '../auth/index';
+import { loginThunk, testThunk, performerThunk } from '../auth/index';
 import jwt_decode from 'jwt-decode';
 
 // Step 1 - InitState
@@ -29,6 +29,19 @@ const authSlice = createSlice({
 			state.isAuth = false;
 			localStorage.removeItem('token');
 		},
+		chooseType: (state, action) => {
+			state.accountType = action.payload as AccountType;
+		},
+		allUsersP1: (state, action) => {
+			state.email = action.payload;
+			state.password = action.payload;
+			state.password2 = action.payload;
+			state.username = action.payload;
+		},
+		performerP2: (state, action) => {
+			state.tagId = action.payload;
+		},
+		IndividualP2: (state, action) => {},
 	},
 	extraReducers: (builder) =>
 		builder
@@ -63,10 +76,33 @@ const authSlice = createSlice({
 			.addCase(testThunk.rejected, (state, action) => {
 				state.loading = false;
 			}),
+	// //test
+	// .addCase(performerThunk.pending, (state) => {
+	// 	state.loading = true;
+	// })
+	// .addCase(performerThunk.fulfilled, (state, action) => {
+	// 	state.loading = false;
+	// 	state.accountType = action.payload as AccountType;
+	// 	// state.tagId = action.payload;
+	// 	state.firstName = action.payload;
+	// 	state.lastName = action.payload;
+	// 	state.gender = action.payload as Gender;
+	// 	// state.experience = action.payload;
+	// 	// state.birthday = action.payload as Date;
+	// 	state.teams = action.payload;
+	// 	state.descriptions = action.payload;
+	// 	state.socialMediaUrl = action.payload;
+	// 	console.log('register fulfilled called ');
+	// 	console.log('check accType', state.accountType);
+	// })
+	// .addCase(performerThunk.rejected, (state, action) => {
+	// 	state.loading = false;
+	// 	state.error = action.payload;
+	// }),
 });
 
 // Step 3 - Action Creator
-export const { logout } = authSlice.actions;
+export const { logout, chooseType, allUsersP1, performerP2 } = authSlice.actions;
 
 // Step 4 - Reducer
 export const authReducer = authSlice.reducer;

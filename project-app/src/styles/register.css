@@ -1,0 +1,13 @@
+
+.tagStyle {
+  padding:20px;
+  margin:5px;
+  border:0px;
+}
+
+.tagStyle2 {
+  padding:20px;
+  margin:5px;
+  background:rgb(255, 225, 0);
+  color: black;
+}

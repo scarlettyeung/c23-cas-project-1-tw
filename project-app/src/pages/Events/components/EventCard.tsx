@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { IconHeart } from '@tabler/icons';
 import { Card, Image, Text, Group, Badge, Button, ActionIcon, createStyles } from '@mantine/core';
-import { getAllEventsThunk } from '../../../redux/home';
+import { getAllDataThunk } from '../../../redux/home';
 import { useRootDispatch, useRootSelector } from '../../../redux/store';
 import { PacmanLoader } from 'react-spinners';
 
@@ -43,11 +43,11 @@ interface BadgeCardProps {
 
 export function BadgeCard({ image, title, description, country, badges }: BadgeCardProps) {
 	const dispatch = useRootDispatch();
-	const loading = useRootSelector((state) => state.event.loading);
-	const eventArr = useRootSelector((state) => state.event.eventArr);
+	const loading = useRootSelector((state) => state.home.loading);
+	const eventArr = useRootSelector((state) => state.home.eventArr);
 
 	useEffect(() => {
-		dispatch(getAllEventsThunk());
+		dispatch(getAllDataThunk());
 	}, [dispatch]);
 	const { classes, theme } = useStyles();
 
@@ -67,45 +67,46 @@ export function BadgeCard({ image, title, description, country, badges }: BadgeC
 				<PacmanLoader />
 			) : (
 				<div>
-					{eventArr.map((event) => (
-						<div key={`event-${event.id}`}>
-							<Card withBorder radius='md' p='md' className={classes.card}>
-								<Card.Section>
-									<Image src={event.image} alt={title} height={180} />
-								</Card.Section>
+					{eventArr &&
+						eventArr.map((event) => (
+							<div key={`event-${event.id}`}>
+								<Card withBorder radius='md' p='md' className={classes.card}>
+									<Card.Section>
+										<Image src={event.image} alt={title} height={180} />
+									</Card.Section>
 
-								<Card.Section className={classes.section} mt='md'>
-									<Group position='apart'>
-										<Text size='lg' weight={500}>
-											{event.title}
+									<Card.Section className={classes.section} mt='md'>
+										<Group position='apart'>
+											<Text size='lg' weight={500}>
+												{event.title}
+											</Text>
+											<Badge size='sm'>{event.location}</Badge>
+										</Group>
+										<Text size='sm' mt='xs'>
+											{event.description}
 										</Text>
-										<Badge size='sm'>{event.location}</Badge>
-									</Group>
-									<Text size='sm' mt='xs'>
-										{event.description}
-									</Text>
-								</Card.Section>
+									</Card.Section>
 
-								<Card.Section className={classes.section}>
-									<Text mt='md' className={classes.label} color='dimmed'>
-										Perfect for you, if you enjoy
-									</Text>
-									<Group spacing={7} mt={5}>
-										{features}
-									</Group>
-								</Card.Section>
+									<Card.Section className={classes.section}>
+										<Text mt='md' className={classes.label} color='dimmed'>
+											Perfect for you, if you enjoy
+										</Text>
+										<Group spacing={7} mt={5}>
+											{features}
+										</Group>
+									</Card.Section>
 
-								<Group mt='xs'>
-									<Button radius='md' style={{ flex: 1 }}>
-										Show details
-									</Button>
-									<ActionIcon variant='default' radius='md' size={36}>
-										<IconHeart size={18} className={classes.like} stroke={1.5} />
-									</ActionIcon>
-								</Group>
-							</Card>
-						</div>
-					))}
+									<Group mt='xs'>
+										<Button radius='md' style={{ flex: 1 }}>
+											Show details
+										</Button>
+										<ActionIcon variant='default' radius='md' size={36}>
+											<IconHeart size={18} className={classes.like} stroke={1.5} />
+										</ActionIcon>
+									</Group>
+								</Card>
+							</div>
+						))}
 				</div>
 			)}
 		</>

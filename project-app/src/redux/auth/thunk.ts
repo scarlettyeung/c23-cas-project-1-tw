@@ -55,3 +55,28 @@ export const testThunk = createAsyncThunk<{ rejectValue: string }>(
 		}
 	},
 );
+
+export const performerThunk = createAsyncThunk<{ rejectValue: string }>(
+	'users/forTest',
+	async (_, thunkAPI) => {
+		try {
+			const path = process.env.REACT_APP_API_BASE;
+			const jwt = localStorage.getItem('token');
+			console.log('check JWT token', jwt);
+			const resp = await fetch(`${path}users/forTest`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${jwt}`,
+				},
+				body: JSON.stringify({}),
+			});
+			const data = await resp.json();
+			console.log(data.message);
+			return data;
+		} catch (error) {
+			console.log(error);
+			return;
+		}
+	},
+);

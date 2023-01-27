@@ -37,6 +37,11 @@ enum Properties {
   private
 }
 
+enum TagType {
+  event
+  performer
+}
+
 model User {
   id         Int         @id @default(autoincrement())
   uuid       String      @unique @default(uuid())
@@ -158,7 +163,7 @@ model Review {
 
 model Event {
   id                  Int                 @id @default(autoincrement())
-  performers          Performer           @relation(fields: [performers_id], references: [id])
+  performers          Performer?         @relation(fields: [performers_id], references: [id])
   performers_id       Int
   clients             Client              @relation(fields: [clients_id], references: [id])
   clients_id          Int
@@ -199,6 +204,7 @@ model EventsHashtag {
 model HashtagDetail {
   id                  Int                 @id @default(autoincrement())
   name                String?             @db.VarChar(255)
+  tag_type            TagType
   createdAt           DateTime            @default(now()) @map("create_at")
   updatedAt           DateTime            @updatedAt @map("updated_at")
   events_hashtags     EventsHashtag[]

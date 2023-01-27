@@ -1,5 +1,6 @@
-export interface EventState {
+export interface HomeState {
 	eventArr: Event[];
+	performersArr: Performer[];
 	loading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 
@@ -36,4 +37,11 @@ export interface Event {
 	date_published: Date;
 	reviews?: string | null;
 	events_hashtags?: string | null;
+}
+
+export interface Performer {
+	id: number;
+	uuid: string;
+	username: string;
+	icon?: string;
 }
