@@ -1,21 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AccountType, AuthState, Gender, JWTPayload } from './state';
-import type { PayloadAction } from '@reduxjs/toolkit';
+// import type { PayloadAction } from '@reduxjs/toolkit';
 import { loginThunk, testThunk, performerThunk } from '../auth/index';
 import jwt_decode from 'jwt-decode';
 
 // Step 1 - InitState
 let initAuthState: AuthState;
-let auth_storage = localStorage.getItem('auth');
-console.log(auth_storage);
+// let auth_storage = localStorage.getItem('auth');
+// console.log("==============auth_storage=============");
+// console.log(auth_storage);
+// console.log("==============auth_storage=============");
+
+const getToken = (window.localStorage.getItem('token'))!
+let decodedToken: JWTPayload = jwt_decode(getToken);
+console.log(decodedToken)
 
 initAuthState = {
 	isAuth: !!window.localStorage.getItem('token'),
 	loading: false,
-	username: undefined,
-	uuid: undefined,
-	identity: undefined,
-	exp: undefined,
+	username: decodedToken.username,
+	uuid: decodedToken.uuid,
+	id: decodedToken.id,
+	performerId: decodedToken.performerId,
+	clientId: decodedToken.clientId,
+	identity: decodedToken.identity,
+	exp: decodedToken.exp,
 	error: undefined,
 };
 
@@ -41,7 +50,7 @@ const authSlice = createSlice({
 		performerP2: (state, action) => {
 			state.tagId = action.payload;
 		},
-		IndividualP2: (state, action) => {},
+		IndividualP2: (state, action) => { },
 	},
 	extraReducers: (builder) =>
 		builder
@@ -53,13 +62,25 @@ const authSlice = createSlice({
 				console.log('check jwt', action.payload);
 				let decoded: JWTPayload = jwt_decode(action.payload);
 				console.log('check decoded', decoded);
-				localStorage.setItem('token', action.payload);
+				// localStorage.setItem('token', action.payload);
+
 				state.uuid = decoded.uuid;
-				state.username = decoded.uuid;
+				state.username = decoded.username;
+				state.id = decoded.id
+				state.performerId = decoded.performerId
+				state.clientId = decoded.clientId
 				state.identity = decoded.identity;
 				state.exp = decoded.exp;
 				state.isAuth = true;
 				localStorage.setItem('token', action.payload);
+				localStorage.setItem('uuid', state.uuid)
+
+				console.log('check getItem');
+				localStorage.setItem('testData', state.uuid)
+				console.log(localStorage.getItem('token'));
+				console.log("token", localStorage.getItem('token'));
+
+
 			})
 			.addCase(loginThunk.rejected, (state, action) => {
 				state.loading = false;

@@ -1,3 +1,4 @@
+
 export enum AccountType {
 	Performer = 'performer',
 	Client = 'individual',
@@ -8,12 +9,21 @@ export enum Gender {
 	Female = 'female',
 	Other = 'other',
 }
+
+
+export enum Identity {
+	Performer = 'performer',
+	Client = 'client',
+}
 export interface AuthState {
 	isAuth: boolean;
-	loading: boolean;
+	loading?: boolean;
 	username?: string;
-	uuid?: string | null;
-	identity?: string | null;
+	uuid?: string;
+	id?: number;
+	performerId?: number | null;
+	clientId?: number | null;
+	identity?: Identity | string;
 	exp?: Date | string;
 	error?: string | undefined;
 	//register
@@ -37,8 +47,13 @@ export interface AuthState {
 export interface JWTPayload {
 	uuid: string;
 	username: string;
+	id: number;
+	performerId?: number | null;
+	clientId?: number | null;
 	identity: string;
 	exp: Date;
+
+
 }
 
 // const payload = {
