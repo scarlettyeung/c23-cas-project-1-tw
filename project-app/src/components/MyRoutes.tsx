@@ -30,31 +30,17 @@ function MyRoutes() {
 			</Route>
 			{/* <Route path='/register' element={<Register />} /> */}
 
-<<<<<<< HEAD
-      <Route path='/' element={<PrivateRoute />}>
-        <Route element={<Home />} index />
-        <Route path='events' element={<Events />} />
-        <Route path='events-detail/:eventsId' element={<EventDetail />} />
-        <Route path='createEventsPage' element={<CreateEventPage />} />
-        <Route path='chatRoom' element={<ChatRoom />} />
-        <Route path='about'  >
-          <Route element={<PersonalDetails/>} index/>
-          <Route path=':uuid' element={<About />} />
-        </Route>
-        {/* <Route path='about/:uuid' element={<About />} >
-          <Route path='details' element={<PersonalDetails/>} />
-        </Route> */}
-      </Route>
-=======
 			<Route path='/' element={<PrivateRoute />}>
 				<Route element={<Home />} index />
 				<Route path='events' element={<Events />} />
 				<Route path='events-detail/:eventsId' element={<EventDetail />} />
 				<Route path='createEventsPage' element={<CreateEventPage />} />
 				<Route path='chatRoom' element={<ChatRoom />} />
-				<Route path='about' element={<About />} />
+				<Route path='about'>
+					<Route element={<PersonalDetails />} index />
+					<Route path=':uuid' element={<About />} />
+				</Route>
 			</Route>
->>>>>>> dcb9df1 (updated events function)
 
 			<Route path='*' element={<NotFound />} />
 		</Routes>
