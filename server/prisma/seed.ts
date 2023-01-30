@@ -19,6 +19,8 @@ enum Properties {
 async function main() {
   await prisma.hashtagDetail.deleteMany()
   await prisma.event.deleteMany()
+  await prisma.hashtagDetail.deleteMany()
+  await prisma.eprofile.deleteMany()
   await prisma.performer.deleteMany()
   await prisma.client.deleteMany()
   await prisma.user.deleteMany()

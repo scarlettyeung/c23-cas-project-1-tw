@@ -446,6 +446,7 @@ export class UserService {
           id: true,
           icon: true,
           username: true,
+          identity: true,
           performers: {
             select: {
               years_of_exp: true,
@@ -503,7 +504,7 @@ export class UserService {
           icon: true,
           username: true,
           email: true,
-          password: true,
+
           identity: true,
           clients: {
             select: {
@@ -544,7 +545,7 @@ export class UserService {
           icon: true,
           username: true,
           email: true,
-          password: true,
+
           identity: true,
           clients: {
             select: {
@@ -589,7 +590,7 @@ export class UserService {
           icon: true,
           username: true,
           email: true,
-          password: true,
+
           identity: true,
           performers: {
             select: {
@@ -661,7 +662,7 @@ export class UserService {
           icon: true,
           username: true,
           email: true,
-          password: true,
+
           identity: true,
           clients: {
             select: {
@@ -714,7 +715,6 @@ export class UserService {
           icon: true,
           username: true,
           email: true,
-          password: true,
           identity: true,
           clients: {
             select: {
