@@ -5,7 +5,7 @@ export const getAllDataThunk = createAsyncThunk<{
 	message: string;
 	events: Event[];
 	performers: Performer[];
-}>('home', async (_, thunkAPI) => {
+}>('home', async (_, _thunkAPI) => {
 	try {
 		const path = process.env.REACT_APP_API_BASE;
 		const jwt = localStorage.getItem('token');

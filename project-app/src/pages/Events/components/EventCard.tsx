@@ -97,7 +97,7 @@ export function BadgeCard({ image, title, description, country, badges }: BadgeC
 									</Card.Section> */}
 
 										<Group mt='xs'>
-											<Link to={`/events-detail/${event.id}`}>
+											<Link to={`/events/events-detail/${event.id}`}>
 												<Button radius='md' style={{ flex: 1 }} btn-id={event.id}>
 													Show details
 												</Button>
