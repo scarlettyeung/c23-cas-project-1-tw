@@ -30,7 +30,7 @@ function EventDetail() {
 		async function loadData() {
 			const path = process.env.REACT_APP_API_BASE;
 			const jwt = localStorage.getItem('token');
-			const res = await fetch(`${path}event/events-detail/${eventId.eventsId}`, {
+			const res = await fetch(`${path}events/${eventId.eventsId}`, {
 				headers: {
 					Authorization: `Bearer ${jwt}`,
 				},

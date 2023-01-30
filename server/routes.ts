@@ -22,4 +22,4 @@ export const routes = express.Router()
 
 routes.use("/users", userRoutes)
 routes.use("/home", homeRoutes)
-routes.use("/event", eventRoutes)
+routes.use("/events", eventRoutes)
