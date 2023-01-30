@@ -10,6 +10,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	padding: 80px 10px 80px 10px;
+	z-index: 1;
 }
 
 .HeaderLogo {

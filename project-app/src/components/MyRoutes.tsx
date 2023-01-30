@@ -19,17 +19,18 @@ import PublicRoute from './PublicRoute';
 import PersonalDetails from '../pages/PersonalDetails';
 
 function MyRoutes() {
-  return (
-    <Routes>
-      <Route path='login' element={<Login />} />
-      <Route path='register' element={<PublicRoute />} >
-        <Route element={<Register />} index />
-        <Route path='corporate' element={<Corporate />} />
-        <Route path='individual' element={<Individual />} />
-        <Route path='performer' element={<Performer />} />
-      </Route>
-      {/* <Route path='/register' element={<Register />} /> */}
+	return (
+		<Routes>
+			<Route path='login' element={<Login />} />
+			<Route path='register' element={<PublicRoute />}>
+				<Route element={<Register />} index />
+				<Route path='corporate' element={<Corporate />} />
+				<Route path='individual' element={<Individual />} />
+				<Route path='performer' element={<Performer />} />
+			</Route>
+			{/* <Route path='/register' element={<Register />} /> */}
 
+<<<<<<< HEAD
       <Route path='/' element={<PrivateRoute />}>
         <Route element={<Home />} index />
         <Route path='events' element={<Events />} />
@@ -44,10 +45,20 @@ function MyRoutes() {
           <Route path='details' element={<PersonalDetails/>} />
         </Route> */}
       </Route>
+=======
+			<Route path='/' element={<PrivateRoute />}>
+				<Route element={<Home />} index />
+				<Route path='events' element={<Events />} />
+				<Route path='events-detail/:eventsId' element={<EventDetail />} />
+				<Route path='createEventsPage' element={<CreateEventPage />} />
+				<Route path='chatRoom' element={<ChatRoom />} />
+				<Route path='about' element={<About />} />
+			</Route>
+>>>>>>> dcb9df1 (updated events function)
 
-      <Route path='*' element={<NotFound />} />
-    </Routes>
-  );
+			<Route path='*' element={<NotFound />} />
+		</Routes>
+	);
 }
 
 export default MyRoutes;

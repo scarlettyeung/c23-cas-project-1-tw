@@ -4,6 +4,7 @@ import { Card, Image, Text, Group, Badge, Button, ActionIcon, createStyles } fro
 import { getAllDataThunk } from '../../../redux/home';
 import { useRootDispatch, useRootSelector } from '../../../redux/store';
 import { PacmanLoader } from 'react-spinners';
+import { Link, useNavigate } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
 	card: {
@@ -85,25 +86,27 @@ export function BadgeCard({ image, title, description, country, badges }: BadgeC
 										<Text size='sm' mt='xs'>
 											{event.description}
 										</Text>
-									</Card.Section>
 
-									<Card.Section className={classes.section}>
+										{/* <Card.Section className={classes.section}>
 										<Text mt='md' className={classes.label} color='dimmed'>
 											Perfect for you, if you enjoy
 										</Text>
 										<Group spacing={7} mt={5}>
 											{features}
 										</Group>
-									</Card.Section>
+									</Card.Section> */}
 
-									<Group mt='xs'>
-										<Button radius='md' style={{ flex: 1 }}>
-											Show details
-										</Button>
-										<ActionIcon variant='default' radius='md' size={36}>
-											<IconHeart size={18} className={classes.like} stroke={1.5} />
-										</ActionIcon>
-									</Group>
+										<Group mt='xs'>
+											<Link to={`/events-detail/${event.id}`}>
+												<Button radius='md' style={{ flex: 1 }} btn-id={event.id}>
+													Show details
+												</Button>
+											</Link>
+											<ActionIcon variant='default' radius='md' size={36}>
+												<IconHeart size={18} className={classes.like} stroke={1.5} />
+											</ActionIcon>
+										</Group>
+									</Card.Section>
 								</Card>
 							</div>
 						))}
