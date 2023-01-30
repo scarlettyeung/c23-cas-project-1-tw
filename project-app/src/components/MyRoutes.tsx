@@ -34,7 +34,7 @@ function MyRoutes() {
 				<Route element={<Home />} index />
 				<Route path='events' element={<Events />} />
 				<Route path='events/events-detail/:eventsId' element={<EventDetail />} />
-				<Route path='createEventsPage' element={<CreateEventPage />} />
+				<Route path='events/createEvents' element={<CreateEventPage />} />
 				<Route path='chatRoom' element={<ChatRoom />} />
 				<Route path='about'>
 					<Route element={<PersonalDetails />} index />

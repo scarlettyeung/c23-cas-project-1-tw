@@ -9,7 +9,6 @@ import {
 	SimpleGrid,
 	createStyles,
 } from '@mantine/core';
-import bg from './bg.svg';
 
 const useStyles = createStyles((theme) => {
 	const BREAKPOINT = theme.fn.smallerThan('sm');

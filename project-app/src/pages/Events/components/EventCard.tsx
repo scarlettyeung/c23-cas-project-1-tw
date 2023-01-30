@@ -4,7 +4,7 @@ import { Card, Image, Text, Group, Badge, Button, ActionIcon, createStyles } fro
 import { getAllDataThunk } from '../../../redux/home';
 import { useRootDispatch, useRootSelector } from '../../../redux/store';
 import { PacmanLoader } from 'react-spinners';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
 	card: {
