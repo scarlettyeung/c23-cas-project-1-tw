@@ -11,10 +11,10 @@ import PrivateRoute from './PrivateRoute';
 import CreateEventPage from '../pages/Events/components/CreateEvents';
 import EventDetail from '../pages/Events/EventDetailPage';
 import React from 'react';
-import Corporate from '../pages/Corporate';
-import Individual from '../pages/Individual';
-import Performer from '../pages/Performer';
-import Register from '../pages/Register';
+import Corporate from '../pages/Register/corporate/Corporate';
+import Individual from '../pages/Register/Individual/Individual';
+import Performer from '../pages/Register/Performer/Performer';
+import Register from '../pages/Register/Register';
 import PublicRoute from './PublicRoute';
 import PersonalDetails from '../pages/PersonalDetails';
 

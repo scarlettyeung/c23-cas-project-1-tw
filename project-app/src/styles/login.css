@@ -14,12 +14,14 @@
 }
 
 input[type="text"], textarea {
-  background-color : #EFEFEF; 
+  background-color: rgba(255, 255, 255, 0.4);
   padding-left: 12px;
 }
 
 input[type="password"], textarea {
-  background-color : #EFEFEF; 
+
+  background-color: rgba(255, 255, 255, 0.4);
+    
   padding-left: 12px;
 }
 
@@ -39,6 +41,7 @@ input[type="checkbox"] {
 }
 
 .login {
+  margin-top:20px;
   border: 0;
   width: 65vw;
   padding: 12px;
@@ -52,6 +55,23 @@ input[type="checkbox"] {
   padding: 12px;
   border-radius: 6px;
   margin-bottom: 20px;
-
+  margin-top:60px;
 }
 
+.outerDiv {
+  background: linear-gradient(#ffb79d, hsl(336, 100%, 87%));
+  height:100vh;
+  width:100vw;
+  /* font-size: 30px; */
+  padding-top:5px;
+  /* font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+}
+
+.checkbox {
+  margin:10px 70px;
+}
+
+.break {
+  margin-top: 60px;
+  width:60vw;
+}
