@@ -316,10 +316,7 @@ async function main() {
       clients: { select: { id: true } },
     },
   })
-<<<<<<< HEAD
 
-=======
->>>>>>> dcb9df1 (updated events function)
   await prisma.event.createMany({
     data: [
       {

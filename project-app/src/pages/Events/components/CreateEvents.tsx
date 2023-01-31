@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import {
 	Paper,
 	Text,
@@ -8,7 +8,12 @@ import {
 	Group,
 	SimpleGrid,
 	createStyles,
+	NumberInput,
+	Checkbox,
 } from '@mantine/core';
+// import { Dropzone } from '@mantine/dropzone';
+import { TimeInput, DatePicker } from '@mantine/dates';
+import { useForm } from 'react-hook-form';
 
 const useStyles = createStyles((theme) => {
 	const BREAKPOINT = theme.fn.smallerThan('sm');
@@ -101,45 +106,164 @@ const useStyles = createStyles((theme) => {
 
 export function CreateEvents() {
 	const { classes } = useStyles();
+	const { register, handleSubmit } = useForm();
+	const [startDate, setStartDate] = useState(new Date());
+	const [endDate, setEndDate] = useState(new Date());
+	const [startTime, setStartTime] = useState(new Date());
+	const [endTime, setEndTime] = useState(new Date());
+	const [value, setValue] = useState(0);
+	const [checked, setChecked] = useState(false);
+	// const openRef = useRef<() => void>(null);
 
 	return (
-		<Paper shadow='md' radius='lg'>
-			<div className={classes.wrapper}>
-				<div className={classes.contacts}>
-					<Text size='lg' weight={700} className={classes.title} sx={{ color: '#fff' }}>
-						Contact information
-					</Text>
-				</div>
+		<div>
+			<form
+				onSubmit={handleSubmit(async (data) => {
+					const formData = new FormData();
+					const path = process.env.REACT_APP_API_BASE;
+					const jwt = localStorage.getItem('token');
 
-				<form className={classes.form} onSubmit={(event) => event.preventDefault()}>
-					<Text size='lg' weight={700} className={classes.title}>
-						Add Your Event Details
-					</Text>
+					formData.append('title', data.title);
+					formData.append('location', data.location);
+					formData.append('wage_offer', data.wage_offer);
+					formData.append('start_date', startDate.toString());
+					formData.append('end_date', endDate.toString());
+					formData.append('start_time', startTime.toString());
+					formData.append('end_time', endTime.toString());
+					formData.append('description', data.description);
+					formData.append('rehearsal_needed', data.rehearsal_needed);
 
-					<div className={classes.fields}>
-						<SimpleGrid cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
-							<TextInput label='Event Title' placeholder='Event Title' required />
-							<TextInput label='Venue Name' placeholder='Venue Name' required />
-							<TextInput label='Wage Offer ' placeholder='Wage Offer ' required />
-							<TextInput label='Wage Offer ' placeholder='Wage Offer ' required />
-						</SimpleGrid>
+					console.log('========FORM DATA======', data.title);
+					console.log('========FORM DATA======', data.location);
+					console.log('========FORM DATA======', value.toString());
+					console.log('========FORM DATA======', startDate.toString());
+					console.log('========FORM DATA======', endDate.toString());
+					console.log('========FORM DATA======', startTime.toString());
+					console.log('========FORM DATA======', endTime.toString());
+					console.log('========FORM DATA======', data.description);
+					console.log('========FORM DATA======', checked);
 
-						<Textarea
-							mt='md'
-							label='Description '
-							placeholder='Please include all information'
-							minRows={3}
-						/>
+					await fetch(`${path}events/createEvents`, {
+						method: 'POST',
+						headers: {
+							Authorization: `Bearer ${jwt}`,
+						},
+						body: formData,
+					});
+				})}
+			>
+				<Paper shadow='md' radius='lg'>
+					<div className={classes.wrapper}>
+						{/* {image?.[0] && (
+							<img
+								className='avatar'
+								width='100'
+								alt='Upload Event Photo'
+								src={URL.createObjectURL(image[0])}
+							/>
+						)} */}
+						<Text size='lg' weight={700} className={classes.title}>
+							Add Your Event Details
+						</Text>
 
-						<Group position='right' mt='md'>
-							<Button type='submit' className={classes.control}>
-								Submit
-							</Button>
-						</Group>
+						<div className={classes.fields}>
+							{/* <Dropzone
+								className={classes.fields}
+								openRef={openRef}
+								onDrop={() => {}}
+								activateOnClick={false}
+								styles={{ inner: { pointerEvents: 'all' } }}
+								{...register('image')}
+							>
+								<Group position='center'>
+									<Button
+										onClick={() => {
+											const fn = openRef?.current;
+											if (fn) fn();
+										}}
+									>
+										Select files
+									</Button>
+								</Group>
+							</Dropzone> */}
+
+							{/* <input className={classes.fields} type='file' {...register('image')} /> */}
+
+							<SimpleGrid cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
+								<TextInput
+									label='Event Title'
+									placeholder='Event Title'
+									required
+									{...register('title')}
+								/>
+								<TextInput label='Location' placeholder='TST' required {...register('location')} />
+								<NumberInput
+									label='Wage Offer'
+									defaultValue={1500}
+									required
+									value={value}
+									onChange={(val) => setValue(val!)}
+								/>
+								<DatePicker
+									placeholder='Pick date'
+									label='Start date'
+									inputFormat='MM/DD/YYYY'
+									labelFormat='MM/YYYY'
+									required
+									defaultValue={new Date()}
+									value={startDate}
+									onChange={(e) => setStartDate(e!)}
+								/>
+								<DatePicker
+									placeholder='Pick date'
+									label='End date'
+									inputFormat='MM/DD/YYYY'
+									labelFormat='MM/YYYY'
+									required
+									defaultValue={new Date()}
+									value={endDate}
+									onChange={(e) => setEndDate(e!)}
+								/>
+								<TimeInput
+									label='Start time'
+									format='12'
+									defaultValue={new Date()}
+									value={startTime}
+									onChange={(e) => setStartTime(e!)}
+								/>
+								<TimeInput
+									label='End time'
+									format='12'
+									defaultValue={new Date()}
+									value={endTime}
+									onChange={(e) => setEndTime(e!)}
+								/>
+							</SimpleGrid>
+
+							<Checkbox
+								checked={checked}
+								onChange={(event) => setChecked(event.currentTarget.checked)}
+								label='Rehearsal need?'
+							/>
+
+							<Textarea
+								mt='md'
+								label='Description '
+								placeholder='Please include all information'
+								minRows={3}
+								{...register('description')}
+							/>
+
+							<Group position='right' mt='md'>
+								<Button type='submit' className={classes.control}>
+									Submit
+								</Button>
+							</Group>
+						</div>
 					</div>
-				</form>
-			</div>
-		</Paper>
+				</Paper>
+			</form>
+		</div>
 	);
 }
 

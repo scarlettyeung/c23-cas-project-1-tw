@@ -57,6 +57,7 @@ export class HomeService {
           name: tagName,
         },
         select: {
+          name: true,
           performers_hashtags: {
             select: {
               performers_id: true,

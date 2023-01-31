@@ -4,8 +4,8 @@ export interface TagsState {
 }
 
 export interface HashTags {
-	id: number | undefined;
-	name: string | undefined;
-	performers_hashtags: any[] | undefined;
-	events_hashtags: any[] | undefined;
+	id: number;
+	name: string;
+	performers_hashtags: any[];
+	events_hashtags: any[];
 }

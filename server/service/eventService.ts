@@ -21,4 +21,50 @@ export class EventService {
       return
     }
   }
+
+  async createEvent(
+    clients_id: number,
+    title: string,
+    wage_offer: number,
+    start_date: Date,
+    end_date: Date,
+    start_time: string,
+    end_time: string,
+    rehearsal_needed: any,
+    image: string,
+    description: string,
+    location: string
+  ) {
+    try {
+      logger.info("createEvent in UserService")
+      if (!location) return
+      const now = new Date()
+      await prisma.event.create({
+        data: {
+          clients_id: clients_id,
+          title: title,
+          wage_offer: wage_offer,
+          start_date: start_date,
+          end_date: end_date,
+          start_time: start_time,
+          end_time: end_time,
+          rehearsal_needed: rehearsal_needed,
+          image: image,
+          description: description,
+          location: location,
+          status: "valid",
+          properties: "public",
+          is_shown: true,
+          date_published: now,
+        },
+      })
+      await prisma.$disconnect()
+      return
+    } catch (e) {
+      logger.info("in service")
+      logger.debug(e)
+      await prisma.$disconnect()
+      return
+    }
+  }
 }
