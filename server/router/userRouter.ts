@@ -1,7 +1,7 @@
 import express from "express"
 import { userController } from "../routes"
-import { isLoggedIn, checkTokenExp, tokenExpUpdate } from "../utils/guard"
-// import { isLoggedIn, checkTokenExp } from "../utils/guard"
+// import { isLoggedIn, checkTokenExp, tokenExpUpdate } from "../utils/guard"
+import { isLoggedIn } from "../utils/guard"
 
 export const userRoutes = express.Router()
 
@@ -9,14 +9,14 @@ userRoutes.post("/login", userController.login)
 userRoutes.post("/createUser", userController.createUser)
 
 //test rout
-userRoutes.post("/forTest", isLoggedIn, checkTokenExp, userController.forTest)
-userRoutes.post(
-  "/forTestExpUpdate",
-  isLoggedIn,
-  checkTokenExp,
-  tokenExpUpdate,
-  userController.forTest
-)
+// userRoutes.post("/forTest", isLoggedIn, checkTokenExp, userController.forTest)
+// userRoutes.post(
+//   "/forTestExpUpdate",
+//   isLoggedIn,
+//   checkTokenExp,
+//   tokenExpUpdate,
+//   userController.forTest
+// )
 
 // get user info
 userRoutes.get("/getInfo/:uuid", isLoggedIn, userController.getUserinfo)

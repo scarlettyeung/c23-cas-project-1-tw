@@ -1,30 +1,23 @@
-import React from 'react'
-import { EventData } from '../index'
+import React from 'react';
+import { Event } from '../index';
 
 type EventInfoProps = {
-    eventInfoData: EventData[] | null
-}
+	eventInfoData?: Event[];
+};
 
 function EventInfo(info: EventInfoProps) {
+	const eventArr = info.eventInfoData;
+	let mapEvent;
+	if (eventArr) mapEvent = eventArr.map((event) => <div key={event.id}>{event.title}</div>);
+	return (
+		<>
+			<div>EventInfo</div>
 
-    const EventArr = info.eventInfoData!
+			{!info && <div>No Event</div>}
 
-    return (
-        <>
-            <div>EventInfo</div>
-
-            {EventArr.length < 1 && <div>No Event</div>}
-
-            {EventArr.length > 1 && EventArr.map((e) => {
-
-                return (
-                    <div key={`event_key_${e.title}`}>
-                        {e.title}
-                    </div>)
-
-            })}
-        </>
-    )
+			{eventArr && mapEvent}
+		</>
+	);
 }
 
-export default EventInfo
+export default EventInfo;

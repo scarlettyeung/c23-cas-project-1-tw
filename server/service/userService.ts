@@ -437,7 +437,7 @@ export class UserService {
   async getPerformersProfilePageInfo(uuid: string) {
     try {
       logger.info("get Performers Info call in UserService")
-      const info = await prisma.user.findUnique({
+      const userInfo = await prisma.user.findUnique({
         where: {
           uuid: uuid,
         },
@@ -459,11 +459,18 @@ export class UserService {
               ig_url: true,
               performers_hashtags: {
                 select: {
-                  hashtag_details_id: true,
+                  // hashtag_details_id: true,
+                  hashtag_details: {
+                    select: {
+                      id: true,
+                      name: true,
+                    },
+                  },
                 },
               },
               events: {
                 select: {
+                  id: true,
                   title: true,
                 },
               },
@@ -482,8 +489,32 @@ export class UserService {
         },
       })
 
+      const userScore = await prisma.review.aggregate({
+        _avg: {
+          score: true,
+        },
+        where: {
+          users_id: userInfo?.id,
+        },
+      })
+
+      const sumOfEvents = await prisma.review.count({
+        where: {
+          users_id: userInfo?.id,
+        },
+      })
+
+      const userAvgScore = { avgScore: 0 }
+      if (userScore._avg.score) {
+        userAvgScore.avgScore = userScore._avg.score
+      }
+
+      if (!userInfo) return
+      userInfo.performers[0]["avgScore"] = userAvgScore.avgScore
+      userInfo.performers[0]["sumOfEven"] = sumOfEvents
+
       await prisma.$disconnect()
-      return info
+      return userInfo
     } catch (e) {
       logger.debug(e)
       await prisma.$disconnect()
@@ -494,7 +525,7 @@ export class UserService {
   async getIndividualClientInfoPageInfo(uuid: string) {
     try {
       logger.info("get Individual Client Info call in UserService")
-      const info = await prisma.user.findUnique({
+      const userInfo = await prisma.user.findUnique({
         where: {
           uuid: uuid,
         },
@@ -504,7 +535,6 @@ export class UserService {
           icon: true,
           username: true,
           email: true,
-
           identity: true,
           clients: {
             select: {
@@ -513,6 +543,7 @@ export class UserService {
               client_type: true,
               events: {
                 select: {
+                  id: true,
                   title: true,
                 },
               },
@@ -521,10 +552,33 @@ export class UserService {
         },
       })
 
-      logger.info(info)
+      const userScore = await prisma.review.aggregate({
+        _avg: {
+          score: true,
+        },
+        where: {
+          users_id: userInfo?.id,
+        },
+      })
+
+      const sumOfEvents = await prisma.review.count({
+        where: {
+          users_id: userInfo?.id,
+        },
+      })
+
+      const userAvgScore = { avgScore: 0 }
+      if (userScore._avg.score) {
+        userAvgScore.avgScore = userScore._avg.score
+      }
+
+      if (!userInfo) return
+      userInfo.clients[0]["avgScore"] = userAvgScore.avgScore
+      userInfo.clients[0]["sumOfEven"] = sumOfEvents
+
       logger.info("get info in UserService")
       await prisma.$disconnect()
-      return info
+      return userInfo
     } catch (e) {
       logger.debug(e)
       await prisma.$disconnect()
@@ -535,7 +589,7 @@ export class UserService {
   async getCorporateClientInfoPageInfo(uuid: string) {
     try {
       logger.info("call get Corporate Client InfoPage Info in userService")
-      const info = await prisma.user.findUnique({
+      const userInfo = await prisma.user.findUnique({
         where: {
           uuid: uuid,
         },
@@ -545,7 +599,6 @@ export class UserService {
           icon: true,
           username: true,
           email: true,
-
           identity: true,
           clients: {
             select: {
@@ -557,6 +610,7 @@ export class UserService {
               business_website_url: true,
               events: {
                 select: {
+                  id: true,
                   title: true,
                 },
               },
@@ -565,8 +619,32 @@ export class UserService {
         },
       })
 
+      const userScore = await prisma.review.aggregate({
+        _avg: {
+          score: true,
+        },
+        where: {
+          users_id: userInfo?.id,
+        },
+      })
+
+      const sumOfEvents = await prisma.review.count({
+        where: {
+          users_id: userInfo?.id,
+        },
+      })
+
+      const userAvgScore = { avgScore: 0 }
+      if (userScore._avg.score) {
+        userAvgScore.avgScore = userScore._avg.score
+      }
+
+      if (!userInfo) return
+      userInfo.clients[0]["avgScore"] = userAvgScore.avgScore
+      userInfo.clients[0]["sumOfEven"] = sumOfEvents
+
       await prisma.$disconnect()
-      return info
+      return userInfo
     } catch (e) {
       logger.debug(e)
       await prisma.$disconnect()
@@ -590,7 +668,7 @@ export class UserService {
           icon: true,
           username: true,
           email: true,
-
+          // password: true,
           identity: true,
           performers: {
             select: {
@@ -606,12 +684,7 @@ export class UserService {
               ig_url: true,
               performers_hashtags: {
                 select: {
-                  hashtag_details_id: true,
-                },
-              },
-              teams_performers: {
-                select: {
-                  teams: {
+                  hashtag_details: {
                     select: {
                       id: true,
                       name: true,
@@ -619,27 +692,53 @@ export class UserService {
                   },
                 },
               },
+              // teams_performers: {
+              //   select: {
+              //     teams: {
+              //       select: {
+              //         id: true,
+              //         name: true,
+              //       },
+              //     },
+              //   },
+              // },
+              events: {
+                select: {
+                  id: true,
+                  title: true,
+                },
+              },
             },
           },
         },
       })
 
-      const userScore = await prisma.review.aggregate({
-        _avg: {
-          score: true,
-        },
+      const userAvgScore = { avgScore: 0 }
+
+      const sumOfEvents = await prisma.review.count({
         where: {
-          users_id: userId,
+          users_id: userInfo?.id,
         },
       })
 
-      const userAvgScore = { avgScore: 0 }
-      if (userScore._avg.score) {
-        userAvgScore.avgScore = userScore._avg.score
+      if (sumOfEvents != 0) {
+        const userScore = await prisma.review.aggregate({
+          _avg: {
+            score: true,
+          },
+          where: {
+            users_id: userId,
+          },
+        })
+        if (userScore._avg.score) {
+          userAvgScore.avgScore = userScore._avg.score
+        }
       }
 
       await prisma.$disconnect()
       if (!userInfo) return
+      logger.info("add to info")
+      userInfo.performers[0]["sumOfEven"] = sumOfEvents
       userInfo.performers[0]["avgScore"] = userAvgScore.avgScore
       return userInfo
     } catch (e) {
@@ -662,7 +761,7 @@ export class UserService {
           icon: true,
           username: true,
           email: true,
-
+          // password: true,
           identity: true,
           clients: {
             select: {
@@ -672,6 +771,12 @@ export class UserService {
               contact_email: true,
               description: true,
               client_type: true,
+              events: {
+                select: {
+                  id: true,
+                  title: true,
+                },
+              },
             },
           },
         },
@@ -691,9 +796,16 @@ export class UserService {
         userAvgScore.avgScore = userScore._avg.score
       }
 
+      const sumOfEvents = await prisma.review.count({
+        where: {
+          users_id: userInfo?.id,
+        },
+      })
+
       await prisma.$disconnect()
       if (!userInfo) return
       userInfo.clients[0]["avgScore"] = userAvgScore.avgScore
+      userInfo.clients[0]["sumOfEven"] = sumOfEvents
       return userInfo
     } catch (e) {
       logger.debug(e)
@@ -715,6 +827,7 @@ export class UserService {
           icon: true,
           username: true,
           email: true,
+          password: true,
           identity: true,
           clients: {
             select: {
@@ -727,6 +840,12 @@ export class UserService {
               business_address: true,
               business_BR_no: true,
               business_website_url: true,
+              events: {
+                select: {
+                  id: true,
+                  title: true,
+                },
+              },
             },
           },
         },
@@ -745,9 +864,16 @@ export class UserService {
         userAvgScore.avgScore = userScore._avg.score
       }
 
+      const sumOfEvents = await prisma.review.count({
+        where: {
+          users_id: userInfo?.id,
+        },
+      })
+
       await prisma.$disconnect()
       if (!userInfo) return
       userInfo.clients[0]["avgScore"] = userAvgScore.avgScore
+      userInfo.clients[0]["sumOfEven"] = sumOfEvents
       return userInfo
     } catch (e) {
       logger.debug(e)

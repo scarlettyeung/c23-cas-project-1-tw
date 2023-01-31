@@ -11,23 +11,37 @@ let initAuthState: AuthState;
 // console.log(auth_storage);
 // console.log("==============auth_storage=============");
 
-const getToken = (window.localStorage.getItem('token'))!
-let decodedToken: JWTPayload = jwt_decode(getToken);
-console.log(decodedToken)
+let decodedToken: JWTPayload;
+if (window.localStorage.getItem('token')) {
+	const getToken = window.localStorage.getItem('token')!;
+	decodedToken = jwt_decode(getToken);
 
-initAuthState = {
-	isAuth: !!window.localStorage.getItem('token'),
-	loading: false,
-	username: decodedToken.username,
-	uuid: decodedToken.uuid,
-	id: decodedToken.id,
-	performerId: decodedToken.performerId,
-	clientId: decodedToken.clientId,
-	identity: decodedToken.identity,
-	exp: decodedToken.exp,
-	error: undefined,
-};
-
+	initAuthState = {
+		isAuth: !!decodedToken,
+		loading: false,
+		username: decodedToken!.username,
+		uuid: decodedToken!.uuid,
+		id: decodedToken!.id,
+		performerId: decodedToken!.performerId,
+		clientId: decodedToken!.clientId,
+		identity: decodedToken!.identity,
+		exp: decodedToken!.exp,
+		error: undefined,
+	};
+} else {
+	initAuthState = {
+		isAuth: false,
+		loading: false,
+		username: undefined,
+		uuid: undefined,
+		id: undefined,
+		performerId: undefined,
+		clientId: undefined,
+		identity: undefined,
+		exp: undefined,
+		error: undefined,
+	};
+}
 // Step 2 - Slice
 const authSlice = createSlice({
 	name: 'auth',
@@ -37,6 +51,7 @@ const authSlice = createSlice({
 			console.log('reducer logout');
 			state.isAuth = false;
 			localStorage.removeItem('token');
+			localStorage.removeItem('uuid');
 		},
 		chooseType: (state, action) => {
 			state.accountType = action.payload as AccountType;
@@ -50,7 +65,7 @@ const authSlice = createSlice({
 		performerP2: (state, action) => {
 			state.tagId = action.payload;
 		},
-		IndividualP2: (state, action) => { },
+		IndividualP2: (state, action) => {},
 	},
 	extraReducers: (builder) =>
 		builder
@@ -66,21 +81,14 @@ const authSlice = createSlice({
 
 				state.uuid = decoded.uuid;
 				state.username = decoded.username;
-				state.id = decoded.id
-				state.performerId = decoded.performerId
-				state.clientId = decoded.clientId
+				state.id = decoded.id;
+				state.performerId = decoded.performerId;
+				state.clientId = decoded.clientId;
 				state.identity = decoded.identity;
 				state.exp = decoded.exp;
 				state.isAuth = true;
 				localStorage.setItem('token', action.payload);
-				localStorage.setItem('uuid', state.uuid)
-
-				console.log('check getItem');
-				localStorage.setItem('testData', state.uuid)
-				console.log(localStorage.getItem('token'));
-				console.log("token", localStorage.getItem('token'));
-
-
+				localStorage.setItem('uuid', state.uuid);
 			})
 			.addCase(loginThunk.rejected, (state, action) => {
 				state.loading = false;

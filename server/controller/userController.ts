@@ -40,6 +40,7 @@ export class UserController {
         let performersId: number | undefined = undefined
         let clientId: number | undefined = undefined
         let clientType: ClientType | undefined = undefined
+
         if (user.performers[0]) {
           performersId = user.performers[0].id
         }
@@ -50,6 +51,7 @@ export class UserController {
         }
 
         // after 5 min
+
         logger.info("line44")
         console.dir(performersId)
         console.dir(clientId)
@@ -104,31 +106,31 @@ export class UserController {
     }
   }
 
-  forTest = async (req: Request, res: Response) => {
-    try {
-      logger.info("===========================")
-      logger.info("==========Testing==========")
-      logger.info("===========================")
+  // forTest = async (req: Request, res: Response) => {
+  //   try {
+  //     logger.info("===========================")
+  //     logger.info("==========Testing==========")
+  //     logger.info("===========================")
 
-      const payloadFromRes = res.locals.payload
-      if (payloadFromRes) {
-        logger.info("the payload is ")
-        console.dir(payloadFromRes)
-      }
+  //     const payloadFromRes = res.locals.payload
+  //     if (payloadFromRes) {
+  //       logger.info("the payload is ")
+  //       console.dir(payloadFromRes)
+  //     }
 
-      const newToken = res.locals.token
-      logger.info("get the newToken !!")
-      console.dir(newToken)
+  //     const newToken = res.locals.token
+  //     logger.info("get the newToken !!")
+  //     console.dir(newToken)
 
-      return res
-        .status(200)
-        .json({ message: "Hi user! you a login ", token: newToken })
-    } catch (e) {
-      logger.error(e)
-      res.status(500).json({ message: "internal server error" })
-      return
-    }
-  }
+  //     return res
+  //       .status(200)
+  //       .json({ message: "Hi user! you a login ", token: newToken })
+  //   } catch (e) {
+  //     logger.error(e)
+  //     res.status(500).json({ message: "internal server error" })
+  //     return
+  //   }
+  // }
 
   createUser = async (req: Request, res: Response) => {
     try {
@@ -362,7 +364,7 @@ export class UserController {
       // const uuid = await req.body.uuid
       // const Identity = await req.body.Identity
       // const info = await this.userService
-      res.status(200).json({ message: "get user info ", data })
+      res.status(200).json({ message: "get user info", data })
       return
     } catch (e) {
       logger.error(e)
@@ -400,7 +402,7 @@ export class UserController {
           )
         } else if (clientType === "corporate") {
           logger.info("You are corporate client")
-          userInfo = await this.userService.getIndividualClientSettingPageInfo(
+          userInfo = await this.userService.getCorporateClientSettingPageInfo(
             uuid,
             userId
           )

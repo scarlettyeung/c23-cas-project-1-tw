@@ -80,6 +80,13 @@ async function main() {
         contact_number: 43214321,
         gender: "female",
       },
+      {
+        users_id: 5,
+        years_of_exp: 0,
+        birthday: new Date("1997-07-16"),
+        contact_number: 43214321,
+        gender: "other",
+      },
     ],
   })
 
@@ -259,6 +266,47 @@ async function main() {
     ],
   })
 
+  await prisma.performersHashtag.createMany({
+    data: [
+      {
+        performers_id: 1,
+        hashtag_details_id: 1,
+      },
+      {
+        performers_id: 1,
+        hashtag_details_id: 2,
+      },
+      {
+        performers_id: 1,
+        hashtag_details_id: 3,
+      },
+      {
+        performers_id: 1,
+        hashtag_details_id: 4,
+      },
+      ////
+      {
+        performers_id: 2,
+        hashtag_details_id: 5,
+      },
+      {
+        performers_id: 2,
+        hashtag_details_id: 1,
+      },
+      {
+        performers_id: 2,
+        hashtag_details_id: 2,
+      },
+      {
+        performers_id: 2,
+        hashtag_details_id: 6,
+      },
+      {
+        performers_id: 2,
+        hashtag_details_id: 4,
+      },
+    ],
+  })
   const userId = await prisma.user.findMany({
     select: {
       id: true,

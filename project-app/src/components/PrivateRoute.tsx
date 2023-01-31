@@ -6,7 +6,6 @@ function PrivateRoute() {
 	const isAuth = useRootSelector((state) => state.auth.isAuth);
 	const location = useLocation();
 
-	console.log(isAuth);
 	if (!isAuth) {
 		return <Navigate to='/login' state={{ from: location }} replace />;
 	}
