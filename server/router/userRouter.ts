@@ -24,6 +24,10 @@ userRoutes.get("/getInfo/:uuid", isLoggedIn, userController.getUserinfo)
 // get user setting info
 userRoutes.get("/getSettingInfo", isLoggedIn, userController.getUserSettingInfo)
 userRoutes.put("/editInfo", isLoggedIn, userController.editUserSettingInfo)
+userRoutes.get(
+  "/getPerformerHashtag",
+  userController.getAllPerformerHashtagData
+)
 
 // get user e-Profile
 userRoutes.get("/eProfile/:uuid/get", isLoggedIn, userController.getEProfile)

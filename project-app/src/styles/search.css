@@ -9,6 +9,11 @@
 	padding: 10px;
 	font-size: 20px;
 }
+
+.mantine-Select-dropdown {
+	z-index: 1;
+}
+
 /* 
 .list {
 	padding: 0;

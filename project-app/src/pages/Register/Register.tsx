@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-// import { registerThunk } from "../redux/auth";
-import { useRootDispatch } from '../redux/store';
-import { AccountType } from "../redux/auth";
+import { useRootDispatch } from '../../redux/store';
+import { AccountType } from "../../redux/auth";
 import { useNavigate } from "react-router-dom";
-import { chooseType } from '../redux/auth';
+import { chooseType } from '../../redux/auth';
+
+import "../../styles/register.css"
+import { Button } from '@mantine/core'
 
 // enum AccountType {
 //   Performer = "performer",
@@ -41,18 +43,20 @@ export default function Register() {
 
   return (
     <>
-      <div>
-        <div>
+      <div className="register-outerDiv">
+        <img className='register-logo' src='../../joasisLogo.png' alt='Joasis logo' />
+        {/* <div className="register-title">
           Welcome to JOASIS!
+        </div > */}
+        <div className="register-content">
+          Choose your account type!!
         </div>
-        <div>
-          Which type of account do you like to create?
+
+        <div className="register-btnContainer">
+          <Button radius="xl" className="register-btn" variant="gradient" gradient={{ from: '#ed6ea0', to: '#ec8c69', deg: 35 }} uppercase size="lg" id="performer" value={performer} onClick={handlePerformer} >Performer</Button>
+          <Button radius="xl" className="register-btn" variant="gradient" gradient={{ from: '#ed6ea0', to: '#ec8c69', deg: 35 }} uppercase size="lg" id="client" value={client} onClick={handleClient}>Individual Client</Button>
+          <Button radius="xl" className="register-btn" variant="gradient" gradient={{ from: '#ed6ea0', to: '#ec8c69', deg: 35 }} uppercase size="lg" id="corporate" value={corporateClient} onClick={handleCorporateClient}>Corporate Client</Button>
         </div>
-      </div>
-      <div>
-        <button id="performer" value={performer} onClick={handlePerformer} >Performer</button>
-        <button id="client" value={client} onClick={handleClient}>Client</button>
-        <button id="corporate" value={corporateClient} onClick={handleCorporateClient}>Corporate Client</button>
       </div>
     </>
   )

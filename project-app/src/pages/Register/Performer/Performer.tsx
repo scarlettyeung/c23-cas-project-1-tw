@@ -1,54 +1,60 @@
 import { FormEvent, useState } from "react"
-import { useRootDispatch } from "../redux/store"
-import BasicInfo from "../components/registerComponent/BasicInfo"
+
+import BasicInfo, { BasicData } from "../registerComponent/BasicInfo"
 // import { AddressForm } from "./AddressForm"
-import { useMultiStepForm } from "../models/useMultistepForm"
-import PerformerHash from "../components/registerComponent/PerformerHash"
-import PerformerInfo from "../components/registerComponent/PerformerInfo"
+import { useMultiStepForm } from "../../../models/useMultistepForm"
+import PerformerHash from "./Component/PerformerHash"
+import PerformerInfo from "./Component/PerformerInfo"
+import { useRootDispatch } from "../../../redux/store"
+import { performerThunk } from "../../../redux/auth/thunk"
 // import { UserForm } from "./UserForm"
+enum Gender {
+  Male = "male",
+  Female = "female",
+  Other = "other"
+}
 
 type FormData = {
-  icon: string
   email: string
   password: string
-  password2: string
+  // password2: string
   username: string
-  tagId: number | null
-  // firstName: string
-  // lastName: string
-  // age: string
-  // experience: string
-  // contact: string
-  // team: string
-  // birthday: string
-  // description: string
-  // gender: string
-  // faceBookURL: string
-  // twitterURL: string
-  // youtubeURL: string
+  tagId: number[] | null
+  firstName: string
+  lastName: string
+  age: string
+  experience: string
+  contact: string
+  team: string
+  birthday: string
+  description: string
+  gender: Gender | null
+  facebookURL: string
+  twitterURL: string
+  youtubeURL: string
+  igURL: string
 }
 
 
 const INITIAL_DATA: FormData = {
-
-  icon: '',
   email: '',
   password: '',
-  password2: '',
+  // password2: '',
   username: '',
   tagId: null,
-  // firstName: '',
-  // lastName: '',
-  // age: '',
-  // experience: '',
-  // contact: '',
-  // team: '',
-  // birthday: '',
-  // description: '',
-  // gender: '',
-  // faceBookURL: '',
-  // twitterURL: '',
-  // youtubeURL: ''
+  firstName: '',
+  lastName: '',
+  age: '',
+  experience: '',
+  contact: '',
+  team: '',
+  birthday: '',
+  description: '',
+  gender: null,
+  facebookURL: '',
+  twitterURL: '',
+  youtubeURL: '',
+  igURL: ''
 
 }
 
@@ -61,14 +67,16 @@ function Performer() {
     })
   }
 
-  const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } = useMultiStepForm([<BasicInfo {...data} updateFields={updateFields} />])
+  const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } = useMultiStepForm([<BasicInfo {...data} updateFields={updateFields} />, <PerformerHash {...data} updateFields={updateFields} />, <PerformerInfo {...data} updateFields={updateFields} />])
   // [<PerformerInfo{...data} updateFields={updateFields} />]
   // [<BasicInfo {...data} updateFields={updateFields} />]
   // [<PerformerHash {...data} updateFields={updateFields} />]
   function onSubmit(e: FormEvent) {
     e.preventDefault()
-    if (!isLastStep) return next()
-    // dispatch
+    if (!isLastStep) return next();
+    // if ((data.password = data.password2) && data.tagId !== null) {
+    //   // dispatch(performerThunk({ data }))
+    // }
 
   }
 
@@ -83,7 +91,7 @@ function Performer() {
       fontFamily: "Arial",
       maxWidth: "max-content",
     }}>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} >
         <div style={{ position: "absolute", top: ".5rem", right: ".5rem" }}>
           {currentStepIndex + 1} / {steps.length}
         </div>
@@ -95,7 +103,7 @@ function Performer() {
           justifyContent: "flex-end",
         }}>
           {!isFirstStep && <button type="button" onClick={back}>Back</button>}
-          <button type="submit">{isLastStep ? "Finish" : "Next"}</button>
+          <button type="submit">{isLastStep ? "Submit" : "Next"}</button>
         </div>
       </form>
     </div>

@@ -8,6 +8,17 @@ import { Payload } from "../utils/guard"
 import { Bearer } from "permit"
 import { ClientType } from "@prisma/client"
 
+// export function formParse(form: IncomingForm, req: express.Request) {
+//   return new Promise<{ fields: Fields; files: Files }>((resolve, reject) => {
+//     form.parse(req, (err, fields, files) => {
+//       if (err) {
+//         reject(err);
+//       } else {
+//         resolve({ fields, files });
+//       }
+//     });
+//   });
+// }
 export class UserController {
   constructor(private userService: UserService) {}
 
@@ -133,6 +144,11 @@ export class UserController {
   // }
 
   createUser = async (req: Request, res: Response) => {
+    // form.parse(req, async (err, fields, files)=>{
+    //   if(err) {
+    //     res.json(err)
+    //   }
+    // })
     try {
       const {
         identitySelect,
@@ -629,6 +645,32 @@ export class UserController {
     } catch (e) {
       logger.error(e)
       res.status(400).json({ message: "unauthorized edit" })
+      return
+    }
+  }
+
+  // editUserinfo = async (req: Request, res: Response) => {
+  //   logger.info("edit User info")
+  //   const uuidFromUrl = req.params.uuid
+  //   logger.info("uuid from url")
+  //   logger.info(uuidFromUrl)
+  //   const permit = new Bearer({ query: "access_token" })
+  //   const token = permit.check(req)
+  //   const payload = jwtSimple.decode(token, jwt.jwtSecret)
+  //   const uuidFromJWT = payload.uuid
+  //   if (uuidFromUrl != uuidFromJWT) {
+  //     res.status(400).json({ message: "unauthorized edit" })
+  //   }
+  // }
+  getAllPerformerHashtagData = async (req: Request, res: Response) => {
+    try {
+      const tags = await this.userService.getAllPerformerHashtag()
+
+      res.status(200).json(tags)
+      return
+    } catch (e) {
+      logger.info(e)
+      res.status(400).json({ message: "Load hashtags fail" })
       return
     }
   }

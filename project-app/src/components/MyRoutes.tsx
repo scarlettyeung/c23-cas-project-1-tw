@@ -11,10 +11,10 @@ import PrivateRoute from './PrivateRoute';
 import CreateEventPage from '../pages/Events/components/CreateEvents';
 import EventDetail from '../pages/Events/EventDetailPage';
 import React from 'react';
-import Corporate from '../pages/Corporate';
-import Individual from '../pages/Individual';
-import Performer from '../pages/Performer';
-import Register from '../pages/Register';
+import Corporate from '../pages/Register/corporate/Corporate';
+import Individual from '../pages/Register/Individual/Individual';
+import Performer from '../pages/Register/Performer/Performer';
+import Register from '../pages/Register/Register';
 import PublicRoute from './PublicRoute';
 import PersonalDetails from '../pages/PersonalDetails';
 
@@ -33,16 +33,13 @@ function MyRoutes() {
 			<Route path='/' element={<PrivateRoute />}>
 				<Route element={<Home />} index />
 				<Route path='events' element={<Events />} />
-				<Route path='events-detail/:eventsId' element={<EventDetail />} />
-				<Route path='createEventsPage' element={<CreateEventPage />} />
+				<Route path='events/:eventsId' element={<EventDetail />} />
+				<Route path='events/createEvents' element={<CreateEventPage />} />
 				<Route path='chatRoom' element={<ChatRoom />} />
 				<Route path='about'>
 					<Route element={<PersonalDetails />} index />
 					<Route path=':uuid' element={<About />} />
 				</Route>
-				{/* <Route path='about/:uuid' element={<About />} >
-          <Route path='details' element={<PersonalDetails/>} />
-        </Route> */}
 			</Route>
 
 			<Route path='*' element={<NotFound />} />

@@ -17,6 +17,8 @@ enum Properties {
   private = "private",
 }
 async function main() {
+  await prisma.eventsHashtag.deleteMany()
+  await prisma.performersHashtag.deleteMany()
   await prisma.hashtagDetail.deleteMany()
   await prisma.event.deleteMany()
   await prisma.hashtagDetail.deleteMany()
@@ -314,7 +316,10 @@ async function main() {
       clients: { select: { id: true } },
     },
   })
+<<<<<<< HEAD
 
+=======
+>>>>>>> dcb9df1 (updated events function)
   await prisma.event.createMany({
     data: [
       {
@@ -370,6 +375,43 @@ async function main() {
         properties: Properties.public,
         is_shown: true,
         date_published: new Date("2023-3-10"),
+      },
+    ],
+  })
+  const hashtag_id = await prisma.hashtagDetail.findMany({
+    select: {
+      id: true,
+    },
+  })
+  await prisma.performersHashtag.createMany({
+    data: [
+      {
+        performers_id: userId[0].performers[0].id,
+        hashtag_details_id: hashtag_id[0].id,
+      },
+      {
+        performers_id: userId[0].performers[0].id,
+        hashtag_details_id: hashtag_id[1].id,
+      },
+      {
+        performers_id: userId[0].performers[0].id,
+        hashtag_details_id: hashtag_id[2].id,
+      },
+      {
+        performers_id: userId[1].performers[0].id,
+        hashtag_details_id: hashtag_id[3].id,
+      },
+      {
+        performers_id: userId[1].performers[0].id,
+        hashtag_details_id: hashtag_id[4].id,
+      },
+      {
+        performers_id: userId[1].performers[0].id,
+        hashtag_details_id: hashtag_id[5].id,
+      },
+      {
+        performers_id: userId[1].performers[0].id,
+        hashtag_details_id: hashtag_id[6].id,
       },
     ],
   })

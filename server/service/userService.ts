@@ -211,24 +211,18 @@ export class UserService {
     }
   }
   // get all performer hashtags
-  async getAllPerformerHashtag(tag_type: TagType) {
-    try {
-      const tags = prisma.hashtagDetail.findMany({
-        where: {
-          tag_type: tag_type,
-        },
-        select: {
-          name: true,
-          id: true,
-        },
-      })
-      await prisma.$disconnect()
-      return tags
-    } catch (e) {
-      logger.debug(e)
-      await prisma.$disconnect()
-      return
-    }
+  async getAllPerformerHashtag() {
+    const tags = prisma.hashtagDetail.findMany({
+      where: {
+        tag_type: TagType.performer,
+      },
+      select: {
+        name: true,
+        id: true,
+      },
+    })
+    await prisma.$disconnect()
+    return tags
   }
   //////--- end of check user info--- ////
 
