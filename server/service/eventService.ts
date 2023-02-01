@@ -28,16 +28,15 @@ export class EventService {
     wage_offer: number,
     start_date: Date,
     end_date: Date,
-    start_time: string,
-    end_time: string,
+    start_time: Date,
+    end_time: Date,
     rehearsal_needed: any,
-    image: string,
+    image: string | undefined,
     description: string,
     location: string
   ) {
     try {
       logger.info("createEvent in UserService")
-      if (!location) return
       const now = new Date()
       await prisma.event.create({
         data: {

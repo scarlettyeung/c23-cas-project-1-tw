@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
 	Paper,
 	Text,
@@ -11,7 +11,7 @@ import {
 	NumberInput,
 	Checkbox,
 } from '@mantine/core';
-// import { Dropzone } from '@mantine/dropzone';
+import { Dropzone } from '@mantine/dropzone';
 import { TimeInput, DatePicker } from '@mantine/dates';
 import { useForm } from 'react-hook-form';
 
@@ -113,7 +113,21 @@ export function CreateEvents() {
 	const [endTime, setEndTime] = useState(new Date());
 	const [value, setValue] = useState(0);
 	const [checked, setChecked] = useState(false);
-	// const openRef = useRef<() => void>(null);
+	const [image, setImage] = useState<File>();
+	const [preview, setPreview] = useState<string>();
+	const fileInputRef = useRef<HTMLInputElement>(null);
+
+	useEffect(() => {
+		if (image) {
+			const reader = new FileReader();
+			reader.onloadend = () => {
+				setPreview(reader.result as string);
+			};
+			reader.readAsDataURL(image);
+		} else {
+			setPreview(undefined);
+		}
+	}, [image]);
 
 	return (
 		<div>
@@ -167,27 +181,43 @@ export function CreateEvents() {
 						</Text>
 
 						<div className={classes.fields}>
-							{/* <Dropzone
-								className={classes.fields}
-								openRef={openRef}
-								onDrop={() => {}}
-								activateOnClick={false}
-								styles={{ inner: { pointerEvents: 'all' } }}
-								{...register('image')}
-							>
-								<Group position='center'>
-									<Button
+							<div>
+								{preview ? (
+									<img
+										alt='Upload Image Action'
+										src={preview}
+										style={{ objectFit: 'cover' }}
 										onClick={() => {
-											const fn = openRef?.current;
-											if (fn) fn();
+											setImage(undefined);
+										}}
+									/>
+								) : (
+									<button
+										onClick={(event) => {
+											event.preventDefault();
+											fileInputRef.current?.click();
 										}}
 									>
-										Select files
-									</Button>
-								</Group>
-							</Dropzone> */}
-
-							{/* <input className={classes.fields} type='file' {...register('image')} /> */}
+										Add Image
+									</button>
+								)}
+								<input
+									placeholder='Upload Image'
+									alt='Upload Image'
+									type='file'
+									style={{ display: 'none' }}
+									ref={fileInputRef}
+									accept='image/*'
+									onChange={(event: any) => {
+										const file = event.target.files[0];
+										if (file && file.type.substr(0, 5) === 'image') {
+											setImage(file);
+										} else {
+											setImage(undefined);
+										}
+									}}
+								/>
+							</div>
 
 							<SimpleGrid cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
 								<TextInput

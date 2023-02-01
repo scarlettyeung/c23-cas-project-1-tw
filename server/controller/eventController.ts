@@ -5,6 +5,7 @@ import { form } from "../main"
 import jwtSimple from "jwt-simple"
 import jwt from "../utils/jwt"
 import { Bearer } from "permit"
+import formidable from "formidable"
 
 export class EventController {
   constructor(private eventService: EventService) {}
@@ -40,6 +41,9 @@ export class EventController {
           const token = permit.check(req)
           const payload = jwtSimple.decode(token, jwt.jwtSecret)
           const clients_id = payload.clientId
+          const start_time = new Date(fields.start_time as string)
+          const end_time = new Date(fields.end_time as string)
+          const image = files.image as formidable.File | undefined
 
           await this.eventService.createEvent(
             clients_id,
@@ -47,10 +51,10 @@ export class EventController {
             +fields.wage_offer as number,
             new Date(fields.start_date as string),
             new Date(fields.end_date as string),
-            fields.start_time as string,
-            fields.end_time as string,
-            fields.rehearsal_needed as any,
-            files.image[0]?.newFilename as string,
+            start_time,
+            end_time,
+            Boolean(fields.rehearsal_needed as any),
+            image?.newFilename,
             fields.description as string,
             fields.location as string
           )
