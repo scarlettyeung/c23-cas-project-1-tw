@@ -473,16 +473,6 @@ export class UserService {
                   title: true,
                 },
               },
-              teams_performers: {
-                select: {
-                  teams: {
-                    select: {
-                      id: true,
-                      name: true,
-                    },
-                  },
-                },
-              },
             },
           },
         },

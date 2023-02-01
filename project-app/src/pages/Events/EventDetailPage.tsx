@@ -1,7 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { NumericLiteral } from 'typescript';
 
 interface EventDetail {
 	id: number;
@@ -50,6 +49,24 @@ function EventDetail() {
 			<p>{event?.rehearsal_needed}</p>
 			<p>{event?.image}</p>
 			<p>{event?.venue_image_name}</p>
+
+			<button>Edit</button>
+
+			<button
+				onChange={async (e) => {
+					const path = process.env.REACT_APP_API_BASE;
+					const jwt = localStorage.getItem('token');
+					const resp = await fetch(`${path}events/${eventId.eventsId}`, {
+						method: 'POST',
+						headers: {
+							Authorization: `Bearer ${jwt}`,
+						},
+					});
+					const result = await resp.json();
+				}}
+			>
+				Apply
+			</button>
 		</div>
 	);
 }

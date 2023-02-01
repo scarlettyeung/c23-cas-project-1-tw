@@ -1,6 +1,6 @@
 FROM node:lts
 WORKDIR /joasis
 COPY . .
-EXPOSE 8080
 RUN yarn
-CMD yarn prisma migrate reset --force && yarn ts-node main.ts
+RUN mkdir ./uplaods
+CMD yarn prisma generate && yarn dotenv -e .env -- prisma migrate dev && yarn dotenv -e .env -- ts-node prisma/seed.ts && yarn ts-node main.ts

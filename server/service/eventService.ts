@@ -22,6 +22,26 @@ export class EventService {
     }
   }
 
+  async applyEvent(events_id: number, performers_id: number) {
+    try {
+      logger.info("Apply Event in EventService")
+      await prisma.eventsApplication.create({
+        data: {
+          events_id: events_id,
+          performers_id: performers_id,
+          status: "pending",
+        },
+      })
+      await prisma.$disconnect()
+      return
+    } catch (e) {
+      logger.info("in service")
+      logger.debug(e)
+      await prisma.$disconnect()
+      return
+    }
+  }
+
   async createEvent(
     clients_id: number,
     title: string,
@@ -36,7 +56,7 @@ export class EventService {
     location: string
   ) {
     try {
-      logger.info("createEvent in UserService")
+      logger.info("createEvent in EventService")
       const now = new Date()
       await prisma.event.create({
         data: {

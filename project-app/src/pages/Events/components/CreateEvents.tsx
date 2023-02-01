@@ -14,6 +14,7 @@ import {
 import { TimeInput, DatePicker } from '@mantine/dates';
 import { useForm } from 'react-hook-form';
 import '../../../styles/event.css';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => {
 	const BREAKPOINT = theme.fn.smallerThan('sm');
@@ -116,6 +117,7 @@ export function CreateEvents() {
 	const [image, setImage] = useState<File | undefined>();
 	const [preview, setPreview] = useState<string>();
 	const fileInputRef = useRef<HTMLInputElement>(null);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (image) {
@@ -155,6 +157,7 @@ export function CreateEvents() {
 						},
 						body: formData,
 					});
+					navigate('/events');
 				})}
 			>
 				<Paper shadow='md' radius='lg'>
