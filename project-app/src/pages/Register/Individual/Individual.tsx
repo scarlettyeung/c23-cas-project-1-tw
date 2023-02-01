@@ -16,7 +16,7 @@ type FormData = {
   lastName: string
   contact: string
   gender: string
-
+  contactEmail: string
 }
 
 const INITIAL_DATA: FormData = {
@@ -29,6 +29,7 @@ const INITIAL_DATA: FormData = {
   lastName: '',
   contact: '',
   gender: '',
+  contactEmail: '',
 }
 
 function Individual() {
@@ -58,7 +59,7 @@ function Individual() {
     username: data.username,
     name: data.firstName + "/" + data.lastName,
     contactNumber: Number(data.contact),
-    contactEmail: data.email,
+    contactEmail: data.contactEmail,
     gender: data.gender,
   }
   dispatch(checkPswValidation(data.password))

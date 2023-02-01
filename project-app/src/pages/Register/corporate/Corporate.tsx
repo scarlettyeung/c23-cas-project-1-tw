@@ -21,6 +21,7 @@ type FormData = {
   website: string
   description: string
   gender: string
+  contactEmail: string
 }
 
 
@@ -37,6 +38,7 @@ const INITIAL_DATA: FormData = {
   website: '',
   description: '',
   gender: '',
+  contactEmail: '',
 }
 
 function Corporate() {
@@ -66,7 +68,7 @@ function Corporate() {
     username: data.username,
     name: data.companyName,
     contactNumber: Number(data.contact),
-    contactEmail: data.email,
+    contactEmail: data.contactEmail,
     businessBRNo: data.bRNumber,
     businessWebsiteUrl: data.website,
     description: data.description,
