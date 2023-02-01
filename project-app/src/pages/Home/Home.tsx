@@ -1,6 +1,6 @@
 import React from 'react';
 import { CardsCarousel } from './componments/Performers';
-import { EventsCard } from './componments/Event';
+import { EventsCard } from './componments/EventsCard';
 
 function Home() {
 	return (

@@ -1269,4 +1269,27 @@ export class UserService {
       return
     }
   }
+  async getContactNumber(uuid: string) {
+    try {
+      // console.log("inside", uuid)
+      const contact = await prisma.user.findUnique({
+        where: {
+          uuid: uuid,
+        },
+        select: {
+          performers: {
+            select: {
+              contact_number: true,
+            },
+          },
+        },
+      })
+      await prisma.$disconnect()
+      return contact
+    } catch (e) {
+      logger.info(e)
+      await prisma.$disconnect()
+      return
+    }
+  }
 }

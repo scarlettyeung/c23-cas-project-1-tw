@@ -14,6 +14,7 @@ import {
 import { TimeInput, DatePicker } from '@mantine/dates';
 import { useForm } from 'react-hook-form';
 import '../../../styles/event.css';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => {
 	const BREAKPOINT = theme.fn.smallerThan('sm');
@@ -113,9 +114,10 @@ export function CreateEvents() {
 	const [endTime, setEndTime] = useState(new Date());
 	const [value, setValue] = useState(0);
 	const [checked, setChecked] = useState(false);
-	const [image, setImage] = useState<File>();
+	const [image, setImage] = useState<File | undefined>();
 	const [preview, setPreview] = useState<string>();
 	const fileInputRef = useRef<HTMLInputElement>(null);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (image) {
@@ -139,23 +141,14 @@ export function CreateEvents() {
 
 					formData.append('title', data.title);
 					formData.append('location', data.location);
-					formData.append('wage_offer', data.wage_offer);
+					formData.append('wage_offer', value.toString());
 					formData.append('start_date', startDate.toString());
 					formData.append('end_date', endDate.toString());
 					formData.append('start_time', startTime.toString());
 					formData.append('end_time', endTime.toString());
 					formData.append('description', data.description);
 					formData.append('rehearsal_needed', data.rehearsal_needed);
-
-					console.log('========FORM DATA======', data.title);
-					console.log('========FORM DATA======', data.location);
-					console.log('========FORM DATA======', value.toString());
-					console.log('========FORM DATA======', startDate.toString());
-					console.log('========FORM DATA======', endDate.toString());
-					console.log('========FORM DATA======', startTime.toString());
-					console.log('========FORM DATA======', endTime.toString());
-					console.log('========FORM DATA======', data.description);
-					console.log('========FORM DATA======', checked);
+					formData.append('image', image! as Blob);
 
 					await fetch(`${path}events/createEvents`, {
 						method: 'POST',
@@ -164,6 +157,7 @@ export function CreateEvents() {
 						},
 						body: formData,
 					});
+					navigate('/events');
 				})}
 			>
 				<Paper shadow='md' radius='lg'>
@@ -171,7 +165,6 @@ export function CreateEvents() {
 						<Text size='lg' weight={700} className={classes.title}>
 							Add Your Event Details
 						</Text>
-
 						<div className={classes.fields}>
 							<div>
 								{preview ? (
@@ -179,7 +172,7 @@ export function CreateEvents() {
 										className='Create'
 										alt='Upload Image'
 										src={preview}
-										width='100'
+										width='300'
 										style={{ objectFit: 'cover' }}
 										onClick={() => {
 											setImage(undefined);
@@ -207,6 +200,7 @@ export function CreateEvents() {
 										const file = event.target.files[0];
 										if (file && file.type.substr(0, 5) === 'image') {
 											setImage(file);
+											console.log('check file', file);
 										} else {
 											setImage(undefined);
 										}
@@ -267,6 +261,7 @@ export function CreateEvents() {
 
 							<Checkbox
 								checked={checked}
+								{...register('rehearsal_needed')}
 								onChange={(event) => setChecked(event.currentTarget.checked)}
 								label='Rehearsal need?'
 							/>

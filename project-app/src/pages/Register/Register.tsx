@@ -6,7 +6,7 @@ import { chooseType } from '../../redux/auth/slice';
 
 import "../../styles/register.css"
 import { Button } from '@mantine/core'
-
+// import styles from "../../styles/noPadding.scss"
 
 export default function Register() {
   const navigate = useNavigate();

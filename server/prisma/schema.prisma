@@ -97,7 +97,6 @@ model Performer {
   performers_hashtags PerformersHashtag[]
   events_applications EventsApplication[]
   e_profile           Eprofile[]
-  teams_performers    TeamsPerformer[]
 
   @@map("performer")
 }
@@ -113,27 +112,6 @@ model Eprofile {
   @@map("e_profile")
 }
 
-model Team {
-  id                  Int                 @id @default(autoincrement())
-  name                String              @db.VarChar(255)
-  introduction        String?             @db.Text
-  createdAt           DateTime            @default(now()) @map("create_at")
-  updatedAt           DateTime            @updatedAt @map("updated_at")
-  events_applications EventsApplication[]
-  teams_performers    TeamsPerformer[]
-
-  @@map("team")
-}
-
-model TeamsPerformer {
-  id            Int       @id @default(autoincrement())
-  teams         Team      @relation(fields: [teams_id], references: [id])
-  teams_id      Int
-  performers    Performer @relation(fields: [performers_id], references: [id])
-  performers_id Int
-
-  @@map("teams_performer")
-}
 
 model Client {
   id                   Int        @id @default(autoincrement())
@@ -216,7 +194,6 @@ model HashtagDetail {
   createdAt           DateTime            @default(now()) @map("create_at")
   updatedAt           DateTime            @updatedAt @map("updated_at")
   events_hashtags     EventsHashtag[]
-  events_applications EventsApplication[]
   performers_hashtags PerformersHashtag[]
 
   @@map("hashtag_detail")
@@ -238,11 +215,7 @@ model EventsApplication {
   events_id          Int
   performers         Performer         @relation(fields: [performers_id], references: [id])
   performers_id      Int
-  hashtag_details    HashtagDetail     @relation(fields: [hashtag_details_id], references: [id])
-  hashtag_details_id Int
   status             ApplicationStatus
-  teams              Team              @relation(fields: [team_id], references: [id])
-  team_id            Int
   createdAt          DateTime          @default(now()) @map("create_at")
   updatedAt          DateTime          @updatedAt @map("updated_at")
 

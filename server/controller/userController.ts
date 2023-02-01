@@ -8,17 +8,6 @@ import { Payload } from "../utils/guard"
 import { Bearer } from "permit"
 import { ClientType } from "@prisma/client"
 
-// export function formParse(form: IncomingForm, req: express.Request) {
-//   return new Promise<{ fields: Fields; files: Files }>((resolve, reject) => {
-//     form.parse(req, (err, fields, files) => {
-//       if (err) {
-//         reject(err);
-//       } else {
-//         resolve({ fields, files });
-//       }
-//     });
-//   });
-// }
 export class UserController {
   constructor(private userService: UserService) {}
 
@@ -678,6 +667,23 @@ export class UserController {
     } catch (e) {
       logger.info(e)
       res.status(400).json({ message: "Load hashtags fail" })
+      return
+    }
+  }
+  getContactNumberData = async (req: Request, res: Response) => {
+    try {
+      const uuidReq = req.params.uuid
+      // console.log("check uuid", uuidReq)
+
+      const contactData = await this.userService.getContactNumber(uuidReq)
+      res.status(200).json({
+        message: "Load contacts for event success!",
+        contactData,
+      })
+      return
+    } catch (e) {
+      logger.info(e)
+      res.status(400).json({ message: "Load contacts for event fail!" })
       return
     }
   }

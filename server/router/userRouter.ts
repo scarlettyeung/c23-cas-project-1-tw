@@ -40,3 +40,9 @@ userRoutes.get(
 )
 
 //Apart from login  , place add checkTokenExp and isLoggedIn , tokenExpUpdate where should I give the new token or payload
+// get user phone number
+userRoutes.get(
+  "/contact/:uuid",
+  isLoggedIn,
+  userController.getContactNumberData
+)
