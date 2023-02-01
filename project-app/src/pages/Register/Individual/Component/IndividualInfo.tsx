@@ -9,10 +9,8 @@ enum Gender {
 export type PerformData = {
   firstName: string
   lastName: string
-  gender: Gender | null
+  gender: string
   contact: string
-
-
 }
 
 type UserFormProps = PerformData & {
@@ -29,11 +27,13 @@ function IndividualInfo({ firstName, lastName, contact, gender, updateFields }: 
       <label>Contact</label>
       <input required min={1} type="tel" value={contact} onChange={e => updateFields({ contact: e.target.value })} />
       <label>Gender</label>
-      <select >
-        {/* onChange={e => updateFields({ gender: e.target.value })} */}
-        <option value={Gender.Male} onSelect={e => updateFields({ gender: Gender.Male })}>Male</option>
-        <option value={Gender.Female} onSelect={e => updateFields({ gender: Gender.Female })}>Female</option>
-        <option value={Gender.Other} onSelect={e => updateFields({ gender: Gender.Other })}>Other</option>
+      <select className="select" onChange={(e) => {
+        gender = e.target.value;
+        updateFields({ gender: e.target.value })
+      }}>
+        <option value={Gender.Male}>Male</option>
+        <option value={Gender.Female}>Female</option>
+        <option value={Gender.Other}>Other</option>
       </select>
     </FormWrapper>
   )

@@ -1,34 +1,28 @@
 import { FormEvent, useState } from "react"
 
-import BasicInfo, { BasicData } from "../registerComponent/BasicInfo"
-// import { AddressForm } from "./AddressForm"
+import BasicInfo from "../registerComponent/BasicInfo"
 import { useMultiStepForm } from "../../../models/useMultistepForm"
 import PerformerHash from "./Component/PerformerHash"
 import PerformerInfo from "./Component/PerformerInfo"
-import { useRootDispatch } from "../../../redux/store"
-import { performerThunk } from "../../../redux/auth/thunk"
-// import { UserForm } from "./UserForm"
-enum Gender {
-  Male = "male",
-  Female = "female",
-  Other = "other"
-}
+import { useRootDispatch, useRootSelector } from "../../../redux/store"
 
-type FormData = {
+import { useNavigate } from "react-router-dom"
+import { checkHashValidation, checkPswValidation } from "../../../redux/auth/slice"
+
+
+
+export type FormData = {
   email: string
   password: string
-  // password2: string
   username: string
   tagId: number[] | null
   firstName: string
   lastName: string
-  age: string
   experience: string
   contact: string
-  team: string
   birthday: string
   description: string
-  gender: Gender | null
+  gender: string
   facebookURL: string
   twitterURL: string
   youtubeURL: string
@@ -39,18 +33,15 @@ type FormData = {
 const INITIAL_DATA: FormData = {
   email: '',
   password: '',
-  // password2: '',
   username: '',
   tagId: null,
   firstName: '',
   lastName: '',
-  age: '',
   experience: '',
   contact: '',
-  team: '',
   birthday: '',
   description: '',
-  gender: null,
+  gender: '',
   facebookURL: '',
   twitterURL: '',
   youtubeURL: '',
@@ -59,26 +50,70 @@ const INITIAL_DATA: FormData = {
 }
 
 function Performer() {
-  const dispatch = useRootDispatch
+  const navigate = useNavigate()
+  const dispatch = useRootDispatch()
+  const typeOfAccount = useRootSelector((state) => state.auth.accountType);
+  console.log("I got you", typeOfAccount);
+
   const [data, setData] = useState(INITIAL_DATA)
+
   function updateFields(fields: Partial<FormData>) {
     setData(prev => {
       return { ...prev, ...fields }
     })
   }
+  let fetchAccType: string
+  if (typeOfAccount === 'performer') {
+    fetchAccType = 'performer'
+  }
+  else {
+    fetchAccType = ''
+  }
+
+  // console.log('Got fetch', fetchAccType)
+  const fetchData = {
+    identitySelect: fetchAccType,
+    email: data.email,
+    password: data.password,
+    username: data.username,
+    hashtagArr: data.tagId,
+    name: data.firstName + "/" + data.lastName,
+    yearsOfExp: Number(data.experience),
+    contactNumber: Number(data.contact),
+    contactEmail: data.email,
+    birthday: (new Date(data.birthday)),
+    description: data.description,
+    gender: data.gender,
+    facebookURL: data.facebookURL,
+    twitterURL: data.twitterURL,
+    youtubeURL: data.youtubeURL,
+    igURL: data.igURL
+  }
+
+
+
+
+  dispatch(checkPswValidation(data.password))
+  dispatch(checkHashValidation(data.tagId))
 
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } = useMultiStepForm([<BasicInfo {...data} updateFields={updateFields} />, <PerformerHash {...data} updateFields={updateFields} />, <PerformerInfo {...data} updateFields={updateFields} />])
-  // [<PerformerInfo{...data} updateFields={updateFields} />]
-  // [<BasicInfo {...data} updateFields={updateFields} />]
-  // [<PerformerHash {...data} updateFields={updateFields} />]
-  function onSubmit(e: FormEvent) {
+
+
+  async function onSubmit(e: FormEvent) {
     e.preventDefault()
     if (!isLastStep) return next();
-    // if ((data.password = data.password2) && data.tagId !== null) {
-    //   // dispatch(performerThunk({ data }))
-    // }
-
+    const path = process.env.REACT_APP_API_BASE;
+    await fetch(`${path}users/createUser`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(fetchData),
+    })
+    navigate('/')
   }
+
+
 
   return (
     <div style={{
@@ -103,7 +138,7 @@ function Performer() {
           justifyContent: "flex-end",
         }}>
           {!isFirstStep && <button type="button" onClick={back}>Back</button>}
-          <button type="submit">{isLastStep ? "Submit" : "Next"}</button>
+          <button type="submit" >{isLastStep ? "Submit" : "Next"}</button>
         </div>
       </form>
     </div>

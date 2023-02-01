@@ -38,6 +38,7 @@ export async function isLoggedIn(
     const user = await userService.getUserByUUID(payload.uuid)
     if (user) {
       logger.info("isLoggedIn checked , do next function")
+      // req.user = user
       return next()
     } else {
       return res.status(401).json({ msg: "Permission Denied" })

@@ -1,10 +1,11 @@
 import { FormEvent, useState } from "react"
 import BasicInfo from "../registerComponent/BasicInfo"
-// import { AddressForm } from "./AddressForm"
 import { useMultiStepForm } from "../../../models/useMultistepForm"
 import IndividualInfo from "./Component/IndividualInfo"
+import { useNavigate } from "react-router-dom"
+import { useRootDispatch, useRootSelector } from "../../../redux/store"
+import { checkPswValidation } from "../../../redux/auth/slice"
 
-// import { UserForm } from "./UserForm"
 
 type FormData = {
   email: string
@@ -14,13 +15,8 @@ type FormData = {
   firstName: string
   lastName: string
   contact: string
-  gender: Gender | null
+  gender: string
 
-}
-enum Gender {
-  Male = "male",
-  Female = "female",
-  Other = "other"
 }
 
 const INITIAL_DATA: FormData = {
@@ -32,24 +28,55 @@ const INITIAL_DATA: FormData = {
   firstName: '',
   lastName: '',
   contact: '',
-  gender: null,
+  gender: '',
 }
 
 function Individual() {
+  const navigate = useNavigate()
+  const dispatch = useRootDispatch()
+  const typeOfAccount = useRootSelector((state) => state.auth.accountType);
   const [data, setData] = useState(INITIAL_DATA)
+
   function updateFields(fields: Partial<FormData>) {
     setData(prev => {
       return { ...prev, ...fields }
     })
   }
+  let fetchAccType: string
+  if (typeOfAccount === 'individual') {
+    fetchAccType = 'client'
+  }
+  else {
+    fetchAccType = ''
+  }
 
-  const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } = useMultiStepForm([<BasicInfo {...data} updateFields={updateFields} />, <IndividualInfo{...data} updateFields={updateFields} />])
+  const fetchData = {
+    identitySelect: fetchAccType,
+    clientType: typeOfAccount,
+    email: data.email,
+    password: data.password,
+    username: data.username,
+    name: data.firstName + "/" + data.lastName,
+    contactNumber: Number(data.contact),
+    contactEmail: data.email,
+    gender: data.gender,
+  }
+  dispatch(checkPswValidation(data.password))
+  const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } = useMultiStepForm([<BasicInfo {...data} updateFields={updateFields} />, <IndividualInfo {...data} updateFields={updateFields} />])
   // [<IndividualInfo{...data} updateFields={updateFields} />]
   // [<BasicInfo {...data} updateFields={updateFields} />]
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent) {
     e.preventDefault()
     if (!isLastStep) return next()
-
+    const path = process.env.REACT_APP_API_BASE;
+    await fetch(`${path}users/createUser`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(fetchData),
+    })
+    navigate('/')
   }
 
   return (

@@ -52,7 +52,6 @@ export function EventsCard() {
 				</Text>
 			</Card>
 		));
-	console.log('========load data========');
 	console.dir(cards);
 	return (
 		<>

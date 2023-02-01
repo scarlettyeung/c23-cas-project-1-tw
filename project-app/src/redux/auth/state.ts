@@ -1,4 +1,3 @@
-
 export enum AccountType {
 	Performer = 'performer',
 	Client = 'individual',
@@ -9,7 +8,6 @@ export enum Gender {
 	Female = 'female',
 	Other = 'other',
 }
-
 
 export enum Identity {
 	Performer = 'performer',
@@ -30,18 +28,21 @@ export interface AuthState {
 	accountType?: AccountType | null;
 	email?: string | null;
 	password?: string | null;
-	password2?: string | null;
+	hashTagArr?: string[] | null;
+	// password2?: string | null;
 	//performer
-	tagId?: number | null;
-	firstName?: string | null;
-	lastName?: string | null;
-	gender?: Gender | null;
-	experience?: number | null;
-	birthday?: Date | null;
-	contact?: number | null;
-	teams?: string | null;
-	descriptions?: string | null;
-	socialMediaUrl?: string | null;
+	// tagId?: number[] | null;
+	// firstName?: string | null;
+	// lastName?: string | null;
+	// gender?: Gender | null;
+	// experience?: number | null;
+	// birthday?: Date | null;
+	// contact?: number | null;
+	// description?: string | null;
+	// facebookURL: string | null;
+	// twitterURL: string | null;
+	// youtubeURL: string | null;
+	// igURL: string | null;
 }
 
 export interface JWTPayload {
@@ -52,8 +53,6 @@ export interface JWTPayload {
 	clientId?: number | null;
 	identity: string;
 	exp: Date;
-
-
 }
 
 // const payload = {

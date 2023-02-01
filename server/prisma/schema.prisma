@@ -172,7 +172,7 @@ model Review {
 model Event {
   id                  Int                 @id @default(autoincrement())
   performers          Performer?          @relation(fields: [performers_id], references: [id])
-  performers_id       Int
+  performers_id       Int?
   clients             Client              @relation(fields: [clients_id], references: [id])
   clients_id          Int
   title               String
