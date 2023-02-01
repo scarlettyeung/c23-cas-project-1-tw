@@ -11,9 +11,9 @@ import {
 	NumberInput,
 	Checkbox,
 } from '@mantine/core';
-import { Dropzone } from '@mantine/dropzone';
 import { TimeInput, DatePicker } from '@mantine/dates';
 import { useForm } from 'react-hook-form';
+import '../../../styles/event.css';
 
 const useStyles = createStyles((theme) => {
 	const BREAKPOINT = theme.fn.smallerThan('sm');
@@ -168,14 +168,6 @@ export function CreateEvents() {
 			>
 				<Paper shadow='md' radius='lg'>
 					<div className={classes.wrapper}>
-						{/* {image?.[0] && (
-							<img
-								className='avatar'
-								width='100'
-								alt='Upload Event Photo'
-								src={URL.createObjectURL(image[0])}
-							/>
-						)} */}
 						<Text size='lg' weight={700} className={classes.title}>
 							Add Your Event Details
 						</Text>
@@ -184,8 +176,10 @@ export function CreateEvents() {
 							<div>
 								{preview ? (
 									<img
-										alt='Upload Image Action'
+										className='Create'
+										alt='Upload Image'
 										src={preview}
+										width='100'
 										style={{ objectFit: 'cover' }}
 										onClick={() => {
 											setImage(undefined);
@@ -193,6 +187,7 @@ export function CreateEvents() {
 									/>
 								) : (
 									<button
+										className='CreateEvent'
 										onClick={(event) => {
 											event.preventDefault();
 											fileInputRef.current?.click();

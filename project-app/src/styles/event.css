@@ -2,3 +2,20 @@
 	display: flex;
 	justify-content: space-between;
 }
+
+#Create #CreateEvent {
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+#Create #CreateEvent {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 18px;
+	border: none;
+	background: #fef289;
+	color: #000;
+}
