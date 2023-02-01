@@ -27,6 +27,7 @@ export type FormData = {
   twitterURL: string
   youtubeURL: string
   igURL: string
+  contactEmail: string
 }
 
 
@@ -45,7 +46,8 @@ const INITIAL_DATA: FormData = {
   facebookURL: '',
   twitterURL: '',
   youtubeURL: '',
-  igURL: ''
+  igURL: '',
+  contactEmail: ''
 
 }
 
@@ -80,7 +82,7 @@ function Performer() {
     name: data.firstName + "/" + data.lastName,
     yearsOfExp: Number(data.experience),
     contactNumber: Number(data.contact),
-    contactEmail: data.email,
+    contactEmail: data.contactEmail,
     birthday: (new Date(data.birthday)),
     description: data.description,
     gender: data.gender,
@@ -88,6 +90,7 @@ function Performer() {
     twitterURL: data.twitterURL,
     youtubeURL: data.youtubeURL,
     igURL: data.igURL
+
   }
 
 

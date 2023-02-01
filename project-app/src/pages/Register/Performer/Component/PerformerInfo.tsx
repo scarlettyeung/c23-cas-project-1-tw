@@ -22,13 +22,14 @@ export type PerformData = {
   twitterURL: string
   youtubeURL: string
   igURL: string
+  contactEmail: string
 }
 
 type UserFormProps = PerformData & {
   updateFields: (fields: Partial<PerformData>) => void
 }
 
-function PerformerInfo({ firstName, lastName, experience, contact, birthday, description, gender, facebookURL, twitterURL, youtubeURL, igURL, updateFields }: UserFormProps) {
+function PerformerInfo({ firstName, lastName, experience, contact, birthday, description, gender, facebookURL, twitterURL, youtubeURL, igURL, contactEmail, updateFields }: UserFormProps) {
 
   return (
     <FormWrapper title="User Details">
@@ -38,8 +39,10 @@ function PerformerInfo({ firstName, lastName, experience, contact, birthday, des
       <input required type="text" value={lastName} onChange={e => updateFields({ lastName: e.target.value })} />
       <label>Experience</label>
       <input required min={1} type="number" value={experience} onChange={e => updateFields({ experience: e.target.value })} />
-      <label>Contact</label>
+      <label>Contact Number</label>
       <input required min={1} type="number" minLength={8} maxLength={8} value={contact} onChange={e => updateFields({ contact: e.target.value })} />
+      <label>Contact Email</label>
+      <input required type="email" value={contactEmail} onChange={e => updateFields({ contactEmail: e.target.value })} />
       <label>Birthday</label>
       <input required min={1} type="date" value={birthday} onChange={e => updateFields({ birthday: e.target.value })} />
       <label>Description</label>
