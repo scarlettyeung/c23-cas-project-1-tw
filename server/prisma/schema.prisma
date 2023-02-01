@@ -30,6 +30,7 @@ enum Status {
   completed
   expired
   valid
+  accepted
 }
 
 enum Properties {
@@ -40,6 +41,12 @@ enum Properties {
 enum TagType {
   event
   performer
+}
+
+enum ApplicationStatus {
+  pending
+  accept
+  reject
 }
 
 model User {
@@ -77,6 +84,7 @@ model Performer {
   years_of_exp        Int                 @default(0)
   birthday            DateTime?           @db.Date
   contact_number      Int
+  contact_email       String
   gender              Gender              @default(other)
   description         String?             @db.Text
   twitter_url         String?             @db.VarChar(255)
@@ -225,17 +233,18 @@ model PerformersHashtag {
 }
 
 model EventsApplication {
-  id                 Int           @id @default(autoincrement())
-  events             Event         @relation(fields: [events_id], references: [id])
+  id                 Int               @id @default(autoincrement())
+  events             Event             @relation(fields: [events_id], references: [id])
   events_id          Int
-  performers         Performer     @relation(fields: [performers_id], references: [id])
+  performers         Performer         @relation(fields: [performers_id], references: [id])
   performers_id      Int
-  hashtag_details    HashtagDetail @relation(fields: [hashtag_details_id], references: [id])
+  hashtag_details    HashtagDetail     @relation(fields: [hashtag_details_id], references: [id])
   hashtag_details_id Int
-  teams              Team          @relation(fields: [team_id], references: [id])
+  status             ApplicationStatus
+  teams              Team              @relation(fields: [team_id], references: [id])
   team_id            Int
-  createdAt          DateTime      @default(now()) @map("create_at")
-  updatedAt          DateTime      @updatedAt @map("updated_at")
+  createdAt          DateTime          @default(now()) @map("create_at")
+  updatedAt          DateTime          @updatedAt @map("updated_at")
 
   @@map("events_application")
 }

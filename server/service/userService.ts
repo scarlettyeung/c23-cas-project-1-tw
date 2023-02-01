@@ -235,6 +235,7 @@ export class UserService {
     username: string,
     yearsOfExp: number,
     birthday: Date | null,
+    contactEmail: string,
     contactNumber: number,
     gender: Gender,
     description: string | null,
@@ -301,6 +302,7 @@ export class UserService {
             create: {
               years_of_exp: yearsOfExp, //not null >> 0
               birthday: birthday,
+              contact_email: contactEmail, //not null
               contact_number: contactNumber, //not null
               gender: gender, //not null
               description: description,
@@ -492,20 +494,20 @@ export class UserService {
         },
       })
 
-      const sumOfEvents = await prisma.review.count({
+      const sum_of_events = await prisma.review.count({
         where: {
           users_id: userInfo?.id,
         },
       })
 
-      const userAvgScore = { avgScore: 0 }
+      const userAvgScore = { avg_score: 0 }
       if (userScore._avg.score) {
-        userAvgScore.avgScore = userScore._avg.score
+        userAvgScore.avg_score = userScore._avg.score
       }
 
       if (!userInfo) return
-      userInfo.performers[0]["avgScore"] = userAvgScore.avgScore
-      userInfo.performers[0]["sumOfEven"] = sumOfEvents
+      userInfo.performers[0]["avg_score"] = userAvgScore.avg_score
+      userInfo.performers[0]["sum_of_even"] = sum_of_events
 
       await prisma.$disconnect()
       return userInfo
@@ -555,20 +557,20 @@ export class UserService {
         },
       })
 
-      const sumOfEvents = await prisma.review.count({
+      const sum_of_events = await prisma.review.count({
         where: {
           users_id: userInfo?.id,
         },
       })
 
-      const userAvgScore = { avgScore: 0 }
+      const userAvgScore = { avg_score: 0 }
       if (userScore._avg.score) {
-        userAvgScore.avgScore = userScore._avg.score
+        userAvgScore.avg_score = userScore._avg.score
       }
 
       if (!userInfo) return
-      userInfo.clients[0]["avgScore"] = userAvgScore.avgScore
-      userInfo.clients[0]["sumOfEven"] = sumOfEvents
+      userInfo.clients[0]["avg_score"] = userAvgScore.avg_score
+      userInfo.clients[0]["sum_of_even"] = sum_of_events
 
       logger.info("get info in UserService")
       await prisma.$disconnect()
@@ -622,20 +624,20 @@ export class UserService {
         },
       })
 
-      const sumOfEvents = await prisma.review.count({
+      const sum_of_events = await prisma.review.count({
         where: {
           users_id: userInfo?.id,
         },
       })
 
-      const userAvgScore = { avgScore: 0 }
+      const userAvgScore = { avg_score: 0 }
       if (userScore._avg.score) {
-        userAvgScore.avgScore = userScore._avg.score
+        userAvgScore.avg_score = userScore._avg.score
       }
 
       if (!userInfo) return
-      userInfo.clients[0]["avgScore"] = userAvgScore.avgScore
-      userInfo.clients[0]["sumOfEven"] = sumOfEvents
+      userInfo.clients[0]["avg_score"] = userAvgScore.avg_score
+      userInfo.clients[0]["sum_of_even"] = sum_of_events
 
       await prisma.$disconnect()
       return userInfo
@@ -662,7 +664,6 @@ export class UserService {
           icon: true,
           username: true,
           email: true,
-          // password: true,
           identity: true,
           performers: {
             select: {
@@ -686,36 +687,23 @@ export class UserService {
                   },
                 },
               },
-              // teams_performers: {
-              //   select: {
-              //     teams: {
-              //       select: {
-              //         id: true,
-              //         name: true,
-              //       },
-              //     },
-              //   },
-              // },
               events: {
-                select: {
-                  id: true,
-                  title: true,
-                },
+                select: { id: true, title: true },
               },
             },
           },
         },
       })
 
-      const userAvgScore = { avgScore: 0 }
+      const userAvgScore = { avg_score: 0 }
 
-      const sumOfEvents = await prisma.review.count({
+      const sum_of_events = await prisma.review.count({
         where: {
           users_id: userInfo?.id,
         },
       })
 
-      if (sumOfEvents != 0) {
+      if (sum_of_events != 0) {
         const userScore = await prisma.review.aggregate({
           _avg: {
             score: true,
@@ -725,16 +713,22 @@ export class UserService {
           },
         })
         if (userScore._avg.score) {
-          userAvgScore.avgScore = userScore._avg.score
+          userAvgScore.avg_score = userScore._avg.score
         }
       }
 
       await prisma.$disconnect()
       if (!userInfo) return
-      logger.info("add to info")
-      userInfo.performers[0]["sumOfEven"] = sumOfEvents
-      userInfo.performers[0]["avgScore"] = userAvgScore.avgScore
-      return userInfo
+
+      const data = {
+        ...userInfo,
+        ...userInfo.performers[0],
+        avg_score: userAvgScore.avg_score,
+        sum_of_even: sum_of_events,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } as any
+      delete data.performers
+      return data
     } catch (e) {
       logger.debug(e)
       await prisma.$disconnect()
@@ -746,16 +740,13 @@ export class UserService {
     try {
       logger.info("get Individual Client Setting Info, call in UserService")
       const userInfo = await prisma.user.findUnique({
-        where: {
-          uuid: uuid,
-        },
+        where: { uuid },
         select: {
           uuid: true,
           id: true,
           icon: true,
           username: true,
           email: true,
-          // password: true,
           identity: true,
           clients: {
             select: {
@@ -776,31 +767,40 @@ export class UserService {
         },
       })
 
-      const userScore = await prisma.review.aggregate({
-        _avg: {
-          score: true,
-        },
-        where: {
-          users_id: userId,
-        },
-      })
-
-      const userAvgScore = { avgScore: 0 }
-      if (userScore._avg.score) {
-        userAvgScore.avgScore = userScore._avg.score
-      }
-
-      const sumOfEvents = await prisma.review.count({
+      const sum_of_events = await prisma.review.count({
         where: {
           users_id: userInfo?.id,
         },
       })
 
+      const userAvgScore = { avg_score: 0 }
+
+      if (sum_of_events != 0) {
+        const userScore = await prisma.review.aggregate({
+          _avg: {
+            score: true,
+          },
+          where: {
+            users_id: userId,
+          },
+        })
+        if (userScore._avg.score) {
+          userAvgScore.avg_score = userScore._avg.score
+        }
+      }
+
       await prisma.$disconnect()
       if (!userInfo) return
-      userInfo.clients[0]["avgScore"] = userAvgScore.avgScore
-      userInfo.clients[0]["sumOfEven"] = sumOfEvents
-      return userInfo
+
+      const data = {
+        ...userInfo,
+        ...userInfo.clients[0],
+        avg_score: userAvgScore.avg_score,
+        sum_of_even: sum_of_events,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } as any
+      delete data.clients
+      return data
     } catch (e) {
       logger.debug(e)
       await prisma.$disconnect()
@@ -821,7 +821,7 @@ export class UserService {
           icon: true,
           username: true,
           email: true,
-          password: true,
+          // password: true,
           identity: true,
           clients: {
             select: {
@@ -853,12 +853,12 @@ export class UserService {
         },
       })
 
-      const userAvgScore = { avgScore: 0 }
+      const userAvgScore = { avg_score: 0 }
       if (userScore._avg.score) {
-        userAvgScore.avgScore = userScore._avg.score
+        userAvgScore.avg_score = userScore._avg.score
       }
 
-      const sumOfEvents = await prisma.review.count({
+      const sum_of_events = await prisma.review.count({
         where: {
           users_id: userInfo?.id,
         },
@@ -866,9 +866,15 @@ export class UserService {
 
       await prisma.$disconnect()
       if (!userInfo) return
-      userInfo.clients[0]["avgScore"] = userAvgScore.avgScore
-      userInfo.clients[0]["sumOfEven"] = sumOfEvents
-      return userInfo
+      const data = {
+        ...userInfo,
+        ...userInfo.clients[0],
+        avg_score: userAvgScore.avg_score,
+        sum_of_even: sum_of_events,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } as any
+      delete data.clients
+      return data
     } catch (e) {
       logger.debug(e)
       await prisma.$disconnect()

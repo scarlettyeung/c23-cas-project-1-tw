@@ -8,7 +8,13 @@ type EventInfoProps = {
 function EventInfo(info: EventInfoProps) {
 	const eventArr = info.eventInfoData;
 	let mapEvent;
-	if (eventArr) mapEvent = eventArr.map((event) => <div key={event.id}>{event.title}</div>);
+	if (eventArr)
+		mapEvent = eventArr.map((event) => (
+			<div key={event.id}>
+				{event.title}
+				<button>details</button>
+			</div>
+		));
 	return (
 		<>
 			<div>EventInfo</div>

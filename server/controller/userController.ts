@@ -220,7 +220,8 @@ export class UserController {
           !email ||
           !password ||
           !username ||
-          // !contactEmail ||
+          !contactEmail ||
+          !contactNumber ||
           !gender
         ) {
           res
@@ -243,6 +244,7 @@ export class UserController {
           username,
           setExpYear,
           setBirthday,
+          contactEmail,
           contactNumber,
           gender,
           description,

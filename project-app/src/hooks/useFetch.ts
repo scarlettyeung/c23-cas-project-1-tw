@@ -23,7 +23,7 @@ export default function useFetch<T = unknown>(url: string, method: string, initV
 
 			if (isLoading) {
 				const data = await resp.json();
-				// console.log('check data', data);
+				// console.dir('check data', data);
 				setData(data);
 				setIsLoading(false);
 				// console.log('check state', data, error.toString(), isLoading.toString());
@@ -32,6 +32,5 @@ export default function useFetch<T = unknown>(url: string, method: string, initV
 
 		fetchData();
 	}, [url, method, isLoading]);
-	console.dir('getData:', data);
 	return { data, error, isLoading, setIsLoading };
 }

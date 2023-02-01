@@ -73,6 +73,7 @@ async function main() {
         years_of_exp: 5,
         birthday: new Date("1997-07-16"),
         contact_number: 12341234,
+        contact_email: "performer@gmail.com",
         gender: "male",
       },
       {
@@ -80,6 +81,7 @@ async function main() {
         years_of_exp: 5,
         birthday: new Date("1997-07-16"),
         contact_number: 43214321,
+        contact_email: "performer2@gmail.com",
         gender: "female",
       },
       {
@@ -87,6 +89,7 @@ async function main() {
         years_of_exp: 0,
         birthday: new Date("1997-07-16"),
         contact_number: 43214321,
+        contact_email: "performer3@gmail.com",
         gender: "other",
       },
     ],
@@ -316,10 +319,6 @@ async function main() {
       clients: { select: { id: true } },
     },
   })
-<<<<<<< HEAD
-
-=======
->>>>>>> dcb9df1 (updated events function)
   await prisma.event.createMany({
     data: [
       {

@@ -2,6 +2,7 @@ import React from 'react';
 import { logout } from '../redux/auth';
 import { useRootDispatch } from '../redux/store';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Margin } from '@mui/icons-material';
 
 function Logout() {
 	const dispatch = useRootDispatch();
@@ -17,7 +18,7 @@ function Logout() {
 		navigate(targetPathname);
 	};
 	return (
-		<div>
+		<div style={{ marginLeft: ' 300px' }}>
 			<input type='button' value='LogOut' onClick={logoutBtn}></input>
 		</div>
 	);
