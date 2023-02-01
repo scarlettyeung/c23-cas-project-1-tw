@@ -39,8 +39,11 @@ export class EventController {
           }
           const permit = new Bearer({ query: "access_token" })
           const token = permit.check(req)
+
           const payload = jwtSimple.decode(token, jwt.jwtSecret)
+          console.log("check token decode payload", payload)
           const clients_id = payload.clientId
+          console.log("controller check", clients_id)
           const start_time = new Date(fields.start_time as string)
           const end_time = new Date(fields.end_time as string)
           const image = files.image as formidable.File | undefined
