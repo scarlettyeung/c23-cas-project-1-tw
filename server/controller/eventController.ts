@@ -65,4 +65,39 @@ export class EventController {
       return
     }
   }
+  getReviewsForEventData = async (req: Request, res: Response) => {
+    try {
+      const eventsIdReq = Number(req.params.eventsId)
+      const reviewData = await this.eventService.getReviewsForEvent(eventsIdReq)
+      console.log(req.params.eventsId)
+
+      res.status(200).json({
+        message: "Load reviews for event success!",
+        reviewData,
+      })
+      return
+    } catch (e) {
+      logger.info(e)
+      res.status(400).json({ message: "Load reviews for event fail!" })
+      return
+    }
+  }
+  getReviewsForAllUsersData = async (req: Request, res: Response) => {
+    try {
+      const userIdReq = Number(req.params.userId)
+
+      const reviewData = await this.eventService.getAllReviewsForAllUsers(
+        userIdReq
+      )
+      res.status(200).json({
+        message: "Load reviews for event success!",
+        reviewData,
+      })
+      return
+    } catch (e) {
+      logger.info(e)
+      res.status(400).json({ message: "Load reviews for event fail!" })
+      return
+    }
+  }
 }

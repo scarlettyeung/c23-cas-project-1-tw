@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AccountType, AuthState, Gender, JWTPayload } from './state';
+import { AuthState, JWTPayload } from './state';
 // import type { PayloadAction } from '@reduxjs/toolkit';
-import { loginThunk, testThunk, performerThunk } from '../auth/index';
+import { loginThunk, testThunk } from '../auth/index';
 import jwt_decode from 'jwt-decode';
 
 // Step 1 - InitState
@@ -54,18 +54,26 @@ const authSlice = createSlice({
 			localStorage.removeItem('uuid');
 		},
 		chooseType: (state, action) => {
-			state.accountType = action.payload as AccountType;
+			state.accountType = action.payload;
 		},
-		allUsersP1: (state, action) => {
-			state.email = action.payload;
+		checkPswValidation: (state, action) => {
 			state.password = action.payload;
-			state.password2 = action.payload;
-			state.username = action.payload;
 		},
-		performerP2: (state, action) => {
-			state.tagId = action.payload;
+
+		checkHashValidation: (state, action) => {
+			state.hashTagArr = action.payload;
 		},
-		IndividualP2: (state, action) => {},
+
+		// allUsersP1: (state, action) => {
+		// 	state.email = action.payload;
+		// 	state.password = action.payload;
+		// 	state.password2 = action.payload;
+		// 	state.username = action.payload;
+		// },
+		// performerP2: (state, action) => {
+		// 	state.tagId = action.payload;
+		// },
+		// IndividualP2: (state, action) => {},
 	},
 	extraReducers: (builder) =>
 		builder
@@ -93,18 +101,28 @@ const authSlice = createSlice({
 			.addCase(loginThunk.rejected, (state, action) => {
 				state.loading = false;
 				state.error = action.payload;
-			})
-			.addCase(testThunk.pending, (state) => {
-				state.loading = true;
-			})
-			.addCase(testThunk.fulfilled, (state, action) => {
-				state.loading = false;
-				console.log('fulfilled called ');
-				console.log('check jwt', action.payload);
-			})
-			.addCase(testThunk.rejected, (state, action) => {
-				state.loading = false;
 			}),
+	// .addCase(testThunk.pending, (state) => {
+	// 	state.loading = true;
+	// })
+	// .addCase(testThunk.fulfilled, (state, action) => {
+	// 	state.loading = false;
+	// 	console.log('fulfilled called ');
+	// 	console.log('check jwt', action.payload);
+	// })
+	// .addCase(testThunk.rejected, (state, action) => {
+	// 	state.loading = false;
+	// }),
+	// .addCase(performerThunk.pending, (state) => {
+	// 	state.loading = true;
+	// })
+	// .addCase(performerThunk.fulfilled, (state, action) => {
+	// 	state.loading = false;
+	// })
+	// .addCase(performerThunk.rejected, (state, action) => {
+	// 	state.loading = false;
+	// }),
+
 	// //test
 	// .addCase(performerThunk.pending, (state) => {
 	// 	state.loading = true;
@@ -131,7 +149,7 @@ const authSlice = createSlice({
 });
 
 // Step 3 - Action Creator
-export const { logout, chooseType, allUsersP1, performerP2 } = authSlice.actions;
+export const { logout, chooseType, checkPswValidation, checkHashValidation } = authSlice.actions;
 
 // Step 4 - Reducer
 export const authReducer = authSlice.reducer;

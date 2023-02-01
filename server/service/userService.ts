@@ -229,7 +229,7 @@ export class UserService {
   //////--- part of Register--- ////
   async createPerformer(
     identitySelect: Identity,
-    icon: string | null, // should give the default icon to display
+    // icon: string | null, // should give the default icon to display
     email: string,
     password: string,
     username: string,
@@ -293,7 +293,7 @@ export class UserService {
       await prisma.user.create({
         data: {
           identity: identitySelect, //not null
-          icon: icon,
+          // icon: icon,
           email: email, //not null
           password: password, //not null
           username: username, //not null
@@ -335,7 +335,7 @@ export class UserService {
 
   async createIndividualClient(
     identitySelect: Identity,
-    icon: string | null,
+    // icon: string | null,
     email: string,
     password: string,
     username: string,
@@ -343,7 +343,8 @@ export class UserService {
     name: string,
     gender: Gender,
     contactNumber: number,
-    contactEmail: string | null
+    contactEmail: string | null,
+    description: string
   ) {
     try {
       logger.info("createIndividualClient call in UserService")
@@ -351,7 +352,7 @@ export class UserService {
       await prisma.user.create({
         data: {
           identity: identitySelect, //not null
-          icon: icon,
+          // icon: icon,
           email: email, //not null
           password: password, //not null
           username: username, //not null
@@ -362,6 +363,7 @@ export class UserService {
               gender: gender, //not null
               contact_number: contactNumber, //not null
               contact_email: contactEmail, // default = email
+              description: description,
             },
           },
         },
@@ -378,7 +380,6 @@ export class UserService {
 
   async createCorporateClient(
     identitySelect: Identity,
-    icon: string | null,
     email: string,
     password: string,
     username: string,
@@ -389,7 +390,8 @@ export class UserService {
     contactEmail: string | null,
     businessAddress: string,
     businessBRNo: string,
-    businessWebsiteUrl: string | null
+    businessWebsiteUrl: string | null,
+    description: string
   ) {
     try {
       logger.info("createCorporateClient call in UserService")
@@ -397,7 +399,7 @@ export class UserService {
       await prisma.user.create({
         data: {
           identity: identitySelect, //not null
-          icon: icon,
+          // icon: icon,
           email: email, //not null
           password: password, //not null
           username: username, //not null
@@ -411,6 +413,7 @@ export class UserService {
               business_address: businessAddress, //not null
               business_BR_no: businessBRNo, //not null
               business_website_url: businessWebsiteUrl,
+              description: description,
             },
           },
         },

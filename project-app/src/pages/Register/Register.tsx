@@ -2,16 +2,11 @@ import React, { useState } from "react";
 import { useRootDispatch } from '../../redux/store';
 import { AccountType } from "../../redux/auth";
 import { useNavigate } from "react-router-dom";
-import { chooseType } from '../../redux/auth';
+import { chooseType } from '../../redux/auth/slice';
 
 import "../../styles/register.css"
 import { Button } from '@mantine/core'
 
-// enum AccountType {
-//   Performer = "performer",
-//   Client = "individual",
-//   CorporateClient = "corporate"
-// }
 
 export default function Register() {
   const navigate = useNavigate();
@@ -23,23 +18,24 @@ export default function Register() {
 
   const handlePerformer = (event: React.MouseEvent<HTMLButtonElement>) => {
     setPerformer(event.currentTarget.value as AccountType);
-    console.log(event.currentTarget.value as AccountType);
-    dispatch(chooseType({ accountType: AccountType.Performer }))
+    // console.log(event.currentTarget.value as AccountType);
+    dispatch(chooseType(AccountType.Performer))
     navigate('/register/performer');
   };
   const handleClient = (event: React.MouseEvent<HTMLButtonElement>) => {
     setClient(event.currentTarget.value as AccountType);
-    console.log(event.currentTarget.value as AccountType);
-    dispatch(chooseType({ accountType: AccountType.Client }))
+    // console.log(event.currentTarget.value as AccountType);
+    dispatch(chooseType(AccountType.Client))
     navigate('/register/individual');
   };
 
   const handleCorporateClient = (event: React.MouseEvent<HTMLButtonElement>) => {
     setCorporateClient(event.currentTarget.value as AccountType);
-    console.log(event.currentTarget.value as AccountType);
-    dispatch(chooseType({ accountType: AccountType.CorporateClient }))
+    // console.log(event.currentTarget.value as AccountType);
+    dispatch(chooseType(AccountType.CorporateClient))
     navigate('/register/corporate');
   };
+
 
   return (
     <>

@@ -150,9 +150,10 @@ export class UserController {
     //   }
     // })
     try {
+      logger.info("create User call")
       const {
         identitySelect,
-        icon,
+        // icon,
         email,
         password,
         username,
@@ -173,6 +174,7 @@ export class UserController {
         businessWebsiteUrl,
         hashtagArr,
       } = await req.body
+      console.log(req.body)
 
       //// --- to check the info --- ////
 
@@ -189,10 +191,10 @@ export class UserController {
         setExpYear = yearsOfExp
       }
 
-      let setIcon = "icon"
-      if (icon) {
-        setIcon = icon
-      }
+      // let setIcon = "icon"
+      // if (icon) {
+      //   setIcon = icon
+      // }
 
       let setEmail: string
       if (contactEmail === null) {
@@ -210,11 +212,12 @@ export class UserController {
       const setBirthday: Date = new Date(birthday)
 
       const setPassword: string = await hashPassword(password)
-
+      logger.info("end of check/set info")
       //// --- end of check info --- ////
 
       if (identitySelect === "performer") {
         // to check is not null?
+        logger.info("hi performer")
         if (
           !identitySelect ||
           !email ||
@@ -237,7 +240,7 @@ export class UserController {
 
         await this.userService.createPerformer(
           identitySelect,
-          setIcon,
+          // setIcon,
           email,
           setPassword,
           username,
@@ -258,6 +261,7 @@ export class UserController {
         return
       } else if (identitySelect === "client") {
         if (clientType === "individual") {
+          logger.info("individual client ")
           if (
             !identitySelect ||
             !email ||
@@ -273,7 +277,7 @@ export class UserController {
           }
           await this.userService.createIndividualClient(
             identitySelect,
-            setIcon,
+            // setIcon,
             email,
             setPassword,
             username,
@@ -281,7 +285,8 @@ export class UserController {
             name,
             gender,
             contactNumber,
-            setEmail
+            setEmail,
+            description
           )
           res.status(200).json({ message: "User individual client  create!" })
           return
@@ -301,10 +306,10 @@ export class UserController {
             })
             return
           }
-
+          logger.info("Corporate client hi")
           await this.userService.createCorporateClient(
             identitySelect,
-            setIcon,
+            // setIcon,
             email,
             setPassword,
             username,
@@ -315,8 +320,10 @@ export class UserController {
             setEmail,
             businessAddress,
             businessBRNo,
-            businessWebsiteUrl
+            businessWebsiteUrl,
+            description
           )
+
           res.status(200).json({ message: "User corporate client create!" })
           return
         } else {

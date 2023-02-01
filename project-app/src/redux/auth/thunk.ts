@@ -1,6 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { chooseType } from './slice';
-import { AccountType } from './state';
+// import { chooseType } from './slice';
+// import { AccountType, Identity } from './state';
+// import { useRootSelector } from '../store';
+// import { FormData } from '../../pages/Register/Performer/Performer';
 // import { AuthState } from './state';
 // createAsyncThunk<token(???), pass in, reject>
 // (action name, function)
@@ -58,88 +60,94 @@ export const testThunk = createAsyncThunk<{ rejectValue: string }>(
 	},
 );
 
-enum Gender {
-	Male = 'male',
-	Female = 'female',
-	Other = 'other',
-}
-export const performerThunk = createAsyncThunk<
-	string,
-	{
-		email: string;
-		password: string;
-		password2: string;
-		username: string;
-		tagId: number[] | null;
-		firstName: string;
-		lastName: string;
-		age: string;
-		experience: string;
-		contact: string;
-		team: string;
-		birthday: string;
-		description: string;
-		gender: Gender | null;
-		facebookURL: string;
-		twitterURL: string;
-		youtubeURL: string;
-		igURL: string;
-		// chooseType: AccountType;
-	},
-	{ rejectValue: string }
->(
-	'users/register',
-	async (
-		{
-			email,
-			password,
-			username,
-			tagId,
-			firstName,
-			lastName,
-			experience,
-			contact,
-			birthday,
-			description,
-			gender,
-			facebookURL,
-			twitterURL,
-			youtubeURL,
-			igURL,
-		},
-		thunkAPI,
-	) => {
-		try {
-			const path = process.env.REACT_APP_API_BASE;
-			const resp = await fetch(`${path}users/register`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({
-					email: email,
-					password: password,
-					username: username,
-					hashtagArr: tagId,
-					name: firstName + lastName,
-					yearsOfExp: experience,
-					contactNumber: contact,
-					birthday: birthday,
-					description: description,
-					gender: gender,
-					facebookUrl: facebookURL,
-					twitterUrl: twitterURL,
-					youtubeUrl: youtubeURL,
-					igURL: igURL,
-					identitySelect: chooseType,
-				}),
-			});
-			const data = await resp.json();
-			console.log(data.message);
-			return data;
-		} catch (error) {
-			console.log(error);
-			return;
-		}
-	},
-);
+// enum Gender {
+// 	Male = 'male',
+// 	Female = 'female',
+// 	Other = 'other',
+// }
+// export const performerThunk = createAsyncThunk<
+// 	string,
+// 	{
+// 		email: string;
+// 		password: string;
+// 		// password2: string;
+// 		username: string;
+// 		tagId: number[] | null;
+// 		firstName: string;
+// 		lastName: string;
+// 		experience: string;
+// 		contact: string;
+// 		birthday: string;
+// 		description: string;
+// 		gender: Gender | null;
+// 		facebookURL: string;
+// 		twitterURL: string;
+// 		youtubeURL: string;
+// 		igURL: string;
+// 		// chooseType: AccountType;
+// 	},
+// 	{ rejectValue: string }
+// >(
+// 	'users/register',
+// 	async (
+// 		{
+// 			email,
+// 			password,
+// 			username,
+// 			tagId,
+// 			firstName,
+// 			lastName,
+// 			experience,
+// 			contact,
+// 			birthday,
+// 			description,
+// 			gender,
+// 			facebookURL,
+// 			twitterURL,
+// 			youtubeURL,
+// 			igURL,
+// 		}: FormData,
+// 		thunkAPI,
+// 	) => {
+// 		try {
+// 			const type = useRootSelector((state) => state.auth.accountType);
+// 			let identitySend: Identity;
+// 			if (type === 'performer') {
+// 				console.log('hfsdjfghsdjfghsdjk', type);
+// 				identitySend = Identity.Performer;
+// 			} else {
+// 				identitySend = Identity.Client;
+// 			}
+// 			const path = process.env.REACT_APP_API_BASE;
+// 			const resp = await fetch(`${path}users/register`, {
+// 				method: 'POST',
+// 				headers: {
+// 					'Content-Type': 'application/json',
+// 				},
+// 				body: JSON.stringify({
+// 					email: email,
+// 					password: password,
+// 					username: username,
+// 					hashtagArr: tagId,
+// 					name: firstName + '-' + lastName,
+// 					yearsOfExp: experience,
+// 					contactNumber: contact,
+// 					birthday: birthday,
+// 					description: description,
+// 					gender: gender,
+// 					facebookUrl: facebookURL,
+// 					twitterUrl: twitterURL,
+// 					youtubeUrl: youtubeURL,
+// 					igURL: igURL,
+// 					identitySelect: identitySend,
+// 				}),
+// 			});
+// 			const data = await resp.json();
+// 			console.log(data.message);
+// 			return data;
+// 		} catch (error) {
+// 			console.log(error);
+// 			return;
+// 		}
+// 	},
+// );

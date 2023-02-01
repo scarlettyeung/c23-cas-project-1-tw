@@ -1,11 +1,10 @@
 import { FormEvent, useState } from "react"
-
 import BasicInfo from "../registerComponent/BasicInfo"
-// import { AddressForm } from "./AddressForm"
 import { useMultiStepForm } from "../../../models/useMultistepForm"
-
 import CorporateInfo from "./Component/CorporateInfo"
-
+import { useNavigate } from "react-router-dom"
+import { useRootDispatch, useRootSelector } from "../../../redux/store"
+import { checkPswValidation } from "../../../redux/auth/slice"
 
 // import { UserForm } from "./UserForm"
 
@@ -15,12 +14,13 @@ type FormData = {
   password2: string
   username: string
   companyName: string
-  contactNumber: string
-  contactEmail: string
+  contact: string
+  // contactEmail: string
   businessAddress: string
   bRNumber: string
   website: string
   description: string
+  gender: string
 }
 
 
@@ -31,29 +31,64 @@ const INITIAL_DATA: FormData = {
   password2: '',
   username: '',
   companyName: '',
-  contactNumber: '',
-  contactEmail: '',
+  contact: '',
   businessAddress: '',
   bRNumber: '',
   website: '',
   description: '',
+  gender: '',
 }
 
 function Corporate() {
+  const navigate = useNavigate()
+  const dispatch = useRootDispatch()
+  const typeOfAccount = useRootSelector((state) => state.auth.accountType);
+  console.log('typeeeeeeeeeeeee', typeOfAccount);
+
   const [data, setData] = useState(INITIAL_DATA)
   function updateFields(fields: Partial<FormData>) {
     setData(prev => {
       return { ...prev, ...fields }
     })
   }
-
+  let fetchAccType: string
+  if (typeOfAccount === 'corporate') {
+    fetchAccType = 'client'
+  }
+  else {
+    fetchAccType = ''
+  }
+  const fetchData = {
+    identitySelect: fetchAccType,
+    clientType: typeOfAccount,
+    email: data.email,
+    password: data.password,
+    username: data.username,
+    name: data.companyName,
+    contactNumber: Number(data.contact),
+    contactEmail: data.email,
+    businessBRNo: data.bRNumber,
+    businessWebsiteUrl: data.website,
+    description: data.description,
+    gender: data.gender,
+    businessAddress: data.businessAddress
+  }
+  dispatch(checkPswValidation(data.password))
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } = useMultiStepForm([<BasicInfo {...data} updateFields={updateFields} />, <CorporateInfo{...data} updateFields={updateFields} />])
   // [<CorporateInfo{...data} updateFields={updateFields} />]
   // [<BasicInfo {...data} updateFields={updateFields} />]
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent) {
     e.preventDefault()
     if (!isLastStep) return next()
-
+    const path = process.env.REACT_APP_API_BASE;
+    await fetch(`${path}users/createUser`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(fetchData),
+    })
+    navigate('/')
   }
 
   return (

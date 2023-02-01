@@ -81,7 +81,7 @@ function PerformerHash({ tagId, updateFields }: UserFormProps) {
             updateFields({ tagId: arr })
             tagId = arr
             // console.log("check ids", ids)
-          }} className={ids.includes(tag.tagId) ? 'tagStyle2' : 'tagStyle'}>{tag.name}
+          }} className={tagId?.includes(tag.tagId) ? 'tagStyle2' : 'tagStyle'}>{tag.name}
 
         </Badge>
       ))

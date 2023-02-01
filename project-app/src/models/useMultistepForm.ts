@@ -1,12 +1,29 @@
 import { ReactElement, useState } from 'react';
-
+import { useRootSelector } from '../redux/store';
 export function useMultiStepForm(steps: ReactElement[]) {
 	const [currentStepIndex, setCurrentStepIndex] = useState(0);
+	const checkPsw = useRootSelector((state) => state.auth.password);
+	const checkHash = useRootSelector((state) => state.auth.hashTagArr);
+	const typeOfAccount = useRootSelector((state) => state.auth.accountType);
+	console.log(checkPsw, checkHash);
 
 	function next() {
 		setCurrentStepIndex((i) => {
-			if (i >= steps.length - 1) return i;
-			return i + 1;
+			if (i >= steps.length - 1) {
+				return i;
+			}
+			if (checkPsw === '' && i) {
+				return i;
+			}
+			if (
+				(checkHash?.length === 0 || checkHash === null || checkHash === undefined) &&
+				i &&
+				typeOfAccount === 'performer'
+			) {
+				return i;
+			} else {
+				return i + 1;
+			}
 		});
 	}
 

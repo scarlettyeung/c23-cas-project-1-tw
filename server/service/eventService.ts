@@ -67,4 +67,87 @@ export class EventService {
       return
     }
   }
+  async getReviewsForEvent(eventsId: number) {
+    try {
+      const review = await prisma.event.findUnique({
+        where: {
+          id: eventsId,
+        },
+        select: {
+          clients: {
+            select: {
+              users: {
+                select: {
+                  id: true,
+                  username: true,
+                },
+              },
+            },
+          },
+          performers: {
+            select: {
+              users: {
+                select: {
+                  id: true,
+                  username: true,
+                },
+              },
+            },
+          },
+          reviews: {
+            select: {
+              users_id: true,
+              comments_content: true,
+              score: true,
+            },
+          },
+        },
+      })
+      await prisma.$disconnect()
+      return review
+    } catch (e) {
+      logger.info(e)
+      await prisma.$disconnect()
+      return
+    }
+  }
+  async getAllReviewsForAllUsers(userId: number) {
+    try {
+      const review = await prisma.review.findMany({
+        where: {
+          users_id: userId,
+        },
+        select: {
+          comments_content: true,
+          score: true,
+          users: {
+            select: {
+              id: true,
+              username: true,
+            },
+          },
+          events: {
+            select: {
+              title: true,
+              clients: {
+                select: {
+                  users: {
+                    select: {
+                      username: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      })
+      await prisma.$disconnect()
+      return review
+    } catch (e) {
+      logger.info(e)
+      await prisma.$disconnect()
+      return
+    }
+  }
 }
