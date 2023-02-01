@@ -223,7 +223,7 @@ export class UserController {
           !email ||
           !password ||
           !username ||
-          !contactEmail ||
+          !setEmail ||
           !contactNumber ||
           !gender
         ) {
@@ -247,7 +247,7 @@ export class UserController {
           username,
           setExpYear,
           setBirthday,
-          contactEmail,
+          setEmail,
           contactNumber,
           gender,
           description,
