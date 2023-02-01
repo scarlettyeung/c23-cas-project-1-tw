@@ -1,27 +1,21 @@
 import React from 'react';
-import { Event } from '../index';
+import { Event } from '../../../utils/userInfoType';
 
 type EventInfoProps = {
-	eventInfoData?: Event[];
+	info: Event[];
 };
 
-function EventInfo(info: EventInfoProps) {
-	const eventArr = info.eventInfoData;
-	let mapEvent;
-	if (eventArr)
-		mapEvent = eventArr.map((event) => (
-			<div key={event.id}>
-				{event.title}
-				<button>details</button>
-			</div>
-		));
+function EventInfo(props: EventInfoProps) {
+	console.log(props.info);
 	return (
 		<>
 			<div>EventInfo</div>
-
-			{!info && <div>No Event</div>}
-
-			{eventArr && mapEvent}
+			{props.info.map((event) => (
+				<div key={`event-${event.id}`}>
+					{event.title}
+					<button>details</button>
+				</div>
+			))}
 		</>
 	);
 }

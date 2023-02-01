@@ -32,5 +32,5 @@ export default function useFetch<T = unknown>(url: string, method: string, initV
 
 		fetchData();
 	}, [url, method, isLoading]);
-	return { data, error, isLoading, setIsLoading };
+	return { data, error, isLoading };
 }

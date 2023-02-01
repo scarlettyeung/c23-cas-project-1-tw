@@ -5,6 +5,8 @@ import {
 	PerformersSettingValue,
 	IndividualClientsSettingValue,
 	CorporateClientsSettingValue,
+	Role,
+	RespType,
 } from '../../utils/userInfoType';
 import PerformersDisplay from './Performers/PerformersDisplay';
 import PerformersEdit from './Performers/PerformersEdit';
@@ -19,20 +21,13 @@ import { useForm } from '@mantine/form';
 import { IconUpload } from '@tabler/icons';
 import { FileInput } from '@mantine/core';
 
-enum Role {
-	Performer = 'performer',
-	Individual = 'individual',
-	Corporate = 'corporate',
-}
-
-interface RespType {
-	message: string;
-	userInfo: PerformersSettingValue | IndividualClientsSettingValue | CorporateClientsSettingValue;
-}
-
 function Details() {
 	const navigate = useNavigate();
-	const { data: resp, isLoading } = useFetch<RespType | null>(`users/getSettingInfo`, 'GET', null);
+	const {
+		data: resp,
+		isLoading,
+		error,
+	} = useFetch<RespType | null>(`users/getSettingInfo`, 'GET', null);
 	const [isEdit, setIsEdit] = useState<boolean>(false);
 
 	const edit = () => {
@@ -45,7 +40,7 @@ function Details() {
 		setIsEdit(false);
 	};
 
-	const exit = () => {
+	const exitEdit = () => {
 		console.log('exit Now !');
 		setIsEdit(false);
 	};
@@ -65,6 +60,10 @@ function Details() {
 		return <div>Loading....</div>;
 	}
 
+	if (error) {
+		return <div>get error</div>;
+	}
+
 	if (resp && !isEdit && role === Role.Performer) {
 		const userInfo = resp.userInfo as PerformersSettingValue;
 		console.log('userInfo ', userInfo);
@@ -75,149 +74,47 @@ function Details() {
 				<br></br>
 			</>
 		);
-	} else {
-		return <div>error</div>;
 	}
 
-	// return (
-	// 	<>
-	// 		{!isEdit && role === Role.Performer && (
-	// 			<>
-	// 				<button onClick={goBack}>Go back</button>
-	// 				<div>Performers Details</div>
-	// 				<button onClick={edit}>To Edit</button>
-	// 				<br></br>
-	// 				<Text>icon: {performersValue.icon}</Text>
-	// 				{/* <Text>userName:{userName} </Text> */}
-	// 				<Text>userName:{performersValue.userName} </Text>
-	// 				<Text>email: {performersValue.email}</Text>
-	// 				<Text>gender: {performersValue.gender}</Text>
-	// 				<Text>identity: 123{performersValue.identity}</Text>
-	// 				{/* <Text>identity: {identity}</Text> */}
-	// 				<Text>AvgScore: {performersValue.avgScore}</Text>
-	// 				<Text>SumOfEven: {performersValue.sumOfEven}</Text>
-	// 				<Text>yearsOfExp: {performersValue.yearsOfExp}</Text>
-	// 				<Center>
-	// 					<DatePicker
-	// 						placeholder='Pick date'
-	// 						label='birthday'
-	// 						value={new Date(performersValue.birthday!)}
-	// 						variant='unstyled'
-	// 						readOnly
-	// 					/>
-	// 				</Center>
-	// 				<Text>contactNumber: {performersValue.contactNumber}</Text>
-	// 				<Text>name: {performersValue.name}</Text>
-	// 				<Text>description: {performersValue.description}</Text>
-	// 				<Text>facebookUrl: {performersValue.fbURL}</Text>
-	// 				<Text>twitterUrl: {performersValue.twURL}</Text>
-	// 				<Text>youtubeUrl: {performersValue.ytURL}</Text>
-	// 				<Text>igUrl: {performersValue.igURL}</Text>
-	// 				<Text>
-	// 					hashTag: {performersValue.hashtags[0].id < 0 && <div>No hashTag</div>}
-	// 					{performersValue.hashtags[0].id > 0 &&
-	// 						performersValue.hashtags.map((tag) => <div key={tag.id}>{tag.name}</div>)}
-	// 				</Text>
-	// 			</>
-	// 		)}
-	// 		{/* {!isLoading && !isEdit && isClients && isIndividualClients && (
-	// 			<>
-	// 				<button onClick={goBack}>Go back</button>
-	// 				<div>Individual Clients Details</div>
-	// 				<button onClick={edit}>To Edit</button>
-	// 				<br></br>
-	// 				<Text>icon: {icon}</Text>
-	// 				<Text>userName:{userName} </Text>
-	// 				<Text>email: {email}</Text>
-	// 				<Text>gender: {gender}</Text>
-	// 				<Text>
-	// 					identity: {identity} ({isIndividualClients ? <>Individual</> : <> Corporate</>})
-	// 				</Text>
-	// 				<Text>AvgScore: {avgScore}</Text>
-	// 				<Text>SumOfEven: {sumOfEven}</Text>
-	// 				<Text>contactNumber: {contactNumber}</Text>
-	// 				<Text>name: {name}</Text>
-	// 				<Text>description: {description}</Text>
-	// 				<Text>events: {description}</Text>
-	// 			</>
-	// 		)}
-	// 		{!isLoading && !isEdit && isClients && isCorporateClients && (
-	// 			<>
-	// 				<button onClick={goBack}>Go back</button>
-	// 				<div>Corporate Clients Details</div>
-	// 				<button onClick={edit}>To Edit</button>
-	// 				<br></br>
-	// 			</>
-	// 		)}
+	if (resp && !isEdit && role === Role.Individual) {
+		const userInfo = resp.userInfo as IndividualClientsSettingValue;
+		console.log('userInfo ', userInfo);
+		return (
+			<>
+				<IndividualClientsDisplay info={userInfo} goBack={goBack} edit={edit} />
+				<br></br>
+			</>
+		);
+	}
 
-	// 		{!isLoading && isEdit && isPerformers && (
-	// 			<>
-	// 				<button onClick={exit}>Exit</button>
-	// 				<div>Performers Details Editing</div>
-	// 				<button onClick={complete}>Complete</button>
-	// 				<br></br>
-	// 				<Box sx={{ maxWidth: 300 }} mx='auto'>
-	// 					<form onSubmit={form.onSubmit((values) => console.log(values))}>
-	// 						<FileInput
-	// 							label='Icon'
-	// 							placeholder='Your Icon'
-	// 							accept='image'
-	// 							icon={<IconUpload size={14} />}
-	// 							onChange={setIconFile}
-	// 							clearButtonLabel='REMOVE'
-	// 							clearable={true}
-	// 						/>
+	if (resp && !isEdit && role === Role.Corporate) {
+		const userInfo = resp.userInfo as CorporateClientsSettingValue;
+		console.log('userInfo ', userInfo);
+		return (
+			<>
+				<CorporateClientsDisplay info={userInfo} goBack={goBack} edit={edit} />
+				<br></br>
+			</>
+		);
+	}
 
-	// 						<TextInput
-	// 							label='Contact Email'
-	// 							// placeholder={userName}
-	// 							{...form.getInputProps('fContactEmail')}
-	// 						/>
-	// 						<TextInput
-	// 							label='User Name'
-	// 							// placeholder={userName}
-	// 							{...form.getInputProps('fUserName')}
-	// 						/>
+	if (resp && isEdit && role === Role.Performer) {
+		const userInfo = resp.userInfo as PerformersSettingValue;
+		console.log('userInfo ', userInfo);
+		return <PerformersEdit info={userInfo} complete={complete} exitEdit={exitEdit} />;
+	}
+	if (resp && isEdit && role === Role.Individual) {
+		const userInfo = resp.userInfo as IndividualClientsSettingValue;
+		console.log('userInfo ', userInfo);
+		return <IndividualClientsEdit info={userInfo} complete={complete} exitEdit={exitEdit} />;
+	}
+	if (resp && isEdit && role === Role.Corporate) {
+		const userInfo = resp.userInfo as CorporateClientsSettingValue;
+		console.log('userInfo ', userInfo);
+		return <CorporateClientsEdit info={userInfo} complete={complete} exitEdit={exitEdit} />;
+	}
 
-	// 						<Group position='right' mt='md'>
-	// 							<Button type='submit'>Submit</Button>
-	// 						</Group>
-	// 					</form>
-	// 				</Box>
-
-	// 				<Text>icon: {icon}</Text>
-	// 				<Text>userName:{userName} </Text>
-	// 				<Text>email: {email}</Text>
-	// 				<Text>gender: {gender}</Text>
-	// 				<Text>
-	// 					identity: {identity} ({isIndividualClients ? <>Individual</> : <> Corporate</>})
-	// 				</Text>
-	// 				<Text>AvgScore: {avgScore}</Text>
-	// 				<Text>SumOfEven: {sumOfEven}</Text>
-	// 				<Text>contactNumber: {contactNumber}</Text>
-	// 				<Text>name: {name}</Text>
-	// 				<Text>description: {description}</Text>
-	// 				<Text>events: {description}</Text>
-	// 			</>
-	// 		)}
-	// 		{!isLoading && isEdit && isClients && isIndividualClients && (
-	// 			<>
-	// 				<button onClick={exit}>Exit</button>
-	// 				<div>Individual Clients Details Editing</div>
-	// 				<button onClick={complete}>Complete</button>
-	// 				<br></br>
-	// 			</>
-	// 		)}
-	// 		{!isLoading && isEdit && isClients && isCorporateClients && (
-	// 			<>
-	// 				<button onClick={exit}>Exit</button>
-	// 				<div>Corporate Clients Details Editing</div>
-	// 				<button onClick={complete}>Complete</button>
-	// 				<br></br>
-	// 			</>
-	// 		)} */}
-	// 	</>
-	// );
+	return <div>get error</div>;
 }
 
 export default Details;

@@ -436,6 +436,23 @@ export class UserService {
   async getPerformersProfilePageInfo(uuid: string) {
     try {
       logger.info("get Performers Info call in UserService")
+      const performersInfo = await prisma.user.findUnique({
+        where: {
+          uuid: uuid,
+        },
+        select: {
+          performers: {
+            select: {
+              id: true,
+            },
+          },
+        },
+      })
+      if (!performersInfo) {
+        return
+      }
+
+      // const performerId = performersInfo?.performers[0].id
       const userInfo = await prisma.user.findUnique({
         where: {
           uuid: uuid,
@@ -458,7 +475,6 @@ export class UserService {
               ig_url: true,
               performers_hashtags: {
                 select: {
-                  // hashtag_details_id: true,
                   hashtag_details: {
                     select: {
                       id: true,
@@ -471,16 +487,6 @@ export class UserService {
                 select: {
                   id: true,
                   title: true,
-                },
-              },
-              teams_performers: {
-                select: {
-                  teams: {
-                    select: {
-                      id: true,
-                      name: true,
-                    },
-                  },
                 },
               },
             },
@@ -509,11 +515,36 @@ export class UserService {
       }
 
       if (!userInfo) return
-      userInfo.performers[0]["avg_score"] = userAvgScore.avg_score
-      userInfo.performers[0]["sum_of_even"] = sum_of_events
+      // userInfo.performers[0]["avg_score"] = userAvgScore.avg_score
+      // userInfo.performers[0]["sum_of_even"] = sum_of_events
+
+      const mapHashTags = userInfo.performers[0].performers_hashtags.map(
+        (tag) => {
+          return {
+            id: tag.hashtag_details.id,
+            name: tag.hashtag_details.name,
+          }
+        }
+      )
+      console.dir("mapHashTags")
+      console.dir(mapHashTags)
+
+      const data = {
+        ...userInfo,
+        ...userInfo.performers[0],
+        avg_score: userAvgScore.avg_score,
+        sum_of_even: sum_of_events,
+        performers_hashtags: mapHashTags,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } as any
+
+      delete data.performers
+
+      console.log("the data is ")
+      console.dir(data)
 
       await prisma.$disconnect()
-      return userInfo
+      return data
     } catch (e) {
       logger.debug(e)
       await prisma.$disconnect()
@@ -572,12 +603,19 @@ export class UserService {
       }
 
       if (!userInfo) return
-      userInfo.clients[0]["avg_score"] = userAvgScore.avg_score
-      userInfo.clients[0]["sum_of_even"] = sum_of_events
+
+      const data = {
+        ...userInfo,
+        ...userInfo.clients[0],
+        avg_score: userAvgScore.avg_score,
+        sum_of_even: sum_of_events,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } as any
+      delete data.clients
 
       logger.info("get info in UserService")
       await prisma.$disconnect()
-      return userInfo
+      return data
     } catch (e) {
       logger.debug(e)
       await prisma.$disconnect()
@@ -639,11 +677,17 @@ export class UserService {
       }
 
       if (!userInfo) return
-      userInfo.clients[0]["avg_score"] = userAvgScore.avg_score
-      userInfo.clients[0]["sum_of_even"] = sum_of_events
 
+      const data = {
+        ...userInfo,
+        ...userInfo.clients[0],
+        avg_score: userAvgScore.avg_score,
+        sum_of_even: sum_of_events,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } as any
+      delete data.clients
       await prisma.$disconnect()
-      return userInfo
+      return data
     } catch (e) {
       logger.debug(e)
       await prisma.$disconnect()

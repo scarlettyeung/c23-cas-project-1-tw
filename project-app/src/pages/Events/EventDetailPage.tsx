@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { NumericLiteral } from 'typescript';
 
-interface EventDetail {
+interface EventDetailType {
 	id: number;
 	title: string;
 	wage_offer: number;
@@ -24,7 +24,7 @@ interface EventDetail {
 
 function EventDetail() {
 	let eventId = useParams();
-	const [event, setEvent] = useState<EventDetail>();
+	const [event, setEvent] = useState<EventDetailType>();
 
 	useEffect(() => {
 		async function loadData() {
@@ -39,7 +39,7 @@ function EventDetail() {
 			setEvent(json);
 		}
 		loadData();
-	}, []);
+	}, [eventId.eventsId]);
 	console.log(event);
 
 	return (

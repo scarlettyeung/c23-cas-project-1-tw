@@ -1,3 +1,28 @@
+export enum Role {
+	Performer = 'performer',
+	Individual = 'individual',
+	Corporate = 'corporate',
+}
+
+export interface RespType {
+	message: string;
+	userInfo: PerformersSettingValue | IndividualClientsSettingValue | CorporateClientsSettingValue;
+}
+export interface RespTypeInProfile {
+	message: string;
+	data: PerformanceInfo | IndividualClientsInfo | CorporateClientsInfo;
+}
+
+export interface HashTag {
+	id: number;
+	name: string;
+}
+
+export interface Event {
+	id: number;
+	title: string;
+}
+
 //// ---- part of setting page ---- ////
 
 export interface PerformersSettingValue {
@@ -10,8 +35,6 @@ export interface PerformersSettingValue {
 	performers_hashtags: HashTag[];
 	gender: string;
 	years_of_exp: number;
-	avgScore: number;
-	sumOfEven: number;
 	birthday: Date | null; //can be null
 	description: string; //can be null
 	facebook_url: string; //can be null
@@ -19,6 +42,9 @@ export interface PerformersSettingValue {
 	youtube_url: string; //can be null
 	ig_url: string; //can be null
 	events: Event[]; //can be null
+	//rm one
+	avgScore: number;
+	sumOfEven: number;
 	avg_score: number;
 	sum_of_even: number;
 }
@@ -44,15 +70,53 @@ export interface CorporateClientsSettingValue extends IndividualClientsSettingVa
 }
 
 //// ---- part of setting page ---- ////
-export interface HashTag {
+
+//// ---- part of profile page ---- ////
+
+export interface PerformanceInfo {
+	uuid: string;
 	id: number;
-	name: string;
+	username: string;
+	icon?: string | null;
+	email: string;
+	identity: string;
+	years_of_exp: number;
+	contact_number: number;
+	gender: string;
+	description?: string;
+	facebook_url?: string;
+	twitter_url?: string;
+	youtube_url?: string;
+	ig_url?: string;
+	performers_hashtags: HashTag[];
+	events?: Event[];
+	avg_score: number;
+	sum_of_even: number;
 }
 
-export interface Event {
+export interface IndividualClientsInfo {
+	uuid: string;
 	id: number;
-	title: string;
+	username: string;
+	icon?: string | null;
+	email: string;
+	name: string;
+	identity: string;
+	contact_number: number;
+	gender: string;
+	description?: string;
+	client_type: string;
+	performers_hashtags: HashTag[];
+	events?: Event[];
+	avg_score: number;
+	sum_of_even: number;
 }
+export interface CorporateClientsInfo extends IndividualClientsInfo {
+	business_address: string;
+	business_BR_no: string;
+	business_website_url: string | null;
+}
+//// ---- part of profile page ---- ////
 
 export interface PersonalData {
 	userIcon: string;

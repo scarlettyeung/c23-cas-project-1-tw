@@ -10,10 +10,21 @@ type performerInfo = {
 
 function PerformersDisplay(props: performerInfo) {
 	const userInfo = props.info;
+	const tags = userInfo.performers_hashtags.map((tag) => {
+		console.log('tag');
+		console.log(tag);
+		return {
+			// 		id: tag.hashtag_details.id,
+			// 		name: tag.hashtag_details.name,
+		};
+	});
+	console.log('tags');
+	// console.log(tags);
 	return (
 		<>
 			<div>
 				<button onClick={props.goBack}>Go back</button>
+
 				<div>Performers Details</div>
 				<button onClick={props.edit}>To Edit</button>
 			</div>
@@ -23,8 +34,8 @@ function PerformersDisplay(props: performerInfo) {
 				<Text>gender: {userInfo.gender}</Text>
 				<Text>identity:{userInfo.identity}</Text>
 
-				<Text>AvgScore: {userInfo.avgScore}</Text>
-				<Text>SumOfEven: {userInfo.sumOfEven}</Text>
+				<Text>AvgScore: {userInfo.avg_score}</Text>
+				<Text>SumOfEven: {userInfo.sum_of_even}</Text>
 				<Text>yearsOfExp: {userInfo.years_of_exp}</Text>
 				<Center>
 					<DatePicker
@@ -36,16 +47,18 @@ function PerformersDisplay(props: performerInfo) {
 					/>
 				</Center>
 				<Text>contactNumber: {userInfo.contact_number}</Text>
-				<Text>name: {userInfo.name}</Text>
-				<Text>description: {userInfo.description}</Text>
-				<Text>facebookUrl: {userInfo.facebook_url}</Text>
-				<Text>twitterUrl: {userInfo.twitter_url}</Text>
-				<Text>youtubeUrl: {userInfo.youtube_url}</Text>
-				<Text>igUrl: {userInfo.ig_url}</Text>
+				<Text>name: {userInfo.name ? userInfo.name : <>No name</>}</Text>
 				<Text>
-					hashTag: {userInfo.performers_hashtags[0].id < 0 && <div>No hashTag</div>}
-					{userInfo.performers_hashtags[0].id > 0 &&
-						userInfo.performers_hashtags.map((tag) => <div key={tag.id}>{tag.name}</div>)}
+					description: {userInfo.description ? userInfo.description : <>No description</>}
+				</Text>
+				<Text>facebookUrl: {userInfo.facebook_url ? userInfo.facebook_url : <>No URL</>}</Text>
+				<Text>twitterUrl: {userInfo.twitter_url ? userInfo.twitter_url : <>No URL</>}</Text>
+				<Text>youtubeUrl: {userInfo.youtube_url ? userInfo.youtube_url : <>No URL</>}</Text>
+				<Text>igUrl: {userInfo.ig_url ? userInfo.ig_url : <>No URL</>}</Text>
+				<Text>
+					hashTag: {!userInfo.performers_hashtags && <div>No hashTag</div>}
+					{/* {userInfo.performers_hashtags &&
+						tags.map((tag) => <div key={`event_${tag.id}`}>{tag.name}</div>)} */}
 				</Text>
 			</div>
 		</>

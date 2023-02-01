@@ -386,9 +386,7 @@ export class UserController {
       }
 
       logger.info("get data at Controller")
-      // const uuid = await req.body.uuid
-      // const Identity = await req.body.Identity
-      // const info = await this.userService
+
       res.status(200).json({ message: "get user info", data })
       return
     } catch (e) {

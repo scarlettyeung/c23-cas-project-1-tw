@@ -22,9 +22,9 @@ async function main() {
   await prisma.hashtagDetail.deleteMany()
   await prisma.event.deleteMany()
   await prisma.hashtagDetail.deleteMany()
+  await prisma.client.deleteMany()
   await prisma.eprofile.deleteMany()
   await prisma.performer.deleteMany()
-  await prisma.client.deleteMany()
   await prisma.user.deleteMany()
   console.log("deleteMany run")
 
@@ -377,43 +377,7 @@ async function main() {
       },
     ],
   })
-  const hashtag_id = await prisma.hashtagDetail.findMany({
-    select: {
-      id: true,
-    },
-  })
-  await prisma.performersHashtag.createMany({
-    data: [
-      {
-        performers_id: userId[0].performers[0].id,
-        hashtag_details_id: hashtag_id[0].id,
-      },
-      {
-        performers_id: userId[0].performers[0].id,
-        hashtag_details_id: hashtag_id[1].id,
-      },
-      {
-        performers_id: userId[0].performers[0].id,
-        hashtag_details_id: hashtag_id[2].id,
-      },
-      {
-        performers_id: userId[1].performers[0].id,
-        hashtag_details_id: hashtag_id[3].id,
-      },
-      {
-        performers_id: userId[1].performers[0].id,
-        hashtag_details_id: hashtag_id[4].id,
-      },
-      {
-        performers_id: userId[1].performers[0].id,
-        hashtag_details_id: hashtag_id[5].id,
-      },
-      {
-        performers_id: userId[1].performers[0].id,
-        hashtag_details_id: hashtag_id[6].id,
-      },
-    ],
-  })
+
   ////start here ken
 }
 main()

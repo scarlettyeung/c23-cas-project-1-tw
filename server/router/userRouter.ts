@@ -33,4 +33,10 @@ userRoutes.get(
 userRoutes.get("/eProfile/:uuid/get", isLoggedIn, userController.getEProfile)
 userRoutes.put("/eProfile/:uuid/edit", isLoggedIn, userController.editEProfile)
 
+userRoutes.get(
+  "/getAllTag",
+  isLoggedIn,
+  userController.getAllPerformerHashtagData
+)
+
 //Apart from login  , place add checkTokenExp and isLoggedIn , tokenExpUpdate where should I give the new token or payload

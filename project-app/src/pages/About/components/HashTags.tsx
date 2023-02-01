@@ -1,13 +1,13 @@
-// import React, { useState, useEffect } from 'react'
-import { HashtagData } from '../index';
+import React, { useState, useEffect } from 'react';
+import { HashTag } from '../../../utils/userInfoType';
 type HashTagsProps = {
-	tags: HashtagData[] | null;
+	tags: HashTag[] | null;
 	// setHashtags: void =>{}
 };
-function HashTags(info: HashTagsProps) {
-	const tags = info.tags;
-
-	return <div>{tags && tags.map((tag) => <div key={tag.id}>{tag.name}</div>)}</div>;
+function HashTags(props: HashTagsProps) {
+	return (
+		<div>{props.tags && props.tags.map((tag) => <div key={`tag_${tag.id}`}>{tag.name}</div>)}</div>
+	);
 }
 
 export default HashTags;
