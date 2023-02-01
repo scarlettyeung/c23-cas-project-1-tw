@@ -19,32 +19,32 @@ import PublicRoute from './PublicRoute';
 import PersonalDetails from '../pages/PersonalDetails';
 
 function MyRoutes() {
-	return (
-		<Routes>
-			<Route path='login' element={<Login />} />
-			<Route path='register' element={<PublicRoute />}>
-				<Route element={<Register />} index />
-				<Route path='corporate' element={<Corporate />} />
-				<Route path='individual' element={<Individual />} />
-				<Route path='performer' element={<Performer />} />
-			</Route>
-			{/* <Route path='/register' element={<Register />} /> */}
+  return (
+    <Routes>
+      <Route path='login' element={<Login />} />
+      <Route path='register' element={<PublicRoute />}>
+        <Route element={<Register />} index />
+        <Route path='corporate' element={<Corporate />} />
+        <Route path='individual' element={<Individual />} />
+        <Route path='performer' element={<Performer />} />
+      </Route>
+      {/* <Route path='/register' element={<Register />} /> */}
 
-			<Route path='/' element={<PrivateRoute />}>
-				<Route element={<Home />} index />
-				<Route path='events' element={<Events />} />
-				<Route path='events/:eventsId' element={<EventDetail />} />
-				<Route path='events/createEvents' element={<CreateEventPage />} />
-				<Route path='chatRoom' element={<ChatRoom />} />
-				<Route path='about'>
-					<Route element={<PersonalDetails />} index />
-					<Route path=':uuid' element={<About />} />
-				</Route>
-			</Route>
+      <Route path='/' element={<PrivateRoute />}>
+        <Route element={<Home />} index />
+        <Route path='events' element={<Events />} />
+        <Route path='events/:eventsId' element={<EventDetail />} />
+        <Route path='events/createEvents' element={<CreateEventPage />} />
+        <Route path='chatRoom' element={<ChatRoom />} />
+        <Route path='about'>
+          <Route element={<PersonalDetails />} index />
+          <Route path=':uuid' element={<About />} />
+        </Route>
+      </Route>
 
-			<Route path='*' element={<NotFound />} />
-		</Routes>
-	);
+      <Route path='*' element={<NotFound />} />
+    </Routes>
+  );
 }
 
 export default MyRoutes;
