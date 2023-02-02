@@ -1,6 +1,7 @@
 pgdata
 .DS_Store
 build
+pg
 
 # Logs
 logs

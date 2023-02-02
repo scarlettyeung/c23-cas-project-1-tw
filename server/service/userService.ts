@@ -8,8 +8,30 @@ import {
   TagType,
 } from "@prisma/client"
 
+// const prisma = new PrismaClient()
+
 export class UserService {
   constructor(private prisma: PrismaClient) {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  // constructor() {}
+
+  async forTest(id: number) {
+    try {
+      const test = await this.prisma.user.findUnique({
+        where: {
+          id: id,
+        },
+        select: {
+          username: true,
+        },
+      })
+      logger.info(test)
+      return test
+    } catch (e) {
+      logger.error(e)
+      return
+    }
+  }
 
   //////--- part of check user info--- ////
   async getLoginInfo(email: string) {
@@ -43,11 +65,11 @@ export class UserService {
 
       logger.info("get login info in UserService ")
       logger.info(user)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return user
     } catch (e) {
       logger.debug(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -65,12 +87,12 @@ export class UserService {
       })
       logger.info("getPassword in UserService ")
 
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       // return
       return password?.password
     } catch (e) {
       logger.debug(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -87,11 +109,11 @@ export class UserService {
           email: true,
         },
       })
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return userEmail
     } catch (e) {
       logger.debug(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -108,11 +130,11 @@ export class UserService {
           uuid: true,
         },
       })
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return userUUID
     } catch (e) {
       logger.debug(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -135,11 +157,11 @@ export class UserService {
       logger.info("in UserService userIdentity is ")
       // logger.info(userIdentity)
       console.dir(userIdentity)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return userIdentity
     } catch (e) {
       logger.debug(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -160,11 +182,11 @@ export class UserService {
           },
         },
       })
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return clientType
     } catch (e) {
       logger.error(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -180,11 +202,11 @@ export class UserService {
           email: true,
         },
       })
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return email
     } catch (e) {
       logger.error(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -199,11 +221,11 @@ export class UserService {
           email: true,
         },
       })
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return user?.email
     } catch (e) {
       logger.debug(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -218,7 +240,7 @@ export class UserService {
         id: true,
       },
     })
-    // await this.prisma.$disconnect()
+    //await this.prisma.$disconnect()
     return tags
   }
   //////--- end of check user info--- ////
@@ -323,11 +345,11 @@ export class UserService {
         },
       })
 
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     } catch (e) {
       logger.debug(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -368,11 +390,11 @@ export class UserService {
         },
       })
 
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     } catch (e) {
       logger.debug(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -418,11 +440,11 @@ export class UserService {
         },
       })
 
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     } catch (e) {
       logger.debug(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -540,11 +562,11 @@ export class UserService {
       console.log("the data is ")
       console.dir(data)
 
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return data
     } catch (e) {
       logger.debug(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -611,11 +633,11 @@ export class UserService {
       delete data.clients
 
       logger.info("get info in UserService")
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return data
     } catch (e) {
       logger.debug(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -683,11 +705,11 @@ export class UserService {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any
       delete data.clients
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return data
     } catch (e) {
       logger.debug(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -761,7 +783,7 @@ export class UserService {
         }
       }
 
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       if (!userInfo) return
 
       const data = {
@@ -775,7 +797,7 @@ export class UserService {
       return data
     } catch (e) {
       logger.debug(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -833,7 +855,7 @@ export class UserService {
         }
       }
 
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       if (!userInfo) return
 
       const data = {
@@ -847,7 +869,7 @@ export class UserService {
       return data
     } catch (e) {
       logger.debug(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -908,7 +930,7 @@ export class UserService {
         },
       })
 
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       if (!userInfo) return
       const data = {
         ...userInfo,
@@ -921,7 +943,7 @@ export class UserService {
       return data
     } catch (e) {
       logger.debug(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -1017,11 +1039,11 @@ export class UserService {
         },
       })
 
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     } catch (e) {
       logger.debug(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -1079,11 +1101,11 @@ export class UserService {
       })
 
       logger.info("edited Individual Client Setting Info")
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     } catch (e) {
       logger.debug(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -1147,11 +1169,11 @@ export class UserService {
       })
 
       logger.info("edited Individual Client Setting Info")
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     } catch (e) {
       logger.debug(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -1160,7 +1182,7 @@ export class UserService {
   async getEProfile(uuid: string) {
     try {
       logger.info("get EProfile in userService")
-      // const eProfile = await this.prisma.performer.findUnique({
+      // const eProfile =await this.prisma.performer.findUnique({
       //   where: {
       //     id: performerId,
       //   },
@@ -1189,11 +1211,11 @@ export class UserService {
           },
         },
       })
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return eProfile
     } catch (e) {
       logger.debug(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -1250,7 +1272,7 @@ export class UserService {
               content: true,
             },
           })
-          // await this.prisma.$disconnect()
+          //await this.prisma.$disconnect()
           return eprofile.content
         } else {
           logger.error("cannot find user's performers's eProfile' ")
@@ -1258,11 +1280,11 @@ export class UserService {
           // console.log(performersID)
         }
       }
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     } catch (e) {
       logger.debug(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
@@ -1281,11 +1303,11 @@ export class UserService {
           },
         },
       })
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return contact
     } catch (e) {
       logger.info(e)
-      // await this.prisma.$disconnect()
+      //await this.prisma.$disconnect()
       return
     }
   }
