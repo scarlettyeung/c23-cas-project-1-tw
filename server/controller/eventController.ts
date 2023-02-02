@@ -78,11 +78,13 @@ export class EventController {
       const performers_id = payload.performerId
 
       await this.eventService.applyEvent(eventIdUrl, performers_id)
-      res.status(200)
+      res.status(200).json({
+        message: "Apply event success!",
+      })
       return
     } catch (e) {
       logger.info(e)
-      res.status(400).json({ message: "Load reviews for event fail!" })
+      res.status(400).json({ message: "Fail to apply events!" })
       return
     }
   }

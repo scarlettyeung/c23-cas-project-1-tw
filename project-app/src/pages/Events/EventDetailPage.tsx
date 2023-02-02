@@ -24,8 +24,6 @@ interface EventDetailType {
 function EventDetail() {
 	let eventId = useParams();
 	const [event, setEvent] = useState<EventDetailType>();
-
-	const [event, setEvent] = useState<EventDetail>();
 	const navigate = useNavigate();
 	useEffect(() => {
 		async function loadData() {
