@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 interface EventDetailType {
 	id: number;
@@ -25,6 +25,8 @@ function EventDetail() {
 	let eventId = useParams();
 	const [event, setEvent] = useState<EventDetailType>();
 
+	const [event, setEvent] = useState<EventDetail>();
+	const navigate = useNavigate();
 	useEffect(() => {
 		async function loadData() {
 			const path = process.env.REACT_APP_API_BASE;
@@ -53,7 +55,7 @@ function EventDetail() {
 			<button>Edit</button>
 
 			<button
-				onChange={async (e) => {
+				onClick={async (e) => {
 					const path = process.env.REACT_APP_API_BASE;
 					const jwt = localStorage.getItem('token');
 					const resp = await fetch(`${path}events/${eventId.eventsId}`, {
@@ -63,6 +65,8 @@ function EventDetail() {
 						},
 					});
 					const result = await resp.json();
+					alert('Application successfully');
+					navigate('/events');
 				}}
 			>
 				Apply

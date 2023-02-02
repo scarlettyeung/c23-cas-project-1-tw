@@ -48,7 +48,7 @@ export class EventController {
           await this.eventService.createEvent(
             clients_id,
             fields.title as string,
-            +fields.wage_offer as number,
+            Number(fields.wage_offer) as number,
             new Date(fields.start_date as string),
             new Date(fields.end_date as string),
             start_time,
