@@ -12,7 +12,9 @@ export class HomeService {
           is_shown: true,
           status: "valid",
         },
-        take: 10,
+        orderBy: {
+          createdAt: "desc",
+        },
       })
       await this.prisma.$disconnect()
       return events
