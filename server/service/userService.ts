@@ -8,18 +8,15 @@ import {
   TagType,
 } from "@prisma/client"
 
-const prisma = new PrismaClient()
-
 export class UserService {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor() {}
+  constructor(private prisma: PrismaClient) {}
 
   //////--- part of check user info--- ////
   async getLoginInfo(email: string) {
     try {
       logger.info("getLoginInfo call in UserService")
 
-      const user = await prisma.user.findFirst({
+      const user = await this.prisma.user.findFirst({
         where: {
           email: email,
         },
@@ -46,11 +43,11 @@ export class UserService {
 
       logger.info("get login info in UserService ")
       logger.info(user)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return user
     } catch (e) {
       logger.debug(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -58,7 +55,7 @@ export class UserService {
   async getPassword(uuid: string) {
     try {
       logger.info("getPassword call in UserService")
-      const password = await prisma.user.findFirst({
+      const password = await this.prisma.user.findFirst({
         where: {
           uuid: uuid,
         },
@@ -68,12 +65,12 @@ export class UserService {
       })
       logger.info("getPassword in UserService ")
 
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       // return
       return password?.password
     } catch (e) {
       logger.debug(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -82,7 +79,7 @@ export class UserService {
     try {
       logger.info("getUserEmail call in UserService")
 
-      const userEmail = await prisma.user.findMany({
+      const userEmail = await this.prisma.user.findMany({
         where: {
           email: email,
         },
@@ -90,11 +87,11 @@ export class UserService {
           email: true,
         },
       })
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return userEmail
     } catch (e) {
       logger.debug(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -103,7 +100,7 @@ export class UserService {
     try {
       logger.info("getUserByUUID call in UserService")
 
-      const userUUID = await prisma.user.findMany({
+      const userUUID = await this.prisma.user.findMany({
         where: {
           uuid: uuid,
         },
@@ -111,11 +108,11 @@ export class UserService {
           uuid: true,
         },
       })
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return userUUID
     } catch (e) {
       logger.debug(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -125,7 +122,7 @@ export class UserService {
       logger.info("getUserIdentity call in UserService")
       logger.info("in UserService uuid is ")
       logger.info(uuid)
-      const userIdentity = await prisma.user.findFirst({
+      const userIdentity = await this.prisma.user.findFirst({
         where: {
           uuid: uuid,
           // id: 2,
@@ -138,11 +135,11 @@ export class UserService {
       logger.info("in UserService userIdentity is ")
       // logger.info(userIdentity)
       console.dir(userIdentity)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return userIdentity
     } catch (e) {
       logger.debug(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -151,7 +148,7 @@ export class UserService {
     try {
       logger.info("getUserIdentity call in UserService")
 
-      const clientType = await prisma.user.findMany({
+      const clientType = await this.prisma.user.findMany({
         where: {
           uuid: uuid,
         },
@@ -163,11 +160,11 @@ export class UserService {
           },
         },
       })
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return clientType
     } catch (e) {
       logger.error(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -175,7 +172,7 @@ export class UserService {
   async getUserEmail(uuid: string) {
     try {
       logger.info("getUserEmail call in UserService")
-      const email = await prisma.user.findUnique({
+      const email = await this.prisma.user.findUnique({
         where: {
           uuid: uuid,
         },
@@ -183,18 +180,18 @@ export class UserService {
           email: true,
         },
       })
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return email
     } catch (e) {
       logger.error(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
 
   async checkEmail(email: string) {
     try {
-      const user = await prisma.user.findFirst({
+      const user = await this.prisma.user.findFirst({
         where: {
           email: email,
         },
@@ -202,17 +199,17 @@ export class UserService {
           email: true,
         },
       })
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return user?.email
     } catch (e) {
       logger.debug(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
   // get all performer hashtags
   async getAllPerformerHashtag() {
-    const tags = prisma.hashtagDetail.findMany({
+    const tags = await this.prisma.hashtagDetail.findMany({
       where: {
         tag_type: TagType.performer,
       },
@@ -221,7 +218,7 @@ export class UserService {
         id: true,
       },
     })
-    await prisma.$disconnect()
+    // await this.prisma.$disconnect()
     return tags
   }
   //////--- end of check user info--- ////
@@ -291,7 +288,7 @@ export class UserService {
 
       const defaultJson = JSON.stringify(defaultObj)
 
-      await prisma.user.create({
+      await this.prisma.user.create({
         data: {
           identity: identitySelect, //not null
           // icon: icon,
@@ -326,11 +323,11 @@ export class UserService {
         },
       })
 
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     } catch (e) {
       logger.debug(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -351,7 +348,7 @@ export class UserService {
     try {
       logger.info("createIndividualClient call in UserService")
 
-      await prisma.user.create({
+      await this.prisma.user.create({
         data: {
           identity: identitySelect, //not null
           // icon: icon,
@@ -371,11 +368,11 @@ export class UserService {
         },
       })
 
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     } catch (e) {
       logger.debug(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -398,7 +395,7 @@ export class UserService {
     try {
       logger.info("createCorporateClient call in UserService")
 
-      await prisma.user.create({
+      await this.prisma.user.create({
         data: {
           identity: identitySelect, //not null
           // icon: icon,
@@ -421,11 +418,11 @@ export class UserService {
         },
       })
 
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     } catch (e) {
       logger.debug(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -436,7 +433,7 @@ export class UserService {
   async getPerformersProfilePageInfo(uuid: string) {
     try {
       logger.info("get Performers Info call in UserService")
-      const performersInfo = await prisma.user.findUnique({
+      const performersInfo = await this.prisma.user.findUnique({
         where: {
           uuid: uuid,
         },
@@ -453,7 +450,7 @@ export class UserService {
       }
 
       // const performerId = performersInfo?.performers[0].id
-      const userInfo = await prisma.user.findUnique({
+      const userInfo = await this.prisma.user.findUnique({
         where: {
           uuid: uuid,
         },
@@ -494,7 +491,7 @@ export class UserService {
         },
       })
 
-      const userScore = await prisma.review.aggregate({
+      const userScore = await this.prisma.review.aggregate({
         _avg: {
           score: true,
         },
@@ -503,7 +500,7 @@ export class UserService {
         },
       })
 
-      const sum_of_events = await prisma.review.count({
+      const sum_of_events = await this.prisma.review.count({
         where: {
           users_id: userInfo?.id,
         },
@@ -543,11 +540,11 @@ export class UserService {
       console.log("the data is ")
       console.dir(data)
 
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return data
     } catch (e) {
       logger.debug(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -555,7 +552,7 @@ export class UserService {
   async getIndividualClientInfoPageInfo(uuid: string) {
     try {
       logger.info("get Individual Client Info call in UserService")
-      const userInfo = await prisma.user.findUnique({
+      const userInfo = await this.prisma.user.findUnique({
         where: {
           uuid: uuid,
         },
@@ -582,7 +579,7 @@ export class UserService {
         },
       })
 
-      const userScore = await prisma.review.aggregate({
+      const userScore = await this.prisma.review.aggregate({
         _avg: {
           score: true,
         },
@@ -591,7 +588,7 @@ export class UserService {
         },
       })
 
-      const sum_of_events = await prisma.review.count({
+      const sum_of_events = await this.prisma.review.count({
         where: {
           users_id: userInfo?.id,
         },
@@ -614,11 +611,11 @@ export class UserService {
       delete data.clients
 
       logger.info("get info in UserService")
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return data
     } catch (e) {
       logger.debug(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -626,7 +623,7 @@ export class UserService {
   async getCorporateClientInfoPageInfo(uuid: string) {
     try {
       logger.info("call get Corporate Client InfoPage Info in userService")
-      const userInfo = await prisma.user.findUnique({
+      const userInfo = await this.prisma.user.findUnique({
         where: {
           uuid: uuid,
         },
@@ -656,7 +653,7 @@ export class UserService {
         },
       })
 
-      const userScore = await prisma.review.aggregate({
+      const userScore = await this.prisma.review.aggregate({
         _avg: {
           score: true,
         },
@@ -665,7 +662,7 @@ export class UserService {
         },
       })
 
-      const sum_of_events = await prisma.review.count({
+      const sum_of_events = await this.prisma.review.count({
         where: {
           users_id: userInfo?.id,
         },
@@ -686,11 +683,11 @@ export class UserService {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any
       delete data.clients
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return data
     } catch (e) {
       logger.debug(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -701,7 +698,7 @@ export class UserService {
     try {
       logger.info("get Performers Setting Info, call in UserService")
 
-      const userInfo = await prisma.user.findUnique({
+      const userInfo = await this.prisma.user.findUnique({
         where: {
           uuid: uuid,
         },
@@ -744,14 +741,14 @@ export class UserService {
 
       const userAvgScore = { avg_score: 0 }
 
-      const sum_of_events = await prisma.review.count({
+      const sum_of_events = await this.prisma.review.count({
         where: {
           users_id: userInfo?.id,
         },
       })
 
       if (sum_of_events != 0) {
-        const userScore = await prisma.review.aggregate({
+        const userScore = await this.prisma.review.aggregate({
           _avg: {
             score: true,
           },
@@ -764,7 +761,7 @@ export class UserService {
         }
       }
 
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       if (!userInfo) return
 
       const data = {
@@ -778,7 +775,7 @@ export class UserService {
       return data
     } catch (e) {
       logger.debug(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -786,7 +783,7 @@ export class UserService {
   async getIndividualClientSettingPageInfo(uuid: string, userId: number) {
     try {
       logger.info("get Individual Client Setting Info, call in UserService")
-      const userInfo = await prisma.user.findUnique({
+      const userInfo = await this.prisma.user.findUnique({
         where: { uuid },
         select: {
           uuid: true,
@@ -814,7 +811,7 @@ export class UserService {
         },
       })
 
-      const sum_of_events = await prisma.review.count({
+      const sum_of_events = await this.prisma.review.count({
         where: {
           users_id: userInfo?.id,
         },
@@ -823,7 +820,7 @@ export class UserService {
       const userAvgScore = { avg_score: 0 }
 
       if (sum_of_events != 0) {
-        const userScore = await prisma.review.aggregate({
+        const userScore = await this.prisma.review.aggregate({
           _avg: {
             score: true,
           },
@@ -836,7 +833,7 @@ export class UserService {
         }
       }
 
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       if (!userInfo) return
 
       const data = {
@@ -850,7 +847,7 @@ export class UserService {
       return data
     } catch (e) {
       logger.debug(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -858,7 +855,7 @@ export class UserService {
   async getCorporateClientSettingPageInfo(uuid: string, userId: number) {
     try {
       logger.info("get Corporate Client Setting Page call in UserService")
-      const userInfo = await prisma.user.findUnique({
+      const userInfo = await this.prisma.user.findUnique({
         where: {
           uuid: uuid,
         },
@@ -891,7 +888,7 @@ export class UserService {
           },
         },
       })
-      const userScore = await prisma.review.aggregate({
+      const userScore = await this.prisma.review.aggregate({
         _avg: {
           score: true,
         },
@@ -905,13 +902,13 @@ export class UserService {
         userAvgScore.avg_score = userScore._avg.score
       }
 
-      const sum_of_events = await prisma.review.count({
+      const sum_of_events = await this.prisma.review.count({
         where: {
           users_id: userInfo?.id,
         },
       })
 
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       if (!userInfo) return
       const data = {
         ...userInfo,
@@ -924,7 +921,7 @@ export class UserService {
       return data
     } catch (e) {
       logger.debug(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -958,7 +955,7 @@ export class UserService {
         hashtagToInput.push(id)
       }
 
-      const userPerformer = await prisma.user.findFirst({
+      const userPerformer = await this.prisma.user.findFirst({
         where: {
           uuid: uuid,
         },
@@ -975,7 +972,7 @@ export class UserService {
       logger.info(userPerformerId)
 
       const userPerformerHashtagsToDel =
-        await prisma.performersHashtag.findMany({
+        await this.prisma.performersHashtag.findMany({
           where: {
             performers_id: userPerformerId,
           },
@@ -984,7 +981,7 @@ export class UserService {
           },
         })
 
-      await prisma.user.update({
+      await this.prisma.user.update({
         where: {
           uuid: uuid,
         },
@@ -1020,11 +1017,11 @@ export class UserService {
         },
       })
 
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     } catch (e) {
       logger.debug(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -1042,7 +1039,7 @@ export class UserService {
   ) {
     try {
       logger.info("edit Individual Client Setting Info call in userService")
-      const userClient = await prisma.user.findFirst({
+      const userClient = await this.prisma.user.findFirst({
         where: {
           uuid: uuid,
         },
@@ -1056,7 +1053,7 @@ export class UserService {
       }
       const userClientId = userClient?.id
 
-      await prisma.user.update({
+      await this.prisma.user.update({
         where: {
           uuid: uuid,
         },
@@ -1082,11 +1079,11 @@ export class UserService {
       })
 
       logger.info("edited Individual Client Setting Info")
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     } catch (e) {
       logger.debug(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -1107,7 +1104,7 @@ export class UserService {
   ) {
     try {
       logger.info("edit Corporate Client Setting Info call in userService")
-      const userClient = await prisma.user.findFirst({
+      const userClient = await this.prisma.user.findFirst({
         where: {
           uuid: uuid,
         },
@@ -1121,7 +1118,7 @@ export class UserService {
       }
       const userClientId = userClient?.id
 
-      await prisma.user.update({
+      await this.prisma.user.update({
         where: {
           uuid: uuid,
         },
@@ -1150,11 +1147,11 @@ export class UserService {
       })
 
       logger.info("edited Individual Client Setting Info")
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     } catch (e) {
       logger.debug(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -1163,7 +1160,7 @@ export class UserService {
   async getEProfile(uuid: string) {
     try {
       logger.info("get EProfile in userService")
-      // const eProfile = await prisma.performer.findUnique({
+      // const eProfile = await this.prisma.performer.findUnique({
       //   where: {
       //     id: performerId,
       //   },
@@ -1176,7 +1173,7 @@ export class UserService {
       //   },
       // })
 
-      const eProfile = await prisma.user.findUnique({
+      const eProfile = await this.prisma.user.findUnique({
         where: {
           uuid: uuid,
         },
@@ -1192,11 +1189,11 @@ export class UserService {
           },
         },
       })
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return eProfile
     } catch (e) {
       logger.debug(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -1213,7 +1210,7 @@ export class UserService {
       // const objToAdd = obj as Prisma.InputJsonValue
       const objToAdd = JSON.stringify(obj)
       logger.info(objToAdd)
-      const performers = await prisma.user.findUnique({
+      const performers = await this.prisma.user.findUnique({
         where: {
           uuid: uuid,
         },
@@ -1232,7 +1229,7 @@ export class UserService {
         logger.info(performersID)
 
         const eProfileId = (
-          await prisma.eprofile.findFirst({
+          await this.prisma.eprofile.findFirst({
             where: {
               performers_id: performersID,
             },
@@ -1242,7 +1239,7 @@ export class UserService {
           })
         )?.id
         if (eProfileId) {
-          const eprofile = await prisma.eprofile.update({
+          const eprofile = await this.prisma.eprofile.update({
             where: {
               id: eProfileId,
             },
@@ -1253,7 +1250,7 @@ export class UserService {
               content: true,
             },
           })
-          await prisma.$disconnect()
+          // await this.prisma.$disconnect()
           return eprofile.content
         } else {
           logger.error("cannot find user's performers's eProfile' ")
@@ -1261,18 +1258,18 @@ export class UserService {
           // console.log(performersID)
         }
       }
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     } catch (e) {
       logger.debug(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
   async getContactNumber(uuid: string) {
     try {
       // console.log("inside", uuid)
-      const contact = await prisma.user.findUnique({
+      const contact = await this.prisma.user.findUnique({
         where: {
           uuid: uuid,
         },
@@ -1284,11 +1281,11 @@ export class UserService {
           },
         },
       })
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return contact
     } catch (e) {
       logger.info(e)
-      await prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }

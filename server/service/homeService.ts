@@ -2,32 +2,30 @@ import { PrismaClient, TagType } from "@prisma/client"
 // import { PrismaClient, TagType } from "@prisma/client"
 import { logger } from "../utils/logger"
 
-const prisma = new PrismaClient()
-
 export class HomeService {
-  constructor() {}
+  constructor(private prisma: PrismaClient) {}
 
   async getAllEvents() {
     try {
-      const events = await prisma.event.findMany({
+      const events = await this.prisma.event.findMany({
         where: {
           is_shown: true,
           status: "valid",
         },
         take: 10,
       })
-      await prisma.$disconnect()
+      await this.prisma.$disconnect()
       return events
     } catch (e) {
       logger.info(e)
-      await prisma.$disconnect()
+      await this.prisma.$disconnect()
       return
     }
   }
 
   async getAllPerformers() {
     try {
-      const performers = await prisma.user.findMany({
+      const performers = await this.prisma.user.findMany({
         where: {
           identity: "performer",
         },
@@ -39,19 +37,19 @@ export class HomeService {
         },
         take: 10,
       })
-      await prisma.$disconnect()
+      await this.prisma.$disconnect()
       logger.info(performers)
       return performers
     } catch (e) {
       logger.info(e)
-      await prisma.$disconnect()
+      await this.prisma.$disconnect()
       return
     }
   }
 
   async getAllTags(type: TagType, tagName: string) {
     try {
-      const tags = await prisma.hashtagDetail.findMany({
+      const tags = await this.prisma.hashtagDetail.findMany({
         where: {
           tag_type: type,
           name: tagName,
@@ -85,11 +83,11 @@ export class HomeService {
           },
         },
       })
-      await prisma.$disconnect()
+      await this.prisma.$disconnect()
       return tags
     } catch (e) {
       logger.info(e)
-      await prisma.$disconnect()
+      await this.prisma.$disconnect()
       return
     }
   }

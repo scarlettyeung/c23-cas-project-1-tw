@@ -1,23 +1,22 @@
 import { PrismaClient } from "@prisma/client"
 import { logger } from "../utils/logger"
 
-const prisma = new PrismaClient()
 
 export class EventService {
-  constructor() {}
+  constructor(private prisma: PrismaClient) {}
 
   async getEventDetail(id: number) {
     try {
-      const eventDetail = await prisma.event.findUnique({
+      const eventDetail = await this.prisma.event.findUnique({
         where: {
           id: id,
         },
       })
-      await prisma.$disconnect()
+      await this.prisma.$disconnect()
       return eventDetail
     } catch (e) {
       logger.info(e)
-      await prisma.$disconnect()
+      await this.prisma.$disconnect()
       return
     }
   }
@@ -25,19 +24,19 @@ export class EventService {
   async applyEvent(events_id: number, performers_id: number) {
     try {
       logger.info("Apply Event in EventService")
-      await prisma.eventsApplication.create({
+      await this.prisma.eventsApplication.create({
         data: {
           events_id: events_id,
           performers_id: performers_id,
           status: "pending",
         },
       })
-      await prisma.$disconnect()
+      await this.prisma.$disconnect()
       return
     } catch (e) {
       logger.info("in service")
       logger.debug(e)
-      await prisma.$disconnect()
+      await this.prisma.$disconnect()
       return
     }
   }
@@ -58,7 +57,7 @@ export class EventService {
     try {
       logger.info("createEvent in EventService")
       const now = new Date()
-      await prisma.event.create({
+      await this.prisma.event.create({
         data: {
           clients_id: clients_id,
           title: title,
@@ -77,18 +76,18 @@ export class EventService {
           date_published: now,
         },
       })
-      await prisma.$disconnect()
+      await this.prisma.$disconnect()
       return
     } catch (e) {
       logger.info("in service")
       logger.debug(e)
-      await prisma.$disconnect()
+      await this.prisma.$disconnect()
       return
     }
   }
   async getReviewsForEvent(eventsId: number) {
     try {
-      const review = await prisma.event.findUnique({
+      const review = await this.prisma.event.findUnique({
         where: {
           id: eventsId,
         },
@@ -122,17 +121,17 @@ export class EventService {
           },
         },
       })
-      await prisma.$disconnect()
+      await this.prisma.$disconnect()
       return review
     } catch (e) {
       logger.info(e)
-      await prisma.$disconnect()
+      await this.prisma.$disconnect()
       return
     }
   }
   async getAllReviewsForAllUsers(userId: number) {
     try {
-      const review = await prisma.review.findMany({
+      const review = await this.prisma.review.findMany({
         where: {
           users_id: userId,
         },
@@ -161,11 +160,11 @@ export class EventService {
           },
         },
       })
-      await prisma.$disconnect()
+      await this.prisma.$disconnect()
       return review
     } catch (e) {
       logger.info(e)
-      await prisma.$disconnect()
+      await this.prisma.$disconnect()
       return
     }
   }

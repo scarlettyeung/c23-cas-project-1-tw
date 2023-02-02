@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -14,12 +14,6 @@ import IndividualClientsDisplay from './IndividualClients/IndividualClientsDispl
 import IndividualClientsEdit from './IndividualClients/IndividualClientsEdit';
 import CorporateClientsDisplay from './CorporateClients/CorporateClientsDisplay';
 import CorporateClientsEdit from './CorporateClients/CorporateClientsEdit';
-
-import { Text, TextInput, Checkbox, Button, Group, Box, Center } from '@mantine/core';
-import { DatePicker } from '@mantine/dates';
-import { useForm } from '@mantine/form';
-import { IconUpload } from '@tabler/icons';
-import { FileInput } from '@mantine/core';
 
 function Details() {
 	const navigate = useNavigate();

@@ -9,6 +9,9 @@ import { routes } from "./routes"
 // import { Server } from "socket.io"
 import formidable from "formidable"
 import fs from "fs"
+import { PrismaClient } from "@prisma/client"
+
+export const prismaClient: PrismaClient = new PrismaClient()
 
 dotenv.config()
 
@@ -32,9 +35,9 @@ export const form = formidable({
   filter: (part) => part.mimetype?.startsWith("image/") || false,
   filename: (originalName, originalExt, part, form) => {
     counter++
-    let fieldName = part.name
-    let timestamp = Date.now()
-    let ext = part.mimetype?.split("/").pop()
+    const fieldName = part.name
+    const timestamp = Date.now()
+    const ext = part.mimetype?.split("/").pop()
     return `${fieldName}-${timestamp}-${counter}.${ext}`
   },
 })
