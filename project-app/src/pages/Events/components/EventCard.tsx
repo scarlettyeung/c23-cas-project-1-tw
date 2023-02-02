@@ -6,6 +6,8 @@ import { useRootDispatch, useRootSelector } from '../../../redux/store';
 import { PacmanLoader } from 'react-spinners';
 import { Link } from 'react-router-dom';
 
+const { REACT_APP_IMAGE_BASE } = process.env;
+
 const useStyles = createStyles((theme) => ({
 	card: {
 		backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
@@ -73,7 +75,11 @@ export function BadgeCard({ image, title, description, country, badges }: BadgeC
 							<div key={`event-${event.id}`}>
 								<Card withBorder radius='md' p='md' className={classes.card}>
 									<Card.Section>
-										<Image src={event.image} alt={title} height={180} />
+										<Image
+											src={`${REACT_APP_IMAGE_BASE}/${event.image}`}
+											alt={title}
+											height={180}
+										/>
 									</Card.Section>
 
 									<Card.Section className={classes.section} mt='md'>
