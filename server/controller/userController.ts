@@ -106,31 +106,31 @@ export class UserController {
     }
   }
 
-  // forTest = async (req: Request, res: Response) => {
-  //   try {
-  //     logger.info("===========================")
-  //     logger.info("==========Testing==========")
-  //     logger.info("===========================")
+  forTest = async (req: Request, res: Response) => {
+    try {
+      logger.info("===========================")
+      logger.info("==========Testing==========")
+      logger.info("===========================")
 
-  //     const payloadFromRes = res.locals.payload
-  //     if (payloadFromRes) {
-  //       logger.info("the payload is ")
-  //       console.dir(payloadFromRes)
-  //     }
+      const payloadFromRes = res.locals.payload
+      if (payloadFromRes) {
+        logger.info("the payload is ")
+        console.dir(payloadFromRes)
+      }
 
-  //     const newToken = res.locals.token
-  //     logger.info("get the newToken !!")
-  //     console.dir(newToken)
+      const newToken = res.locals.token
+      logger.info("get the newToken !!")
+      console.dir(newToken)
 
-  //     return res
-  //       .status(200)
-  //       .json({ message: "Hi user! you a login ", token: newToken })
-  //   } catch (e) {
-  //     logger.error(e)
-  //     res.status(500).json({ message: "internal server error" })
-  //     return
-  //   }
-  // }
+      return res
+        .status(200)
+        .json({ message: "Hi user! you a login ", token: newToken })
+    } catch (e) {
+      logger.error(e)
+      res.status(500).json({ message: "internal server error" })
+      return
+    }
+  }
 
   createUser = async (req: Request, res: Response) => {
     // form.parse(req, async (err, fields, files)=>{

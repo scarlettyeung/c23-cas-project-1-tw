@@ -4,14 +4,19 @@ dotenv.config()
 import express from "express"
 import { logger } from "./utils/logger"
 import cors from "cors"
+import { PrismaClient } from "@prisma/client"
+export const prismaClient: PrismaClient = new PrismaClient()
 import { routes } from "./routes"
 // import http from "http"
 // import { Server } from "socket.io"
 import formidable from "formidable"
 import fs from "fs"
-import { PrismaClient } from "@prisma/client"
 
-export const prismaClient: PrismaClient = new PrismaClient()
+// export class Repository {
+//   prisma: PrismaClient = new PrismaClient()
+
+//   constructor() {}
+// }
 
 dotenv.config()
 

@@ -1,3 +1,4 @@
+import { constants } from 'fs/promises';
 import React from 'react';
 // import useFetch from '../../hooks/useFetch';
 import Tag from './components/Tag';
@@ -19,7 +20,7 @@ function Eprofile() {
 				pageTitle: 'About me',
 				pageName: 'SelfIntroducePage',
 				style: 'textAndVideo',
-				main_color: 'black',
+				mainColor: 'black',
 				ContentsOrMedia: [
 					{
 						id: 1,
@@ -35,7 +36,7 @@ function Eprofile() {
 				pageTitle: 'Time Line',
 				pageName: 'TimeLinePage',
 				style: 'left',
-				main_color: 'black',
+				mainColor: 'black',
 				ContentsOrMedia: [
 					{
 						id: 1,
@@ -82,7 +83,7 @@ function Eprofile() {
 				pageTitle: 'Albums',
 				pageName: 'AlbumsPage',
 				style: 'style1',
-				main_color: 'black',
+				mainColor: 'black',
 				ContentsOrMedia: [
 					{
 						id: 1,
@@ -111,10 +112,25 @@ function Eprofile() {
 			pageStyle: page.style,
 		};
 	});
+	const pageContents = data.page.map((page) => {
+		const contents = page.ContentsOrMedia;
+		const contentsDetail = contents.map((key) => {
+			return {
+				id: key.id,
+				type: key.type,
+				content1: key.content1,
+				content2: key.content2,
+				content3: key.content3,
+			};
+		});
+		return {
+			contentsDetail,
+		};
+	});
+	console.log(pageContents);
 	return (
 		<div>
-			<div>Eprofile</div>;
-			<Tag />
+			<div>Eprofile</div>;{/* <Tag pageInfo={pageInfo} pageDetial={contentsDetail} /> */}
 		</div>
 	);
 }

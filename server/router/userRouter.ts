@@ -10,6 +10,7 @@ userRoutes.post("/createUser", userController.createUser)
 
 //test rout
 // userRoutes.post("/forTest", isLoggedIn, checkTokenExp, userController.forTest)
+userRoutes.post("/forTest", userController.forTest)
 // userRoutes.post(
 //   "/forTestExpUpdate",
 //   isLoggedIn,

@@ -8,7 +8,6 @@ import { EventService } from "./service/eventService"
 import { EventController } from "./controller/eventController"
 
 export const userService = new UserService(prismaClient)
-// export const userService = new UserService()
 export const userController = new UserController(userService)
 export const homeService = new HomeService(prismaClient)
 export const homeController = new HomeController(homeService)
