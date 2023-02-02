@@ -89,6 +89,16 @@ export class EventController {
     }
   }
 
+  getApplicationHistory = async (req: Request, res: Response) => {
+    try {
+      return
+    } catch (e) {
+      logger.info(e)
+      res.status(400).json({ message: "Load Event Application fail!" })
+      return
+    }
+  }
+
   getReviewsForEventData = async (req: Request, res: Response) => {
     try {
       const eventsIdReq = Number(req.params.eventsId)
@@ -106,6 +116,7 @@ export class EventController {
       return
     }
   }
+
   getReviewsForAllUsersData = async (req: Request, res: Response) => {
     try {
       const userIdReq = Number(req.params.userId)
