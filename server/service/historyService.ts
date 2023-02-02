@@ -11,7 +11,25 @@ export class HistoryService {
           id: id,
         },
         select: {
-          events: {},
+          performers_id: true,
+          status: true,
+          events_id: true,
+          events: {
+            select: {
+              id: true,
+              performers_id: true,
+              clients_id: true,
+              title: true,
+              wage_offer: true,
+              start_date: true,
+              end_date: true,
+              start_time: true,
+              end_time: true,
+              image: true,
+              status: true,
+              location: true,
+            },
+          },
         },
       })
       await this.prisma.$disconnect()

@@ -14,9 +14,11 @@ export class HistoryController {
       const token = permit.check(req)
       const payload = jwtSimple.decode(token, jwt.jwtSecret)
       const Id = payload.users_id
-
-      await this.historyService.applicationHistory(Id)
+      const applicationHistory = await this.historyService.applicationHistory(
+        Id
+      )
       res.status(200).json({
+        applicationHistory,
         message: "Get Application History success!",
       })
       return
