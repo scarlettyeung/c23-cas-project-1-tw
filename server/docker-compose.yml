@@ -1,8 +1,14 @@
 version: "3"
 
 services:
-  DB:
+  db:
     image: postgres
+    user: postgres
+    healthcheck:
+      test: /usr/bin/pg_isready
+      interval: 5s
+      timeout: 10s
+      retries: 120
     volumes:
       - ./pg/data:/var/lib/postgresql/data
     env_file:
@@ -15,7 +21,8 @@ services:
 
   backend:
     depends_on:
-      - DB
+      db:
+        condition: service_healthy
     build:
       context: ./
       dockerfile: ./Dockerfile

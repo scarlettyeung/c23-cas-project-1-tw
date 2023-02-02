@@ -38,9 +38,9 @@ function PerformerInfo({ firstName, lastName, experience, contact, birthday, des
       <label>Last Name</label>
       <input required type="text" value={lastName} onChange={e => updateFields({ lastName: e.target.value })} />
       <label>Experience</label>
-      <input required min={1} type="number" value={experience} onChange={e => updateFields({ experience: e.target.value })} />
+      <input required min={0} max={100} type="number" value={experience} onChange={e => updateFields({ experience: e.target.value })} />
       <label>Contact Number</label>
-      <input required min={1} type="number" minLength={8} maxLength={8} value={contact} onChange={e => updateFields({ contact: e.target.value })} />
+      <input required min={1} max={99999999} type="tel" minLength={8} maxLength={8} value={contact} onChange={e => updateFields({ contact: e.target.value })} />
       <label>Contact Email</label>
       <input required type="email" value={contactEmail} onChange={e => updateFields({ contactEmail: e.target.value })} />
       <label>Birthday</label>
