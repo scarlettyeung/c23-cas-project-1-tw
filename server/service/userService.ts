@@ -8,8 +8,6 @@ import {
   TagType,
 } from "@prisma/client"
 
-// const prisma = new PrismaClient()
-
 export class UserService {
   constructor(private prisma: PrismaClient) {}
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -250,7 +248,7 @@ export class UserService {
     identitySelect: Identity,
     // icon: string | null, // should give the default icon to display
     email: string,
-    password: string,
+    password: any,
     username: string,
     yearsOfExp: number,
     birthday: Date | null,
@@ -358,7 +356,7 @@ export class UserService {
     identitySelect: Identity,
     // icon: string | null,
     email: string,
-    password: string,
+    password: any,
     username: string,
     clientType: ClientType,
     name: string,
@@ -402,7 +400,7 @@ export class UserService {
   async createCorporateClient(
     identitySelect: Identity,
     email: string,
-    password: string,
+    password: any,
     username: string,
     clientType: ClientType,
     name: string,
@@ -738,6 +736,7 @@ export class UserService {
               contact_number: true,
               gender: true,
               name: true,
+              contact_email: true,
               description: true,
               facebook_url: true,
               twitter_url: true,
@@ -785,15 +784,24 @@ export class UserService {
 
       //await this.prisma.$disconnect()
       if (!userInfo) return
-
+      const mapHashTags = userInfo.performers[0].performers_hashtags.map(
+        (tag) => {
+          return {
+            id: tag.hashtag_details.id,
+            name: tag.hashtag_details.name,
+          }
+        }
+      )
       const data = {
         ...userInfo,
         ...userInfo.performers[0],
         avg_score: userAvgScore.avg_score,
         sum_of_even: sum_of_events,
+        performers_hashtags: mapHashTags,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any
       delete data.performers
+
       return data
     } catch (e) {
       logger.debug(e)
@@ -951,31 +959,36 @@ export class UserService {
   async editPerformersSettingInfo(
     uuid: string,
     icon: string, // should give the default icon to display
-    password: string,
+    password: any,
     username: string,
     yearsOfExp: number,
     birthday: Date | null,
-    contactNumber: number,
+    contact_number: number,
+    contact_email: string,
     gender: Gender,
     description: string | null,
     name: string | null,
-    facebookUrl: string | null,
-    twitterUrl: string | null,
-    youtubeUrl: string | null,
-    igUrl: string | null,
-    hashtagArr: number[]
+    facebook_url: string | null,
+    twitter_url: string | null,
+    youtube_url: string | null,
+    ig_url: string | null
+    // hashtagArr: number[]
   ) {
     try {
-      logger.info("edit Performers Setting Info call in userService")
-      interface HashtagToInput {
-        hashtag_details_id: number
-      }
-      const hashtagToInput: HashtagToInput[] = []
+      logger.info(
+        "edit Performers Setting Info call in userService",
+        "check double",
+        facebook_url
+      )
+      // interface HashtagToInput {
+      //   hashtag_details_id: number
+      // }
+      // const hashtagToInput: HashtagToInput[] = []
 
-      for (const hashtag of hashtagArr) {
-        const id: HashtagToInput = { hashtag_details_id: hashtag }
-        hashtagToInput.push(id)
-      }
+      // for (const hashtag of hashtagArr) {
+      //   const id: HashtagToInput = { hashtag_details_id: hashtag }
+      //   hashtagToInput.push(id)
+      // }
 
       const userPerformer = await this.prisma.user.findFirst({
         where: {
@@ -991,26 +1004,65 @@ export class UserService {
       })
 
       const userPerformerId = userPerformer?.performers[0].id
-      logger.info(userPerformerId)
+      logger.info("check user", userPerformerId)
 
-      const userPerformerHashtagsToDel =
-        await this.prisma.performersHashtag.findMany({
-          where: {
-            performers_id: userPerformerId,
-          },
-          select: {
-            hashtag_details_id: true,
-          },
-        })
+      // const userPerformerHashtagsToDel =
+      //   await this.prisma.performersHashtag.findMany({
+      //     where: {
+      //       performers_id: userPerformerId,
+      //     },
+      //     select: {
+      //       hashtag_details_id: true,
+      //     },
+      //   })
 
-      await this.prisma.user.update({
+      // if (password) {
+      //   const performerDataWithPsw = await this.prisma.user.update({
+      //     where: {
+      //       uuid: uuid,
+      //     },
+      //     data: {
+      //       icon: icon,
+      //       username: username,
+      //       password: password,
+      //       performers: {
+      //         update: {
+      //           where: {
+      //             id: userPerformerId,
+      //           },
+      //           data: {
+      //             years_of_exp: yearsOfExp,
+      //             birthday: birthday,
+      //             contact_number: contactNumber, //not null
+      //             contact_email: contactEmail, //KENKEN
+      //             gender: gender, //not null
+      //             description: description,
+      //             name: name,
+      //             facebook_url: facebookUrl,
+      //             twitter_url: twitterUrl,
+      //             youtube_url: youtubeUrl,
+      //             ig_url: igUrl,
+      //             // performers_hashtags: {
+      //             //   deleteMany: userPerformerHashtagsToDel,
+      //             //   // createMany: {
+      //             //   //   data: hashtagToInput,
+      //             //   // },
+      //             // },
+      //           },
+      //         },
+      //       },
+      //     },
+      //   })
+      //   console.dir(performerDataWithPsw)
+      //   return performerDataWithPsw
+      // } else {
+      const performerData = await this.prisma.user.update({
         where: {
           uuid: uuid,
         },
         data: {
           icon: icon,
           username: username,
-          password: password,
           performers: {
             update: {
               where: {
@@ -1019,27 +1071,38 @@ export class UserService {
               data: {
                 years_of_exp: yearsOfExp,
                 birthday: birthday,
-                contact_number: contactNumber, //not null
+                contact_number: contact_number, //not null
+                contact_email: contact_email,
                 gender: gender, //not null
                 description: description,
                 name: name,
-                facebook_url: facebookUrl,
-                twitter_url: twitterUrl,
-                youtube_url: youtubeUrl,
-                ig_url: igUrl,
-                performers_hashtags: {
-                  deleteMany: userPerformerHashtagsToDel,
-                  createMany: {
-                    data: hashtagToInput,
-                  },
-                },
+                facebook_url: facebook_url,
+                twitter_url: twitter_url,
+                youtube_url: youtube_url,
+                ig_url: ig_url,
+                // performers_hashtags: {
+                //   deleteMany: userPerformerHashtagsToDel,
+                //   // createMany: {
+                //   //   data: hashtagToInput,
+                //   // },
+                // },
               },
+            },
+          },
+        },
+        select: {
+          email: true,
+          username: true,
+          performers: {
+            select: {
+              contact_email: true,
+              facebook_url: true,
             },
           },
         },
       })
 
-      //await this.prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     } catch (e) {
       logger.debug(e)
@@ -1051,7 +1114,7 @@ export class UserService {
   async editIndividualClientSettingInfo(
     uuid: string,
     icon: string,
-    password: string,
+    password: any,
     username: string,
     gender: Gender,
     description: string | null,
@@ -1113,7 +1176,7 @@ export class UserService {
   async editCorporateClientSettingInfo(
     uuid: string,
     icon: string,
-    password: string,
+    password: any,
     username: string,
     gender: Gender,
     description: string | null,

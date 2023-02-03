@@ -62,16 +62,17 @@ model User {
   performers Performer[]
   clients    Client[]
   reviews    Review[]
+  visits     Visits[]
 
   @@map("users")
 }
 
 model UserLike {
-  id         Int      @id @default(autoincrement())
-  subject_id Int
-  target_id  Int
-  createdAt  DateTime @default(now()) @map("create_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
+  id           Int      @id @default(autoincrement())
+  subject_uuid String
+  target_uuid  String
+  createdAt    DateTime @default(now()) @map("create_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
 
   @@map("user_like")
 }
@@ -111,7 +112,6 @@ model Eprofile {
 
   @@map("e_profile")
 }
-
 
 model Client {
   id                   Int        @id @default(autoincrement())
@@ -210,15 +210,27 @@ model PerformersHashtag {
 }
 
 model EventsApplication {
-  id                 Int               @id @default(autoincrement())
-  events             Event             @relation(fields: [events_id], references: [id])
-  events_id          Int
-  performers         Performer         @relation (fields: [performers_id], references: [id])
-  performers_id      Int
-  status             ApplicationStatus
-  createdAt          DateTime          @default(now()) @map("create_at")
-  updatedAt          DateTime          @updatedAt @map("updated_at")
+  id            Int               @id @default(autoincrement())
+  events        Event             @relation(fields: [events_id], references: [id])
+  events_id     Int
+  performers    Performer         @relation(fields: [performers_id], references: [id])
+  performers_id Int
+  status        ApplicationStatus
+  createdAt     DateTime          @default(now()) @map("create_at")
+  updatedAt     DateTime          @updatedAt @map("updated_at")
 
+  @@unique([events_id, performers_id])
   @@map("events_application")
-  @@unique([events_id,performers_id])
+}
+
+model Visits {
+  id         Int      @id @default(autoincrement())
+  users      User     @relation(fields: [user_uuid], references: [uuid])
+  user_uuid  String
+  device     String?  @db.VarChar(255)
+  ip_address String?  @db.VarChar(255)
+  createdAt  DateTime @default(now()) @map("create_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@map("visits")
 }

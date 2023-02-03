@@ -12,12 +12,6 @@ import { routes } from "./routes"
 import formidable from "formidable"
 import fs from "fs"
 
-// export class Repository {
-//   prisma: PrismaClient = new PrismaClient()
-
-//   constructor() {}
-// }
-
 dotenv.config()
 
 const app = express()

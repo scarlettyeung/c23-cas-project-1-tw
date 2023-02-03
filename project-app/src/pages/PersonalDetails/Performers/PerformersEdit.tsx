@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { PerformersSettingValue } from '../../../utils/userInfoType';
 import useFetch from '../../../hooks/useFetch';
-import { Text, TextInput, Checkbox, Button, Group, Box, Center, Textarea } from '@mantine/core';
-import { useForm } from '@mantine/form';
+import { Text, TextInput, Button, Group, Box, Center, NumberInput, Indicator } from '@mantine/core';
+import { useForm, isInRange, matches } from '@mantine/form';
 import { DatePicker } from '@mantine/dates';
-import { isUnparsedTextLike, updateUnionTypeNode } from 'typescript';
+import { IconCalendar } from '@tabler/icons';
+
 
 type PerformerInfo = {
   info: PerformersSettingValue;
-  complete: () => void;
   exitEdit: () => void;
 };
 
@@ -26,83 +26,115 @@ function PerformersEdit(props: PerformerInfo) {
 
   const form = useForm({
     initialValues: {
-      identity: props.info.identity,
-      icon: props.info.icon,
-      email: props.info.email,
       username: props.info.username,
-      name: props.info.name,
-      contact_number: props.info.contact_number,
-      performers_hashtags: props.info.performers_hashtags,
+      email: props.info.email,
+      contactEmail: props.info.contact_email,
       gender: props.info.gender,
+      identity: props.info.identity,
+      avgScore: props.info.avg_score || 0,
+      sumOfEven: props.info.sum_of_even || 0,
       years_of_exp: props.info.years_of_exp,
-      avgScore: props.info.avg_score,
-      sumOfEven: props.info.sum_of_even,
       birthday: props.info.birthday,
-      description: props.info.description,
-      facebook_url: props.info.facebook_url,
-      twitter_url: props.info.twitter_url,
-      youtube_url: props.info.youtube_url,
-      ig_url: props.info.ig_url,
-      events: props.info.events,
-      tag_options: tagOptions,
-      // avg_score:props.info
-      // sum_of_even:props.info
+      icon: props.info.icon,
+      contactNumber: props.info.contact_number,
+      name: props.info.name || "",
+      description: props.info.description || "",
+      facebook_url: props.info.facebook_url || "",
+      twitter_url: props.info.twitter_url || "",
+      youtube_url: props.info.youtube_url || "",
+      ig_url: props.info.ig_url || "",
+      performers_hashtags: props.info.performers_hashtags,
+      // events: props.info.events,
+      // tag_options: props.info.performers_hashtags,
+      // avg_score: props.info.avg_score,
+      // sum_of_even: props.info.sum_of_even
     },
+
+
 
     validate: {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
     },
   });
-  const init = {
-    username: props.info.username,
-    email: props.info.email,
-    years_of_exp: props.info.years_of_exp,
-    birthday: props.info.birthday,
-    contact_number: (props.info.contact_number)?.toString(),
-    description: props.info.description,
-    facebook_url: props.info.facebook_url,
-    twitter_url: props.info.twitter_url,
-    youtube_url: props.info.youtube_url,
-    ig_url: props.info.ig_url,
+  // form.validate();
+  const hashArray = props.info.performers_hashtags?.map((tag) => tag.name)
 
+
+  // console.log("check birthday", props.info.birthday!.getDate());
+  const [submittedValues, setSubmittedValues] = useState('');
+  async function fetchData() {
+    const path = process.env.REACT_APP_API_BASE;
+    const jwt = localStorage.getItem('token');
+    await fetch(`${path}users/editInfo`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${jwt}`
+      },
+      body: submittedValues,
+    });
   }
-  const [update, setUpdate] = useState(init)
+  fetchData();
+  console.log("TRYTRY", submittedValues);
+
   return (
     <Box sx={{ maxWidth: 300 }} mx="auto">
-      <form onSubmit={form.onSubmit((values) => console.log(values))}>
+      <form onSubmit={form.onSubmit((values, e: FormEvent) => {
+        e.preventDefault();
+
+        console.dir('get the values!!!!!')
+        console.dir(values)
+
+        setSubmittedValues(JSON.stringify(values, null, 2));
+      }
+        //   async (values, e: FormEvent) => {
+        //   e.preventDefault();
+        //   const path = process.env.REACT_APP_API_BASE;
+        //   const jwt = localStorage.getItem('token');
+        //   await fetch(`${path}users/editInfo`, {
+        //     method: 'PUT',
+        //     headers: {
+        //       'Content-Type': 'application/json',
+        //       Authorization: `Bearer ${jwt}`
+        //     },
+        //     body: JSON.stringify(values),
+
+        //   })
+
+        // }
+      )}>
         <div>Performers Edit</div>
-        <TextInput value={update.username} label='username:'>{props.info.username}</TextInput>
-        <TextInput value={update.email} label='email:'>{props.info.email}</TextInput>
-        <Text>gender: {props.info.gender}</Text>
-        <Text>identity:{props.info.identity}</Text>
-        <Text>AvgScore: {props.info.avg_score}</Text>
-        <Text>SumOfEven: {props.info.sum_of_even}</Text>
-        <TextInput value={update.years_of_exp} label='yearsOfExp:'>{props.info.years_of_exp}</TextInput>
+        <TextInput required {...form.getInputProps('username')} label='username:' />
+        <TextInput readOnly {...form.getInputProps('email')} label='email: (read only)' />
+        <TextInput {...form.getInputProps('contact_email')} label='contact email:  ' />
+        <TextInput readOnly {...form.getInputProps('gender')} label='gender: (read only)' />
+        <TextInput readOnly {...form.getInputProps('identity')} label='identity: (read only)' />
+        <NumberInput readOnly {...form.getInputProps('avg_score')} label='AvgScore: (read only)' />
+        <TextInput readOnly {...form.getInputProps('sumOfEven')} label='SumOfEven: (read only)' />
+        <NumberInput {...form.getInputProps('years_of_exp')} label='yearsOfExp:' min={0} max={99} />
         <Center>
           <DatePicker
-            placeholder='Pick date'
-            label='birthday'
-            value={new Date(update.birthday!)}
-            variant='unstyled'
+            styles={{ root: { width: 700 } }}
+            placeholder="Pick date"
+            readOnly
+            label="birthday: (read only)"
+            inputFormat="MM/DD/YYYY"
+            labelFormat="MM/YYYY"
+            defaultValue={new Date(props.info.birthday!)}
           />
         </Center>
-        <TextInput value={update.contact_number} label='contactNumber:'>{props.info.contact_number}</TextInput>
-        <Text>name: {props.info.name ? props.info.name : <>No name</>}</Text>
-        <TextInput value={update.description} label='description:'>
-          {props.info.description ? props.info.description : <>No description</>}
-        </TextInput>
-        <TextInput value={update.facebook_url} label='facebookUrl:'>{props.info.facebook_url ? props.info.facebook_url : <>No URL</>}</TextInput>
-        <TextInput value={update.twitter_url} label='twitterUrl:'> {props.info.twitter_url ? props.info.twitter_url : <>No URL</>}</TextInput>
-        <TextInput value={update.youtube_url} label='youtubeUrl:'>{props.info.youtube_url ? props.info.youtube_url : <>No URL</>}</TextInput>
-        <TextInput value={update.ig_url} label='igUrl:'>{props.info.ig_url ? props.info.ig_url : <>No URL</>}</TextInput>
-        <Text>
-          hashTag: {!props.info.performers_hashtags && <div>No hashTag</div>}
-        </Text>
+        <TextInput required {...form.getInputProps('contact_number')} label='contact number:' />
+        <TextInput readOnly {...form.getInputProps('name')} label='name: (read only)' />
+        <TextInput label='description:' {...form.getInputProps('description')} />
+        <TextInput {...form.getInputProps('facebook_url')} label='facebookUrl:' />
+        <TextInput {...form.getInputProps('twitter_url')} label='twitterUrl:' />
+        <TextInput {...form.getInputProps('youtube_url')} label='youtubeUrl:' />
+        <TextInput {...form.getInputProps('ig_url')} label='igUrl:' />
+        <TextInput readOnly value={hashArray} label="hash tag: (read only)" />
         <Group position="right" mt="md">
           <Button type='button' onClick={props.exitEdit}>Exit</Button>
-          <Button type='submit' onClick={props.complete}>Complete</Button>
+          <Button type='submit'>Complete</Button>
         </Group>
-
       </form>
     </Box>
   );

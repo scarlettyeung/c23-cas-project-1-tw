@@ -32,6 +32,7 @@ export interface PerformersSettingValue {
 	username: string;
 	name: string; //can be null
 	contact_number: number | null; //can be null
+	contact_email: string | null;
 	performers_hashtags: HashTag[];
 	gender: string;
 	years_of_exp: number;

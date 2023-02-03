@@ -466,16 +466,18 @@ export class UserController {
         gender,
         description,
         name,
-        facebookUrl,
-        twitterUrl,
-        youtubeUrl,
-        igUrl,
-        hashtagArr,
+        facebook_url,
+        twitter_url,
+        youtube_url,
+        ig_url,
+        // hashtagArr,
         contactEmail,
         businessAddress,
         businessBRNo,
         businessWebsiteUrl,
+        email,
       } = req.body
+      console.log("TRYBYKEN", req.body, "check double", facebook_url)
 
       //// --- to check the info --- ////
 
@@ -484,7 +486,7 @@ export class UserController {
         setExpYear = yearsOfExp
       }
 
-      let setEmail: string
+      let setEmail: string = email
       if (!contactEmail) {
         const userEmail = await this.userService.getUserEmail(uuid)
         logger.info("userEmail?.email is ")
@@ -492,7 +494,7 @@ export class UserController {
         if (userEmail?.email) {
           setEmail = await userEmail?.email
           logger.info("can not find contact_email , setEmail is ")
-          logger.info(setEmail)
+          logger.info("set email", setEmail)
         }
       } else {
         setEmail = contactEmail
@@ -505,31 +507,33 @@ export class UserController {
       logger.info("businessAddress, businessBRNo, businessWebsiteUrl")
       logger.info(businessAddress, businessBRNo, businessWebsiteUrl)
       const setBirthday: Date = new Date(birthday)
-      const userPassword = await this.userService.getPassword(uuid)
-
-      if (userPassword) {
-        const result = await checkPassword(oldPassword, userPassword)
-        logger.info("checkPassword result the result is")
-        logger.info(result)
-        if (!result) {
+      let setPassword: string | null = null
+      if (oldPassword && newPassword) {
+        const userPassword = await this.userService.getPassword(uuid)
+        if (userPassword) {
+          const result = await checkPassword(oldPassword, userPassword)
+          logger.info("checkPassword result the result is")
+          logger.info(result)
+          setPassword = await hashPassword(newPassword)
+          if (!result) {
+            res.status(400).json({ message: "wrong password" })
+            return
+          }
+        } else {
           res.status(400).json({ message: "wrong password" })
           return
         }
-      } else {
-        res.status(400).json({ message: "wrong password" })
-        return
       }
-      const setPassword: string = await hashPassword(newPassword)
 
       //// --- end of check info --- ////
 
       if (identity === "performer") {
-        if (hashtagArr.length < 1) {
-          res.status(400).json({
-            message: "User edit performer fail , missing hashtag !",
-          })
-          return
-        }
+        // if (hashtagArr.length < 1) {
+        //   res.status(400).json({
+        //     message: "User edit performer fail , missing hashtag !",
+        //   })
+        //   return
+        // }
         await this.userService.editPerformersSettingInfo(
           uuid,
           setIcon,
@@ -538,24 +542,50 @@ export class UserController {
           setExpYear,
           setBirthday,
           contactNumber,
+          setEmail,
           gender,
           description,
           name,
-          facebookUrl,
-          twitterUrl,
-          youtubeUrl,
-          igUrl,
-          hashtagArr
+          facebook_url,
+          twitter_url,
+          youtube_url,
+          ig_url
+          // hashtagArr
         )
         res.status(200).json({ message: "edit performer setting info done" })
         return
       } else if (identity === "client") {
         if (clientType === "individual") {
-          res
-            .status(200)
-            .json({ message: "edit individual client setting info done" })
+          await this.userService.editIndividualClientSettingInfo(
+            uuid,
+            setIcon,
+            setPassword,
+            username,
+            gender,
+            description,
+            name,
+            contactNumber,
+            contactEmail
+          ),
+            res
+              .status(200)
+              .json({ message: "edit individual client setting info done" })
           return
         } else if (clientType === "corporate") {
+          await this.userService.editCorporateClientSettingInfo(
+            uuid,
+            setIcon,
+            setPassword,
+            username,
+            gender,
+            description,
+            name,
+            contactNumber,
+            contactEmail,
+            businessAddress,
+            businessBRNo,
+            businessWebsiteUrl
+          )
           res
             .status(200)
             .json({ message: "edit corporate client setting info done" })
@@ -568,8 +598,6 @@ export class UserController {
         res.status(400).json({ message: "performer's unauthorized edit" })
         return
       }
-      res.status(400).json({ message: "unauthorized edit in line 522" })
-      return
     } catch (e) {
       logger.error(e)
       res.status(400).json({ message: "unauthorized edit" })
