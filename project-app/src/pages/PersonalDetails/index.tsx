@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useFetch from '../../hooks/useFetch';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
 	PerformersSettingValue,
 	IndividualClientsSettingValue,
@@ -41,7 +41,8 @@ function Details() {
 
 	const goBack = () => {
 		console.log('goBack Now !');
-		navigate(-1);
+		// navigate('/about');
+		<Link to='/about'></Link>;
 	};
 
 	let role: Role = Role.Performer;

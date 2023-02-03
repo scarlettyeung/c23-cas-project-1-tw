@@ -1,18 +1,21 @@
 import { constants } from 'fs/promises';
 import React from 'react';
+import BasicInformation from './components/BasicInformation';
 // import useFetch from '../../hooks/useFetch';
 import Tag from './components/Tag';
 function Eprofile() {
 	const data = {
 		header: {
 			iconPosition: 'left',
-			headerImage: 'default',
-			backGroundImage: 'default',
+			iconName: null,
+			backgroundImage: 'default',
 			colorStyle: 'black',
 			displayTab: 'about',
 			userName: 'Rick Astley',
 			title: 'pop dancer',
 			introduction: 'Hi I am Rick Astley',
+			contactNumber: '12345678',
+			contactEmail: 'RickAstley@email.com',
 		},
 		page: [
 			{
@@ -25,9 +28,16 @@ function Eprofile() {
 					{
 						id: 1,
 						type: 'video',
-						content1: 'Never Gonna Give You Up (Official Music Video)',
-						content2: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley',
-						content3: 'Hi I am Rick Astley. This is Never Gonna Give You Up (Official Music Video)',
+						content1: 'Never Gonna Give You Up',
+						content2: 'Hi I am Rick Astley. This is Never Gonna Give You Up (Official Music Video)',
+						content3: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley',
+					},
+					{
+						id: 2,
+						type: 'text',
+						content1: '',
+						content2: 'I am an English singer, songwriter and radio personality.',
+						content3: '',
 					},
 				],
 			},
@@ -96,13 +106,13 @@ function Eprofile() {
 			},
 		],
 	};
-
+	/*/should use this to fetch date
 	// const {
 	// 	data,
 	// 	isLoading,
 	// 	error,
 	// } = useFetch<someType | null>(`url/${uuid}`, 'GET', null);
-
+	*/
 	const headerInfo = data.header;
 	const pageInfo = data.page.map((page) => {
 		return {
@@ -112,27 +122,15 @@ function Eprofile() {
 			pageStyle: page.style,
 		};
 	});
-	const pageContents = data.page.map((page) => {
-		const contents = page.ContentsOrMedia;
-		const contentsDetail = contents.map((key) => {
-			return {
-				id: key.id,
-				type: key.type,
-				content1: key.content1,
-				content2: key.content2,
-				content3: key.content3,
-			};
-		});
-		return {
-			contentsDetail,
-		};
+	const contents = data.page.map((content) => {
+		return content.ContentsOrMedia;
 	});
-	console.log(pageContents);
 	return (
 		<div>
-			<div>Eprofile</div>;{/* <Tag pageInfo={pageInfo} pageDetial={contentsDetail} /> */}
+			<BasicInformation headerInfo={headerInfo} />
+			<Tag pageInfo={pageInfo} pageDetail={contents} />
 		</div>
 	);
-}
+} //51+16 67
 
 export default Eprofile;

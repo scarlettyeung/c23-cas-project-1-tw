@@ -6,7 +6,7 @@ import '../../styles/header.css';
 function Header() {
 	return (
 		<div className='header-bar'>
-			<Search />
+			{/* <Search /> */}
 			<Logout />
 			{/* <TestBtn /> */}
 		</div>

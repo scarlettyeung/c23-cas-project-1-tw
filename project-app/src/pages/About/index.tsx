@@ -14,79 +14,6 @@ import {
 	CorporateClientsInfo,
 } from '../../utils/userInfoType';
 
-// export interface PersonalData {
-// 	userIcon: string;
-// 	userName: string;
-// 	gender: string;
-// 	expYear?: number;
-// 	clientType?: string;
-// 	avgScore: number;
-// 	sumOfEvent: number;
-// }
-// export interface TeamData {
-// 	id: number | null;
-// 	name: string | null;
-// }
-// export interface HashtagData {
-// 	// [x: string]: any;
-// 	id: number;
-// 	name: string;
-// 	// hashtag_details: HashTag[];
-// }
-// export interface HashTag {
-// 	id: number;
-// 	name: string;
-// }
-// export interface Event {
-// 	id: number;
-// 	title: string;
-// }
-// export interface MediaURL {
-// 	facebook: string | null;
-// 	twitter: string | null;
-// 	youtube: string | null;
-// 	ig: string | null;
-// }
-// export interface LoadingObj {
-// 	message: string;
-// 	data?: LoadingPersonaInfo;
-// }
-// export interface LoadingPersonaInfo {
-// 	uuid: string;
-// 	id: number;
-// 	username: string;
-// 	icon?: string;
-// 	email: string;
-// 	identity: string;
-// 	performers?: LoadingPerformanceInfo;
-// 	clients?: LoadingClientInfo;
-// }
-// export interface LoadingPerformanceInfo {
-// 	years_of_exp: number;
-// 	contact_number: number;
-// 	gender: string;
-// 	description?: string;
-// 	facebook_url?: string;
-// 	twitter_url?: string;
-// 	youtube_url?: string;
-// 	ig_url?: string;
-// 	performers_hashtags?: HashTag[] | null;
-// 	events?: Event[] | null;
-// }
-// export interface LoadingClientInfo {
-// 	gender: string;
-// 	description?: string;
-// 	client_type: string;
-// 	business_address?: string;
-// 	business_BR_no?: string;
-// 	business_website_url?: string;
-// 	events?: Event[] | null;
-// }
-// const initData: LoadingObj = {
-// 	message: 'Loading',
-// 	data: undefined,
-// };
-
 function About() {
 	const navigate = useNavigate();
 	const { uuid } = useParams<string>();
@@ -120,14 +47,6 @@ function About() {
 		console.log(resp);
 		return <PersonalInfo pageUUID={uuid} info={userInfo} />;
 	};
-	// const returnCorporate = () => {
-	// 	const a = 123;
-	// 	return <div>{a}</div>;
-	// };
-	// const returnIndividual = () => {
-	// 	const a = 123;
-	// 	return <div>{a}</div>;
-	// };
 
 	return (
 		<>
@@ -135,6 +54,9 @@ function About() {
 
 			<div>
 				{uuid === uuidFromState && <button onClick={() => navigate('/about')}>setting btn</button>}
+				{uuid === uuidFromState && (
+					<button onClick={() => navigate(`/eProfile/?uuid=${uuidFromState}`)}>To eProfile</button>
+				)}
 				<br></br>
 			</div>
 
