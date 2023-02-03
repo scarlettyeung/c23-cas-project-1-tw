@@ -1,10 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import Login from '../pages/Login';
-// import Register from '../pages/Register';
 import Home from '../pages/Home/Home';
 import ChatRoom from '../pages/Chat/ChatRoom';
 import Events from '../pages/Events/Events';
-// import About from '../pages/About/About';
 import About from '../pages/About';
 import Eprofile from '../pages/Eprofile/Eprofile';
 import NotFound from '../pages/NotFound';
@@ -18,6 +16,7 @@ import Performer from '../pages/Register/Performer/Performer';
 import Register from '../pages/Register/Register';
 import PublicRoute from './PublicRoute';
 import PersonalDetails from '../pages/PersonalDetails';
+import LoadHistory from '../pages/History/LoadHistory';
 
 function MyRoutes() {
 	return (
@@ -34,11 +33,14 @@ function MyRoutes() {
 				<Route path='events' element={<Events />} />
 				<Route path='events/:eventsId' element={<EventDetail />} />
 				<Route path='events/createEvents' element={<CreateEventPage />} />
+				<Route path='history/usersId' element={<LoadHistory />} />
 				<Route path='chatRoom' element={<ChatRoom />} />
+
 				<Route path='about'>
 					<Route element={<PersonalDetails />} index />
 					<Route path='uuid/:uuid' element={<About />} />
 				</Route>
+
 				<Route path='eProfile'>
 					<Route element={<Eprofile />} index />
 					<Route path='get/uuid/:uuid' element={<Eprofile />} index />

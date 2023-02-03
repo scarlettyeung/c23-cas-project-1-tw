@@ -3,6 +3,7 @@ import { createStyles, SimpleGrid, Card, Image, Text, Container, AspectRatio } f
 import { getAllDataThunk } from '../../../redux/home';
 import { useRootDispatch, useRootSelector } from '../../../redux/store';
 import { PacmanLoader } from 'react-spinners';
+const { REACT_APP_IMAGE_BASE } = process.env;
 
 const useStyles = createStyles((theme) => ({
 	card: {
@@ -42,7 +43,7 @@ export function EventsCard() {
 				className={classes.card}
 			>
 				<AspectRatio ratio={1920 / 1080}>
-					<Image src={event.image} />
+					<Image src={`${REACT_APP_IMAGE_BASE}/${event.image}`} />
 				</AspectRatio>
 				<Text color='dimmed' size='xs' transform='uppercase' weight={700} mt='md'>
 					{event.description}
