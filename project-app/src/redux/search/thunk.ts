@@ -18,7 +18,6 @@ export const getAllHashTags = createAsyncThunk<
 			},
 		});
 		const data = await resp.json();
-		console.log('get all hashtags!!!!!!!!!!!');
 		console.dir(data);
 		return data;
 	} catch (error) {

@@ -39,7 +39,6 @@ function EventDetail() {
 		}
 		loadData();
 	}, [eventId.eventsId]);
-	console.log(event);
 
 	return (
 		<div>

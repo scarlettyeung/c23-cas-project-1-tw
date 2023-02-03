@@ -4,39 +4,64 @@ import { logger } from "../utils/logger"
 export class HistoryService {
   constructor(private prisma: PrismaClient) {}
 
-  async applicationHistory(id: number) {
+  async clientApplicationHistory(ClientId: number) {
     try {
-      const loadHistory = await this.prisma.eventsApplication.findMany({
+      const loadHistory = await this.prisma.client.findUnique({
         where: {
-          id: id,
+          id: ClientId,
         },
         select: {
-          performers_id: true,
-          status: true,
-          events_id: true,
           events: {
             select: {
               id: true,
-              performers_id: true,
-              clients_id: true,
               title: true,
-              wage_offer: true,
-              start_date: true,
-              end_date: true,
-              start_time: true,
-              end_time: true,
-              image: true,
               status: true,
-              location: true,
+              events_applications: {
+                select: {
+                  id: true,
+                  status: true,
+                  performers: {
+                    select: {
+                      users: {
+                        select: {
+                          id: true,
+                          uuid: true,
+                          username: true,
+                          icon: true,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
             },
           },
         },
       })
-      await this.prisma.$disconnect()
+
+      // const userScore = await this.prisma.review.aggregate({
+      //   _avg: {
+      //     score: true,
+      //   },
+      //   where: {
+      //     users_id: loadHistory[0].performers.users.id,
+      //   },
+      // })
+
+      // const userAvgScore = { avg_score: 0 }
+      // if (userScore._avg.score) {
+      //   userAvgScore.avg_score = userScore._avg.score
+      // }
+
+      // const userData = {
+      //   ...loadHistory,
+      //   avg_score: userAvgScore.avg_score,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // } as any
+
       return loadHistory
     } catch (e) {
       logger.info(e)
-      await this.prisma.$disconnect()
       return
     }
   }

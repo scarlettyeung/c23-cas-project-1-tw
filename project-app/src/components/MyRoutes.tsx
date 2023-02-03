@@ -33,7 +33,7 @@ function MyRoutes() {
 				<Route path='events' element={<Events />} />
 				<Route path='events/:eventsId' element={<EventDetail />} />
 				<Route path='events/createEvents' element={<CreateEventPage />} />
-				<Route path='history/usersId' element={<LoadHistory />} />
+				<Route path='history/application' element={<LoadHistory />} />
 				<Route path='chatRoom' element={<ChatRoom />} />
 
 				<Route path='about'>

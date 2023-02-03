@@ -21,8 +21,6 @@ const tagsSlice = createSlice({
 			})
 			.addCase(getAllHashTags.fulfilled, (state, action) => {
 				state.loading = 'succeeded';
-				console.log('!!!!!!!', action.payload);
-
 				state.hashtagArr = action.payload.hashtags;
 			}),
 });

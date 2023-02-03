@@ -213,11 +213,12 @@ model EventsApplication {
   id                 Int               @id @default(autoincrement())
   events             Event             @relation(fields: [events_id], references: [id])
   events_id          Int
-  performers         Performer         @relation(fields: [performers_id], references: [id])
+  performers         Performer         @relation (fields: [performers_id], references: [id])
   performers_id      Int
   status             ApplicationStatus
   createdAt          DateTime          @default(now()) @map("create_at")
   updatedAt          DateTime          @updatedAt @map("updated_at")
 
   @@map("events_application")
+  @@unique([events_id,performers_id])
 }

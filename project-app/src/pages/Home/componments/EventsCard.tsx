@@ -53,7 +53,6 @@ export function EventsCard() {
 				</Text>
 			</Card>
 		));
-	console.dir(cards);
 	return (
 		<>
 			{loading === 'pending' ? (

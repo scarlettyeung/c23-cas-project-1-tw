@@ -4,7 +4,7 @@ import { isLoggedIn } from "../utils/guard"
 
 export const historyRoutes = express.Router()
 historyRoutes.get(
-  "/:usersId",
+  "/application",
   isLoggedIn,
   historyController.getApplicationHistory
 )

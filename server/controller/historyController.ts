@@ -13,18 +13,17 @@ export class HistoryController {
       const permit = new Bearer({ query: "access_token" })
       const token = permit.check(req)
       const payload = jwtSimple.decode(token, jwt.jwtSecret)
-      const Id = payload.users_id
-      const applicationHistory = await this.historyService.applicationHistory(
-        Id
-      )
+      const Id = payload.clientId
+      const applicationHistory =
+        await this.historyService.clientApplicationHistory(Id)
       res.status(200).json({
         applicationHistory,
-        message: "Get Application History success!",
+        message: "Get Application History Success!",
       })
       return
     } catch (e) {
       logger.info(e)
-      res.status(400).json({ message: "Load History fail!!" })
+      res.status(400).json({ message: "Load Application History Fail!!" })
       return
     }
   }

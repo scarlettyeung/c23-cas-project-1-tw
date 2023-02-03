@@ -15,7 +15,6 @@ export const getAllDataThunk = createAsyncThunk<{
 			},
 		});
 		const data = await resp.json();
-		console.dir(data);
 		return data;
 	} catch (error) {
 		console.log(error);
