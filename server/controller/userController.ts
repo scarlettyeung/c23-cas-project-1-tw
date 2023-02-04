@@ -203,7 +203,16 @@ export class UserController {
       const setPassword: string = await hashPassword(password)
       logger.info("end of check/set info")
       //// --- end of check info --- ////
-
+      console.log(
+        "Check Performer Information Get",
+        identitySelect,
+        email,
+        password,
+        username,
+        setEmail,
+        contactNumber,
+        gender
+      )
       if (identitySelect === "performer") {
         // to check is not null?
         logger.info("hi performer")
@@ -212,7 +221,6 @@ export class UserController {
           !email ||
           !password ||
           !username ||
-          !setEmail ||
           !contactNumber ||
           !gender
         ) {

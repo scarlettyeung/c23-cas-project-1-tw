@@ -37,6 +37,7 @@ function Individual() {
   const dispatch = useRootDispatch()
   const typeOfAccount = useRootSelector((state) => state.auth.accountType);
   const [data, setData] = useState(INITIAL_DATA)
+  // console.log(data);
 
   function updateFields(fields: Partial<FormData>) {
     setData(prev => {
