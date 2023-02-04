@@ -103,7 +103,6 @@ export class EventController {
     try {
       const eventsIdReq = Number(req.params.eventsId)
       const reviewData = await this.eventService.getReviewsForEvent(eventsIdReq)
-      console.log(req.params.eventsId)
 
       res.status(200).json({
         message: "Load reviews for event success!",

@@ -51,7 +51,6 @@ export class UserController {
         }
 
         // after 5 min
-
         logger.info("line44")
         console.dir(performersId)
         console.dir(clientId)
@@ -464,7 +463,6 @@ export class UserController {
       const clientType = payload.clientType
 
       const {
-        icon,
         oldPassword,
         newPassword,
         username,

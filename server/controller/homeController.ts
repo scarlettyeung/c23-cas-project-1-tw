@@ -31,7 +31,6 @@ export class HomeController {
         searchHashTag,
         searchTagName
       )
-      console.dir(hashtags)
       res.status(200).json({
         message: "Load hashtags success!",
         hashtags,

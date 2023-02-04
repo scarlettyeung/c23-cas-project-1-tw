@@ -6,7 +6,6 @@ function TestBtn() {
 	const dispatch = useRootDispatch();
 
 	const testBtn = () => {
-		console.log('TestBtn clicked');
 		dispatch(testThunk())
 			.unwrap()
 			// .then(() => navigate('/'))

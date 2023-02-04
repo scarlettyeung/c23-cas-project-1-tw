@@ -25,7 +25,6 @@ function ApplyButton(props: PopDataType) {
 						},
 					);
 					const result = await resp.json();
-					console.log(result);
 					alert('Matching SUCCESS!');
 					navigate('/');
 				}}

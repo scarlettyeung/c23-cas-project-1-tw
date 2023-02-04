@@ -202,7 +202,6 @@ export function CreateEvents() {
 										const file = event.target.files[0];
 										if (file && file.type.substr(0, 5) === 'image') {
 											setImage(file);
-											console.log('check file', file);
 										} else {
 											setImage(undefined);
 										}

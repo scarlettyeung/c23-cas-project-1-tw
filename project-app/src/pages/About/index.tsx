@@ -44,19 +44,16 @@ function About() {
 	const returnPerformer = () => {
 		if (!resp) return;
 		const userInfo = resp.data as PerformanceInfo;
-		console.log(resp);
 		return <PersonalInfo pageUUID={uuid!} performanceInfo={userInfo} />;
 	};
 	const returnCorporate = () => {
 		if (!resp) return;
 		const userInfo = resp.data as CorporateClientsInfo;
-		console.log(resp);
 		return <PersonalInfo pageUUID={uuid!} corporateClientsInfo={userInfo} />;
 	};
 	const returnIndividual = () => {
 		if (!resp) return;
 		const userInfo = resp.data as IndividualClientsInfo;
-		console.log(resp);
 		return <PersonalInfo pageUUID={uuid!} individualClientsInfo={userInfo} />;
 	};
 

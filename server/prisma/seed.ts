@@ -26,7 +26,6 @@ async function main() {
   await prisma.eprofile.deleteMany()
   await prisma.performer.deleteMany()
   await prisma.user.deleteMany()
-  console.log("deleteMany run")
 
   await prisma.user.createMany({
     data: [
@@ -500,7 +499,6 @@ main()
     await prisma.$disconnect()
   })
   .catch(async (e) => {
-    console.error(e)
     await prisma.$disconnect()
     process.exit(1)
   })

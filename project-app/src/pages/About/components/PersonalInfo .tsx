@@ -20,7 +20,6 @@ type UserInfoProps = {
 function PersonalInfo(props: UserInfoProps) {
 	const uuidFromState = useRootSelector((state) => state.auth.uuid);
 	const uuidInPage = props.pageUUID;
-	console.log(props);
 	const performanceInfo = props.performanceInfo;
 	const corporateClientsInfo = props.corporateClientsInfo;
 	const individualClientsInfo = props.individualClientsInfo;

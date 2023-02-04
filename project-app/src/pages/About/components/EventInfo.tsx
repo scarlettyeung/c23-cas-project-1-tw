@@ -6,7 +6,6 @@ type EventInfoProps = {
 };
 
 function EventInfo(props: EventInfoProps) {
-	console.log(props.info);
 	return (
 		<>
 			<div>EventInfo</div>

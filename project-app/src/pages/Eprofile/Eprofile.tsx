@@ -6,9 +6,7 @@ import Tag from './components/Tag';
 import { useParams } from 'react-router-dom';
 import { useRootSelector } from '../../redux/store';
 
-const createEprofile = () => {
-	console.log('createEprofile!!!');
-};
+const createEprofile = () => {};
 function Eprofile() {
 	const { uuid } = useParams<string>()!;
 	const uuidFromState = useRootSelector((state) => state.auth.uuid);
@@ -19,9 +17,6 @@ function Eprofile() {
 	} = useFetch<EporfileResDataType | null>(`users/eProfile/uuid/${uuid}/get`, 'GET', null);
 
 	if (error) {
-		console.log(uuidFromState);
-		console.log(uuid);
-
 		if (uuidFromState === uuid) {
 			return (
 				<>

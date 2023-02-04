@@ -11,7 +11,6 @@ function Logout() {
 	const targetPathname = location.state?.from.pathname || '/';
 
 	const logoutBtn = () => {
-		console.log('logged out');
 		dispatch(logout());
 		navigate('/login');
 
