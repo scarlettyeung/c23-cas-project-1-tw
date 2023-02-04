@@ -4,6 +4,41 @@ import { logger } from "../utils/logger"
 export class HistoryService {
   constructor(private prisma: PrismaClient) {}
 
+  async performerApplicationHistory(PerformerId: number) {
+    try {
+      const data = await this.prisma.eventsApplication.findMany({
+        where: {
+          performers_id: PerformerId,
+        },
+        select: {
+          events: {
+            select: {
+              id: true,
+              title: true,
+              status: true,
+              image: true,
+            },
+          },
+        },
+      })
+      const loadPerformerHistory = data.map((info) => {
+        return {
+          id: info.events.id,
+          title: info.events.title,
+          status: info.events.status,
+          image: info.events.image,
+        }
+      })
+      const events = {
+        events: loadPerformerHistory,
+      }
+      return events
+    } catch (e) {
+      logger.info(e)
+      return
+    }
+  }
+
   async clientApplicationHistory(ClientId: number) {
     try {
       const loadHistory = await this.prisma.client.findUnique({

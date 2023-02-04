@@ -4,27 +4,36 @@ import { useEffect, useState } from 'react';
 import { useRootSelector } from '../../../redux/store';
 const { REACT_APP_IMAGE_BASE } = process.env;
 
-interface UsersTableProps {
-	events: {
+interface ClientEventsType {
+	id: number;
+	status: string;
+	title: string;
+	events_applications: {
 		id: number;
 		status: string;
-		title: string;
-		events_applications: {
-			id: number;
-			status: string;
-			performers: {
-				users: {
-					username: string;
-					icon: string;
-				};
+		performers: {
+			users: {
+				id: number;
+				uuid: string;
+				username: string;
+				icon: string;
 			};
-		}[];
+		};
 	}[];
+}
+
+interface PerformerEventsType {
+	id: Number;
+	title: string;
+	status: string;
+	image: string;
 }
 
 function LoadApplication() {
 	let clientId = useRootSelector((state) => state.auth.clientId);
-	const [item, setItem] = useState<UsersTableProps | null>(null);
+	let performerId = useRootSelector((state) => state.auth.performerId);
+	const [item, setItem] = useState<ClientEventsType[] | PerformerEventsType[] | null>(null);
+	const [loading, setLoading] = useState<boolean>(true);
 	const theme = useMantineTheme();
 	useEffect(() => {
 		async function loadData() {
@@ -37,20 +46,25 @@ function LoadApplication() {
 				},
 			});
 			const data = await res.json();
-			setItem(data.applicationHistory);
+			setItem(data.applicationHistory.events);
+			setLoading(false);
 		}
 		loadData();
-	}, [clientId]);
+	}, [clientId, performerId]);
 
-	if (!item) {
+	if (!item && loading) {
 		return <>loading...</>;
-	} else {
-		const display = item.events.map((event) => {
-			return (
-				<>
-					<div style={{ width: 340, margin: 'auto' }}>
+	}
+
+	if (item && !loading) {
+		if (clientId) {
+			const clientItem = item as ClientEventsType[];
+			console.log(clientItem);
+			const display = clientItem.map((event, idx) => {
+				return (
+					<div key={idx} style={{ width: 340, margin: 'auto' }}>
 						<Card shadow='sm'>
-							<div key={`event-${event.title}`}>
+							<div>
 								<Text weight={800} mb={7} sx={{ lineHeight: 1 }}>
 									{event.title}
 								</Text>
@@ -60,7 +74,7 @@ function LoadApplication() {
 										isPending = false;
 									}
 									return (
-										<div key={`appItem_${appItem.id}`}>
+										<div key={idx}>
 											<Group
 												position='apart'
 												style={{ marginBottom: 5, marginTop: theme.spacing.sm }}
@@ -91,11 +105,51 @@ function LoadApplication() {
 							</div>
 						</Card>
 					</div>
-				</>
-			);
-		});
-		return <>{display}</>;
+				);
+			});
+			return <>{display}</>;
+		} else if (performerId) {
+			const performerItem = item as PerformerEventsType[];
+
+			const display = performerItem.map((event, idx) => {
+				let isValid = true;
+				if (event.status !== 'valid') {
+					isValid = false;
+				}
+				return (
+					<>
+						<div key={idx} style={{ width: 340, margin: 'auto' }}>
+							<Card shadow='sm'>
+								<div>
+									<Group position='apart' style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
+										<Avatar size={40} src={`${REACT_APP_IMAGE_BASE}/${event.image}`} radius={40} />
+										<div>
+											<Text size='sm' weight={500}>
+												{event.title}
+											</Text>
+										</div>
+										{isValid ? (
+											<Button fullWidth>Valid</Button>
+										) : (
+											<Button color='gray' fullWidth>
+												Expired
+											</Button>
+										)}
+									</Group>
+								</div>
+							</Card>
+						</div>
+					</>
+				);
+			});
+			return <>{display}</>;
+		}
+
+		return <> NO DATA HISTORY</>;
 	}
+
+	if (!item && !loading) return <> NO DATA HISTORY</>;
+	return <> NO DATA HISTORY</>;
 }
 
 export default LoadApplication;
