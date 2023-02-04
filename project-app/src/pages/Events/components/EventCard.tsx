@@ -89,28 +89,21 @@ export function BadgeCard({ image, title, description, country, badges }: BadgeC
 											</Text>
 											<Badge size='sm'>{event.location}</Badge>
 										</Group>
-										<Text size='sm' mt='xs'>
-											{event.description}
-										</Text>
 
-										{/* <Card.Section className={classes.section}>
-										<Text mt='md' className={classes.label} color='dimmed'>
-											Perfect for you, if you enjoy
-										</Text>
-										<Group spacing={7} mt={5}>
-											{features}
-										</Group>
-									</Card.Section> */}
+										<Card.Section className={classes.section}>
+											<Group spacing={7} mt={5}>
+												<Text mt='md' className={classes.label} color='dimmed'>
+													{event.description}
+												</Text>
+											</Group>
+										</Card.Section>
 
 										<Group mt='xs'>
 											<Link to={`/events/${event.id}`}>
-												<Button radius='md' style={{ flex: 1 }} btn-id={event.id}>
+												<Button radius='md' style={{ width: 280 }} btn-id={event.id} uppercase>
 													Show details
 												</Button>
 											</Link>
-											<ActionIcon variant='default' radius='md' size={36}>
-												<IconHeart size={18} className={classes.like} stroke={1.5} />
-											</ActionIcon>
 										</Group>
 									</Card.Section>
 								</Card>

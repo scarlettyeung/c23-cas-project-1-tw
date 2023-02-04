@@ -49,8 +49,6 @@ function EventDetail() {
 			<p>{event?.image}</p>
 			<p>{event?.venue_image_name}</p>
 
-			<button>Edit</button>
-
 			<button
 				onClick={async (e) => {
 					const path = process.env.REACT_APP_API_BASE;

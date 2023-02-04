@@ -547,10 +547,8 @@ export class UserController {
         setEmail = contact_email
       }
 
-      let setIcon = "icon"
-      if (icon) {
-        setIcon = icon
-      }
+      let setIcon = "defaultImage.jpg"
+
       logger.info("businessAddress, businessBRNo, businessWebsiteUrl")
       logger.info(businessAddress, businessBRNo, businessWebsiteUrl)
       const setBirthday: Date = new Date(birthday)
