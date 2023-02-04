@@ -38,22 +38,22 @@ export default function Register() {
 
 
   return (
-    <>
-      <div className="register-outerDiv">
-        <img className='register-logo' src='../../joasisLogo.png' alt='Joasis logo' />
-        {/* <div className="register-title">
+
+    <div className="register-outerDiv">
+      <img className='register-logo' src='../../joasisLogo.png' alt='Joasis logo' />
+      {/* <div className="register-title">
           Welcome to JOASIS!
         </div > */}
-        <div className="register-content">
-          Choose your account type!!
-        </div>
-
-        <div className="register-btnContainer">
-          <Button radius="xl" className="register-btn" variant="gradient" gradient={{ from: '#ed6ea0', to: '#ec8c69', deg: 35 }} uppercase size="lg" id="performer" value={performer} onClick={handlePerformer} >Performer</Button>
-          <Button radius="xl" className="register-btn" variant="gradient" gradient={{ from: '#ed6ea0', to: '#ec8c69', deg: 35 }} uppercase size="lg" id="client" value={client} onClick={handleClient}>Individual Client</Button>
-          <Button radius="xl" className="register-btn" variant="gradient" gradient={{ from: '#ed6ea0', to: '#ec8c69', deg: 35 }} uppercase size="lg" id="corporate" value={corporateClient} onClick={handleCorporateClient}>Corporate Client</Button>
-        </div>
+      <div className="register-content">
+        Choose your account type!!
       </div>
-    </>
+
+      <div className="register-btnContainer">
+        <Button radius="xl" className="register-btn" uppercase size="lg" id="performer" value={performer} onClick={handlePerformer} >Performer</Button>
+        <Button radius="xl" className="register-btn" uppercase size="lg" id="client" value={client} onClick={handleClient}>Individual Client</Button>
+        <Button radius="xl" className="register-btn" uppercase size="lg" id="corporate" value={corporateClient} onClick={handleCorporateClient}>Corporate Client</Button>
+      </div>
+    </div>
+
   )
 }

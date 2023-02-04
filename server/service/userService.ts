@@ -963,8 +963,8 @@ export class UserService {
     username: string,
     yearsOfExp: number,
     birthday: Date | null,
-    contact_number: number,
-    contact_email: string,
+    contactNumber: number,
+    contactEmail: string,
     gender: Gender,
     description: string | null,
     name: string | null,
@@ -975,20 +975,10 @@ export class UserService {
     // hashtagArr: number[]
   ) {
     try {
-      logger.info(
-        "edit Performers Setting Info call in userService",
-        "check double",
-        facebook_url
-      )
-      // interface HashtagToInput {
-      //   hashtag_details_id: number
-      // }
-      // const hashtagToInput: HashtagToInput[] = []
-
-      // for (const hashtag of hashtagArr) {
-      //   const id: HashtagToInput = { hashtag_details_id: hashtag }
-      //   hashtagToInput.push(id)
-      // }
+      logger.info("edit Performers Setting Info call in userService")
+      logger.info(yearsOfExp)
+      logger.info(contactNumber)
+      logger.info(contactEmail)
 
       const userPerformer = await this.prisma.user.findFirst({
         where: {
@@ -1071,8 +1061,8 @@ export class UserService {
               data: {
                 years_of_exp: yearsOfExp,
                 birthday: birthday,
-                contact_number: contact_number, //not null
-                contact_email: contact_email,
+                contact_number: contactNumber, //not null
+                contact_email: contactEmail,
                 gender: gender, //not null
                 description: description,
                 name: name,
@@ -1101,7 +1091,7 @@ export class UserService {
           },
         },
       })
-
+      return performerData
       // await this.prisma.$disconnect()
       return performerData
     } catch (e) {
@@ -1129,15 +1119,19 @@ export class UserService {
           uuid: uuid,
         },
         select: {
-          id: true,
+          clients: {
+            select: {
+              id: true,
+              client_type: true,
+            },
+          },
         },
       })
 
       if (!userClient) {
         return
       }
-      const userClientId = userClient?.id
-
+      const userClientId = userClient?.clients[0].id
       await this.prisma.user.update({
         where: {
           uuid: uuid,
@@ -1145,7 +1139,7 @@ export class UserService {
         data: {
           icon: icon,
           username: username,
-          password: password,
+          // password: password,
           clients: {
             update: {
               where: {
@@ -1194,14 +1188,18 @@ export class UserService {
           uuid: uuid,
         },
         select: {
-          id: true,
+          clients: {
+            select: {
+              id: true,
+            },
+          },
         },
       })
 
       if (!userClient) {
         return
       }
-      const userClientId = userClient?.id
+      const userClientId = userClient.clients[0].id
 
       await this.prisma.user.update({
         where: {
@@ -1210,7 +1208,7 @@ export class UserService {
         data: {
           icon: icon,
           username: username,
-          password: password,
+
           clients: {
             update: {
               where: {

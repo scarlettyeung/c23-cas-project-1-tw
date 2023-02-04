@@ -1,8 +1,8 @@
-import { FormWrapper } from "./FormWrapper";
-import React, { useState } from "react";
-import { PasswordInput } from "@mantine/core";
+
+import { useState } from "react";
+import { PasswordInput, TextInput, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { setDefaultResultOrder } from "dns";
+import "../../../styles/register.css"
 
 
 export type BasicData = {
@@ -28,11 +28,13 @@ function BasicInfo({
 
   return (
     <>
-      <FormWrapper title="">
-        <label>Email</label>
-        <input autoFocus required type="email" value={email} onChange={e => updateFields({ email: e.target.value })} />
-        <label>Password</label>
+      <div>
+        <Text style={{ fontSize: 25, marginBottom: 20 }}>Basic Information</Text>
+        <TextInput size="lg" className="register-basicInfo-input" label='Email' autoFocus required type="email" value={email} onChange={e => updateFields({ email: e.target.value })} />
         <PasswordInput
+          size="lg"
+          className="register-basicInfo-input"
+          label='Password'
           required
           minLength={8}
           maxLength={16}
@@ -40,8 +42,11 @@ function BasicInfo({
           onVisibilityChange={toggle}
           onChange={(e) => { setPsw(e.target.value) }}
         />
-        <label>Confirm Password</label>
+        <label></label>
         <PasswordInput
+          size="lg"
+          className="register-basicInfo-input"
+          label='Confirm Password'
           required
           minLength={8}
           maxLength={16}
@@ -50,7 +55,7 @@ function BasicInfo({
           onVisibilityChange={toggle}
           onChange={(e) => {
             setPsw2(e.target.value)
-            // console.log(isValid);
+
             console.log("in", psw, e.target.value);
             if (psw === e.target.value) {
               console.log("Ok")
@@ -63,9 +68,8 @@ function BasicInfo({
             }
           }}
         />
-        <label>Username</label>
-        <input required type="text" value={username} onChange={e => updateFields({ username: e.target.value })} />
-      </FormWrapper>
+        <TextInput size="lg" className="register-basicInfo-input" label='Username' required type="text" value={username} onChange={e => updateFields({ username: e.target.value })} />
+      </div>
     </>
   )
 }

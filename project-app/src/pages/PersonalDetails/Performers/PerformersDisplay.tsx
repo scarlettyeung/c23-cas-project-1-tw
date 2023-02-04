@@ -19,19 +19,20 @@ function PerformersDisplay(props: performerInfo) {
     };
   });
   console.log('tags');
+  const hashArray = userInfo.performers_hashtags?.map((tag) => "#" + tag.name + " ")
   // console.log(tags);
   return (
     <>
       <div>
-        <button onClick={props.goBack}>Go back</button>
+        <Button onClick={props.goBack}>Go back</Button>
 
         <div>Performers Details</div>
-        <button onClick={props.edit}>To Edit</button>
+        <Button onClick={props.edit}>To Edit</Button>
       </div>
       <div>
         <Text>username:{userInfo.username} </Text>
         <Text>email: {userInfo.email}</Text>
-        <Text>email: {userInfo.contact_email}</Text>
+        <Text>contactemail: {userInfo.contact_email}</Text>
         <Text>gender: {userInfo.gender}</Text>
         <Text>identity:{userInfo.identity}</Text>
 
@@ -57,7 +58,7 @@ function PerformersDisplay(props: performerInfo) {
         <Text>youtubeUrl: {userInfo.youtube_url ? userInfo.youtube_url : <>No URL</>}</Text>
         <Text>igUrl: {userInfo.ig_url ? userInfo.ig_url : <>No URL</>}</Text>
         <Text>
-          hashTag: {!userInfo.performers_hashtags && <div>No hashTag</div>}
+          hashTag: {hashArray}
           {/* {userInfo.performers_hashtags &&
 						tags.map((tag) => <div key={`event_${tag.id}`}>{tag.name}</div>)} */}
         </Text>

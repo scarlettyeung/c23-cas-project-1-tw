@@ -62,11 +62,11 @@ function PerformerHash({ tagId, updateFields }: UserFormProps) {
   }, [])
 
   return (
-    <FormWrapper title="User Details">
-      <label>Choose upto 5 hashtags</label>
+    <div>
+      <div style={{ fontSize: 25, marginBottom: 20 }}>Choose upto 5 hashtags</div>
 
       {tags.map((tag) => (
-        <Badge key={tag.tagId} variant="gradient" gradient={{ from: 'indigo', to: 'cyan' }}
+        <Badge key={tag.tagId}
           onClick={(e) => {
             console.log("check id", tag.tagId)
             let arr = [...ids]
@@ -86,7 +86,7 @@ function PerformerHash({ tagId, updateFields }: UserFormProps) {
         </Badge>
       ))
       }
-    </FormWrapper>
+    </div>
   )
 }
 

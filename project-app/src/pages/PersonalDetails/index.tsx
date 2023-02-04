@@ -100,9 +100,7 @@ function Details() {
   if (resp && isEdit && role === Role.Individual) {
     const userInfo = resp.userInfo as IndividualClientsSettingValue;
     console.log('userInfo ', userInfo);
-    return <IndividualClientsEdit info={userInfo} exitEdit={exitEdit} complete={function (): void {
-      throw new Error('Function not implemented.');
-    }} />;
+    return <IndividualClientsEdit info={userInfo} exitEdit={exitEdit} />;
   }
   if (resp && isEdit && role === Role.Corporate) {
     const userInfo = resp.userInfo as CorporateClientsSettingValue;

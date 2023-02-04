@@ -8,6 +8,7 @@ import { useRootDispatch, useRootSelector } from "../../../redux/store"
 
 import { useNavigate } from "react-router-dom"
 import { checkHashValidation, checkPswValidation } from "../../../redux/auth/slice"
+import { Button, Group } from "@mantine/core"
 
 
 
@@ -119,20 +120,12 @@ function Performer() {
 
 
   return (
-    <div style={{
-      position: "relative",
-      background: "white",
-      border: "1px solid black",
-      padding: "2rem",
-      margin: "1rem",
-      borderRadius: ".5rem",
-      fontFamily: "Arial",
-      maxWidth: "max-content",
-    }}>
+    <div>
       <form onSubmit={onSubmit} >
         <div style={{ position: "absolute", top: ".5rem", right: ".5rem" }}>
           {currentStepIndex + 1} / {steps.length}
         </div>
+        <div style={{ fontSize: 30, fontWeight: "bold", marginBottom: 20 }}>Performer Register</div>
         {step}
         <div style={{
           marginTop: "1rem",
@@ -140,8 +133,8 @@ function Performer() {
           gap: ".5rem",
           justifyContent: "flex-end",
         }}>
-          {!isFirstStep && <button type="button" onClick={back}>Back</button>}
-          <button type="submit" >{isLastStep ? "Submit" : "Next"}</button>
+          {!isFirstStep && <Button type="button" onClick={back}>Back</Button>}
+          <Button type="submit" >{isLastStep ? "Submit" : "Next"}</Button>
         </div>
       </form>
     </div>

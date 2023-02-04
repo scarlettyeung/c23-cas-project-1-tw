@@ -18,33 +18,43 @@
 }
 
 .register-outerDiv {
-	background: linear-gradient(#ffb79d, hsl(336, 100%, 87%));
+  position: fixed;
+  top:0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+	/* background: linear-gradient(#ffb79d, hsl(336, 100%, 87%)); */
 	height: 100vh;
 	width: 100vw;
-	font-size: 30px;
-	padding-top: 5px;
+	font-size: 40px;
+	padding-top: 1vh;
 	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
-.register-title {
-	margin-bottom: 100px;
-	font-size: 50px;
-}
+/* .register-title {
+	margin-bottom: 10vh;
+} */
 
 .register-content {
-	margin: 40px;
-	margin-bottom: 20px;
+  padding-top: 2vh;
+	padding-bottom: 2vh;
 }
 .register-btnContainer {
-	margin-top: 50px;
+	margin-top: 3vh;
 }
 
 .register-btn {
-	margin: 20px;
-	width: 300px;
-	height: 70px;
+  font-size: 3vh;
+	margin: 3vh 3vw;
+	width: 85vw;
+	height: 8vh;
+  border-radius: 20vw;
 }
 
-/* body{
-  padding: 0px !important;
-} */
+.register-basicInfo-input {
+  padding: 1vh 4vw;
+}
+
+.register-performerInfo-input{
+  padding: 1vh 4vw;
+}
