@@ -6,7 +6,7 @@ import VideoPage from './VideoPage';
 import { PropsDownType } from '../../../utils/EprofileType';
 
 function PageBody(props: PropsDownType) {
-	const { pageName, pageDetail, pageStyle } = props;
+	const { pageName, pageDetail } = props;
 
 	const pageNo = parseInt(pageName.split('_')[0], 10) - 1;
 	const pageNameToDrp = pageName.split('_')[1];

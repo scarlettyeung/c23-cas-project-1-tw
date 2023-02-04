@@ -1,6 +1,7 @@
 import React from 'react';
 import { createStyles, Avatar, Text, Group } from '@mantine/core';
 import { IconPhoneCall, IconAt } from '@tabler/icons';
+const { REACT_APP_IMAGE_BASE } = process.env;
 type props = {
 	headerInfo: HeaderInfo;
 };
@@ -29,19 +30,25 @@ const useStyles = createStyles((theme) => ({
 
 function BasicInformation(props: props) {
 	const headerInfo = props.headerInfo;
-
 	const { classes } = useStyles();
 	return (
 		<>
 			<div>
-				<Group noWrap>
-					<Avatar src={headerInfo.iconName} size={94} radius='md' />
+				<Group noWrap style={{ marginBottom: '0.5vh' }}>
+					<Avatar src={`${REACT_APP_IMAGE_BASE}/${headerInfo.iconName}`} size={94} radius='md' />
 					<div>
-						<Text size='xs' sx={{ textTransform: 'uppercase' }} weight={700} color='dimmed'>
+						<Text
+							size='xs'
+							sx={{ textTransform: 'uppercase' }}
+							weight={700}
+							color='dimmed'
+							lineClamp={1}
+							align={'left'}
+						>
 							{headerInfo.title}
 						</Text>
 
-						<Text size='lg' weight={500} className={classes.name}>
+						<Text size='lg' weight={500} className={classes.name} lineClamp={1} align={'left'}>
 							{headerInfo.userName}
 						</Text>
 

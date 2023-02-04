@@ -734,6 +734,7 @@ export class UserController {
   //     res.status(400).json({ message: "unauthorized edit" })
   //   }
   // }
+
   getAllPerformerHashtagData = async (req: Request, res: Response) => {
     try {
       const tags = await this.userService.getAllPerformerHashtag()

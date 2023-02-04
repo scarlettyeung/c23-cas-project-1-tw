@@ -7,6 +7,7 @@ const getYtId = (url: string) => {
 	return match && match[2].length === 11 ? match[2] : null;
 };
 function MediaContents(props: { content: PageContent[] }) {
+	const { REACT_APP_IMAGE_BASE } = process.env;
 	const mapContents = props.content.map((data) => {
 		if (data.type === ItemType.video) {
 			const getYoutubeId = `https://www.youtube.com/embed/${getYtId(data.content3)}`;
@@ -40,7 +41,11 @@ function MediaContents(props: { content: PageContent[] }) {
 				<div key={data.id}>
 					<Card shadow='sm' p='xl' component='a' target='_blank'>
 						<Card.Section>
-							<Image src={imagePath} height={160} alt='AboutPageImage' />
+							<Image
+								src={`${REACT_APP_IMAGE_BASE}/${imagePath}`}
+								height={160}
+								alt='AboutPageImage'
+							/>
 						</Card.Section>
 						<Text weight={500} size='lg' mt='md' align='left'>
 							{data.content1}
