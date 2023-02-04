@@ -3,7 +3,7 @@ import { logout } from '../redux/auth';
 import { useRootDispatch } from '../redux/store';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Margin } from '@mui/icons-material';
-
+import { Button } from '@mantine/core';
 function Logout() {
 	const dispatch = useRootDispatch();
 	const navigate = useNavigate();
@@ -17,9 +17,10 @@ function Logout() {
 		navigate(targetPathname);
 	};
 	return (
-		<div style={{ marginLeft: ' 300px' }}>
-			<input type='button' value='LogOut' onClick={logoutBtn}></input>
-		</div>
+		<Button onClick={logoutBtn} >
+			Logout
+		</Button >
+
 	);
 }
 

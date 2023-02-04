@@ -3,7 +3,7 @@ import { PrismaClient, TagType } from "@prisma/client"
 import { logger } from "../utils/logger"
 
 export class HomeService {
-  constructor(private prisma: PrismaClient) {}
+  constructor(private prisma: PrismaClient) { }
 
   async getAllEvents() {
     try {
@@ -64,7 +64,7 @@ export class HomeService {
               performers: {
                 select: {
                   users: {
-                    select: { id: true, icon: true, username: true },
+                    select: { id: true, icon: true, username: true, uuid: true },
                   },
                 },
               },

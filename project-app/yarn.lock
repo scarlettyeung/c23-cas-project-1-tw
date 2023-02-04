@@ -1746,6 +1746,13 @@
     quill-mention "^3.0.8"
     react-quill "2.0.0"
 
+"@mantine/spotlight@^5.10.3":
+  version "5.10.3"
+  resolved "https://registry.yarnpkg.com/@mantine/spotlight/-/spotlight-5.10.3.tgz#cd5f952bcc3bda37caacf45f1c89cdb394efa76f"
+  integrity sha512-mU8HpBw557GVmIMbXeu3R8rJPX3FnDZlfMqFq5hH356y5PVqlgjWcpWCoWPTkP50WSWmrCVDN5iuzp6DTaN0iA==
+  dependencies:
+    "@mantine/utils" "5.10.3"
+
 "@mantine/styles@5.10.1":
   version "5.10.1"
   resolved "https://registry.yarnpkg.com/@mantine/styles/-/styles-5.10.1.tgz#84915938349117be04ccc725aa73f1b1c947e95c"
@@ -1763,6 +1770,11 @@
   version "5.10.2"
   resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.10.2.tgz#207a4e8434b521305bb63563244765db1022b005"
   integrity sha512-mpXTPG9X2nPfHGg3ejcWkSlYVxuiTx6RxWbbFHEk/U2fSikEAQdMNdVPaKI2c0/S2jksqJXlODZJv2Qt9HAFMQ==
+
+"@mantine/utils@5.10.3":
+  version "5.10.3"
+  resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.10.3.tgz#724e5076812bffdb15a23859f23b9e78c1774239"
+  integrity sha512-ZfR1wouA/rz3xTOb2wBnrQpIiyjLcCLLvbUo7rzaG3LhFy7UoGjZ6uqIW9qDrzs7SR4tETRfMxedYagjcoCiEg==
 
 "@mui/icons-material@^5.11.0":
   version "5.11.0"
