@@ -16,7 +16,7 @@ import {
 
 function About() {
 	const navigate = useNavigate();
-	const { uuid } = useParams<string>();
+	const { uuid } = useParams<string>()!;
 	const {
 		data: resp,
 		isLoading,
@@ -44,8 +44,17 @@ function About() {
 	const returnPerformer = () => {
 		if (!resp) return;
 		const userInfo = resp.data as PerformanceInfo;
-		console.log(resp);
-		return <PersonalInfo pageUUID={uuid} info={userInfo} />;
+		return <PersonalInfo pageUUID={uuid!} performanceInfo={userInfo} />;
+	};
+	const returnCorporate = () => {
+		if (!resp) return;
+		const userInfo = resp.data as CorporateClientsInfo;
+		return <PersonalInfo pageUUID={uuid!} corporateClientsInfo={userInfo} />;
+	};
+	const returnIndividual = () => {
+		if (!resp) return;
+		const userInfo = resp.data as IndividualClientsInfo;
+		return <PersonalInfo pageUUID={uuid!} individualClientsInfo={userInfo} />;
 	};
 
 	return (
@@ -55,29 +64,18 @@ function About() {
 			<div>
 				{uuid === uuidFromState && <button onClick={() => navigate('/about')}>setting btn</button>}
 				{uuid === uuidFromState && (
-					<button onClick={() => navigate(`/eProfile/?uuid=${uuidFromState}`)}>To eProfile</button>
+					<button onClick={() => navigate(`/eProfile/uuid/${uuidFromState}/get`)}>
+						To eProfile
+					</button>
 				)}
 				<br></br>
 			</div>
 
 			{resp && role === Role.Performer && <div>{returnPerformer()}</div>}
-			{/* 
-			{resp && role === Role.Performer && (
-				<div>
-					<PersonalInfo pageUUID={uuid} info={} />
-				</div>
-			)} */}
 
-			{/* {(resp && role === Role.Corporate) ||
-				(role === Role.Individual && (
-					<div>
-						<PersonalInfo pageUUID={uuid} personalData={personalDataToProp} />
-					</div>
-				))}
+			{resp && role === Role.Corporate && <div>{returnCorporate()}</div>}
 
-			<div>
-				<EventInfo eventInfoData={eventInfoDataToProp} />
-			</div> */}
+			{resp && role === Role.Individual && <div>{returnIndividual()}</div>}
 		</>
 	);
 }

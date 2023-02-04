@@ -51,7 +51,6 @@ export class UserController {
         }
 
         // after 5 min
-
         logger.info("line44")
         console.dir(performersId)
         console.dir(clientId)
@@ -192,7 +191,7 @@ export class UserController {
         logger.info(setEmail)
         logger.info(email)
       } else {
-        setEmail = await contactEmail
+        setEmail = contactEmail
         logger.info("find contactEmail , setEmail is ")
         logger.info(email)
         logger.info(setEmail)
@@ -203,7 +202,16 @@ export class UserController {
       const setPassword: string = await hashPassword(password)
       logger.info("end of check/set info")
       //// --- end of check info --- ////
-
+      console.log(
+        "Check Performer Information Get",
+        identitySelect,
+        email,
+        password,
+        username,
+        setEmail,
+        contactNumber,
+        gender
+      )
       if (identitySelect === "performer") {
         // to check is not null?
         logger.info("hi performer")
@@ -212,7 +220,6 @@ export class UserController {
           !email ||
           !password ||
           !username ||
-          !setEmail ||
           !contactNumber ||
           !gender
         ) {
@@ -456,13 +463,12 @@ export class UserController {
       const clientType = payload.clientType
 
       const {
-        icon,
         oldPassword,
         newPassword,
         username,
-        yearsOfExp,
+        years_of_exp,
         birthday,
-        contactNumber,
+        contact_number,
         gender,
         description,
         name,
@@ -471,23 +477,62 @@ export class UserController {
         youtube_url,
         ig_url,
         // hashtagArr,
-        contactEmail,
+        contact_email,
         businessAddress,
         businessBRNo,
         businessWebsiteUrl,
         email,
       } = req.body
-      console.log("TRYBYKEN", req.body, "check double", facebook_url)
-
-      //// --- to check the info --- ////
+      console.log("check client", req.body)
+      // console.log("TRYBYKEN", req.body, "check double", facebook_url)
+      // console.log(facebook_url)
+      // console.log("icon")
+      // console.log(icon)
+      // console.log("oldPassword")
+      // console.log(oldPassword)
+      // console.log("newPassword")
+      // console.log(newPassword)
+      // console.log("username")
+      // console.log(username)
+      // console.log("years_of_exp")
+      // console.log(years_of_exp)
+      // console.log("birthday")
+      // console.log(birthday)
+      // console.log("contact_number")
+      // console.log(contact_number)
+      // console.log("gender")
+      // console.log(gender)
+      // console.log("description")
+      // console.log(description)
+      // console.log("name")
+      // console.log(name)
+      // console.log("facebook_url")
+      // console.log(facebook_url)
+      // console.log("twitter_url")
+      // console.log(twitter_url)
+      // console.log("youtube_url")
+      // console.log(youtube_url)
+      // console.log("ig_url")
+      // console.log(ig_url)
+      // console.log("contact_email")
+      // console.log(contact_email)
+      // console.log("businessAddress")
+      // console.log(businessAddress)
+      // console.log("businessBRNo")
+      // console.log(businessBRNo)
+      // console.log("businessWebsiteUrl")
+      // console.log(businessWebsiteUrl)
+      // console.log("email")
+      // console.log(email)
+      //// --- to check the info --- ////)
 
       let setExpYear = 0
-      if (yearsOfExp) {
-        setExpYear = yearsOfExp
+      if (years_of_exp) {
+        setExpYear = years_of_exp
       }
 
       let setEmail: string = email
-      if (!contactEmail) {
+      if (!contact_email) {
         const userEmail = await this.userService.getUserEmail(uuid)
         logger.info("userEmail?.email is ")
         logger.info(userEmail?.email)
@@ -497,13 +542,11 @@ export class UserController {
           logger.info("set email", setEmail)
         }
       } else {
-        setEmail = contactEmail
+        setEmail = contact_email
       }
 
-      let setIcon = "icon"
-      if (icon) {
-        setIcon = icon
-      }
+      let setIcon = "defaultImage.jpg"
+
       logger.info("businessAddress, businessBRNo, businessWebsiteUrl")
       logger.info(businessAddress, businessBRNo, businessWebsiteUrl)
       const setBirthday: Date = new Date(birthday)
@@ -525,6 +568,8 @@ export class UserController {
         }
       }
 
+      let setNumber: number = parseInt(contact_number, 10)
+
       //// --- end of check info --- ////
 
       if (identity === "performer") {
@@ -534,6 +579,11 @@ export class UserController {
         //   })
         //   return
         // }
+        console.log(setExpYear)
+        console.log(contact_number)
+        console.log(setNumber)
+        console.log(setEmail)
+
         await this.userService.editPerformersSettingInfo(
           uuid,
           setIcon,
@@ -541,8 +591,9 @@ export class UserController {
           username,
           setExpYear,
           setBirthday,
-          contactNumber,
-          setEmail,
+          setNumber,
+          contact_email,
+          // setEmail,
           gender,
           description,
           name,
@@ -564,8 +615,8 @@ export class UserController {
             gender,
             description,
             name,
-            contactNumber,
-            contactEmail
+            setNumber,
+            contact_email
           ),
             res
               .status(200)
@@ -580,8 +631,8 @@ export class UserController {
             gender,
             description,
             name,
-            contactNumber,
-            contactEmail,
+            setNumber,
+            contact_email,
             businessAddress,
             businessBRNo,
             businessWebsiteUrl
@@ -589,6 +640,7 @@ export class UserController {
           res
             .status(200)
             .json({ message: "edit corporate client setting info done" })
+
           return
         } else {
           res.status(400).json({ message: "client's unauthorized edit" })
@@ -607,9 +659,9 @@ export class UserController {
 
   getEProfile = async (req: Request, res: Response) => {
     try {
-      logger.info("get User EProfile")
+      // logger.info("get User EProfile")
       const uuidFromUrl = req.params.uuid
-      logger.info(uuidFromUrl)
+      // logger.info(uuidFromUrl)
 
       const identity = (await this.userService.getUserIdentity(uuidFromUrl))
         ?.identity
@@ -637,15 +689,15 @@ export class UserController {
 
   editEProfile = async (req: Request, res: Response) => {
     try {
-      logger.info("edit User EProfile")
+      // logger.info("edit User EProfile")
       const uuidFromUrl = req.params.uuid
       const permit = new Bearer({ query: "access_token" })
       const token = permit.check(req)
       const payload = jwtSimple.decode(token, jwt.jwtSecret)
       const uuidFromJWT = payload.uuid
-      logger.info("uuid from url and JWT")
-      logger.info(uuidFromUrl)
-      logger.info(uuidFromJWT)
+
+      logger.info("uuid from url", uuidFromUrl, "uuid from JWT", uuidFromJWT)
+
       if (uuidFromUrl != uuidFromJWT) {
         res.status(400).json({ message: "unauthorized edit" })
         return
@@ -686,6 +738,7 @@ export class UserController {
   //     res.status(400).json({ message: "unauthorized edit" })
   //   }
   // }
+
   getAllPerformerHashtagData = async (req: Request, res: Response) => {
     try {
       const tags = await this.userService.getAllPerformerHashtag()

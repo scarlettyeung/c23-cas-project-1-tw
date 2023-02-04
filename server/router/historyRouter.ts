@@ -8,3 +8,9 @@ historyRoutes.get(
   isLoggedIn,
   historyController.getApplicationHistory
 )
+
+historyRoutes.post(
+  "/application/:eventsId/:userId",
+  isLoggedIn,
+  historyController.matchedPerformer
+)

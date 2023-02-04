@@ -20,7 +20,7 @@ export function Search() {
 		dispatch(getAllHashTags({ hashTags: query }));
 	}, [dispatch, query]);
 
-	const filteredHashTagArr = hashtagArr.filter(
+	const filteredHashTagArr: any[] = hashtagArr.filter(
 		(hashTag) => hashTag.name.toLowerCase().indexOf(input.toLowerCase()) >= 0,
 	);
 	console.log(input);
@@ -28,17 +28,27 @@ export function Search() {
 
 	return (
 		<>
-			<TextInput
+			{/* <TextInput
 				type='string'
 				placeholder='Pick a hashtag'
 				rightSection={
-					<Select data={TAG_TYPE} value={query} maxDropdownHeight={400} onChange={(v) => {}} />
+					<Select
+						placeholder='Pick one'
+						data={TAG_TYPE}
+						value={query}
+						maxDropdownHeight={400}
+						onChange={(v) => {}}
+					/>
 				}
 				rightSectionWidth={120}
 				icon={<IconHash size={14} />}
 				onChange={(e) => setInputText(e.target.value)}
+			/> */}
+			<Select
+				label='Your favorite framework/library'
+				placeholder='Pick one'
+				data={filteredHashTagArr}
 			/>
-			<Select onClick={(v) => console.log(v)} data={[]} />
 		</>
 	);
 }

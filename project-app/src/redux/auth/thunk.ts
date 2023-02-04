@@ -1,13 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-// import { chooseType } from './slice';
-// import { AccountType, Identity } from './state';
-// import { useRootSelector } from '../store';
-// import { FormData } from '../../pages/Register/Performer/Performer';
-// import { AuthState } from './state';
-// createAsyncThunk<token(???), pass in, reject>
-// (action name, function)
-// function::
-//(__ , thunkAPI)=>{}
+
 export const loginThunk = createAsyncThunk<
 	string,
 	{ userEmail: string; userPassword: string },
@@ -15,7 +7,6 @@ export const loginThunk = createAsyncThunk<
 >('users/login', async ({ userEmail, userPassword }, thunkAPI) => {
 	try {
 		const path = process.env.REACT_APP_API_BASE;
-		console.log(userEmail, userPassword);
 		const resp = await fetch(`${path}users/login`, {
 			method: 'POST',
 			headers: {
@@ -34,14 +25,13 @@ export const loginThunk = createAsyncThunk<
 		return thunkAPI.rejectWithValue('AUTH Login failed');
 	}
 });
-//type err
+
 export const testThunk = createAsyncThunk<{ rejectValue: string }>(
 	'users/forTest',
 	async (_, thunkAPI) => {
 		try {
 			const path = process.env.REACT_APP_API_BASE;
 			const jwt = localStorage.getItem('token');
-			console.log('check JWT token', jwt);
 			const resp = await fetch(`${path}users/forTest`, {
 				method: 'POST',
 				headers: {
@@ -51,103 +41,9 @@ export const testThunk = createAsyncThunk<{ rejectValue: string }>(
 				body: JSON.stringify({}),
 			});
 			const data = await resp.json();
-			console.log(data.message);
 			return data;
 		} catch (error) {
-			console.log(error);
 			return;
 		}
 	},
 );
-
-// enum Gender {
-// 	Male = 'male',
-// 	Female = 'female',
-// 	Other = 'other',
-// }
-// export const performerThunk = createAsyncThunk<
-// 	string,
-// 	{
-// 		email: string;
-// 		password: string;
-// 		// password2: string;
-// 		username: string;
-// 		tagId: number[] | null;
-// 		firstName: string;
-// 		lastName: string;
-// 		experience: string;
-// 		contact: string;
-// 		birthday: string;
-// 		description: string;
-// 		gender: Gender | null;
-// 		facebookURL: string;
-// 		twitterURL: string;
-// 		youtubeURL: string;
-// 		igURL: string;
-// 		// chooseType: AccountType;
-// 	},
-// 	{ rejectValue: string }
-// >(
-// 	'users/register',
-// 	async (
-// 		{
-// 			email,
-// 			password,
-// 			username,
-// 			tagId,
-// 			firstName,
-// 			lastName,
-// 			experience,
-// 			contact,
-// 			birthday,
-// 			description,
-// 			gender,
-// 			facebookURL,
-// 			twitterURL,
-// 			youtubeURL,
-// 			igURL,
-// 		}: FormData,
-// 		thunkAPI,
-// 	) => {
-// 		try {
-// 			const type = useRootSelector((state) => state.auth.accountType);
-// 			let identitySend: Identity;
-// 			if (type === 'performer') {
-// 				console.log('hfsdjfghsdjfghsdjk', type);
-// 				identitySend = Identity.Performer;
-// 			} else {
-// 				identitySend = Identity.Client;
-// 			}
-// 			const path = process.env.REACT_APP_API_BASE;
-// 			const resp = await fetch(`${path}users/register`, {
-// 				method: 'POST',
-// 				headers: {
-// 					'Content-Type': 'application/json',
-// 				},
-// 				body: JSON.stringify({
-// 					email: email,
-// 					password: password,
-// 					username: username,
-// 					hashtagArr: tagId,
-// 					name: firstName + '-' + lastName,
-// 					yearsOfExp: experience,
-// 					contactNumber: contact,
-// 					birthday: birthday,
-// 					description: description,
-// 					gender: gender,
-// 					facebookUrl: facebookURL,
-// 					twitterUrl: twitterURL,
-// 					youtubeUrl: youtubeURL,
-// 					igURL: igURL,
-// 					identitySelect: identitySend,
-// 				}),
-// 			});
-// 			const data = await resp.json();
-// 			console.log(data.message);
-// 			return data;
-// 		} catch (error) {
-// 			console.log(error);
-// 			return;
-// 		}
-// 	},
-// );

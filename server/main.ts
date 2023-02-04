@@ -7,8 +7,6 @@ import cors from "cors"
 import { PrismaClient } from "@prisma/client"
 export const prismaClient: PrismaClient = new PrismaClient()
 import { routes } from "./routes"
-// import http from "http"
-// import { Server } from "socket.io"
 import formidable from "formidable"
 import fs from "fs"
 
@@ -42,11 +40,6 @@ export const form = formidable({
 })
 
 app.use(express.static("./uploads"))
-
-// const io = new Server()
-// io.on("connection", (socket) => {
-//   console.log("new client connected")
-// })
 
 app.use((req, res, next) => {
   logger.debug(`Path: ${req.path},,, Method: ${req.method}`)

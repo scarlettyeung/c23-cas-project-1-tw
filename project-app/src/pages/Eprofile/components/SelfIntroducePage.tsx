@@ -60,9 +60,6 @@ const useStyles = createStyles((theme) => ({
 function SelfIntroducePage(props: MediaPropsType) {
 	const { contents } = props;
 
-	// console.dir('pageStyle', pageStyle);
-	// console.dir(pageStyle);
-
 	const { classes } = useStyles();
 
 	if (contents) {

@@ -4,11 +4,11 @@ import { logger } from "../utils/logger"
 export class EventService {
   constructor(private prisma: PrismaClient) {}
 
-  async getEventDetail(id: number) {
+  async getEventDetail(Id: number) {
     try {
       const eventDetail = await this.prisma.event.findUnique({
         where: {
-          id: id,
+          id: Id,
         },
       })
       await this.prisma.$disconnect()

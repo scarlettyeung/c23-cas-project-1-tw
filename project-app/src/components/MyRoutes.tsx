@@ -42,8 +42,7 @@ function MyRoutes() {
 				</Route>
 
 				<Route path='eProfile'>
-					<Route element={<Eprofile />} index />
-					<Route path='get/uuid/:uuid' element={<Eprofile />} index />
+					<Route path='uuid/:uuid/get' element={<Eprofile />} index />
 				</Route>
 			</Route>
 

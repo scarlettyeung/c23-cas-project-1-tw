@@ -31,8 +31,12 @@ userRoutes.get(
 )
 
 // get user e-Profile
-userRoutes.get("/eProfile/:uuid/get", isLoggedIn, userController.getEProfile)
-userRoutes.put("/eProfile/:uuid/edit", isLoggedIn, userController.editEProfile)
+userRoutes.get("/eProfile/uuid/:uuid/get", userController.getEProfile)
+userRoutes.put(
+  "/eProfile/uuid/:uuid/edit",
+  isLoggedIn,
+  userController.editEProfile
+)
 
 userRoutes.get(
   "/getAllTag",

@@ -5,7 +5,6 @@ export function useMultiStepForm(steps: ReactElement[]) {
 	const checkPsw = useRootSelector((state) => state.auth.password);
 	const checkHash = useRootSelector((state) => state.auth.hashTagArr);
 	const typeOfAccount = useRootSelector((state) => state.auth.accountType);
-	console.log(checkPsw, checkHash);
 
 	function next() {
 		setCurrentStepIndex((i) => {

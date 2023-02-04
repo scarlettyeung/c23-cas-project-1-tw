@@ -16,17 +16,14 @@ export default function useFetch<T = unknown>(url: string, method: string, initV
 					Authorization: `Bearer ${jwt}`,
 				},
 			});
-			console.log('response status', resp.status);
 			if (resp.status >= 400) {
 				setError(true);
 			}
 
 			if (isLoading) {
 				const data = await resp.json();
-				// console.dir('check data', data);
 				setData(data);
 				setIsLoading(false);
-				// console.log('check state', data, error.toString(), isLoading.toString());
 			}
 		};
 

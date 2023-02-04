@@ -3,6 +3,7 @@ import { MediaPropsType, ItemType } from '../../../utils/EprofileType';
 import { Timeline, Card, Image, Text, AspectRatio } from '@mantine/core';
 
 function TimeLinePage(props: MediaPropsType) {
+	const { REACT_APP_IMAGE_BASE } = process.env;
 	const getYtId = (url: string) => {
 		const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
 		const match = url.match(regExp);
@@ -16,7 +17,11 @@ function TimeLinePage(props: MediaPropsType) {
 						<Timeline.Item title={item.content1}>
 							<Card style={{ width: '80%' }} shadow='sm' p='xs' radius='md' withBorder>
 								<Card.Section>
-									<Image src={item.content3} height={160} alt='Norway' />
+									<Image
+										src={`${REACT_APP_IMAGE_BASE}/${item.content3}`}
+										height={160}
+										alt='Norway'
+									/>
 								</Card.Section>
 								<Text mt='xs' color='dimmed' size='sm' align='left'>
 									{item.content2}

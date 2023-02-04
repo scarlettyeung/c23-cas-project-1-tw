@@ -21,6 +21,7 @@ function Tag(props: PropsDownAllData) {
 				onChange={setPage}
 				data={mapTagDataSegmentedControl}
 				fullWidth
+				style={{ marginBottom: '2vh' }}
 			/>
 			<PageBody pageName={page} pageDetail={props.pageDetail} pageStyle={pageStyle} />
 		</>

@@ -107,7 +107,6 @@ export interface IndividualClientsInfo {
 	gender: string;
 	description?: string;
 	client_type: string;
-	performers_hashtags: HashTag[];
 	events?: Event[];
 	avg_score: number;
 	sum_of_even: number;
