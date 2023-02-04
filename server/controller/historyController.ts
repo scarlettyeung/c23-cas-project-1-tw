@@ -37,4 +37,26 @@ export class HistoryController {
       return
     }
   }
+
+  matchedPerformer = async (req: Request, res: Response) => {
+    try {
+      const eventIdUrl = parseInt(req.params.eventsId)
+      const applyUserId = parseInt(req.params.userId) //performer's user id
+      const applyPerformerId = await this.historyService.getPerformerId(
+        applyUserId
+      )
+      if (!applyPerformerId) {
+        res.status(400).json({ message: "Performer Id not found!" })
+        return
+      }
+      const performerId = applyPerformerId
+      await this.historyService.matchedApplication(eventIdUrl, performerId)
+      res.status(200).json({ message: "Matching Success!" })
+      return
+    } catch (e) {
+      logger.info(e)
+      res.status(400).json({ message: "Matching Performer Fail" })
+      return
+    }
+  }
 }

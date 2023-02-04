@@ -1103,7 +1103,7 @@ export class UserService {
       })
 
       // await this.prisma.$disconnect()
-      return
+      return performerData
     } catch (e) {
       logger.debug(e)
       //await this.prisma.$disconnect()

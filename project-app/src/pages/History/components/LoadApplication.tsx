@@ -2,6 +2,7 @@ import React from 'react';
 import { Avatar, Group, Text, Button, Card, useMantineTheme } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { useRootSelector } from '../../../redux/store';
+import { useNavigate } from 'react-router-dom';
 const { REACT_APP_IMAGE_BASE } = process.env;
 
 interface ClientEventsType {
@@ -59,50 +60,69 @@ function LoadApplication() {
 	if (item && !loading) {
 		if (clientId) {
 			const clientItem = item as ClientEventsType[];
-			console.log(clientItem);
 			const display = clientItem.map((event, idx) => {
 				return (
 					<div key={idx} style={{ width: 340, margin: 'auto' }}>
-						<Card shadow='sm'>
-							<div>
-								<Text weight={800} mb={7} sx={{ lineHeight: 1 }}>
-									{event.title}
-								</Text>
-								{event.events_applications.map((appItem) => {
-									let isPending = true;
-									if (appItem.status != 'pending') {
-										isPending = false;
-									}
-									return (
-										<div key={idx}>
-											<Group
-												position='apart'
-												style={{ marginBottom: 5, marginTop: theme.spacing.sm }}
-											>
-												<Avatar
-													size={40}
-													src={`${REACT_APP_IMAGE_BASE}/${appItem.performers.users.icon}`}
-													radius={40}
-												/>
-												<div>
-													<Text size='sm' weight={500}>
-														{appItem.performers.users.username}
-													</Text>
-												</div>
-												<div>
-													{isPending ? (
-														<Button fullWidth>Accept</Button>
-													) : (
-														<Button color='gray' fullWidth>
-															Disabled
-														</Button>
-													)}
-												</div>
-											</Group>
-										</div>
-									);
-								})}
-							</div>
+						<Card shadow='xl' p='lg' radius='md' withBorder>
+							<Text weight={800} mb={7} sx={{ lineHeight: 1 }}>
+								{event.title}
+							</Text>
+							{event.events_applications.map((appItem) => {
+								let isPending = true;
+								if (appItem.status != 'pending') {
+									isPending = false;
+								}
+								return (
+									<div key={idx}>
+										<Group
+											position='apart'
+											style={{ marginBottom: 5, marginTop: theme.spacing.sm }}
+										>
+											<Avatar
+												size={40}
+												src={`${REACT_APP_IMAGE_BASE}/${appItem.performers.users.icon}`}
+												radius={40}
+											/>
+											<div>
+												<Text size='sm' weight={500}>
+													{appItem.performers.users.username}
+												</Text>
+											</div>
+											<div>
+												{isPending ? (
+													<Button
+														onClick={async (e) => {
+															const path = process.env.REACT_APP_API_BASE;
+															const jwt = localStorage.getItem('token');
+															const navigate = useNavigate();
+															const resp = await fetch(
+																`${path}history/application/${event.id}/${appItem.performers.users.id}`,
+																{
+																	method: 'POST',
+																	headers: {
+																		Authorization: `Bearer ${jwt}`,
+																	},
+																},
+															);
+															const result = await resp.json();
+															console.log(result);
+															alert('Matching SUCCESS!');
+															navigate('/');
+														}}
+														fullWidth
+													>
+														Accept
+													</Button>
+												) : (
+													<Button color='gray' fullWidth>
+														Reject
+													</Button>
+												)}
+											</div>
+										</Group>
+									</div>
+								);
+							})}
 						</Card>
 					</div>
 				);
@@ -117,29 +137,25 @@ function LoadApplication() {
 					isValid = false;
 				}
 				return (
-					<>
-						<div key={idx} style={{ width: 340, margin: 'auto' }}>
-							<Card shadow='sm'>
-								<div>
-									<Group position='apart' style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
-										<Avatar size={40} src={`${REACT_APP_IMAGE_BASE}/${event.image}`} radius={40} />
-										<div>
-											<Text size='sm' weight={500}>
-												{event.title}
-											</Text>
-										</div>
-										{isValid ? (
-											<Button fullWidth>Valid</Button>
-										) : (
-											<Button color='gray' fullWidth>
-												Expired
-											</Button>
-										)}
-									</Group>
-								</div>
-							</Card>
-						</div>
-					</>
+					<div key={idx} style={{ width: 340, margin: 'auto' }}>
+						<Group position='apart' style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
+							<Avatar size={40} src={`${REACT_APP_IMAGE_BASE}/${event.image}`} radius={40} />
+							<div>
+								<Text weight={800} mb={7} sx={{ lineHeight: 1 }}>
+									{event.title}
+								</Text>
+							</div>
+							<div>
+								{isValid ? (
+									<Button fullWidth>Valid</Button>
+								) : (
+									<Button color='gray' fullWidth>
+										Expired
+									</Button>
+								)}
+							</div>
+						</Group>
+					</div>
 				);
 			});
 			return <>{display}</>;

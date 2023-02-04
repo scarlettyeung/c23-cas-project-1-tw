@@ -23,8 +23,6 @@ export function Search() {
 	const filteredHashTagArr = hashtagArr.filter(
 		(hashTag) => hashTag.name.toLowerCase().indexOf(input.toLowerCase()) >= 0,
 	);
-	console.log(input);
-	console.log(filteredHashTagArr);
 
 	return (
 		<>
