@@ -51,10 +51,6 @@
   border-radius: 20vw;
 }
 
-.register-basicInfo-input {
-  padding: 1vh 4vw;
-}
-
-.register-performerInfo-input{
+.register-input{
   padding: 1vh 4vw;
 }

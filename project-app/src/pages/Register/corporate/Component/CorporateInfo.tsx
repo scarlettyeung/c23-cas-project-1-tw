@@ -1,4 +1,5 @@
-import { FormWrapper } from "../../registerComponent/FormWrapper";
+import { Select, TextInput } from "@mantine/core";
+import "../../../../styles/register.css"
 enum Gender {
   Male = "male",
   Female = "female",
@@ -22,31 +23,28 @@ type UserFormProps = PerformData & {
 
 function CorporateInfo({ companyName, contact, businessAddress, bRNumber, gender, website, description, contactEmail, updateFields }: UserFormProps) {
   return (
-    <FormWrapper title="User Details">
-      <label>Company Name</label>
-      <input autoFocus required type="text" value={companyName} onChange={e => updateFields({ companyName: e.target.value })} />
-      <label>Contact Number</label>
-      <input required type="text" value={contact} onChange={e => updateFields({ contact: e.target.value })} />
-      <label>Contact Email</label>
-      <input required type="email" value={contactEmail} onChange={e => updateFields({ contactEmail: e.target.value })} />
-      <label>Business Address</label>
-      <input required min={1} type="text" value={businessAddress} onChange={e => updateFields({ businessAddress: e.target.value })} />
-      <label>BR Number</label>
-      <input required min={1} type="text" value={bRNumber} onChange={e => updateFields({ bRNumber: e.target.value })} />
-      <label>Website</label>
-      <input min={1} type="text" value={website} onChange={e => updateFields({ website: e.target.value })} />
-      <label>Description</label>
-      <input min={1} type="text" value={description} onChange={e => updateFields({ description: e.target.value })} />
-      <label>Gender</label>
-      <select className="select" onChange={(e) => {
-        gender = e.target.value;
-        updateFields({ gender: e.target.value })
-      }}>
-        <option value={Gender.Male}>Male</option>
-        <option value={Gender.Female}>Female</option>
-        <option value={Gender.Other}>Other</option>
-      </select>
-    </FormWrapper>
+    <div>
+      {/* <label>Company Name</label>
+      <input autoFocus required type="text" value={companyName} onChange={e => updateFields({ companyName: e.target.value })} /> */}
+      <TextInput size="lg" label='Company Name' placeholder="Enter Your Company Name" className="register-input" autoFocus required type="text" value={companyName} onChange={e => updateFields({ companyName: e.target.value })} />
+      <TextInput size="lg" className="register-input" label='Contact Number' required min={1} max={99999999} type="tel" minLength={8} maxLength={8} value={contact} onChange={e => updateFields({ contact: e.target.value })} />
+      <TextInput size="lg" className="register-input" label="Contact Email" type="email" value={contactEmail} onChange={e => updateFields({ contactEmail: e.target.value })} />
+      <TextInput size="lg" className="register-input" label='Business Address' required min={1} type="text" value={businessAddress} onChange={e => updateFields({ businessAddress: e.target.value })} />
+      <TextInput size="lg" className="register-input" label='BR Number' required min={1} type="text" value={bRNumber} onChange={e => updateFields({ bRNumber: e.target.value })} />
+      <TextInput size="lg" className="register-input" label='Website' min={1} type="text" value={website} onChange={e => updateFields({ website: e.target.value })} />
+      <TextInput size="lg" className="register-input" label='Description' aria-colcount={3} type="text" value={description} onChange={e => updateFields({ description: e.target.value })} />
+      <Select
+        size="lg"
+        className="register-input"
+        required
+        label="Gender"
+        placeholder="Choose Your Gender"
+        data={[{ value: "male", label: "Male" }, { value: "female", label: "Female" }, { value: "other", label: "Other" }]}
+        onChange={(e) => {
+          gender = e!
+          updateFields({ gender: e! })
+        }} />
+    </div>
   )
 }
 
