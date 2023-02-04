@@ -11,6 +11,7 @@ function ChatRoom(PerformerUuid: string) {
 
   const uuid = PerformerUuid
 
+  console.log(uuid);
 
 
   useEffect(() => {
