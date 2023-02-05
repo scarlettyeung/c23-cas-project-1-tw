@@ -13,7 +13,6 @@ import {
 	IconBrandMeta,
 	IconBrandTwitter,
 	IconBrandYoutube,
-	IconChevronRight,
 } from '@tabler/icons';
 import '../../../styles/about.css';
 const { REACT_APP_IMAGE_BASE } = process.env;
@@ -34,7 +33,7 @@ function PersonalInfo(props: UserInfoProps) {
 
 	if (performanceInfo) {
 		return (
-			<Card classNames={'IdCard'} withBorder p='xl' radius='md' className={'Performer'}>
+			<Card classNames={'IdCard'} withBorder p='xl' radius='md'>
 				<Card.Section sx={{ height: 20 }} />
 				<Title order={2}>Personal Info</Title>
 				<Avatar size={150} radius={80} mx='auto'>
@@ -66,12 +65,14 @@ function PersonalInfo(props: UserInfoProps) {
 						<div> ({performanceInfo.sum_of_even}) </div>
 					</Group>
 				</Text>
+
 				{uuidFromState !== uuidInPage && <button>ToChatRoom</button>}
-				<Badge color='teal' radius='sm' variant='filled'>
+
+				<>
 					{performanceInfo.performers_hashtags && (
 						<HashTags tags={performanceInfo.performers_hashtags} />
 					)}
-				</Badge>
+				</>
 
 				<div className='IconGroup'>
 					<IconBrandMeta>
@@ -124,80 +125,97 @@ function PersonalInfo(props: UserInfoProps) {
 
 	if (corporateClientsInfo) {
 		return (
-			<>
-				<div>===Corporate Clients Info===</div>
-				<br></br>
-				{corporateClientsInfo.icon ? (
-					<div>user Icon:{corporateClientsInfo.icon} </div>
-				) : (
-					<div>userName: No icon </div>
-				)}
-				<div>user name:{corporateClientsInfo.username} </div>
-				<div>BA No:{corporateClientsInfo.business_BR_no} </div>
-				<div>business address:{corporateClientsInfo.business_address} </div>
-				{corporateClientsInfo.business_website_url ? (
-					<div>business website:{corporateClientsInfo.business_website_url} </div>
-				) : (
-					<></>
-				)}
-
-				<div>Avg score (sum of the event) </div>
-				<Group position='center'>
-					<Rating defaultValue={corporateClientsInfo.avg_score} readOnly />
-					<div> ({corporateClientsInfo.sum_of_even}) </div>
-				</Group>
+			<Card classNames={'IdCard'} withBorder p='xl' radius='md'>
+				<Card.Section sx={{ height: 20 }} />
+				<Title order={2}>Corporate Clients Info</Title>
+				<Avatar size={150} radius={80} mx='auto'>
+					{corporateClientsInfo.icon ? (
+						<img
+							src={`${REACT_APP_IMAGE_BASE}/${corporateClientsInfo.icon}`}
+							alt={corporateClientsInfo.icon}
+						/>
+					) : (
+						<img src={`${REACT_APP_IMAGE_BASE}/defaultImage.jpg`} alt={'defaultImage.jpg'} />
+					)}
+				</Avatar>
+				<Text align='left' size='lg' weight={500} mt='sm'>
+					USER NAME : {corporateClientsInfo.username}
+				</Text>
+				<Text align='left' size='lg' weight={500} mt='sm'>
+					BR NO. : {corporateClientsInfo.business_BR_no}
+				</Text>
+				<Text align='left' size='lg' weight={500} mt='sm'>
+					BUSINESS ADDRESS : {corporateClientsInfo.business_address}
+				</Text>
+				<Text align='left' size='lg' weight={500} mt='sm'>
+					WEBSITE :
+					{corporateClientsInfo.business_website_url ? (
+						<>business website:{corporateClientsInfo.business_website_url} </>
+					) : (
+						<></>
+					)}
+				</Text>
+				<Text align='left' size='lg' weight={500} mt='sm'>
+					SCORE (EVENTS) :{' '}
+					<Group position='left'>
+						<Rating defaultValue={corporateClientsInfo.avg_score} readOnly />
+						<> ({corporateClientsInfo.sum_of_even}) </>
+					</Group>
+				</Text>
 
 				{uuidFromState !== uuidInPage && <button>ToChatRoom</button>}
-				<div>=========</div>
-				<br></br>
 
-				<div>=== Event ===</div>
-				<div>
-					{corporateClientsInfo.events ? (
-						<EventInfo info={corporateClientsInfo.events} />
-					) : (
-						<div>No Event</div>
-					)}
+				<div style={{ flex: 1 }}>
+					<Text size='sm' weight={500}>
+						{corporateClientsInfo.events ? (
+							<EventInfo info={corporateClientsInfo.events} />
+						) : (
+							<div>No Event</div>
+						)}
+					</Text>
 				</div>
-				<div>=============</div>
-				<br></br>
-			</>
+			</Card>
 		);
 	}
 
 	if (individualClientsInfo) {
 		return (
-			<>
-				<div>===Corporate Clients Info===</div>
-				<br></br>
-				{individualClientsInfo.icon ? (
-					<div>user Icon:{individualClientsInfo.icon} </div>
-				) : (
-					<div>userName: No icon </div>
-				)}
-				<div>user name:{individualClientsInfo.username} </div>
-
-				<div>Avg score (sum of the event) </div>
-				<Group position='center'>
-					<Rating defaultValue={individualClientsInfo.avg_score} readOnly />
-					<div> ({individualClientsInfo.sum_of_even}) </div>
-				</Group>
+			<Card classNames={'IdCard'} withBorder p='xl' radius='md'>
+				<Card.Section sx={{ height: 20 }} />
+				<Title order={2}>Clients Info</Title>
+				<Avatar size={150} radius={80} mx='auto'>
+					{individualClientsInfo.icon ? (
+						<img
+							src={`${REACT_APP_IMAGE_BASE}/${individualClientsInfo.icon}`}
+							alt={individualClientsInfo.icon}
+						/>
+					) : (
+						<img src={`${REACT_APP_IMAGE_BASE}/defaultImage.jpg`} alt={'defaultImage.jpg'} />
+					)}
+				</Avatar>
+				<Text align='left' size='lg' weight={500} mt='sm'>
+					USER NAME : {individualClientsInfo.username}
+				</Text>
+				<Text align='left' size='lg' weight={500} mt='sm'>
+					SCORE (EVENTS) :{' '}
+					<Group position='left'>
+						<Rating defaultValue={individualClientsInfo.avg_score} readOnly />
+						<> ({individualClientsInfo.avg_score}) </>
+					</Group>
+				</Text>
 
 				{uuidFromState !== uuidInPage && <button>ToChatRoom</button>}
-				<div>=========</div>
-				<br></br>
 
-				<div>=== Event ===</div>
-				<div>
-					{individualClientsInfo.events ? (
-						<EventInfo info={individualClientsInfo.events} />
-					) : (
-						<div>No Event</div>
-					)}
+				<div style={{ flex: 1 }}>
+					<Text size='sm' weight={500}>
+						{individualClientsInfo.events ? (
+							<EventInfo info={individualClientsInfo.events} />
+						) : (
+							<div>No Event</div>
+						)}
+					</Text>
 				</div>
-				<div>=============</div>
-				<br></br>
-			</>
+			</Card>
 		);
 	}
 	return <>missing data</>;

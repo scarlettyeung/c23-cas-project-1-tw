@@ -3,6 +3,7 @@
 	flex-direction: row-reverse;
 	flex-wrap: nowrap;
 	justify-content: space-evenly;
+	margin: 10px !important;
 }
 
 .AboutBtn {
@@ -16,6 +17,7 @@
 	flex-direction: row-reverse;
 	flex-wrap: nowrap;
 	justify-content: space-evenly;
+	margin: 10px !important;
 }
 
 .EventHistory {
@@ -26,6 +28,12 @@
 .EventKey {
 	display: flex;
 	justify-content: space-between;
+	margin: 10px !important;
+}
+.HashTagsKey {
+	display: flex;
+	align-items: flex-end;
+	margin: 10px !important;
 }
 
 button:hover {

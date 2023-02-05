@@ -10,7 +10,7 @@ type EventInfoProps = {
 function EventInfo(props: EventInfoProps) {
 	return (
 		<>
-			<Title order={2}>Event Info</Title>
+			<Title order={4}>Event Info</Title>
 			<div className='EventHistory'>
 				{props.info.map((event) => (
 					<div className='EventKey' key={`event-${event.id}`}>
