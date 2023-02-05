@@ -12,14 +12,15 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface UserCardImageProps {
-	image: string;
-	avatar: string;
-	name: string;
-	job: string;
+	avatar: any;
+	name: any;
+	gender: any;
+	job: any;
+	experience: any;
 	stats: { label: string; value: string }[];
 }
 
-function UserCardImage({ image, avatar, name, job, stats }: UserCardImageProps) {
+function UserCardImage({ avatar, name, gender, experience, stats }: UserCardImageProps) {
 	const { classes, theme } = useStyles();
 
 	const items = stats.map((stat) => (
@@ -35,18 +36,20 @@ function UserCardImage({ image, avatar, name, job, stats }: UserCardImageProps) 
 
 	return (
 		<Card withBorder p='xl' radius='md' className={classes.card}>
-			<Card.Section sx={{ backgroundImage: `url(${image})`, height: 140 }} />
+			<Card.Section sx={{ height: 140 }} />
 			<Avatar src={avatar} size={80} radius={80} mx='auto' mt={-30} className={classes.avatar} />
 			<Text align='center' size='lg' weight={500} mt='sm'>
 				{name}
 			</Text>
 			<Text align='center' size='sm' color='dimmed'>
-				{job}
+				{gender}
+			</Text>
+			<Text align='center' size='sm' color='dimmed'>
+				{experience}
 			</Text>
 			<Group mt='md' position='center' spacing={30}>
 				{items}
 			</Group>
-			<Button>Follow</Button>
 		</Card>
 	);
 }

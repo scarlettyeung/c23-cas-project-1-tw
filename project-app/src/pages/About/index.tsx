@@ -12,6 +12,7 @@ import {
 	IndividualClientsInfo,
 	CorporateClientsInfo,
 } from '../../utils/userInfoType';
+import '../../styles/about.css';
 
 function About() {
 	const navigate = useNavigate();
@@ -57,25 +58,31 @@ function About() {
 	};
 
 	return (
-		<>
-			<h1>About page</h1>
-
-			<div>
-				{uuid === uuidFromState && (
-					<Button onClick={() => navigate('/about')}>Setting Button</Button>
-				)}
-				{uuid === uuidFromState && (
-					<Button onClick={() => navigate(`/eProfile/uuid/${uuidFromState}/get`)}>EDIT</Button>
-				)}
-				<br></br>
-			</div>
+		<div className='Body'>
+			<div className='Title'>About</div>
 
 			{resp && role === Role.Performer && <div>{returnPerformer()}</div>}
 
 			{resp && role === Role.Corporate && <div>{returnCorporate()}</div>}
 
 			{resp && role === Role.Individual && <div>{returnIndividual()}</div>}
-		</>
+
+			<div className='About-ButtonGroup'>
+				{uuid === uuidFromState && (
+					<Button className='AboutBtn' onClick={() => navigate('/about')}>
+						Setting Button
+					</Button>
+				)}
+				{uuid === uuidFromState && (
+					<Button
+						className='AboutBtn'
+						onClick={() => navigate(`/eProfile/uuid/${uuidFromState}/get`)}
+					>
+						EDIT
+					</Button>
+				)}
+			</div>
+		</div>
 	);
 }
 

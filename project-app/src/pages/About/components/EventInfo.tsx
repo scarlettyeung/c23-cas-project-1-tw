@@ -1,6 +1,7 @@
 import React from 'react';
 import { Event } from '../../../utils/userInfoType';
-import { Button } from '@mantine/core';
+import { Button, Title } from '@mantine/core';
+import '../../../styles/about.css';
 
 type EventInfoProps = {
 	info: Event[];
@@ -9,13 +10,17 @@ type EventInfoProps = {
 function EventInfo(props: EventInfoProps) {
 	return (
 		<>
-			<div>EventInfo</div>
-			{props.info.map((event) => (
-				<div key={`event-${event.id}`}>
-					{event.title}
-					<Button>details</Button>
-				</div>
-			))}
+			<Title order={2}>Event Info</Title>
+			<div className='EventHistory'>
+				{props.info.map((event) => (
+					<div className='EventKey' key={`event-${event.id}`}>
+						{event.title}
+						<div>
+							<Button>details</Button>
+						</div>
+					</div>
+				))}
+			</div>
 		</>
 	);
 }

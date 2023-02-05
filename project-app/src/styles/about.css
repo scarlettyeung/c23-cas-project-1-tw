@@ -1,0 +1,34 @@
+.About-ButtonGroup {
+	display: flex;
+	flex-direction: row-reverse;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+}
+
+.AboutBtn {
+	background-color: #55836f !important;
+	border-color: #55836f !important;
+	color: white !important;
+}
+
+.IconGroup {
+	display: flex;
+	flex-direction: row-reverse;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+}
+
+.EventHistory {
+	display: flex;
+	flex-direction: column;
+}
+
+.EventKey {
+	display: flex;
+	justify-content: space-between;
+}
+
+button:hover {
+	background-color: white !important;
+	color: #75a488 !important;
+}

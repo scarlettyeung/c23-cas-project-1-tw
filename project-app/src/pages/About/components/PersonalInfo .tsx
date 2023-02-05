@@ -7,8 +7,16 @@ import {
 	CorporateClientsInfo,
 	IndividualClientsInfo,
 } from '../../../utils/userInfoType';
-import { Rating, Group } from '@mantine/core';
-import { Button } from '@mantine/core';
+import { Rating, Group, Card, Title, Avatar, Text, Badge } from '@mantine/core';
+import {
+	IconBrandInstagram,
+	IconBrandMeta,
+	IconBrandTwitter,
+	IconBrandYoutube,
+	IconChevronRight,
+} from '@tabler/icons';
+import '../../../styles/about.css';
+const { REACT_APP_IMAGE_BASE } = process.env;
 
 type UserInfoProps = {
 	pageUUID: string;
@@ -26,84 +34,91 @@ function PersonalInfo(props: UserInfoProps) {
 
 	if (performanceInfo) {
 		return (
-			<>
-				<div>===PersonalInfo===</div>
-				<br></br>
-				{performanceInfo.icon ? (
-					<div>user Icon:{performanceInfo.icon} </div>
-				) : (
-					<div>userName: No icon </div>
-				)}
-				<div>user name:{performanceInfo.username} </div>
-				<div>gender:{performanceInfo.gender} </div>
-				<div>Avg score (sum of the event) </div>
-				<Group position='center'>
-					<Rating defaultValue={performanceInfo.avg_score} readOnly />
-					<div> ({performanceInfo.sum_of_even}) </div>
-				</Group>
-				<div>expYear: {performanceInfo.years_of_exp} </div>
-				{uuidFromState !== uuidInPage && <Button>ToChatRoom</Button>}
-				<div>=========</div>
-				<br></br>
-				<div>===hashtags=== </div>
-				<div>
+			<Card classNames={'IdCard'} withBorder p='xl' radius='md' className={'Performer'}>
+				<Card.Section sx={{ height: 20 }} />
+				<Title order={2}>Personal Info</Title>
+				<Avatar size={150} radius={80} mx='auto'>
+					{performanceInfo.icon ? (
+						<img
+							src={`${REACT_APP_IMAGE_BASE}/${performanceInfo.icon}`}
+							alt={performanceInfo.icon}
+						/>
+					) : (
+						<img src={`${REACT_APP_IMAGE_BASE}/defaultImage.jpg`} alt={'defaultImage.jpg'} />
+					)}
+				</Avatar>
+				<Text align='left' size='lg' weight={500} mt='sm'>
+					USER NAME : {performanceInfo.username}
+				</Text>
+				<Text align='left' size='lg' weight={500} mt='sm'>
+					GENDER : {performanceInfo.gender}
+				</Text>
+				<Text align='left' size='lg' weight={500} mt='sm'>
+					USER NAME : {performanceInfo.username}
+				</Text>
+				<Text align='left' size='lg' weight={500} mt='sm'>
+					EXPERIENCE : {performanceInfo.years_of_exp}
+				</Text>
+				<Text align='left' size='lg' weight={500} mt='sm'>
+					SCORE (EVENTS) :{' '}
+					<Group align='left'>
+						<Rating defaultValue={performanceInfo.avg_score} readOnly />
+						<div> ({performanceInfo.sum_of_even}) </div>
+					</Group>
+				</Text>
+				{uuidFromState !== uuidInPage && <button>ToChatRoom</button>}
+				<Badge color='teal' radius='sm' variant='filled'>
 					{performanceInfo.performers_hashtags && (
 						<HashTags tags={performanceInfo.performers_hashtags} />
 					)}
-				</div>
-				<div>=========</div>
-				<br></br>
-				<div>===URL===</div>
+				</Badge>
 
-				{performanceInfo.facebook_url ? (
-					<div>
-						facebook_url: {performanceInfo.facebook_url} <br></br>
-					</div>
-				) : (
-					<>
-						facebook_url: No ULR<br></br>
-					</>
-				)}
-				{performanceInfo.ig_url ? (
-					<div>
-						ig_url: {performanceInfo.ig_url} <br></br>
-					</div>
-				) : (
-					<>
-						ig_url: No ULR<br></br>
-					</>
-				)}
-				{performanceInfo.twitter_url ? (
-					<div>
-						twitter_url: {performanceInfo.twitter_url} <br></br>
-					</div>
-				) : (
-					<>
-						twitter_url: No ULR<br></br>
-					</>
-				)}
-				{performanceInfo.youtube_url ? (
-					<div>
-						youtube_url: {performanceInfo.youtube_url} <br></br>
-					</div>
-				) : (
-					<>
-						youtube_url: No ULR<br></br>
-					</>
-				)}
-				<div>=========</div>
+				<div className='IconGroup'>
+					<IconBrandMeta>
+						{' '}
+						{performanceInfo.facebook_url ? (
+							<div>{performanceInfo.facebook_url}</div>
+						) : (
+							<> facebook_url: No ULR</>
+						)}
+					</IconBrandMeta>
 
-				<div>=== Event ===</div>
-				<div>
-					{performanceInfo.events ? (
-						<EventInfo info={performanceInfo.events} />
-					) : (
-						<div>No Event</div>
-					)}
+					<IconBrandInstagram>
+						{' '}
+						{performanceInfo.ig_url ? (
+							<div>ig_url: {performanceInfo.ig_url}</div>
+						) : (
+							<>ig_url: No ULR</>
+						)}
+					</IconBrandInstagram>
+
+					<IconBrandTwitter>
+						{performanceInfo.twitter_url ? (
+							<div>twitter_url: {performanceInfo.twitter_url}</div>
+						) : (
+							<>twitter_url: No ULR</>
+						)}
+					</IconBrandTwitter>
+
+					<IconBrandYoutube>
+						{performanceInfo.youtube_url ? (
+							<div>youtube_url: {performanceInfo.youtube_url}</div>
+						) : (
+							<>youtube_url: No ULR</>
+						)}
+					</IconBrandYoutube>
 				</div>
-				<div>=============</div>
-				<br></br>
-			</>
+
+				<div style={{ flex: 1 }}>
+					<Text size='sm' weight={500}>
+						{performanceInfo.events ? (
+							<EventInfo info={performanceInfo.events} />
+						) : (
+							<div>No Event</div>
+						)}
+					</Text>
+				</div>
+			</Card>
 		);
 	}
 
@@ -132,7 +147,7 @@ function PersonalInfo(props: UserInfoProps) {
 					<div> ({corporateClientsInfo.sum_of_even}) </div>
 				</Group>
 
-				{uuidFromState !== uuidInPage && <Button>ToChatRoom</Button>}
+				{uuidFromState !== uuidInPage && <button>ToChatRoom</button>}
 				<div>=========</div>
 				<br></br>
 
@@ -168,7 +183,7 @@ function PersonalInfo(props: UserInfoProps) {
 					<div> ({individualClientsInfo.sum_of_even}) </div>
 				</Group>
 
-				{uuidFromState !== uuidInPage && <Button>ToChatRoom</Button>}
+				{uuidFromState !== uuidInPage && <button>ToChatRoom</button>}
 				<div>=========</div>
 				<br></br>
 
