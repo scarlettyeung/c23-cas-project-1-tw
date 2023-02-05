@@ -1,51 +1,12 @@
-.SearchBar {
-	margin: 20px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+.SearchBox {
+	display: flex !important;
+	flex-direction: column !important;
+	flex-wrap: wrap !important;
+	justify-content: flex-end !important;
+	align-items: center !important;
+	gap: 5px !important;
 }
 
-.search {
-	padding: 10px;
-	font-size: 20px;
+.TagPicker {
+	width: 50px !important;
 }
-
-.mantine-Select-dropdown {
-	z-index: 1;
-}
-
-/* 
-.list {
-	padding: 0;
-	list-style: none;
-	text-align: center;
-}
-
-.listItem {
-	margin-bottom: 20px;
-	font-size: 25px;
-	color: #444;
-	font-weight: 300;
-}
-
-table {
-	width: 100%;
-	margin: 50px 0px;
-	border-spacing: 15px;
-	color: #444;
-}
-
-tr {
-	margin-bottom: 20px;
-}
-
-th {
-	width: 250px;
-	text-align: center;
-	font-size: 20px;
-}
-
-td {
-	width: 250px;
-	font-size: 20px;
-} */

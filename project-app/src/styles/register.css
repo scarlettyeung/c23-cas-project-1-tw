@@ -8,65 +8,63 @@
 	padding: 20px;
 	margin: 5px;
 	border: 0px;
-  background:rgb(215, 248, 255);
+	background: rgb(215, 248, 255);
 }
 
 .tagStyle2 {
 	padding: 20px;
 	margin: 5px;
-  border: 0px;
+	border: 0px;
 	background: rgb(255, 243, 151);
 	color: rgb(141, 135, 87);
 }
 .register-basicInfo-psw-btn {
-all: unset;
-background: rgb(230, 124, 126);
-padding: 1vh;
-color:white;
-border-radius: 12px;
+	all: unset;
+	background: rgb(230, 124, 126);
+	padding: 1vh;
+	color: white;
+	border-radius: 12px;
 }
 
 .register-basicInfo-psw-btn:active {
-  background: rgb(158, 88, 91);
+	background: rgb(158, 88, 91);
 }
 /* .register-input {
 
 } */
-.register-input input, textarea {
-  background: #ffffff89 !important;
-  padding: 12px;
-  border: 0;
+.register-input input,
+textarea {
+	background: #ffffff89 !important;
+	padding: 12px;
+	border: 0;
 }
-.register-performer-outerDiv{
-  position:fixed;
-  top:0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow-y: auto;
-  background: repeat linear-gradient(#ffb79d, hsl(336, 100%, 87%));
-  background-size: cover;
-
+.register-performer-outerDiv {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow-y: auto;
+	background: repeat linear-gradient(#ffb79d, hsl(336, 100%, 87%));
+	background-size: cover;
 }
 
-.register-performer-pageShow{
-  text-align: center;
+.register-performer-pageShow {
+	text-align: center;
 }
 
 .register-outerDiv {
-  position: fixed;
-  top:0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 	/* background: linear-gradient(#ffb79d, hsl(336, 100%, 87%)); */
 	height: 100vh;
 	width: 100vw;
 	font-size: 40px;
 	padding-top: 1vh;
-	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  background:linear-gradient(#ffb79d, hsl(336, 100%, 87%));
-
+	background: linear-gradient(#ffb79d, hsl(336, 100%, 87%));
 }
 
 /* .register-title {
@@ -74,7 +72,7 @@ border-radius: 12px;
 } */
 
 .register-content {
-  padding-top: 2vh;
+	padding-top: 2vh;
 	padding-bottom: 2vh;
 }
 .register-btnContainer {
@@ -82,59 +80,61 @@ border-radius: 12px;
 }
 
 .register-btn {
-  font-size: 3vh;
+	font-size: 3vh;
 	margin: 3vh 3vw;
 	width: 85vw;
 	height: 8vh;
-  border-radius: 12px;
-  background: rgb(230, 124, 126);
+	border-radius: 12px;
+	background: rgb(230, 124, 126);
 }
 
-.register-btn:active , .register-btn:hover {
-  background: rgb(158, 88, 91);
+.register-btn:active,
+.register-btn:hover {
+	background: rgb(158, 88, 91);
 }
 
-
-.register-input{
-  padding: 1vh 14vw;
+.register-input {
+	padding: 1vh 14vw;
 }
 
 .register-user-back {
-  all:unset;
-  background: rgb(230, 124, 126);
-  padding: 1vh;
-  color:white;
-  border-radius: 12px;
+	all: unset;
+	background: rgb(230, 124, 126);
+	padding: 1vh;
+	color: white;
+	border-radius: 12px;
 }
 
-.register-user-back:active, .register-user-back:hover {
-  background: rgb(158, 88, 91);
+.register-user-back:active,
+.register-user-back:hover {
+	background: rgb(158, 88, 91);
 }
 
 .register-back-none {
-  all:unset;
-  background: rgba(230, 124, 126, 0);
-  padding: 1vh;
-  color:rgba(255, 255, 255, 0);
-  border-radius: 12px;
+	all: unset;
+	background: rgba(230, 124, 126, 0);
+	padding: 1vh;
+	color: rgba(255, 255, 255, 0);
+	border-radius: 12px;
 }
 
-.register-user-nextAndSubmit{
-  all:unset;
-  background: rgb(230, 124, 126);
-  padding: 1vh;
-  color:white;
-  border-radius: 12px;
+.register-user-nextAndSubmit {
+	all: unset;
+	background: rgb(230, 124, 126);
+	padding: 1vh;
+	color: white;
+	border-radius: 12px;
 }
-.register-user-nextAndSubmit:active, .register-user-nextAndSubmit:hover {
-  background: rgb(158, 88, 91);
-}
-
-.register-performer-pageShow{
-  padding:1vh;
+.register-user-nextAndSubmit:active,
+.register-user-nextAndSubmit:hover {
+	background: rgb(158, 88, 91);
 }
 
-.register-user-backPageSubmit{
-  display: flex;
-  justify-content: space-evenly;
+.register-performer-pageShow {
+	padding: 1vh;
+}
+
+.register-user-backPageSubmit {
+	display: flex;
+	justify-content: space-evenly;
 }

@@ -2,9 +2,8 @@
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	background-color: #eae7e9;
+	background-color: #ffffff;
 	opacity: 0.95;
-	overflow: hidden;
 	position: fixed;
 	left: 0;
 	bottom: 0;
@@ -14,22 +13,9 @@
 	padding: 0;
 }
 
-.navbar a {
+.navIcon:hover {
 	float: left;
-	display: block;
-	color: #8d4747;
+	color: #456151;
 	text-align: center;
-	padding: 14px 16px;
 	text-decoration: none;
-	font-size: 17px;
-}
-
-.navbar a:hover {
-	background-color: #ddd;
-	color: black;
-}
-
-.navbar a.active {
-	background-color: #212423;
-	color: white;
 }

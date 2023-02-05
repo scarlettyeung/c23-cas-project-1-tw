@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { SpotlightAction } from '@mantine/spotlight';
-// import { Select } from '@mantine/core';
 import { Group, Select } from '@mantine/core';
-import '../../styles/search.css';
 import { getAllHashTags } from '../../redux/search';
 import { useRootDispatch, useRootSelector } from '../../redux/store';
 
@@ -47,13 +45,12 @@ export function Search() {
 		});
 		const toOneArr: SpotlightAction[] = mapPerformerHashtag.flat(2);
 		return (
-			<Group>
+			<Group className='SearchBox'>
 				<PerformerEventSearch data={toOneArr} />
 				<Select
-					placeholder='Pick one'
+					className='TagPicker'
 					data={tagType}
 					value={query}
-					maxDropdownHeight={400}
 					onChange={(v) => {
 						if (v) {
 							setQuery(v);
@@ -83,13 +80,11 @@ export function Search() {
 		});
 		const toOneArr: SpotlightAction[] = mapEventHashtag.flat(2);
 		return (
-			<Group>
+			<Group className='SearchBox'>
 				<PerformerEventSearch data={toOneArr} />
 				<Select
-					placeholder='Pick one'
 					data={tagType}
 					value={query}
-					maxDropdownHeight={400}
 					onChange={(v) => {
 						if (v) {
 							setQuery(v);
@@ -103,12 +98,10 @@ export function Search() {
 	}
 
 	return (
-		<>
+		<div className='SearchBox'>
 			<Select
-				placeholder='Pick one'
 				data={tagType}
 				value={query}
-				maxDropdownHeight={400}
 				onChange={(v) => {
 					if (v) {
 						setQuery(v);
@@ -116,7 +109,7 @@ export function Search() {
 					}
 				}}
 			/>
-		</>
+		</div>
 	);
 }
 
