@@ -1,6 +1,7 @@
 import "../../../../styles/register.css"
 import { Select, TextInput, Text, NumberInput } from "@mantine/core";
 
+
 export type PerformData = {
   firstName: string;
   lastName: string;
@@ -30,13 +31,21 @@ function PerformerInfo({ firstName, lastName, experience, contact, birthday, des
       <NumberInput size="lg" placeholder="Enter Number of Years" className="register-input" label='Experience' required min={0} max={99} type="number" value={Number(experience)} onChange={e => updateFields({ experience: e!.toString() })} />
       <TextInput size="lg" className="register-input" label='Contact Number' required min={1} max={99999999} type="tel" minLength={8} maxLength={8} value={contact} onChange={e => updateFields({ contact: e.target.value })} />
       <TextInput size="lg" className="register-input" label="Contact Email" type="email" value={contactEmail} onChange={e => updateFields({ contactEmail: e.target.value })} />
-      <TextInput size="lg" className="register-input" label='Birthday' required min={1} type="date" value={birthday} onChange={e => updateFields({ birthday: e.target.value })} />
+      <TextInput
+        size="lg"
+        className="register-input"
+        label='Birthday'
+        required min={1}
+        type="date"
+        value={birthday}
+        onChange={e => updateFields({
+          birthday: e.target.value
+        })} />
       <Select
         size="lg"
         className="register-input"
         required
         label="Gender"
-        placeholder="Choose Your Gender"
         data={[{ value: "male", label: "Male" }, { value: "female", label: "Female" }, { value: "other", label: "Other" }]}
         onChange={(e) => {
           gender = e!

@@ -8,7 +8,7 @@
   background: #ffffff89;
   padding: 12px;
   border:0;
-  border-radius: 6px;
+  border-radius: 12px;
   margin-bottom: 20px;
 }
 
@@ -33,7 +33,7 @@
   border: 0;
   width: 65vw;
   padding: 12px;
-  border-radius: 6px;
+  border-radius: 12px;
   background: rgb(230, 124, 126);
   
 }
@@ -42,7 +42,7 @@
   border: 0;
   width: 65vw;
   padding: 12px;
-  border-radius: 6px;
+  border-radius: 12px;
   margin-bottom: 20px;
   margin-top:60px;
   background: rgb(230, 124, 126);

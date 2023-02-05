@@ -50,6 +50,7 @@ function Login() {
             placeholder='Password'
             value={userPassword}
             onChange={(e) => setUserPassword(e.target.value)}
+            autoComplete="on"
           />
         </div>
         <div>

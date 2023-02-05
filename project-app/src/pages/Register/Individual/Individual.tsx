@@ -5,7 +5,7 @@ import IndividualInfo from "./Component/IndividualInfo"
 import { useNavigate } from "react-router-dom"
 import { useRootDispatch, useRootSelector } from "../../../redux/store"
 import { checkPswValidation } from "../../../redux/auth/slice"
-import { Button } from "@mantine/core"
+import "../../../styles/register.css"
 
 
 type FormData = {
@@ -82,19 +82,21 @@ function Individual() {
 
   return (
     <div>
-      <form onSubmit={onSubmit} >
-        <div style={{ position: "absolute", top: ".5rem", right: ".5rem" }}>
-          {currentStepIndex + 1} / {steps.length}
-        </div>
+      <form onSubmit={onSubmit} className="register-performer-outerDiv">
+
+        <div style={{ marginTop: 70, fontSize: 30, fontWeight: "bold", marginBottom: 20 }}>Individual Client Registration</div>
         {step}
         <div style={{
-          marginTop: "1rem",
-          display: "flex",
-          gap: ".5rem",
-          justifyContent: "flex-end",
+          marginTop: "3vh",
+          marginBottom: "10vh"
         }}>
-          {!isFirstStep && <Button size='lg' className="register-user-back" type="button" onClick={back}>Back</Button>}
-          <Button size="lg" className="register-user-nextAndSubmit" type="submit" >{isLastStep ? "Submit" : "Next"}</Button>
+          <div className="register-user-backPageSubmit">
+            {!isFirstStep ? <button className="register-user-back" type="button" onClick={back}>Back</button> : <button className="register-back-none">Back</button>}
+            <a className="register-performer-pageShow">
+              {currentStepIndex + 1} / {steps.length}
+            </a>
+            <button className="register-user-nextAndSubmit" type="submit" >{isLastStep ? "Submit" : "Next"}</button>
+          </div>
         </div>
       </form>
     </div>

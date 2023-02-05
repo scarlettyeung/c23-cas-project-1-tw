@@ -768,4 +768,8 @@ export class UserController {
       return
     }
   }
+  // getAllEmailData = async (req: Request, res: Response) => {
+  //   const emailData = await this.userService.getAllEmail()
+  //   return emailData
+  // }
 }

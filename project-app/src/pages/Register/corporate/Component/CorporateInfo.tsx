@@ -26,7 +26,7 @@ function CorporateInfo({ companyName, contact, businessAddress, bRNumber, gender
     <div>
       {/* <label>Company Name</label>
       <input autoFocus required type="text" value={companyName} onChange={e => updateFields({ companyName: e.target.value })} /> */}
-      <TextInput size="lg" label='Company Name' placeholder="Enter Your Company Name" className="register-input" autoFocus required type="text" value={companyName} onChange={e => updateFields({ companyName: e.target.value })} />
+      <TextInput size="lg" label='Company Name' className="register-input" autoFocus required type="text" value={companyName} onChange={e => updateFields({ companyName: e.target.value })} />
       <TextInput size="lg" className="register-input" label='Contact Number' required min={1} max={99999999} type="tel" minLength={8} maxLength={8} value={contact} onChange={e => updateFields({ contact: e.target.value })} />
       <TextInput size="lg" className="register-input" label="Contact Email" type="email" value={contactEmail} onChange={e => updateFields({ contactEmail: e.target.value })} />
       <TextInput size="lg" className="register-input" label='Business Address' required min={1} type="text" value={businessAddress} onChange={e => updateFields({ businessAddress: e.target.value })} />
@@ -38,7 +38,6 @@ function CorporateInfo({ companyName, contact, businessAddress, bRNumber, gender
         className="register-input"
         required
         label="Gender"
-        placeholder="Choose Your Gender"
         data={[{ value: "male", label: "Male" }, { value: "female", label: "Female" }, { value: "other", label: "Other" }]}
         onChange={(e) => {
           gender = e!

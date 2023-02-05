@@ -8,8 +8,8 @@ import { useRootDispatch, useRootSelector } from "../../../redux/store"
 
 import { useNavigate } from "react-router-dom"
 import { checkHashValidation, checkPswValidation } from "../../../redux/auth/slice"
-import { Button, Group } from "@mantine/core"
 
+import "../../../styles/register.css"
 
 
 export type FormData = {
@@ -124,19 +124,19 @@ function Performer() {
     <div>
       <form onSubmit={onSubmit} className="register-performer-outerDiv">
 
-        <div style={{ marginTop: 70, fontSize: 30, fontWeight: "bold", marginBottom: 20 }}>Performer Register</div>
+        <div style={{ marginTop: 70, fontSize: 30, fontWeight: "bold", marginBottom: 20 }}>Performer Registration</div>
         {step}
         <div style={{
-          marginTop: "1rem",
-          display: "flex",
-          gap: ".5rem",
-          justifyContent: "flex-end",
+          marginTop: "3vh",
+          marginBottom: "10vh"
         }}>
-          {!isFirstStep && <Button size="lg" className="register-user-back" type="button" onClick={back}>Back</Button>}
-          <div>
-            {currentStepIndex + 1} / {steps.length}
+          <div className="register-user-backPageSubmit">
+            {!isFirstStep ? <button className="register-user-back" type="button" onClick={back}>Back</button> : <button className="register-back-none">Back</button>}
+            <a className="register-performer-pageShow">
+              {currentStepIndex + 1} / {steps.length}
+            </a>
+            <button className="register-user-nextAndSubmit" type="submit" >{isLastStep ? "Submit" : "Next"}</button>
           </div>
-          <Button size="lg" className="register-user-nextAndSubmit" type="submit" >{isLastStep ? "Submit" : "Next"}</Button>
         </div>
       </form>
     </div>
