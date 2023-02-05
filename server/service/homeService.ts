@@ -1,9 +1,8 @@
 import { PrismaClient, TagType } from "@prisma/client"
-// import { PrismaClient, TagType } from "@prisma/client"
 import { logger } from "../utils/logger"
 
 export class HomeService {
-  constructor(private prisma: PrismaClient) { }
+  constructor(private prisma: PrismaClient) {}
 
   async getAllEvents() {
     try {
@@ -12,15 +11,44 @@ export class HomeService {
           is_shown: true,
           status: "valid",
         },
+        select: {
+          id: true,
+          title: true,
+          image: true,
+          description: true,
+          performers_id: true,
+          clients_id: true,
+          wage_offer: true,
+          start_date: true,
+          end_date: true,
+          location: true,
+          events_hashtags: {
+            select: {
+              hashtag_details: {
+                select: {
+                  name: true,
+                },
+              },
+            },
+          },
+        },
         orderBy: {
-          createdAt: "desc",
+          id: "desc",
         },
       })
-      await this.prisma.$disconnect()
-      return events
+
+      const mapEventHashTags = events.map((event) => {
+        const mapName = event.events_hashtags.map((name) => {
+          console.log(name.hashtag_details.name)
+          return name.hashtag_details.name
+        })
+        const cloneObj = { ...event } as any
+        delete cloneObj.events_hashtags
+        return { ...cloneObj, hashtag_details: mapName[0] }
+      })
+      return mapEventHashTags
     } catch (e) {
       logger.info(e)
-      await this.prisma.$disconnect()
       return
     }
   }
@@ -64,7 +92,12 @@ export class HomeService {
               performers: {
                 select: {
                   users: {
-                    select: { id: true, icon: true, username: true, uuid: true },
+                    select: {
+                      id: true,
+                      icon: true,
+                      username: true,
+                      uuid: true,
+                    },
                   },
                 },
               },

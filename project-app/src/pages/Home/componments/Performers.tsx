@@ -4,6 +4,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import { createStyles, Paper, useMantineTheme } from '@mantine/core';
 import { getAllDataThunk } from '../../../redux/home';
 import { useRootDispatch, useRootSelector } from '../../../redux/store';
+import { Link } from 'react-router-dom';
 const { REACT_APP_IMAGE_BASE } = process.env;
 
 const useStyles = createStyles((theme) => ({
@@ -50,7 +51,9 @@ export function CardsCarousel() {
 		performers &&
 		performers.map((item) => (
 			<Carousel.Slide key={`item-${item.icon}`}>
-				<Card image={`${REACT_APP_IMAGE_BASE}/${item.icon}`} {...item} />
+				<Link to={`/about/uuid/${item.uuid}`}>
+					<Card image={`${REACT_APP_IMAGE_BASE}/${item.icon}`} {...item} />{' '}
+				</Link>
 			</Carousel.Slide>
 		));
 

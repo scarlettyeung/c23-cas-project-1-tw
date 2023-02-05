@@ -16,27 +16,21 @@ export enum Properties {
 }
 
 export interface Event {
-	id: number;
 	error?: string;
+	id: number;
+	title: string;
+	image?: string | null;
+	description?: string | null;
 	performers_id?: string | null;
 	clients_id: number;
-	title: string;
 	wage_offer: number;
 	start_date: Date;
 	end_date: Date;
-	start_time: Date;
-	end_time: Date;
-	image?: string | null;
-	venue_image_name?: string | null;
-	description?: string | null;
 	location: string;
+	events_hashtags?: string;
 	status: Status;
-	rehearsal_needed?: boolean | null;
-	properties: Properties;
 	is_shown: boolean;
 	date_published: Date;
-	reviews?: string | null;
-	events_hashtags?: string | null;
 }
 
 export interface Performer {

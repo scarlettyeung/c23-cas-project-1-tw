@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Event, Performer } from './state';
+import { Event, Performer, HomeState } from './homeState';
 
 export const getAllDataThunk = createAsyncThunk<{
 	message: string;
@@ -15,6 +15,7 @@ export const getAllDataThunk = createAsyncThunk<{
 			},
 		});
 		const data = await resp.json();
+		console.log('on9Thunk', data);
 		return data;
 	} catch (error) {
 		return;

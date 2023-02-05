@@ -2,11 +2,12 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	font-family: 'Ostrich Sans';
 }
 
 body {
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-		'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+	font-family: 'Ostrich Sans';
+	font-style: normal;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	padding: 80px 10px 80px 10px;
@@ -19,11 +20,13 @@ body {
 
 .Title {
 	display: flex;
+	size: 73px;
 	font-size: 25px;
-	padding: 16px 17px 16px 18px;
-	font-weight: bold;
+	padding: 10px 10px 10px 10px;
+	font-weight: bolder;
+	font-family: 'Ostrich Sans' !important;
 }
 
 code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+	font-family: 'Ostrich Sans';
 }

@@ -1,6 +1,7 @@
 .navbar {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
+	align-items: center;
 	background-color: #eae7e9;
 	opacity: 0.95;
 	overflow: hidden;
@@ -16,7 +17,7 @@
 .navbar a {
 	float: left;
 	display: block;
-	color: #120d0d;
+	color: #8d4747;
 	text-align: center;
 	padding: 14px 16px;
 	text-decoration: none;

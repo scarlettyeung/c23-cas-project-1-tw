@@ -10,18 +10,18 @@ import {
 	tagType,
 	SearchTagType,
 	FetchPerformerType,
-	FetchEventDataType
-
+	FetchEventDataType,
 } from '../../utils/SearchType';
 
-import PerformerEventSearch from './PerformerEventSearch'
+import PerformerEventSearch from './PerformerEventSearch';
 import { useNavigate } from 'react-router-dom';
 import Logout from '../Logout';
 
-
 export function Search() {
 	const dispatch = useRootDispatch();
-	const hashtagArr = useRootSelector<FetchPerformerType[] | FetchEventDataType[]>((state) => state.search.hashtagArr);
+	const hashtagArr = useRootSelector<FetchPerformerType[] | FetchEventDataType[]>(
+		(state) => state.search.hashtagArr,
+	);
 	const [query, setQuery] = useState<string>('performer');
 	const navigate = useNavigate();
 	useEffect(() => {
@@ -29,117 +29,26 @@ export function Search() {
 	}, [dispatch, query]);
 
 	if (query === SearchTagType.Performer) {
-		hashtagArr as FetchPerformerType[]
-		const mapPerformerHashtag = hashtagArr.map((TagObj, idx) => {
-			const performerData = TagObj.performers_hashtags.map((data, idx2) => {
-				return (
-					{
-						id: data.performers.users.uuid,
-						title: TagObj.name,
-						keywords: TagObj.name,
-						description: data.performers.users.username,
-						image: data.performers.users.icon,
-						onTrigger: () => {
-							navigate(`/about/uuid/${data.performers.users.uuid}`, { replace: true })
-						}
-					}
-				)
-			})
-			return performerData
-		})
-		const toOneArr: SpotlightAction[] = (mapPerformerHashtag.flat(2))
-		return (<Group>
-			<PerformerEventSearch data={toOneArr} />
-			<Select
-				placeholder='Pick one'
-				data={tagType}
-				value={query}
-				maxDropdownHeight={400}
-				onChange={(v) => {
-					if (v) {
-						setQuery(v)
-						console.log(query)
-					}
-				}}
-			/>
-			<Logout />
-		</Group>)
-
-	} else if (query === SearchTagType.Event) {
-		hashtagArr as FetchEventDataType[]
-		console.log(hashtagArr)
-		const mapEventHashtag = hashtagArr.map((TagObj, idx) => {
-			const eventData = TagObj.events_hashtags.map((data, idx2) => {
-				return (
-					{
-						id: `${TagObj.name}_${data.events.id}`,
-						title: data.events.title,
-						keywords: TagObj.name,
-						image: data.events.image,
-						onTrigger: () => {
-							navigate(`events/${data.events.id}`, { replace: true })
-						}
-					}
-				)
-			})
-			return eventData
-		})
-		const toOneArr: SpotlightAction[] = (mapEventHashtag.flat(2))
-		return (<Group>
-			<PerformerEventSearch data={toOneArr} />
-			<Select
-				placeholder='Pick one'
-				data={tagType}
-				value={query}
-				maxDropdownHeight={400}
-				onChange={(v) => {
-					if (v) {
-						setQuery(v)
-						console.log(query)
-					}
-				}}
-			/>
-			<Logout />
-		</Group>)
-	}
-
-
-
-	// } else if (query === SearchTagType.Event) {
-
-	// }
-
-
-
-
-
-
-	// const theSearch = () => {
-	// 	if (query === SearchTagType.Performer) {
-	// 		return (<>123312</>)
-	// 	} else if (query === SearchTagType.Event) {
-	// 		return (<>q231</>)
-	// 	}
-	// }
-
-
-	return (
-		<>
-
-			<Select
-				placeholder='Pick one'
-				data={tagType}
-				value={query}
-				maxDropdownHeight={400}
-				onChange={(v) => {
-					if (v) {
-						setQuery(v)
-						console.log(query)
-					}
-				}}
-			/>
-			{/* <Group>
-				<SpotlightControl />
+		hashtagArr as FetchPerformerType[];
+		const mapPerformerHashtag = hashtagArr.map((TagObj) => {
+			const performerData = TagObj.performers_hashtags.map((data) => {
+				return {
+					id: data.performers.users.uuid,
+					title: TagObj.name,
+					keywords: TagObj.name,
+					description: data.performers.users.username,
+					image: data.performers.users.icon,
+					onTrigger: () => {
+						navigate(`/about/uuid/${data.performers.users.uuid}`, { replace: true });
+					},
+				};
+			});
+			return performerData;
+		});
+		const toOneArr: SpotlightAction[] = mapPerformerHashtag.flat(2);
+		return (
+			<Group>
+				<PerformerEventSearch data={toOneArr} />
 				<Select
 					placeholder='Pick one'
 					data={tagType}
@@ -147,50 +56,68 @@ export function Search() {
 					maxDropdownHeight={400}
 					onChange={(v) => {
 						if (v) {
-							setQuery(v)
-							console.log(query)
+							setQuery(v);
+							console.log(query);
 						}
 					}}
 				/>
-			</Group> */}
-			{/* {theSearch()} */}
+				<Logout />
+			</Group>
+		);
+	} else if (query === SearchTagType.Event) {
+		hashtagArr as FetchEventDataType[];
+		console.log(hashtagArr);
+		const mapEventHashtag = hashtagArr.map((TagObj) => {
+			const eventData = TagObj.events_hashtags.map((data) => {
+				return {
+					id: `${TagObj.name}_${data.events.id}`,
+					title: data.events.title,
+					keywords: TagObj.name,
+					image: data.events.image,
+					onTrigger: () => {
+						navigate(`events/${data.events.id}`, { replace: true });
+					},
+				};
+			});
+			return eventData;
+		});
+		const toOneArr: SpotlightAction[] = mapEventHashtag.flat(2);
+		return (
+			<Group>
+				<PerformerEventSearch data={toOneArr} />
+				<Select
+					placeholder='Pick one'
+					data={tagType}
+					value={query}
+					maxDropdownHeight={400}
+					onChange={(v) => {
+						if (v) {
+							setQuery(v);
+							console.log(query);
+						}
+					}}
+				/>
+				<Logout />
+			</Group>
+		);
+	}
 
-			{/* <Select
-				label="Choose employee of the month"
-				placeholder="Find Performance"
-				itemComponent={SelectItem}
-				data={query}
-				searchable
-				maxDropdownHeight={400}
-				nothingFound="Nobody here"
-				filter={(value, item) =>
-					item.label.toLowerCase().includes(value.toLowerCase().trim()) ||
-					item.description.toLowerCase().includes(value.toLowerCase().trim())
-				}
-			/> */}
-			{/* <TextInput
-				type='string'
-				placeholder='Pick a hashtag'
-				rightSection={
-	
-				}
-				rightSectionWidth={120}
-				icon={<IconHash size={14} />}
-				onChange={(e) => setInputText(e.target.value)}
-			/> */}
-			{/* <Select
-				label='Your favorite framework/library'
+	return (
+		<>
+			<Select
 				placeholder='Pick one'
-				data={filteredHashTagArr}
-			/> */}
+				data={tagType}
+				value={query}
+				maxDropdownHeight={400}
+				onChange={(v) => {
+					if (v) {
+						setQuery(v);
+						console.log(query);
+					}
+				}}
+			/>
 		</>
 	);
 }
 
 export default Search;
-
-
-
-// function Demo() {
-//
-// }
