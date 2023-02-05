@@ -1,10 +1,39 @@
 .allInput {
-  width: 77vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	width: 77vw;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 .userDisplay {
-  display: flex;
-  justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
+}
+
+.Client {
+	display: flex;
+	justify-content: space-between;
+}
+
+.Indiv-Client {
+	display: flex;
+	justify-content: space-between;
+}
+
+.User-ButtonGroup {
+	display: flex;
+	flex-direction: row-reverse;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+	margin: 10px !important;
+}
+
+.User-EditButtonGroup {
+	background-color: #55836f !important;
+	border-color: #55836f !important;
+	color: white !important;
+}
+
+button:hover {
+	background-color: white !important;
+	color: #75a488 !important;
 }

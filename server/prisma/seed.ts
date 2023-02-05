@@ -496,7 +496,7 @@ async function main() {
     select: {
       id: true,
 
-      performers: { select: { id: true }},
+      performers: { select: { id: true } },
       clients: { select: { id: true } },
     },
   })
@@ -511,44 +511,31 @@ async function main() {
   })
 
   const hashtagDetailId = await prisma.hashtagDetail.findMany({
-    select: { 
+    select: {
       id: true,
-      performers_hashtags: {select: { id: true, performers: {select: {id: true}}}},
-      events_hashtags: {select: {id: true, events: {select: {id: true}}}}
-    }, 
-
+      performers_hashtags: {
+        select: { id: true, performers: { select: { id: true } } },
+      },
+      events_hashtags: {
+        select: { id: true, events: { select: { id: true } } },
+      },
+    },
   })
-
-
 
   const userUuid = await prisma.user.findMany({
-    select: { 
+    select: {
       uuid: true,
-    }, 
-
+    },
   })
-
-
-
-
-
-
-
-
-
-
 
   await prisma.performersHashtag.createMany({
     data: [
       {
         performers_id: userId[0].performers[0].id,
-        hashtag_details_id: hashtagDetailId[0].performers_hashtags[0].id
-          
+        hashtag_details_id: hashtagDetailId[0].performers_hashtags[0].id,
       },
     ],
   })
-
-
 
   //////////////////////////////////event (1000) starts////////////////////////////////////////////
 
@@ -640,7 +627,7 @@ async function main() {
     data: [
       {
         events_id: eventId[0].id,
-        hashtag_details_id: hashtagDetailId[0].events_hashtags[0].id
+        hashtag_details_id: hashtagDetailId[0].events_hashtags[0].id,
       },
     ],
   })
@@ -649,38 +636,35 @@ async function main() {
 
   await prisma.visits.createMany({
     data: [
-{
-      user_uuid: userUuid[0].uuid,
-      device: 'phone',
-      ip_address: '192.0.2.1'
-
-},
-  {user_uuid: userUuid[3].uuid,
-  device: 'web',
-  ip_address: '192.0.2.5'
-
-},
+      {
+        user_uuid: userUuid[0].uuid,
+        device: "phone",
+        ip_address: "192.0.2.1",
+      },
+      { user_uuid: userUuid[3].uuid, device: "web", ip_address: "192.0.2.5" },
     ],
   })
 
   //////////////////////////////////user_like_client_to_performer (250)  starts ///////////////////////////////////
 
   await prisma.userLike.createMany({
-    data: [{
-      subject_uuid: userUuid[0].uuid,
-      target_uuid: userUuid[0].uuid
-    }],
+    data: [
+      {
+        subject_uuid: userUuid[0].uuid,
+        target_uuid: userUuid[0].uuid,
+      },
+    ],
   })
 
   ///////////////////////// /review (400) starts ///////////////////////////
   await prisma.review.createMany({
-    data: [{
-      events_id: eventId[0].id,
-      users_id: userId[0].id,
-      comments_content: 'Good show',
-      score: 4
-}
-
+    data: [
+      {
+        events_id: eventId[0].id,
+        users_id: userId[0].id,
+        comments_content: "Good show",
+        score: 4,
+      },
     ],
   })
 }
