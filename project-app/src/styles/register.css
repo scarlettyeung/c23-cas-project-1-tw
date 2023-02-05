@@ -11,6 +11,23 @@
 	color: black;
 }
 
+.register-basicInfo-outerDiv {
+  color: rgb(46, 7, 7);
+  opacity: 0.6;
+}
+
+.register-performer-outerDiv{
+  position:fixed;
+  top:0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  background: repeat linear-gradient(#ffb79d, hsl(336, 100%, 87%));
+  background-size: cover;
+
+}
+
 .register-logo {
 	width: 200px;
 	margin-bottom: 20px;
@@ -29,6 +46,8 @@
 	font-size: 40px;
 	padding-top: 1vh;
 	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  background:linear-gradient(#ffb79d, hsl(336, 100%, 87%));
+
 }
 
 /* .register-title {
@@ -48,9 +67,24 @@
 	margin: 3vh 3vw;
 	width: 85vw;
 	height: 8vh;
-  border-radius: 20vw;
+  border-radius: 5vw;
+  background: rgb(230, 124, 126);
 }
 
+.register-btn:active {
+  background: rgb(158, 88, 91);
+}
+
+
 .register-input{
-  padding: 1vh 4vw;
+  padding: 1vh 14vw;
+}
+
+.register-user-back {
+  margin-left:14vw;
+  display: flex;
+  justify-content: start;
+}
+.register-user-nextAndSubmit{
+  margin-right:14vw
 }

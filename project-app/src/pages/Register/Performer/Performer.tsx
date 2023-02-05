@@ -122,11 +122,9 @@ function Performer() {
 
   return (
     <div>
-      <form onSubmit={onSubmit} >
-        <div style={{ position: "absolute", top: ".5rem", right: ".5rem" }}>
-          {currentStepIndex + 1} / {steps.length}
-        </div>
-        <div style={{ fontSize: 30, fontWeight: "bold", marginBottom: 20 }}>Performer Register</div>
+      <form onSubmit={onSubmit} className="register-performer-outerDiv">
+
+        <div style={{ marginTop: 70, fontSize: 30, fontWeight: "bold", marginBottom: 20 }}>Performer Register</div>
         {step}
         <div style={{
           marginTop: "1rem",
@@ -134,8 +132,11 @@ function Performer() {
           gap: ".5rem",
           justifyContent: "flex-end",
         }}>
-          {!isFirstStep && <Button type="button" onClick={back}>Back</Button>}
-          <Button type="submit" >{isLastStep ? "Submit" : "Next"}</Button>
+          {!isFirstStep && <Button size="lg" className="register-user-back" type="button" onClick={back}>Back</Button>}
+          <div>
+            {currentStepIndex + 1} / {steps.length}
+          </div>
+          <Button size="lg" className="register-user-nextAndSubmit" type="submit" >{isLastStep ? "Submit" : "Next"}</Button>
         </div>
       </form>
     </div>

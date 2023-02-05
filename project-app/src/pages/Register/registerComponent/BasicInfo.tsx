@@ -28,7 +28,7 @@ function BasicInfo({
 
   return (
     <>
-      <div>
+      <div className="register-basicInfo-outerDiv">
         <Text style={{ fontSize: 25, marginBottom: 20 }}>Basic Information</Text>
         <TextInput size="lg" className="register-input" label='Email' autoFocus required type="email" value={email} onChange={e => updateFields({ email: e.target.value })} />
         <PasswordInput

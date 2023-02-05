@@ -102,8 +102,8 @@ function Corporate() {
           gap: ".5rem",
           justifyContent: "flex-end",
         }}>
-          {!isFirstStep && <Button type="button" onClick={back}>Back</Button>}
-          <Button type="submit" >{isLastStep ? "Submit" : "Next"}</Button>
+          {!isFirstStep && <Button size='lg' className="register-user-back" type="button" onClick={back}>Back</Button>}
+          <Button size='lg' className="register-user-nextAndSubmit" type="submit" >{isLastStep ? "Submit" : "Next"}</Button>
         </div>
       </form>
     </div>

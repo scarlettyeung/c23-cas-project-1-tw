@@ -17,14 +17,17 @@ function Login() {
     dispatch(loginThunk({ userEmail, userPassword }))
       .unwrap()
       .then(() => navigate('/'))
-      .catch((err) => {
-        alert(err.message);
-      });
+      // .catch((err) => {
+      //   alert(err.message);
+      // });
+      .catch(() => {
+        alert("Invalid Email or Password!");
+      })
 
     const targetPathname = location.state?.from.pathname || '/';
     navigate(targetPathname);
   };
-
+  const [isClicked, serIsClicked] = useState(false)
   return (
     <div className='outerDiv'>
       <img className='logo' src='../../joasisLogo.png' alt='Joasis logo' />
@@ -50,20 +53,22 @@ function Login() {
           />
         </div>
         <div>
-          <Button type='submit' className='login' radius="xl" variant="gradient" gradient={{ from: '#ed6ea0', to: '#ec8c69', deg: 35 }} uppercase size="lg" >LOGIN</Button>
+          <Button type='submit' className='login-login' radius="xl" uppercase size="lg" >LOGIN</Button>
         </div>
         <img className='break' src="../../break.png" alt="break" />
         <div>
           <Button
             type='button'
-            className='register'
-            onClick={() => navigate('/register')}
-            radius="xl" variant="gradient" gradient={{ from: '#ed6ea0', to: '#ec8c69', deg: 35 }} uppercase size="lg"
+            className='login-register'
+            onClick={() => isClicked === true ? navigate('/register') : alert("Please agree the Terms of Use & Privacy Policy")}
+            radius="xl" uppercase size="lg"
           >REGISTER</Button>
         </div>
       </form>
       <div className='checkbox'>
         <Checkbox
+          className='loginCheckbox'
+          onClick={() => serIsClicked((current) => !current)}
           label="Logging in means you agree to our Terms of Use & Privacy Policy"
           color="red"
           radius="md"
