@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRootDispatch } from '../redux/store';
 import { testThunk } from '../redux/auth';
+import { Button } from '@mantine/core';
 
 function TestBtn() {
 	const dispatch = useRootDispatch();
@@ -15,7 +16,7 @@ function TestBtn() {
 	};
 	return (
 		<div>
-			<input type='button' value='test-btn' onClick={testBtn}></input>
+			<Button value='test-btn' onClick={testBtn}></Button>
 		</div>
 	);
 }

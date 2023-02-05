@@ -2,7 +2,7 @@ import React from 'react';
 import { MediaPropsType, PageContent } from '../../../utils/EprofileType';
 import { Carousel } from '@mantine/carousel';
 import { useMediaQuery } from '@mantine/hooks';
-import { createStyles, Paper, Text, Title, Button, useMantineTheme } from '@mantine/core';
+import { createStyles, Paper, Text, Title, useMantineTheme } from '@mantine/core';
 
 const { REACT_APP_IMAGE_BASE } = process.env;
 

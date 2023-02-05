@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import { MediaURL, PersonalData, TeamData, HashTag } from '../index';
 import HashTags from './HashTags';
 import EventInfo from './EventInfo';
 import { useRootSelector } from '../../../redux/store';
@@ -9,6 +8,7 @@ import {
 	IndividualClientsInfo,
 } from '../../../utils/userInfoType';
 import { Rating, Group } from '@mantine/core';
+import { Button } from '@mantine/core';
 
 type UserInfoProps = {
 	pageUUID: string;
@@ -42,7 +42,7 @@ function PersonalInfo(props: UserInfoProps) {
 					<div> ({performanceInfo.sum_of_even}) </div>
 				</Group>
 				<div>expYear: {performanceInfo.years_of_exp} </div>
-				{uuidFromState !== uuidInPage && <button>ToChatRoom</button>}
+				{uuidFromState !== uuidInPage && <Button>ToChatRoom</Button>}
 				<div>=========</div>
 				<br></br>
 				<div>===hashtags=== </div>
@@ -132,7 +132,7 @@ function PersonalInfo(props: UserInfoProps) {
 					<div> ({corporateClientsInfo.sum_of_even}) </div>
 				</Group>
 
-				{uuidFromState !== uuidInPage && <button>ToChatRoom</button>}
+				{uuidFromState !== uuidInPage && <Button>ToChatRoom</Button>}
 				<div>=========</div>
 				<br></br>
 
@@ -168,7 +168,7 @@ function PersonalInfo(props: UserInfoProps) {
 					<div> ({individualClientsInfo.sum_of_even}) </div>
 				</Group>
 
-				{uuidFromState !== uuidInPage && <button>ToChatRoom</button>}
+				{uuidFromState !== uuidInPage && <Button>ToChatRoom</Button>}
 				<div>=========</div>
 				<br></br>
 

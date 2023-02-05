@@ -181,7 +181,7 @@ export function CreateEvents() {
 										}}
 									/>
 								) : (
-									<button
+									<Button
 										className='CreateEvent'
 										onClick={(event) => {
 											event.preventDefault();
@@ -189,7 +189,7 @@ export function CreateEvents() {
 										}}
 									>
 										Add Image
-									</button>
+									</Button>
 								)}
 								<input
 									placeholder='Upload Image'

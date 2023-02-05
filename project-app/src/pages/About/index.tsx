@@ -1,7 +1,7 @@
 // import UserCardImage from './components/Profile';
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Flex, Avatar, Text } from '@mantine/core';
+import { Button } from '@mantine/core';
 import useFetch from '../../hooks/useFetch';
 import PersonalInfo from './components/PersonalInfo ';
 import { useRootSelector } from '../../redux/store';
@@ -14,14 +14,13 @@ import {
 } from '../../utils/userInfoType';
 
 function About() {
-
 	const navigate = useNavigate();
 	const { uuid } = useParams<string>()!;
 	const {
 		data: resp,
 		isLoading,
 		error,
-	} = useFetch<RespTypeInProfile | null>(`users/getInfo/${uuid}`, 'GET', null ,uuid );
+	} = useFetch<RespTypeInProfile | null>(`users/getInfo/${uuid}`, 'GET', null, uuid);
 
 	let role: Role = Role.Performer;
 	if (resp?.data && resp.data.identity === 'client') {
@@ -62,11 +61,11 @@ function About() {
 			<h1>About page</h1>
 
 			<div>
-				{uuid === uuidFromState && <button onClick={() => navigate('/about')}>setting btn</button>}
 				{uuid === uuidFromState && (
-					<button onClick={() => navigate(`/eProfile/uuid/${uuidFromState}/get`)}>
-						To eProfile
-					</button>
+					<Button onClick={() => navigate('/about')}>Setting Button</Button>
+				)}
+				{uuid === uuidFromState && (
+					<Button onClick={() => navigate(`/eProfile/uuid/${uuidFromState}/get`)}>EDIT</Button>
 				)}
 				<br></br>
 			</div>

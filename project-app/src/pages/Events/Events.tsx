@@ -10,9 +10,7 @@ function Events() {
 			<div className='Title Header' id='EventHeader'>
 				Events
 				<Link to={`/events/createEvents`}>
-					<Button radius='md' style={{ flex: 1 }}>
-						Create Event
-					</Button>
+					<Button>Create Event</Button>
 				</Link>
 			</div>
 			<BadgeCard image={''} title={''} country={''} description={''} badges={[]} />

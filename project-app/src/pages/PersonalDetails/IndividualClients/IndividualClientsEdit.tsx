@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import { IndividualClientsSettingValue } from '../../../utils/userInfoType';
-import { Text, TextInput, Checkbox, Button, Group, Box, Center, NumberInput } from '@mantine/core';
+import { Text, TextInput, Button, Group, Box, Center, NumberInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useNavigate } from 'react-router-dom';
 type individualClientsInfo = {

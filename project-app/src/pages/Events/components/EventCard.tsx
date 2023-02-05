@@ -100,7 +100,7 @@ export function BadgeCard({ image, title, description, country, badges }: BadgeC
 
 										<Group mt='xs'>
 											<Link to={`/events/${event.id}`}>
-												<Button radius='md' style={{ width: 280 }} btn-id={event.id} uppercase>
+												<Button btn-id={event.id} uppercase>
 													Show details
 												</Button>
 											</Link>

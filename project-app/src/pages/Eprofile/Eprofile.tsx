@@ -5,6 +5,7 @@ import { EporfileResDataType, EporfileDataType } from '../../utils/EprofileType'
 import Tag from './components/Tag';
 import { useParams } from 'react-router-dom';
 import { useRootSelector } from '../../redux/store';
+import { Button } from '@mantine/core';
 
 const createEprofile = () => {};
 function Eprofile() {
@@ -21,7 +22,7 @@ function Eprofile() {
 			return (
 				<>
 					<div>empty eProfile</div>
-					<button onClick={createEprofile}>create eProfile</button>
+					<Button onClick={createEprofile}>create eProfile</Button>
 				</>
 			);
 		}

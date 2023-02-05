@@ -46,15 +46,7 @@ function UserCardImage({ image, avatar, name, job, stats }: UserCardImageProps) 
 			<Group mt='md' position='center' spacing={30}>
 				{items}
 			</Group>
-			<Button
-				fullWidth
-				radius='md'
-				mt='xl'
-				size='md'
-				color={theme.colorScheme === 'dark' ? undefined : 'dark'}
-			>
-				Follow
-			</Button>
+			<Button>Follow</Button>
 		</Card>
 	);
 }

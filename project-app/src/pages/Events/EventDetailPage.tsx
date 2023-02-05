@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Button } from '@mantine/core';
 
 interface EventDetailType {
 	id: number;
@@ -49,7 +50,7 @@ function EventDetail() {
 			<p>{event?.image}</p>
 			<p>{event?.venue_image_name}</p>
 
-			<button
+			<Button
 				onClick={async (e) => {
 					const path = process.env.REACT_APP_API_BASE;
 					const jwt = localStorage.getItem('token');
@@ -65,7 +66,7 @@ function EventDetail() {
 				}}
 			>
 				Apply
-			</button>
+			</Button>
 		</div>
 	);
 }
