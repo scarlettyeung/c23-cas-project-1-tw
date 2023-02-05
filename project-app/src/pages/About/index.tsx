@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Flex, Avatar, Text } from '@mantine/core';
 import useFetch from '../../hooks/useFetch';
 import PersonalInfo from './components/PersonalInfo ';
-import EventInfo from './components/EventInfo';
 import { useRootSelector } from '../../redux/store';
 import {
 	Role,
@@ -15,13 +14,14 @@ import {
 } from '../../utils/userInfoType';
 
 function About() {
+
 	const navigate = useNavigate();
 	const { uuid } = useParams<string>()!;
 	const {
 		data: resp,
 		isLoading,
 		error,
-	} = useFetch<RespTypeInProfile | null>(`users/getInfo/${uuid}`, 'GET', null);
+	} = useFetch<RespTypeInProfile | null>(`users/getInfo/${uuid}`, 'GET', null ,uuid );
 
 	let role: Role = Role.Performer;
 	if (resp?.data && resp.data.identity === 'client') {

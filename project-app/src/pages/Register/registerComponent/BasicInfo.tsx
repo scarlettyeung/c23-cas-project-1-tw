@@ -1,8 +1,10 @@
 
 import { useState } from "react";
-import { PasswordInput, TextInput, Text } from "@mantine/core";
+import { PasswordInput, TextInput, Text, Button } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import "../../../styles/register.css"
+import { useDispatch } from "react-redux";
+import { checkEmailValidation } from "../../../redux/auth";
 
 
 export type BasicData = {
@@ -21,17 +23,25 @@ function BasicInfo({
   password,
   username, updateFields }: UserFormProps) {
 
-  const [visible, { toggle }] = useDisclosure(false);
   const [psw, setPsw] = useState("");
   const [psw2, setPsw2] = useState("");
   const [errStatement, setErrStatement] = useState("");
+  const [isShown, setIsShown] = useState(false)
+  const [isShown2, setIsShown2] = useState(false)
+  const dispatch = useDispatch()
+
 
   return (
     <>
-      <div>
+      <div className="register-basicInfo-outerDiv">
         <Text style={{ fontSize: 25, marginBottom: 20 }}>Basic Information</Text>
-        <TextInput size="lg" className="register-input" label='Email' autoFocus required type="email" value={email} onChange={e => updateFields({ email: e.target.value })} />
-        <PasswordInput
+        <TextInput size="lg" className="register-input" label='Email' autoFocus required type="email" value={email} onChange={e => {
+          updateFields({ email: e.target.value });
+          // dispatch(checkEmailValidation(e.target.value));
+        }} />
+        <TextInput
+          // variant="unstyled"
+          id="register-password"
           size="lg"
           className="register-input"
           label='Password'
@@ -39,11 +49,14 @@ function BasicInfo({
           minLength={8}
           maxLength={16}
           value={psw}
-          onVisibilityChange={toggle}
+          type='password'
+          autoComplete="on"
           onChange={(e) => { setPsw(e.target.value) }}
         />
-        <label></label>
-        <PasswordInput
+        <button className="register-basicInfo-psw-btn" type='button' onClick={() => { setIsShown((cur) => !cur); isShown === true ? document.getElementById("register-password")?.setAttribute("type", "text") : document.getElementById("register-password")?.setAttribute("type", "password") }}>{isShown === false ? <>Disable Password</> : <>Show Password</>}</button>
+        <TextInput
+          // variant="unstyled"
+          id="register-password2"
           size="lg"
           className="register-input"
           label='Confirm Password'
@@ -52,7 +65,8 @@ function BasicInfo({
           maxLength={16}
           error={errStatement}
           value={psw2}
-          onVisibilityChange={toggle}
+          type="password"
+          autoComplete="on"
           onChange={(e) => {
             setPsw2(e.target.value)
 
@@ -68,6 +82,7 @@ function BasicInfo({
             }
           }}
         />
+        <button className="register-basicInfo-psw-btn" type='button' onClick={() => { setIsShown2((cur) => !cur); isShown2 === true ? document.getElementById("register-password2")?.setAttribute("type", "text") : document.getElementById("register-password2")?.setAttribute("type", "password") }}>{isShown2 === false ? <>Disable Password</> : <>Show Password</>}</button>
         <TextInput size="lg" className="register-input" label='Username' required type="text" value={username} onChange={e => updateFields({ username: e.target.value })} />
       </div>
     </>

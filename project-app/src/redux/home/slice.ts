@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { HomeState } from './state';
+import { HomeState } from './homeState';
 import { getAllDataThunk } from './thunk';
-import { Event, Performer } from './state';
+import { Event, Performer } from './homeState';
 
 // Step 1 - InitState
 let auth_storage = localStorage.getItem('auth');
@@ -25,6 +25,7 @@ const homeSlice = createSlice({
 				state.loading = 'succeeded';
 				state.eventArr = action.payload.events;
 				state.performersArr = action.payload.performers;
+				console.log('show me fucking bitch!', action);
 			}),
 });
 

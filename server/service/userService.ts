@@ -1372,4 +1372,12 @@ export class UserService {
       return
     }
   }
+  // async getAllEmail() {
+  //   const email = await this.prisma.user.findMany({
+  //     select: {
+  //       email: true,
+  //     },
+  //   })
+  //   return email
+  // }
 }

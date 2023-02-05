@@ -57,6 +57,9 @@ const authSlice = createSlice({
 		checkHashValidation: (state, action) => {
 			state.hashTagArr = action.payload;
 		},
+		checkEmailValidation: (state, action) => {
+			state.email = action.payload;
+		},
 	},
 	extraReducers: (builder) =>
 		builder
@@ -85,7 +88,8 @@ const authSlice = createSlice({
 });
 
 // Step 3 - Action Creator
-export const { logout, chooseType, checkPswValidation, checkHashValidation } = authSlice.actions;
+export const { logout, chooseType, checkPswValidation, checkHashValidation, checkEmailValidation } =
+	authSlice.actions;
 
 // Step 4 - Reducer
 export const authReducer = authSlice.reducer;

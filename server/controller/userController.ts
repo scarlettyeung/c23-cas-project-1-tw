@@ -484,47 +484,6 @@ export class UserController {
         email,
       } = req.body
       console.log("check client", req.body)
-      // console.log("TRYBYKEN", req.body, "check double", facebook_url)
-      // console.log(facebook_url)
-      // console.log("icon")
-      // console.log(icon)
-      // console.log("oldPassword")
-      // console.log(oldPassword)
-      // console.log("newPassword")
-      // console.log(newPassword)
-      // console.log("username")
-      // console.log(username)
-      // console.log("years_of_exp")
-      // console.log(years_of_exp)
-      // console.log("birthday")
-      // console.log(birthday)
-      // console.log("contact_number")
-      // console.log(contact_number)
-      // console.log("gender")
-      // console.log(gender)
-      // console.log("description")
-      // console.log(description)
-      // console.log("name")
-      // console.log(name)
-      // console.log("facebook_url")
-      // console.log(facebook_url)
-      // console.log("twitter_url")
-      // console.log(twitter_url)
-      // console.log("youtube_url")
-      // console.log(youtube_url)
-      // console.log("ig_url")
-      // console.log(ig_url)
-      // console.log("contact_email")
-      // console.log(contact_email)
-      // console.log("businessAddress")
-      // console.log(businessAddress)
-      // console.log("businessBRNo")
-      // console.log(businessBRNo)
-      // console.log("businessWebsiteUrl")
-      // console.log(businessWebsiteUrl)
-      // console.log("email")
-      // console.log(email)
-      //// --- to check the info --- ////)
 
       let setExpYear = 0
       if (years_of_exp) {
@@ -593,7 +552,6 @@ export class UserController {
           setBirthday,
           setNumber,
           contact_email,
-          // setEmail,
           gender,
           description,
           name,
@@ -601,7 +559,6 @@ export class UserController {
           twitter_url,
           youtube_url,
           ig_url
-          // hashtagArr
         )
         res.status(200).json({ message: "edit performer setting info done" })
         return
@@ -768,4 +725,8 @@ export class UserController {
       return
     }
   }
+  // getAllEmailData = async (req: Request, res: Response) => {
+  //   const emailData = await this.userService.getAllEmail()
+  //   return emailData
+  // }
 }

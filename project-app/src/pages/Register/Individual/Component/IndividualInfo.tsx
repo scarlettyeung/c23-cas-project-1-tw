@@ -30,7 +30,6 @@ function IndividualInfo({ firstName, lastName, contact, gender, contactEmail, up
         className="register-input"
         required
         label="Gender"
-        placeholder="Choose Your Gender"
         data={[{ value: "male", label: "Male" }, { value: "female", label: "Female" }, { value: "other", label: "Other" }]}
         onChange={(e) => {
           gender = e!

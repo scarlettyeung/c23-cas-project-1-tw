@@ -2,13 +2,14 @@ import { TagType } from "@prisma/client"
 import type { Request, Response } from "express"
 import { HomeService } from "../service/homeService"
 import { logger } from "../utils/logger"
+import { Event } from "../utils/model/home"
 
 export class HomeController {
   constructor(private homeService: HomeService) {}
 
   getAllHomeData = async (req: Request, res: Response) => {
     try {
-      const events = await this.homeService.getAllEvents()
+      const events = (await this.homeService.getAllEvents()) as Event[]
       const performers = await this.homeService.getAllPerformers()
       res.status(200).json({
         message: "Load events and performers success!",

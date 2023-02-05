@@ -35,6 +35,12 @@ interface PerformerEventsType {
 	image: string;
 }
 
+enum ApplicationStatus {
+	Pending = 'pending',
+	Accept = 'accept',
+	Reject = 'reject',
+}
+
 function LoadApplication() {
 	let clientId = useRootSelector((state) => state.auth.clientId);
 	let performerId = useRootSelector((state) => state.auth.performerId);
@@ -127,10 +133,29 @@ function LoadApplication() {
 			const performerItem = item as PerformerEventsType[];
 
 			const display = performerItem.map((event, idx) => {
-				let isValid = true;
-				if (event.status !== 'valid') {
-					isValid = false;
-				}
+				// EventStatus
+				const btn = () => {
+					if (event.status === 'valid') {
+						return (
+							<Button color='green' fullWidth>
+								Pending
+							</Button>
+						);
+					} else if (event.status === 'accepted') {
+						return (
+							<Button color='red' fullWidth>
+								Accepted
+							</Button>
+						);
+					} else if (event.status === 'completed') {
+						return (
+							<Button color='gray' fullWidth>
+								Reject
+							</Button>
+						);
+					}
+				};
+
 				return (
 					<div key={idx} style={{ width: 340, margin: 'auto' }}>
 						<Group position='apart' style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
@@ -140,15 +165,7 @@ function LoadApplication() {
 									{event.title}
 								</Text>
 							</div>
-							<div>
-								{isValid ? (
-									<Button fullWidth>Valid</Button>
-								) : (
-									<Button color='gray' fullWidth>
-										Expired
-									</Button>
-								)}
-							</div>
+							<div>{btn()}</div>
 						</Group>
 					</div>
 				);

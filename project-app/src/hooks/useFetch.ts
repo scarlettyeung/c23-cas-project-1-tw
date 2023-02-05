@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-
-export default function useFetch<T = unknown>(url: string, method: string, initValue: T) {
+// import axios from "axios"
+export default function useFetch<T = unknown>(url: string, method: string, initValue: T, refresh?: any) {
 	const [data, setData] = useState<T>(initValue);
 	const [error, setError] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
+
 	useEffect(() => {
+
 		const fetchData = async () => {
 			const jwt = localStorage.getItem('token');
 			const path = process.env.REACT_APP_API_BASE;
@@ -20,14 +22,25 @@ export default function useFetch<T = unknown>(url: string, method: string, initV
 				setError(true);
 			}
 
-			if (isLoading) {
-				const data = await resp.json();
-				setData(data);
-				setIsLoading(false);
-			}
+			// if (isLoading) {
+			const data = await resp.json();
+			setData(data);
+			setIsLoading(false);
+			// }
+
+
+
 		};
 
 		fetchData();
-	}, [url, method, isLoading]);
-	return { data, error, isLoading };
+		return () => {
+			// setIsLoading(true)
+		}
+
+
+
+	}, [url, method, isLoading, refresh]);
+
+
+	return { data, error, isLoading, };
 }

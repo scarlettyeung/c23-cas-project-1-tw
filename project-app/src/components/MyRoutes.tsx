@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Login from '../pages/Login';
 import Home from '../pages/Home/Home';
-import ChatRoom from '../pages/Chat/ChatRoom';
 import Events from '../pages/Events/Events';
 import About from '../pages/About';
 import Eprofile from '../pages/Eprofile/Eprofile';
@@ -34,7 +33,6 @@ function MyRoutes() {
 				<Route path='events/:eventsId' element={<EventDetail />} />
 				<Route path='events/createEvents' element={<CreateEventPage />} />
 				<Route path='history/application' element={<LoadHistory />} />
-				<Route path='chatRoom' element={<ChatRoom />} />
 
 				<Route path='about'>
 					<Route element={<PersonalDetails />} index />

@@ -5,27 +5,15 @@
 }
 .loginInput {
   width: 65vw;
-  /* height: 25px; */
-  background: #EFEFEF;
+  background: #ffffff89;
   padding: 12px;
   border:0;
-  border-radius: 6px;
+  border-radius: 12px;
   margin-bottom: 20px;
 }
 
-input[type="text"], textarea {
-  background-color: rgba(255, 255, 255, 0.4);
-  padding-left: 12px;
-}
 
-input[type="password"], textarea {
-
-  background-color: rgba(255, 255, 255, 0.4);
-    
-  padding-left: 12px;
-}
-
-input[type="checkbox"] {
+.loginCheckbox input[type="checkbox"] {
   -webkit-appearance: checkbox;
      -moz-appearance: checkbox;
           appearance: checkbox;
@@ -40,24 +28,39 @@ input[type="checkbox"] {
   margin-bottom: 20px;
 }
 
-.login {
+.login-login {
   margin-top:20px;
   border: 0;
   width: 65vw;
   padding: 12px;
-  border-radius: 6px;
-  /* margin-bottom: 20px; */
+  border-radius: 12px;
+  background: rgb(230, 124, 126);
+  
 }
 
-.register {
+.login-register {
   border: 0;
   width: 65vw;
   padding: 12px;
-  border-radius: 6px;
+  border-radius: 12px;
   margin-bottom: 20px;
   margin-top:60px;
+  background: rgb(230, 124, 126);
 }
 
+.login-login:active :hover {
+  background: rgb(158, 88, 91);
+}
+.login-login:hover {
+  background: rgb(158, 88, 91);
+}
+
+.login-register:active {
+  background: rgb(158, 88, 91);
+}
+.login-register:hover {
+  background: rgb(158, 88, 91);
+}
 .outerDiv {
   position: fixed;
   top:0;
@@ -73,7 +76,9 @@ input[type="checkbox"] {
 }
 
 .checkbox {
-  margin:10px 70px;
+  display: flex;
+  justify-content: center;
+  margin:10px 18vw;
 }
 
 .break {
