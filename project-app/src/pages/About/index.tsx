@@ -85,31 +85,7 @@ function About() {
 	return (
 		<div className='Body'>
 			<div className='Title'>About</div>
-			<div className='About-ButtonGroup'>
-				{uuid !== uuidFromState && (
-					<ActionIcon
-						key={1}
-						onClick={() => {
-							openURL(wsLink);
-						}}
-					>
-						<IconBrandWhatsapp size={34} />
-					</ActionIcon>
-				)}
-				{uuid === uuidFromState && (
-					<Button className='AboutBtn' onClick={() => navigate('/about')}>
-						Edit
-					</Button>
-				)}
-				{uuid === uuidFromState && (
-					<Button
-						className='AboutBtn'
-						onClick={() => navigate(`/eProfile/uuid/${uuidFromState}/get`)}
-					>
-						E-Profile
-					</Button>
-				)}
-			</div>
+			<div className='About-ButtonGroup'></div>
 			{resp && role === Role.Performer && <div>{returnPerformer()}</div>}
 
 			{resp && role === Role.Corporate && <div>{returnCorporate()}</div>}

@@ -175,7 +175,7 @@ async function main() {
   const fakeEPorfile = `{
     "header": {
       "iconPosition": "left",
-      "iconName": "Rick_Astley_Dallas.jpg",
+      "iconName": "icon8.jpeg",
       "backgroundImage": "default",
       "colorStyle": "black",
       "displayTab": "about",
@@ -235,7 +235,7 @@ async function main() {
             "type": "image",
             "content1": "Retirement and Return to singing ",
             "content2": "1994 to 2000 was Retirement and in 2000 to present , He was returned to the music industry",
-            "content3": "Rick_Astley_image5.jpg"
+            "content3": "icon2.jpeg"
           },
           {
             "id": 4,
@@ -265,28 +265,28 @@ async function main() {
             "type": "image",
             "content1": "",
             "content2": "",
-            "content3": "Rick_Astley_image1.jpg"
+            "content3": "icon3.jpeg"
           },
           {
             "id": 2,
             "type": "image",
             "content1": "",
             "content2": "",
-            "content3": "Rick_Astley_image2.jpg"
+            "content3": "myicon.png"
           },
           {
             "id": 3,
             "type": "image",
             "content1": "",
             "content2": "",
-            "content3": "Rick_Astley_image3.jpg"
+            "content3": "picture.png"
           },
           {
             "id": 4,
             "type": "image",
             "content1": "",
             "content2": "",
-            "content3": "Rick_Astley_image4.jpg"
+            "content3": "icon2.jpeg"
           }
         ]
       }

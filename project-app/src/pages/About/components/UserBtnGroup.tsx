@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button, ActionIcon } from '@mantine/core';
+import { Button, ActionIcon, Group } from '@mantine/core';
 import { IconBrandWhatsapp } from '@tabler/icons';
 import { useRootSelector } from '../../../redux/store';
 function UserBtnGroup() {
@@ -32,30 +32,29 @@ function UserBtnGroup() {
 	}, [uuid]);
 	return (
 		<>
-			<Button className='AboutBtn' onClick={() => navigate('/about')}>
-				Edit
-			</Button>
-			<Button className='AboutBtn' onClick={() => navigate(`/eProfile/uuid/${uuidFromState}/get`)}>
-				E-Profile
-			</Button>
-			{uuidFromState !== uuid && (
-				<ActionIcon
-					key={1}
-					onClick={() => {
-						openURL(wsLink);
-					}}
+			<Group position='center' spacing='xl'>
+				{uuidFromState !== uuid && (
+					<ActionIcon
+						key={1}
+						onClick={() => {
+							openURL(wsLink);
+						}}
+					>
+						<IconBrandWhatsapp size={34} />
+					</ActionIcon>
+				)}
+				{uuidFromState === uuid && (
+					<Button className='AboutBtn' onClick={() => navigate('/about')}>
+						Edit
+					</Button>
+				)}
+				<Button
+					className='AboutBtn'
+					onClick={() => navigate(`/eProfile/uuid/${uuidFromState}/get`)}
 				>
-					<IconBrandWhatsapp size={34} />
-				</ActionIcon>
-			)}
-			{uuidFromState === uuid && (
-				<Button className='AboutBtn' onClick={() => navigate('/about')}>
-					Edit
+					E-Profile
 				</Button>
-			)}
-			<Button className='AboutBtn' onClick={() => navigate(`/eProfile/uuid/${uuidFromState}/get`)}>
-				E-Profile
-			</Button>
+			</Group>
 		</>
 	);
 }

@@ -35,9 +35,6 @@ type UserInfoProps = {
 function PersonalInfo(props: UserInfoProps) {
 	const { REACT_APP_IMAGE_BASE } = process.env;
 	const { classes } = useStyles();
-
-	const uuidFromState = useRootSelector((state) => state.auth.uuid);
-	const uuidInPage = props.pageUUID;
 	const performanceInfo = props.performanceInfo;
 	const corporateClientsInfo = props.corporateClientsInfo;
 	const individualClientsInfo = props.individualClientsInfo;
@@ -54,7 +51,7 @@ function PersonalInfo(props: UserInfoProps) {
 			<Card classNames={'IdCard'} withBorder p='xl' radius='md'>
 				<Card.Section sx={{ height: 20 }} />
 				<Title order={2}>Personal Info</Title>
-				<Avatar size={150} radius={80} mx='auto'>
+				<Avatar size={150} radius={80} mx='auto' style={{ marginBottom: '1vh' }}>
 					{performanceInfo.icon ? (
 						<img
 							src={`${REACT_APP_IMAGE_BASE}/${performanceInfo.icon}`}
@@ -84,8 +81,6 @@ function PersonalInfo(props: UserInfoProps) {
 						<div> ({performanceInfo.sum_of_even}) </div>
 					</Group>
 				</Text>
-
-				{uuidFromState !== uuidInPage && <button>ToChatRoom</button>}
 
 				<>
 					{performanceInfo.performers_hashtags && (
