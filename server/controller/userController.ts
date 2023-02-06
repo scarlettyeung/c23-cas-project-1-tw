@@ -1,5 +1,5 @@
 import type { Request, Response } from "express"
-import { UserService } from "../service/UserService"
+import { UserService } from "../service/userService"
 import { logger } from "../utils/logger"
 import jwtSimple from "jwt-simple"
 import jwt from "../utils/jwt"
