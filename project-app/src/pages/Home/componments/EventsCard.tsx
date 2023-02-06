@@ -56,10 +56,11 @@ export function EventsCard() {
 							<Text className={classes.title} mt={5}>
 								{event.title}
 							</Text>
-
-							<Badge color='pink' variant='light'>
-								{event.hashtag_details}
-							</Badge>
+							{event.hashtag_details && (
+								<Badge color='pink' variant='light'>
+									{event.hashtag_details}
+								</Badge>
+							)}
 
 							<Text color='dimmed' transform='uppercase' size='sm' weight={700} mt='md'>
 								{event.description}

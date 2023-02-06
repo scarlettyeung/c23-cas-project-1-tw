@@ -28,7 +28,9 @@ function ApplyButton(props: PopDataType) {
 					const result = await resp.json();
 					alert('Matching SUCCESS!');
 					logger(result);
-					navigate('/');
+					navigate('/home', {
+						replace: true,
+					});
 				}}
 				fullWidth
 			>

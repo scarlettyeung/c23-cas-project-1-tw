@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import type { SpotlightAction } from '@mantine/spotlight';
-import { Group, Select, Text } from '@mantine/core';
+import { Group, Select, Badge, Text } from '@mantine/core';
 import { getAllHashTags } from '../../redux/search';
 import { useRootDispatch, useRootSelector } from '../../redux/store';
-
+import { IconChevronDown } from '@tabler/icons-react';
 import {
 	tagType,
 	SearchTagType,
@@ -48,15 +48,20 @@ export function Search() {
 		const toOneArr: SpotlightAction[] = mapPerformerHashtag.flat(2);
 		return (
 			<Group>
-				<Text size={'xs'}>
-					Hi,{userName}
-					<br></br>({userIdentity})
-				</Text>
-				<PerformerEventSearch data={toOneArr} />
+				<Badge color='gray' size='xl' variant='outline'>
+					<Text size={'xs'}>
+						Hi,{userName}
+						<br></br>({userIdentity})
+					</Text>
+				</Badge>
 				<Select
+					rightSection={<IconChevronDown size={14} />}
+					rightSectionWidth={25}
+					styles={{ rightSection: { pointerEvents: 'none' } }}
 					placeholder='Pick one'
 					data={tagType}
 					value={query}
+					w={100}
 					maxDropdownHeight={400}
 					onChange={(v) => {
 						if (v) {
@@ -65,12 +70,14 @@ export function Search() {
 						}
 					}}
 				/>
+
+				<PerformerEventSearch data={toOneArr} />
+
 				<Logout />
 			</Group>
 		);
 	} else if (query === SearchTagType.Event) {
 		hashtagArr as FetchEventDataType[];
-		console.log(hashtagArr);
 		const mapEventHashtag = hashtagArr.map((TagObj) => {
 			const eventData = TagObj.events_hashtags.map((data) => {
 				console.log(TagObj.name, data.events.title);
@@ -90,11 +97,19 @@ export function Search() {
 		const toOneArr: SpotlightAction[] = mapEventHashtag.flat(2);
 		return (
 			<Group>
-				<PerformerEventSearch data={toOneArr} />
+				<Badge color='gray' size='xl' variant='outline'>
+					<Text size={'xs'}>
+						Hi,{userName}
+						<br></br>({userIdentity})
+					</Text>
+				</Badge>
 				<Select
+					rightSection={<IconChevronDown size={14} />}
+					rightSectionWidth={25}
 					placeholder='Pick one'
 					data={tagType}
 					value={query}
+					w={100}
 					maxDropdownHeight={400}
 					onChange={(v) => {
 						if (v) {
@@ -103,6 +118,7 @@ export function Search() {
 						}
 					}}
 				/>
+				<PerformerEventSearch data={toOneArr} />
 				<Logout />
 			</Group>
 		);

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRootSelector } from '../../../redux/store';
 import ApplyButton from './ApplyButton';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 const { REACT_APP_IMAGE_BASE } = process.env;
 
 interface ClientEventsType {
@@ -80,6 +81,7 @@ function LoadApplication() {
 							</Text>
 							{event.events_applications.map((appItem) => {
 								//  EventStatus
+
 								const btn = () => {
 									if (appItem.status === EventStatus.Pending) {
 										return (
@@ -91,14 +93,13 @@ function LoadApplication() {
 									} else if (appItem.status === EventStatus.Accept) {
 										return (
 											<>
-												<Button color='red' fullWidth>
-													Accepted
-												</Button>
 												<Button
 													color='red'
 													fullWidth
 													onClick={() => {
-														navigate(`/${appItem.performers.users.uuid}`);
+														navigate(`../../about/uuid/${appItem.performers.users.uuid}`, {
+															replace: true,
+														});
 													}}
 												>
 													Accepted
@@ -113,17 +114,21 @@ function LoadApplication() {
 										);
 									}
 								};
+
 								return (
-									<div>
+									<>
 										<Group
 											position='apart'
 											style={{ marginBottom: 5, marginTop: theme.spacing.sm }}
+											key={`event_${event.id}_${event.title}`}
 										>
-											<Avatar
-												size={40}
-												src={`${REACT_APP_IMAGE_BASE}/${appItem.performers.users.icon}`}
-												radius={40}
-											/>
+											<Link to={`/about/uuid/${appItem.performers.users.uuid}`}>
+												<Avatar
+													size={40}
+													src={`${REACT_APP_IMAGE_BASE}/${appItem.performers.users.icon}`}
+													radius={40}
+												/>
+											</Link>
 											<div>
 												<Text size='sm' weight={500}>
 													{appItem.performers.users.username}
@@ -131,7 +136,7 @@ function LoadApplication() {
 											</div>
 											<div>{btn()}</div>
 										</Group>
-									</div>
+									</>
 								);
 							})}
 						</Card>
@@ -167,9 +172,19 @@ function LoadApplication() {
 				};
 
 				return (
-					<div key={`${event.title}_${event.id}`} style={{ width: 340, margin: 'auto' }}>
+					<div
+						key={`${event.title}_${event.id}`}
+						style={{ width: 340, margin: 'auto' }}
+						onClick={() => {
+							console.log('line180');
+							navigate(`../../events/${event.id}`, {
+								replace: true,
+							});
+						}}
+					>
 						<Group position='apart' style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
 							<Avatar size={40} src={`${REACT_APP_IMAGE_BASE}/${event.image}`} radius={40} />
+
 							<div>
 								<Text weight={800} mb={7} sx={{ lineHeight: 1 }}>
 									{event.title}

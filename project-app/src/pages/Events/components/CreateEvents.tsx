@@ -16,7 +16,6 @@ import { useForm } from 'react-hook-form';
 import '../../../styles/event.css';
 import { useNavigate } from 'react-router-dom';
 import logger from 'redux-logger';
-import { useRootSelector } from '../../../redux/store';
 
 const useStyles = createStyles((theme) => {
 	const BREAKPOINT = theme.fn.smallerThan('sm');
@@ -120,7 +119,7 @@ export function CreateEvents() {
 	const [preview, setPreview] = useState<string>();
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const navigate = useNavigate();
-	const isCline = useRootSelector((state) => state.auth.clientId);
+
 	useEffect(() => {
 		if (cardImage) {
 			const reader = new FileReader();
@@ -132,9 +131,7 @@ export function CreateEvents() {
 			setPreview(undefined);
 		}
 	}, [cardImage]);
-	if (!isCline) {
-		return <>error identity</>;
-	}
+
 	return (
 		<div>
 			<form
@@ -142,10 +139,7 @@ export function CreateEvents() {
 					const formData = new FormData();
 					const path = process.env.REACT_APP_API_BASE;
 					const jwt = localStorage.getItem('token');
-					if (!cardImage) {
-						alert('Please add the event image');
-						return;
-					}
+
 					formData.append('title', data.title);
 					formData.append('location', data.location);
 					formData.append('wage_offer', value.toString());
@@ -166,6 +160,7 @@ export function CreateEvents() {
 					});
 					const result = await resp.json();
 					logger(result);
+					console.log(result);
 					alert('Create Event successfully!');
 					navigate('/events');
 				})}
@@ -196,7 +191,7 @@ export function CreateEvents() {
 											fileInputRef.current?.click();
 										}}
 									>
-										Add Image
+										Add cardImage
 									</Button>
 								)}
 								<input
@@ -205,10 +200,10 @@ export function CreateEvents() {
 									type='file'
 									style={{ display: 'none' }}
 									ref={fileInputRef}
-									accept='cardImage/*'
+									accept='image/*'
 									onChange={(event: any) => {
 										const file = event.target.files[0];
-										if (file && file.type.substr(0, 5) === 'cardImage') {
+										if (file && file.type.substr(0, 5) === 'image') {
 											setCardImage(file);
 										} else {
 											setCardImage(undefined);

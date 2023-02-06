@@ -28,6 +28,7 @@ export type FormData = {
 	youtubeURL: string;
 	igURL: string;
 	contactEmail: string;
+	contactNumber: '';
 };
 
 const INITIAL_DATA: FormData = {
@@ -47,6 +48,7 @@ const INITIAL_DATA: FormData = {
 	youtubeURL: '',
 	igURL: '',
 	contactEmail: '',
+	contactNumber: '',
 };
 
 function Performer() {
@@ -89,7 +91,6 @@ function Performer() {
 		youtubeURL: data.youtubeURL,
 		igURL: data.igURL,
 	};
-	// console.log(fetchData);
 
 	dispatch(checkPswValidation(data.password));
 	dispatch(checkHashValidation(data.tagId));

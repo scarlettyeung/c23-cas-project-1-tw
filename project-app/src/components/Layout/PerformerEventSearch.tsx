@@ -1,6 +1,8 @@
 import { SpotlightProvider, openSpotlight, SpotlightActionProps } from '@mantine/spotlight';
 import type { SpotlightAction } from '@mantine/spotlight';
 import { createStyles, Badge, Text, Image, Button, Center, Group } from '@mantine/core';
+import { IconSearch } from '@tabler/icons-react';
+
 const { REACT_APP_IMAGE_BASE } = process.env;
 interface PropsType {
 	data: SpotlightAction[];
@@ -9,7 +11,9 @@ interface PropsType {
 function SpotlightControl() {
 	return (
 		<Group position='center'>
-			<Button onClick={() => openSpotlight()}>search</Button>
+			<Button onClick={() => openSpotlight()}>
+				<IconSearch />
+			</Button>
 		</Group>
 	);
 }

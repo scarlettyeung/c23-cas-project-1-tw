@@ -10,6 +10,7 @@ type EventInfoProps = {
 
 function EventInfo(props: EventInfoProps) {
 	const navigate = useNavigate();
+
 	return (
 		<>
 			<Title order={4}>Event Info</Title>
@@ -21,7 +22,7 @@ function EventInfo(props: EventInfoProps) {
 							<Link to={`events/${event.id}`}>
 								<Button
 									onClick={() => {
-										navigate('/events/1', { replace: true });
+										navigate(`/events/${event.id}`, { replace: true });
 									}}
 								>
 									details
