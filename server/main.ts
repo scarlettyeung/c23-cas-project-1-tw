@@ -30,7 +30,7 @@ export const form = formidable({
   maxFields: 30,
   maxFieldsSize: 2000 * 1024 ** 2, // the default limit is 200 KB
   filter: (part) => part.mimetype?.startsWith("image/") || false,
-  filename: (originalName, originalExt, part, form) => {
+  filename: (originalName, originalExt, part, _form) => {
     counter++
     const fieldName = part.name
     const timestamp = Date.now()

@@ -1,5 +1,5 @@
 .register-logo {
-  width: 120px;
+  width: 180px;
 	margin-bottom: 20px;
 	margin-top: 50px;
 }
@@ -29,15 +29,8 @@
 .register-basicInfo-psw-btn:active {
 	background: rgb(158, 88, 91);
 }
-/* .register-input {
 
-} */
-.register-input input,
-textarea {
-	background: #ffffff89 !important;
-	padding: 12px;
-	border: 0;
-}
+
 .register-performer-outerDiv {
 	position: fixed;
 	top: 0;
@@ -59,7 +52,6 @@ textarea {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	/* background: linear-gradient(#ffb79d, hsl(336, 100%, 87%)); */
 	height: 100vh;
 	width: 100vw;
 	font-size: 40px;
@@ -68,9 +60,6 @@ textarea {
 
 }
 
-/* .register-title {
-	margin-bottom: 10vh;
-} */
 
 .register-content {
 	padding-top: 2vh;
@@ -89,13 +78,14 @@ textarea {
 	background: #75a488;
 }
 
-.register-btn:active,
-.register-btn:hover {
-	background: rgb(158, 88, 91);
-}
-
 .register-input {
 	padding: 1vh 14vw;
+}
+
+.register-input input {
+	padding: 1vh 5vw;
+	border: 1px solid rgb(81, 81, 81);
+	border-radius: 5px;
 }
 
 .register-user-back {
@@ -104,11 +94,6 @@ textarea {
 	padding: 1vh;
 	color: white;
 	border-radius: 5px;
-}
-
-.register-user-back:active,
-.register-user-back:hover {
-	background: rgb(158, 88, 91);
 }
 
 .register-back-none {
@@ -125,10 +110,6 @@ textarea {
 	padding: 1vh;
 	color: white;
 	border-radius: 5px;
-}
-.register-user-nextAndSubmit:active,
-.register-user-nextAndSubmit:hover {
-	background: rgb(158, 88, 91);
 }
 
 .register-performer-pageShow {

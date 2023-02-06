@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TagsState } from './state';
 import { getAllHashTags } from './thunk';
-import { HashTags } from './state';
 
 // Step 1 - InitState
 const initTagsState: TagsState = {
@@ -26,7 +25,7 @@ const tagsSlice = createSlice({
 });
 
 // Step 3 - Action Creator
-export const {} = tagsSlice.actions;
+// export const {} = tagsSlice.actions;
 
 // Step 4 - Reducer
 export const tagsReducer = tagsSlice.reducer;

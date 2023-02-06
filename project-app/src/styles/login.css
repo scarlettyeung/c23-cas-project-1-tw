@@ -1,5 +1,5 @@
 .logo {
-	width: 120px;
+  width: 180px;
 	margin-bottom: 20px;
 	margin-top: 50px;
 }
@@ -7,7 +7,7 @@
 	width: 65vw;
 	background: FFFFFFF;
 	padding: 12px;
-	border: 1px solid rgb(255, 203, 44);
+	border: 1px solid rgb(81, 81, 81);
 	border-radius: 5px;
 	margin-bottom: 20px;
 }
@@ -33,7 +33,8 @@
 	width: 65vw;
 	padding: 12px;
 	border-radius: 5px;
-	background: rgb(230, 124, 126);
+  height:40px !important;
+
 }
 
 .login-register {
@@ -43,21 +44,8 @@
 	border-radius: 5px;
 	margin-bottom: 20px;
 	margin-top: 60px;
-	background: rgb(230, 124, 126);
-}
+  height:40px !important;
 
-.login-login:active :hover {
-	background: rgb(158, 88, 91);
-}
-.login-login:hover {
-	background: rgb(158, 88, 91);
-}
-
-.login-register:active {
-	background: rgb(158, 88, 91);
-}
-.login-register:hover {
-	background: rgb(158, 88, 91);
 }
 .outerDiv {
 	position: fixed;
