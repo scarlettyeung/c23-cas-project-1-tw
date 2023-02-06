@@ -1,5 +1,5 @@
 .register-logo {
-  width: 120px;
+  width: 180px;
 	margin-bottom: 20px;
 	margin-top: 50px;
 }
@@ -89,13 +89,19 @@ textarea {
 	background: #75a488;
 }
 
-.register-btn:active,
+/* .register-btn:active,
 .register-btn:hover {
 	background: rgb(158, 88, 91);
-}
+} */
 
 .register-input {
 	padding: 1vh 14vw;
+}
+
+.register-input input {
+	padding: 1vh 14vw;
+  border: 1px solid rgb(255, 203, 44);
+	border-radius: 5px;
 }
 
 .register-user-back {
@@ -106,10 +112,10 @@ textarea {
 	border-radius: 5px;
 }
 
-.register-user-back:active,
+/* .register-user-back:active,
 .register-user-back:hover {
 	background: rgb(158, 88, 91);
-}
+} */
 
 .register-back-none {
 	all: unset;

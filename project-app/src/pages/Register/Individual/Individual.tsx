@@ -101,7 +101,7 @@ function Individual() {
             ) : (
               <Button className='register-back-none' type='button' onClick={() => navigate("/register")}>Back</Button>
             )}
-            <a className='register-performer-pageShow' href=''>
+            <a className='register-performer-pageShow' >
               {currentStepIndex + 1} / {steps.length}
             </a>
             <Button className='register-user-nextAndSubmit' type='submit'>
