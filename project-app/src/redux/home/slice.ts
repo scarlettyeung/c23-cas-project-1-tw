@@ -1,10 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import logger from 'redux-logger';
 import { HomeState } from './homeState';
 import { getAllDataThunk } from './thunk';
 
 // Step 1 - InitState
-let auth_storage = localStorage.getItem('auth');
 const initHomeState: HomeState = {
 	loading: 'idle',
 	eventArr: [],
@@ -30,7 +28,7 @@ const homeSlice = createSlice({
 });
 
 // Step 3 - Action Creator
-export const {} = homeSlice.actions;
+// export const {} = homeSlice.actions;
 
 // Step 4 - Reducer
 export const homeReducer = homeSlice.reducer;

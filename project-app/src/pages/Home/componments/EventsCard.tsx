@@ -45,10 +45,10 @@ export function EventsCard() {
 
 	const cards =
 		eventArr &&
-		eventArr.map((event) => (
+		eventArr.map((event, idx) => (
 			<Link to={`/events/${event.id}`}>
 				<Card
-					key={`event-${event.id}`}
+					key={`event-${event.id}_idx`}
 					shadow='sm'
 					p='lg'
 					radius='md'

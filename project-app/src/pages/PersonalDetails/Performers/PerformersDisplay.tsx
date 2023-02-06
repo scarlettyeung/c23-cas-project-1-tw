@@ -3,7 +3,6 @@ import { PerformersSettingValue } from '../../../utils/userInfoType';
 import { Text, Button, Card, Title } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 import '../../../styles/userEdit.css';
-import logger from 'redux-logger';
 type performerInfo = {
 	info: PerformersSettingValue;
 	goBack: () => void;

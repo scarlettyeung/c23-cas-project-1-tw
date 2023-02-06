@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Event, Performer, HomeState } from './homeState';
+import { Event, Performer } from './homeState';
 
 export const getAllDataThunk = createAsyncThunk<{
 	message: string;

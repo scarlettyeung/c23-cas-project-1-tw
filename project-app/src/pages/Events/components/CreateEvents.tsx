@@ -115,22 +115,22 @@ export function CreateEvents() {
 	const [endTime, setEndTime] = useState(new Date());
 	const [value, setValue] = useState(0);
 	const [checked, setChecked] = useState(false);
-	const [image, setImage] = useState<File | undefined>();
+	const [cardImage, setCardImage] = useState<File | undefined>();
 	const [preview, setPreview] = useState<string>();
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (image) {
+		if (cardImage) {
 			const reader = new FileReader();
 			reader.onloadend = () => {
 				setPreview(reader.result as string);
 			};
-			reader.readAsDataURL(image);
+			reader.readAsDataURL(cardImage);
 		} else {
 			setPreview(undefined);
 		}
-	}, [image]);
+	}, [cardImage]);
 
 	return (
 		<div>
@@ -149,7 +149,7 @@ export function CreateEvents() {
 					formData.append('end_time', endTime.toString());
 					formData.append('description', data.description);
 					formData.append('rehearsal_needed', data.rehearsal_needed);
-					formData.append('image', image! as Blob);
+					formData.append('cardImage', cardImage! as Blob);
 
 					const resp = await fetch(`${path}events/createEvents`, {
 						method: 'POST',
@@ -174,12 +174,12 @@ export function CreateEvents() {
 								{preview ? (
 									<img
 										className='Create'
-										alt='Upload Image'
+										alt='Upload cardImage'
 										src={preview}
 										width='300'
 										style={{ objectFit: 'cover' }}
 										onClick={() => {
-											setImage(undefined);
+											setCardImage(undefined);
 										}}
 									/>
 								) : (
@@ -190,22 +190,22 @@ export function CreateEvents() {
 											fileInputRef.current?.click();
 										}}
 									>
-										Add Image
+										Add cardImage
 									</Button>
 								)}
 								<input
-									placeholder='Upload Image'
-									alt='Upload Image'
+									placeholder='Upload cardImage'
+									alt='Upload cardImage'
 									type='file'
 									style={{ display: 'none' }}
 									ref={fileInputRef}
-									accept='image/*'
+									accept='cardImage/*'
 									onChange={(event: any) => {
 										const file = event.target.files[0];
-										if (file && file.type.substr(0, 5) === 'image') {
-											setImage(file);
+										if (file && file.type.substr(0, 5) === 'cardImage') {
+											setCardImage(file);
 										} else {
-											setImage(undefined);
+											setCardImage(undefined);
 										}
 									}}
 								/>

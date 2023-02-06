@@ -2,7 +2,6 @@ import React from 'react';
 import { Avatar, Group, Text, Button, Card, useMantineTheme } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { useRootSelector } from '../../../redux/store';
-import { useNavigate } from 'react-router-dom';
 import ApplyButton from './ApplyButton';
 const { REACT_APP_IMAGE_BASE } = process.env;
 

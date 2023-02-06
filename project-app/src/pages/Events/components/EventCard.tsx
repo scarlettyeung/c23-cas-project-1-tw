@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Card, Image, Text, Group, Badge, Button, createStyles } from '@mantine/core';
+import { Card, Image, Text, Group, Badge, Button } from '@mantine/core';
 import { getAllDataThunk } from '../../../redux/home';
 import { useRootDispatch, useRootSelector } from '../../../redux/store';
 import { PacmanLoader } from 'react-spinners';
@@ -7,97 +7,73 @@ import { Link } from 'react-router-dom';
 
 const { REACT_APP_IMAGE_BASE } = process.env;
 
-const useStyles = createStyles((theme) => ({
-  card: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
-  },
-
-  section: {
-    borderBottom: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
-      }`,
-    paddingLeft: theme.spacing.md,
-    paddingRight: theme.spacing.md,
-    paddingBottom: theme.spacing.md,
-  },
-
-  like: {
-    color: theme.colors.red[6],
-  },
-
-  label: {
-    textTransform: 'uppercase',
-    fontSize: theme.fontSizes.xs,
-    fontWeight: 700,
-  },
-}));
-
 interface BadgeCardProps {
-  image: string;
-  title: string;
-  country: string;
-  description: string;
-  badges: {
-    emoji: string;
-    label: string;
-  }[];
+	image: string;
+	title: string;
+	country: string;
+	description: string;
+	badges: {
+		emoji: string;
+		label: string;
+	}[];
 }
 
 export function BadgeCard({ image, title, description, country, badges }: BadgeCardProps) {
-  const dispatch = useRootDispatch();
-  const loading = useRootSelector((state) => state.home.loading);
-  const eventArr = useRootSelector((state) => state.home.eventArr);
+	const dispatch = useRootDispatch();
+	const loading = useRootSelector((state) => state.home.loading);
+	const eventArr = useRootSelector((state) => state.home.eventArr);
 
-  useEffect(() => {
-    dispatch(getAllDataThunk());
-  }, [dispatch]);
+	useEffect(() => {
+		dispatch(getAllDataThunk());
+	}, [dispatch]);
 
-  return (
-    <>
-      {loading === 'pending' ? (
-        <PacmanLoader />
-      ) : (
-        <div>
-          {eventArr &&
-            eventArr.map((event) => (
-              <div key={`event-${event.id}`}>
-                <Card withBorder radius='md' p='md' className='Card'>
-                  <Card.Section>
-                    <Image
-                      src={`${REACT_APP_IMAGE_BASE}/${event.image}`}
-                      alt={title}
-                      height={180}
-                    />
-                  </Card.Section>
+	return (
+		<>
+			{loading === 'pending' ? (
+				<PacmanLoader />
+			) : (
+				<div>
+					{eventArr &&
+						eventArr.map((event) => (
+							<div key={`event-${event.id}`}>
+								<Card withBorder radius='md' p='md' className='Card'>
+									<Card.Section>
+										<Image
+											src={`${REACT_APP_IMAGE_BASE}/${event.image}`}
+											alt={title}
+											height={180}
+										/>
+									</Card.Section>
 
-                  <Card.Section className='Card' mt='md'>
-                    <Group position='apart'>
-                      <Text size='lg' weight={500}>
-                        {event.title}
-                      </Text>
-                      <Badge size='sm'>{event.location}</Badge>
-                    </Group>
+									<Card.Section className='Card' mt='md'>
+										<Group position='apart'>
+											<Text size='lg' weight={500}>
+												{event.title}
+											</Text>
+											<Badge size='sm'>{event.location}</Badge>
+										</Group>
 
-                    <Card.Section className='Card'>
-                      <Group spacing={7} mt={5}>
-                        <Text mt='md' className='Card' color='dimmed'>
-                          {event.description}
-                        </Text>
-                      </Group>
-                    </Card.Section>
+										<Card.Section className='Card'>
+											<Group spacing={7} mt={5}>
+												<Text mt='md' className='Card' color='dimmed'>
+													{event.description}
+												</Text>
+											</Group>
+										</Card.Section>
 
-                    <Group mt='xs'>
-                      <Link to={`/events/${event.id}`}>
-                        <Button btn-id={event.id} uppercase>
-                          Show details
-                        </Button>
-                      </Link>
-                    </Group>
-                  </Card.Section>
-                </Card>
-              </div>
-            ))}
-        </div>
-      )}
-    </>
-  );
+										<Group mt='xs'>
+											<Link to={`/events/${event.id}`}>
+												<Button btn-id={event.id} uppercase>
+													Show details
+												</Button>
+											</Link>
+										</Group>
+									</Card.Section>
+								</Card>
+							</div>
+						))}
+				</div>
+			)}
+		</>
+	);
 }
