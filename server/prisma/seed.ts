@@ -1,4 +1,5 @@
 import { ApplicationStatus, PrismaClient } from "@prisma/client"
+// import { PrismaClient } from "@prisma/client"
 import { hashPassword } from "../utils/hash"
 
 const prisma = new PrismaClient()
@@ -17,15 +18,15 @@ enum Properties {
   private = "private",
 }
 async function main() {
-  await prisma.eventsHashtag.deleteMany()
-  await prisma.performersHashtag.deleteMany()
-  await prisma.hashtagDetail.deleteMany()
-  await prisma.event.deleteMany()
-  await prisma.hashtagDetail.deleteMany()
-  await prisma.client.deleteMany()
-  await prisma.eprofile.deleteMany()
-  await prisma.performer.deleteMany()
-  await prisma.user.deleteMany()
+  // await prisma.eventsHashtag.deleteMany()
+  // await prisma.performersHashtag.deleteMany()
+  // await prisma.hashtagDetail.deleteMany()
+  // await prisma.event.deleteMany()
+  // await prisma.hashtagDetail.deleteMany()
+  // await prisma.client.deleteMany()
+  // await prisma.eprofile.deleteMany()
+  // await prisma.performer.deleteMany()
+  // await prisma.user.deleteMany()
 
   await prisma.user.createMany({
     data: [
@@ -492,35 +493,26 @@ async function main() {
   })
   ///////////////////////////////////// performersHashtag (701) starts//////////////////////////////////
 
-  const userId = await prisma.user.findMany({
-    select: {
-      id: true,
+  // const eventId = await prisma.event.findMany({
+  //   select: {
+  //     id: true,
+  //     // events_hashtags: {
+  //     //   select: { id: true, hashtag_details: { select: { id: true } } },
+  //     // },
+  //   },
+  // })
 
-      performers: { select: { id: true } },
-      clients: { select: { id: true } },
-    },
-  })
-
-  const eventId = await prisma.event.findMany({
-    select: {
-      id: true,
-      // events_hashtags: {
-      //   select: { id: true, hashtag_details: { select: { id: true } } },
-      // },
-    },
-  })
-
-  const hashtagDetailId = await prisma.hashtagDetail.findMany({
-    select: {
-      id: true,
-      performers_hashtags: {
-        select: { id: true, performers: { select: { id: true } } },
-      },
-      events_hashtags: {
-        select: { id: true, events: { select: { id: true } } },
-      },
-    },
-  })
+  // const hashtagDetailId = await prisma.hashtagDetail.findMany({
+  //   select: {
+  //     id: true,
+  //     performers_hashtags: {
+  //       select: { id: true, performers: { select: { id: true } } },
+  //     },
+  //     events_hashtags: {
+  //       select: { id: true, events: { select: { id: true } } },
+  //     },
+  //   },
+  // })
 
   const userUuid = await prisma.user.findMany({
     select: {
@@ -528,21 +520,22 @@ async function main() {
     },
   })
 
-  await prisma.performersHashtag.createMany({
-    data: [
-      {
-        performers_id: userId[0].performers[0].id,
-        hashtag_details_id: hashtagDetailId[0].performers_hashtags[0].id,
-      },
-    ],
-  })
+  // await prisma.performersHashtag.createMany({
+  //   data: [
+  //     {
+  //       performers_id: userId[0].performers[0].id,
+  //       hashtag_details_id: hashtagDetailId[0].performers_hashtags[0].id,
+  //     },
+  //   ],
+  // })
 
   //////////////////////////////////event (1000) starts////////////////////////////////////////////
 
   await prisma.event.createMany({
     data: [
       {
-        clients_id: userId[8].clients[0].id,
+        // performers_id: userId[0].performers[0].id,
+        clients_id: 1,
         title: "Wedding",
         wage_offer: 8888,
         start_date: new Date("2023-10-10"),
@@ -558,40 +551,42 @@ async function main() {
         is_shown: true,
         date_published: new Date("2023-3-15"),
       },
-      {
-        clients_id: userId[11].clients[0].id,
-        title: "百日宴",
-        wage_offer: 8888,
-        start_date: new Date("2023-12-12"),
-        end_date: new Date("2023-12-12"),
-        rehearsal_needed: false,
-        start_time: new Date("10:30:00"),
-        end_time: new Date("13:30:00"),
-        image: "venue1.jpeg",
-        description: "魔術表演 小朋友魔術!!!",
-        location: "Tsim Sha Tsui",
-        status: Status.valid,
-        properties: Properties.public,
-        is_shown: true,
-        date_published: new Date("2023-3-10"),
-      },
-      {
-        clients_id: userId[9].clients[0].id,
-        title: "生日會",
-        wage_offer: 4800,
-        start_date: new Date("2023-09-01"),
-        end_date: new Date("2023-09-01"),
-        rehearsal_needed: false,
-        start_time: new Date("12:30:00"),
-        end_time: new Date("15:30:00"),
-        image: "venue2.jpeg",
-        description: "音樂、舞蹈及劇場表演",
-        location: "YuenLong",
-        status: Status.valid,
-        properties: Properties.public,
-        is_shown: true,
-        date_published: new Date("2023-3-10"),
-      },
+      // {
+      //   performers_id: userId[1].performers[0].id,
+      //   clients_id: userId[11].clients[3].id,
+      //   title: "百日宴",
+      //   wage_offer: 8888,
+      //   start_date: new Date("2023-12-12"),
+      //   end_date: new Date("2023-12-12"),
+      //   rehearsal_needed: false,
+      //   start_time: new Date("10:30:00"),
+      //   end_time: new Date("13:30:00"),
+      //   image: "venue1.jpeg",
+      //   description: "魔術表演 小朋友魔術!!!",
+      //   location: "Tsim Sha Tsui",
+      //   status: Status.valid,
+      //   properties: Properties.public,
+      //   is_shown: true,
+      //   date_published: new Date("2023-3-10"),
+      // },
+      // {
+      //   performers_id: userId[1].performers[0].id,
+      //   clients_id: userId[9].clients[2].id,
+      //   title: "生日會",
+      //   wage_offer: 4800,
+      //   start_date: new Date("2023-09-01"),
+      //   end_date: new Date("2023-09-01"),
+      //   rehearsal_needed: false,
+      //   start_time: new Date("12:30:00"),
+      //   end_time: new Date("15:30:00"),
+      //   image: "venue2.jpeg",
+      //   description: "音樂、舞蹈及劇場表演",
+      //   location: "YuenLong",
+      //   status: Status.valid,
+      //   properties: Properties.public,
+      //   is_shown: true,
+      //   date_published: new Date("2023-3-10"),
+      // },
     ],
   })
 
@@ -600,21 +595,21 @@ async function main() {
   await prisma.eventsApplication.createMany({
     data: [
       {
-        events_id: eventId[0].id,
-        performers_id: userId[0].performers[0].id,
+        events_id: 1,
+        performers_id: 2,
         status: ApplicationStatus.pending,
       },
-      {
-        events_id: eventId[1].id,
-        performers_id: userId[2].performers[1].id,
-        status: ApplicationStatus.accept,
-      },
+      //     {
+      //       events_id: eventId[1].id,
+      //       performers_id: userId[2].performers[1].id,
+      //       status: ApplicationStatus.accept,
+      //     },
 
-      {
-        events_id: eventId[2].id,
-        performers_id: userId[3].performers[2].id,
-        status: ApplicationStatus.pending,
-      },
+      //     {
+      //       events_id: eventId[2].id,
+      //       performers_id: userId[3].performers[2].id,
+      //       status: ApplicationStatus.pending,
+      // },
     ],
   })
 
@@ -623,8 +618,8 @@ async function main() {
   await prisma.eventsHashtag.createMany({
     data: [
       {
-        events_id: eventId[0].id,
-        hashtag_details_id: hashtagDetailId[0].events_hashtags[0].id,
+        events_id: 1,
+        hashtag_details_id: 1,
       },
     ],
   })
@@ -657,22 +652,17 @@ async function main() {
   await prisma.review.createMany({
     data: [
       {
-        events_id: eventId[0].id,
-        users_id: userId[0].id,
+        events_id: 1,
+        users_id: 1,
         comments_content: "Good show",
         score: 4,
       },
     ],
   })
 }
-
+// async function main() {}
 ////start here ken
 
-main()
-  .then(async () => {
-    await prisma.$disconnect()
-  })
-  .catch(async (e) => {
-    await prisma.$disconnect()
-    process.exit(1)
-  })
+main().then(async () => {
+  await prisma.$disconnect()
+})

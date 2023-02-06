@@ -12,10 +12,7 @@
     "move": "cp -r public build/public && cp -r private build/private",
     "format": "yarn prettier --write .",
     "check": "yarn prettier --check .",
-    "reseed": "yarn prisma migrate reset"
-  },
-  "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "reseed": "yarn prisma migrate reset && yarn dotenv -e .env ts-node prisma/seed.ts    "
   },
   "devDependencies": {
     "@types/express": "^4.17.15",
