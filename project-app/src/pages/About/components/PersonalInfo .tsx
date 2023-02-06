@@ -1,4 +1,3 @@
-import React from 'react';
 import HashTags from './HashTags';
 import EventInfo from './EventInfo';
 import { useRootSelector } from '../../../redux/store';
@@ -7,7 +6,7 @@ import {
 	CorporateClientsInfo,
 	IndividualClientsInfo,
 } from '../../../utils/userInfoType';
-import { Rating, Group, Card, Title, Avatar, Text } from '@mantine/core';
+import { Rating, Group, Card, Title, Avatar, Text, ActionIcon, createStyles } from '@mantine/core';
 import {
 	IconBrandInstagram,
 	IconBrandMeta,
@@ -15,8 +14,16 @@ import {
 	IconBrandYoutube,
 } from '@tabler/icons';
 import '../../../styles/about.css';
-const { REACT_APP_IMAGE_BASE } = process.env;
 
+const useStyles = createStyles((theme) => ({
+	myCustomButton: {
+		...theme.fn.focusStyles(),
+		radius: 'xl',
+		color: 'green',
+		size: 'xl',
+		variant: 'subtle',
+	},
+}));
 type UserInfoProps = {
 	pageUUID: string;
 	performanceInfo?: PerformanceInfo;
@@ -25,13 +32,23 @@ type UserInfoProps = {
 };
 
 function PersonalInfo(props: UserInfoProps) {
+	const { REACT_APP_IMAGE_BASE } = process.env;
+	const { classes } = useStyles();
+
 	const uuidFromState = useRootSelector((state) => state.auth.uuid);
 	const uuidInPage = props.pageUUID;
 	const performanceInfo = props.performanceInfo;
 	const corporateClientsInfo = props.corporateClientsInfo;
 	const individualClientsInfo = props.individualClientsInfo;
+	const openURL = (url: string) => {
+		window.location.href = url;
+	};
 
 	if (performanceInfo) {
+		const fb = performanceInfo.facebook_url;
+		const ig = performanceInfo.ig_url;
+		const twitter = performanceInfo.twitter_url;
+		const youtube = performanceInfo.youtube_url;
 		return (
 			<Card classNames={'IdCard'} withBorder p='xl' radius='md'>
 				<Card.Section sx={{ height: 20 }} />
@@ -46,6 +63,7 @@ function PersonalInfo(props: UserInfoProps) {
 						<img src={`${REACT_APP_IMAGE_BASE}/defaultImage.jpg`} alt={'defaultImage.jpg'} />
 					)}
 				</Avatar>
+
 				<Text align='left' size='lg' weight={500} mt='sm'>
 					USER NAME : {performanceInfo.username}
 				</Text>
@@ -75,39 +93,65 @@ function PersonalInfo(props: UserInfoProps) {
 				</>
 
 				<div className='IconGroup'>
-					<IconBrandMeta>
-						{' '}
-						{performanceInfo.facebook_url ? (
-							<div>{performanceInfo.facebook_url}</div>
-						) : (
-							<> facebook_url: No ULR</>
-						)}
-					</IconBrandMeta>
-
-					<IconBrandInstagram>
-						{' '}
-						{performanceInfo.ig_url ? (
-							<div>ig_url: {performanceInfo.ig_url}</div>
-						) : (
-							<>ig_url: No ULR</>
-						)}
-					</IconBrandInstagram>
-
-					<IconBrandTwitter>
-						{performanceInfo.twitter_url ? (
-							<div>twitter_url: {performanceInfo.twitter_url}</div>
-						) : (
-							<>twitter_url: No ULR</>
-						)}
-					</IconBrandTwitter>
-
-					<IconBrandYoutube>
-						{performanceInfo.youtube_url ? (
-							<div>youtube_url: {performanceInfo.youtube_url}</div>
-						) : (
-							<>youtube_url: No ULR</>
-						)}
-					</IconBrandYoutube>
+					{fb ? (
+						<ActionIcon
+							className={classes.myCustomButton}
+							key={'fb_btn'}
+							onClick={() => {
+								openURL(fb);
+							}}
+						>
+							<IconBrandMeta size={34} />
+						</ActionIcon>
+					) : (
+						<ActionIcon className={classes.myCustomButton} key={'fb_btn_disabled'} disabled>
+							<IconBrandMeta size={34} />
+						</ActionIcon>
+					)}
+					{ig ? (
+						<ActionIcon
+							className={classes.myCustomButton}
+							key={'ig_btn'}
+							onClick={() => {
+								openURL(ig);
+							}}
+						>
+							<IconBrandInstagram size={34} />
+						</ActionIcon>
+					) : (
+						<ActionIcon className={classes.myCustomButton} key={'ig_btn_disabled'} disabled>
+							<IconBrandInstagram size={34} />
+						</ActionIcon>
+					)}
+					{twitter ? (
+						<ActionIcon
+							className={classes.myCustomButton}
+							key={'twitter_btn'}
+							onClick={() => {
+								openURL(twitter);
+							}}
+						>
+							<IconBrandTwitter size={34} />
+						</ActionIcon>
+					) : (
+						<ActionIcon className={classes.myCustomButton} key={'twitter_btn_disabled'} disabled>
+							<IconBrandTwitter size={34} />
+						</ActionIcon>
+					)}
+					{youtube ? (
+						<ActionIcon className={classes.myCustomButton} key={'youtube_btn'}>
+							<IconBrandYoutube
+								size={34}
+								onClick={() => {
+									openURL(youtube);
+								}}
+							/>
+						</ActionIcon>
+					) : (
+						<ActionIcon className={classes.myCustomButton} key={'youtube_btn_disabled'} disabled>
+							<IconBrandYoutube size={34} />
+						</ActionIcon>
+					)}
 				</div>
 
 				<div style={{ flex: 1 }}>
@@ -115,7 +159,7 @@ function PersonalInfo(props: UserInfoProps) {
 						{performanceInfo.events ? (
 							<EventInfo info={performanceInfo.events} />
 						) : (
-							<div>No Event</div>
+							<div>No Event History</div>
 						)}
 					</Text>
 				</div>

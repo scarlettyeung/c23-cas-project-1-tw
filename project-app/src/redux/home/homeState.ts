@@ -1,7 +1,7 @@
 export interface HomeState {
+	loading: 'idle' | 'pending' | 'succeeded' | 'failed';
 	eventArr: Event[];
 	performersArr: Performer[];
-	loading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 
 export enum Status {
@@ -28,6 +28,7 @@ export interface Event {
 	end_date: Date;
 	location: string;
 	events_hashtags?: string;
+	hashtag_details?: string;
 	status: Status;
 	is_shown: boolean;
 	date_published: Date;

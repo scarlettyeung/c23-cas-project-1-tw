@@ -37,6 +37,7 @@ export interface Event {
 	date_published: Date;
 	reviews?: string | null;
 	events_hashtags?: string | null;
+	hashtag_details?: string | null;
 }
 
 export interface Performer {

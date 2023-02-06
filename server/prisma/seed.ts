@@ -493,41 +493,52 @@ async function main() {
   })
   ///////////////////////////////////// performersHashtag (701) starts//////////////////////////////////
 
-  // const eventId = await prisma.event.findMany({
-  //   select: {
-  //     id: true,
-  //     // events_hashtags: {
-  //     //   select: { id: true, hashtag_details: { select: { id: true } } },
-  //     // },
-  //   },
-  // })
-
-  // const hashtagDetailId = await prisma.hashtagDetail.findMany({
-  //   select: {
-  //     id: true,
-  //     performers_hashtags: {
-  //       select: { id: true, performers: { select: { id: true } } },
-  //     },
-  //     events_hashtags: {
-  //       select: { id: true, events: { select: { id: true } } },
-  //     },
-  //   },
-  // })
-
   const userUuid = await prisma.user.findMany({
     select: {
       uuid: true,
     },
   })
 
-  // await prisma.performersHashtag.createMany({
-  //   data: [
-  //     {
-  //       performers_id: userId[0].performers[0].id,
-  //       hashtag_details_id: hashtagDetailId[0].performers_hashtags[0].id,
-  //     },
-  //   ],
-  // })
+  await prisma.performersHashtag.createMany({
+    data: [
+      {
+        performers_id: 1,
+        hashtag_details_id: 1,
+      },
+      {
+        performers_id: 1,
+        hashtag_details_id: 2,
+      },
+      {
+        performers_id: 1,
+        hashtag_details_id: 3,
+      },
+      {
+        performers_id: 1,
+        hashtag_details_id: 4,
+      },
+      {
+        performers_id: 1,
+        hashtag_details_id: 5,
+      },
+      {
+        performers_id: 2,
+        hashtag_details_id: 1,
+      },
+      {
+        performers_id: 2,
+        hashtag_details_id: 4,
+      },
+      {
+        performers_id: 2,
+        hashtag_details_id: 5,
+      },
+      {
+        performers_id: 2,
+        hashtag_details_id: 2,
+      },
+    ],
+  })
 
   //////////////////////////////////event (1000) starts////////////////////////////////////////////
 
@@ -551,42 +562,42 @@ async function main() {
         is_shown: true,
         date_published: new Date("2023-3-15"),
       },
-      // {
-      //   performers_id: userId[1].performers[0].id,
-      //   clients_id: userId[11].clients[3].id,
-      //   title: "百日宴",
-      //   wage_offer: 8888,
-      //   start_date: new Date("2023-12-12"),
-      //   end_date: new Date("2023-12-12"),
-      //   rehearsal_needed: false,
-      //   start_time: new Date("10:30:00"),
-      //   end_time: new Date("13:30:00"),
-      //   image: "venue1.jpeg",
-      //   description: "魔術表演 小朋友魔術!!!",
-      //   location: "Tsim Sha Tsui",
-      //   status: Status.valid,
-      //   properties: Properties.public,
-      //   is_shown: true,
-      //   date_published: new Date("2023-3-10"),
-      // },
-      // {
-      //   performers_id: userId[1].performers[0].id,
-      //   clients_id: userId[9].clients[2].id,
-      //   title: "生日會",
-      //   wage_offer: 4800,
-      //   start_date: new Date("2023-09-01"),
-      //   end_date: new Date("2023-09-01"),
-      //   rehearsal_needed: false,
-      //   start_time: new Date("12:30:00"),
-      //   end_time: new Date("15:30:00"),
-      //   image: "venue2.jpeg",
-      //   description: "音樂、舞蹈及劇場表演",
-      //   location: "YuenLong",
-      //   status: Status.valid,
-      //   properties: Properties.public,
-      //   is_shown: true,
-      //   date_published: new Date("2023-3-10"),
-      // },
+      {
+        performers_id: 2,
+        clients_id: 2,
+        title: "百日宴",
+        wage_offer: 8888,
+        start_date: new Date("2023-12-12"),
+        end_date: new Date("2023-12-12"),
+        rehearsal_needed: false,
+        start_time: new Date("10:30:00"),
+        end_time: new Date("13:30:00"),
+        image: "venue1.jpeg",
+        description: "魔術表演 小朋友魔術!!!",
+        location: "Tsim Sha Tsui",
+        status: Status.valid,
+        properties: Properties.public,
+        is_shown: true,
+        date_published: new Date("2023-3-10"),
+      },
+      {
+        performers_id: 2,
+        clients_id: 1,
+        title: "生日會",
+        wage_offer: 4800,
+        start_date: new Date("2023-09-01"),
+        end_date: new Date("2023-09-01"),
+        rehearsal_needed: false,
+        start_time: new Date("12:30:00"),
+        end_time: new Date("15:30:00"),
+        image: "venue2.jpeg",
+        description: "音樂、舞蹈及劇場表演",
+        location: "YuenLong",
+        status: Status.valid,
+        properties: Properties.public,
+        is_shown: true,
+        date_published: new Date("2023-3-10"),
+      },
     ],
   })
 

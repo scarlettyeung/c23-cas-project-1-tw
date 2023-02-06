@@ -50,14 +50,14 @@ export function CardsCarousel() {
 	const slides =
 		performers &&
 		performers.map((item) => (
-			<Carousel.Slide key={`item-${item.icon}`}>
+			<Carousel.Slide key={`item-${item.id}`}>
 				<Link to={`/about/uuid/${item.uuid}`}>
 					<Card image={`${REACT_APP_IMAGE_BASE}/${item.icon}`} {...item} />{' '}
 				</Link>
 			</Carousel.Slide>
 		));
 
-	if (loading) {
+	if (loading !== 'succeeded') {
 		return <>loading...</>;
 	} else
 		return (

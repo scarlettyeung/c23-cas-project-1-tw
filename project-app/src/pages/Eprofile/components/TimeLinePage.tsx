@@ -14,7 +14,7 @@ function TimeLinePage(props: MediaPropsType) {
 			{props.contents.map((item) => {
 				if (item.type === ItemType.image) {
 					return (
-						<Timeline.Item title={item.content1}>
+						<Timeline.Item title={item.content1} key={`TimeLine_${item.type}Obj_${item.id}`}>
 							<Card style={{ width: '80%' }} shadow='sm' p='xs' radius='md' withBorder>
 								<Card.Section>
 									<Image
@@ -31,7 +31,7 @@ function TimeLinePage(props: MediaPropsType) {
 					);
 				} else if (item.type === ItemType.text) {
 					return (
-						<Timeline.Item title={item.content1}>
+						<Timeline.Item title={item.content1} key={`TimeLine_${item.type}Obj_${item.id}`}>
 							<Card style={{ width: '80%' }} shadow='sm' p='xs' radius='md' withBorder>
 								<Text mt='xs' color='dimmed' size='sm' align='left'>
 									{item.content2}
@@ -42,7 +42,7 @@ function TimeLinePage(props: MediaPropsType) {
 				} else if (item.type === ItemType.video) {
 					const getYoutubeId = `https://www.youtube.com/embed/${getYtId(item.content3)}`;
 					return (
-						<Timeline.Item title={item.content1}>
+						<Timeline.Item title={item.content1} key={`TimeLine_${item.type}Obj_${item.id}`}>
 							<Card style={{ width: '80%' }} shadow='sm' p='xs' radius='md' withBorder>
 								<Card.Section>
 									<AspectRatio ratio={16 / 9}>

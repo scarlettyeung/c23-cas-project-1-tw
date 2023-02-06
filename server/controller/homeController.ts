@@ -11,6 +11,7 @@ export class HomeController {
     try {
       const events = (await this.homeService.getAllEvents()) as Event[]
       const performers = await this.homeService.getAllPerformers()
+      logger.info(events)
       res.status(200).json({
         message: "Load events and performers success!",
         events: events,

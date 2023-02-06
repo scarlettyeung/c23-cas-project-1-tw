@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { SpotlightAction } from '@mantine/spotlight';
-import { Group, Select } from '@mantine/core';
+import { Group, Select, Text } from '@mantine/core';
 import { getAllHashTags } from '../../redux/search';
 import { useRootDispatch, useRootSelector } from '../../redux/store';
 
@@ -17,6 +17,8 @@ import Logout from '../Logout';
 
 export function Search() {
 	const dispatch = useRootDispatch();
+	const userName = useRootSelector((state) => state.auth.username);
+	const userIdentity = useRootSelector((state) => state.auth.identity);
 	const hashtagArr = useRootSelector<FetchPerformerType[] | FetchEventDataType[]>(
 		(state) => state.search.hashtagArr,
 	);
@@ -28,8 +30,8 @@ export function Search() {
 
 	if (query === SearchTagType.Performer) {
 		hashtagArr as FetchPerformerType[];
-		const mapPerformerHashtag = hashtagArr.map((TagObj) => {
-			const performerData = TagObj.performers_hashtags.map((data) => {
+		const mapPerformerHashtag = hashtagArr.map((TagObj, idx) => {
+			const performerData = TagObj.performers_hashtags.map((data, idx2) => {
 				return {
 					id: data.performers.users.uuid,
 					title: TagObj.name,
@@ -45,12 +47,17 @@ export function Search() {
 		});
 		const toOneArr: SpotlightAction[] = mapPerformerHashtag.flat(2);
 		return (
-			<Group className='SearchBox'>
+			<Group>
+				<Text size={'xs'}>
+					Hi,{userName}
+					<br></br>({userIdentity})
+				</Text>
 				<PerformerEventSearch data={toOneArr} />
 				<Select
-					className='TagPicker'
+					placeholder='Pick one'
 					data={tagType}
 					value={query}
+					maxDropdownHeight={400}
 					onChange={(v) => {
 						if (v) {
 							setQuery(v);
@@ -66,10 +73,12 @@ export function Search() {
 		console.log(hashtagArr);
 		const mapEventHashtag = hashtagArr.map((TagObj) => {
 			const eventData = TagObj.events_hashtags.map((data) => {
+				console.log(TagObj.name, data.events.title);
 				return {
 					id: `${TagObj.name}_${data.events.id}`,
 					title: data.events.title,
 					keywords: TagObj.name,
+					description: TagObj.name,
 					image: data.events.image,
 					onTrigger: () => {
 						navigate(`events/${data.events.id}`, { replace: true });
@@ -80,11 +89,13 @@ export function Search() {
 		});
 		const toOneArr: SpotlightAction[] = mapEventHashtag.flat(2);
 		return (
-			<Group className='SearchBox'>
+			<Group>
 				<PerformerEventSearch data={toOneArr} />
 				<Select
+					placeholder='Pick one'
 					data={tagType}
 					value={query}
+					maxDropdownHeight={400}
 					onChange={(v) => {
 						if (v) {
 							setQuery(v);

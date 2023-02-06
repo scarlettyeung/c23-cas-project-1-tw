@@ -31,12 +31,13 @@ export class EventController {
           return
         }
         if (!files["image"]) {
-          res.status(400).json({ message: "[uploadImage] missing file" })
+          return res.status(400).json({ message: "[uploadImage] missing file" })
         } else {
           if (!fields.title || !fields.wage_offer || !fields.rehearsal_needed) {
             res.status(400).json({ message: "Missing Information!" })
             return
           }
+          logger.info("createEvent in line 40")
           const permit = new Bearer({ query: "access_token" })
           const token = permit.check(req)
           const payload = jwtSimple.decode(token, jwt.jwtSecret)
@@ -44,6 +45,17 @@ export class EventController {
           const start_time = new Date(fields.start_time as string)
           const end_time = new Date(fields.end_time as string)
           const image = files.image as formidable.File | undefined
+
+          console.log(clients_id)
+          console.log(fields.title)
+          console.log(fields.wage_offer)
+          console.log(fields.start_date)
+          console.log(fields.end_date)
+          console.log(start_time)
+          console.log(end_time)
+          console.log(fields.rehearsal_needed)
+          console.log(fields.description)
+          console.log(fields.location)
 
           await this.eventService.createEvent(
             clients_id,
@@ -58,9 +70,10 @@ export class EventController {
             fields.description as string,
             fields.location as string
           )
+
+          logger.info("createEvent in line 63")
+          return res.status(200).json({ message: "Create Event Success!" })
         }
-        res.status(200).json({ message: "Create Event Success!" })
-        return
       })
     } catch (e) {
       logger.info(e)

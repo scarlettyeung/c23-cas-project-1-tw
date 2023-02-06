@@ -1,4 +1,3 @@
-import React from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Card, Image, Text, Group, Badge, Button } from '@mantine/core';
@@ -26,6 +25,7 @@ interface EventDetailType {
 function EventDetail() {
 	let eventId = useParams();
 	const [event, setEvent] = useState<EventDetailType>();
+	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const navigate = useNavigate();
 	useEffect(() => {
 		async function loadData() {
@@ -40,7 +40,10 @@ function EventDetail() {
 			setEvent(json);
 		}
 		loadData();
+		setIsLoading(false);
 	}, [eventId.eventsId]);
+
+	if (isLoading) return <>isLoading</>;
 
 	return (
 		<div>

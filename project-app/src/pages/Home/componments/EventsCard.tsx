@@ -45,35 +45,30 @@ export function EventsCard() {
 
 	const cards =
 		eventArr &&
-		eventArr.map((event) => (
-			<Link to={`/events/${event.id}`}>
-				<Card
-					key={`event-${event.id}`}
-					shadow='sm'
-					p='lg'
-					radius='md'
-					withBorder
-					className={classes.card}
-				>
-					<AspectRatio ratio={1920 / 1080}>
-						<Image src={`${REACT_APP_IMAGE_BASE}/${event.image}`} />
-					</AspectRatio>
-					<Group position='apart' mt='md' mb='xs'>
-						<Text className={classes.title} mt={5}>
-							{event.title}
-						</Text>
+		eventArr.map((event) => {
+			return (
+				<Link to={`/events/${event.id}`} key={`event-${event.id}`}>
+					<Card shadow='sm' p='lg' radius='md' withBorder className={classes.card}>
+						<AspectRatio ratio={1920 / 1080}>
+							<Image src={`${REACT_APP_IMAGE_BASE}/${event.image}`} />
+						</AspectRatio>
+						<Group position='apart' mt='md' mb='xs'>
+							<Text className={classes.title} mt={5}>
+								{event.title}
+							</Text>
 
-						<Badge color='pink' variant='light'>
-							{event.events_hashtags}
-						</Badge>
+							<Badge color='pink' variant='light'>
+								{event.hashtag_details}
+							</Badge>
 
-						<Text color='dimmed' transform='uppercase' size='sm' weight={700} mt='md'>
-							{event.description}
-						</Text>
-					</Group>
-				</Card>
-			</Link>
-		));
+							<Text color='dimmed' transform='uppercase' size='sm' weight={700} mt='md'>
+								{event.description}
+							</Text>
+						</Group>
+					</Card>
+				</Link>
+			);
+		});
 	return (
 		<>
 			{loading === 'pending' ? (

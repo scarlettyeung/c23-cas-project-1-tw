@@ -29,7 +29,7 @@ enum EventStatus {
 	Reject = 'reject',
 }
 interface PerformerEventsType {
-	id: Number;
+	id: number;
 	title: string;
 	status: string;
 	image: string;
@@ -42,6 +42,7 @@ interface PerformerEventsType {
 // }
 
 function LoadApplication() {
+	const navigate = useNavigate();
 	let clientId = useRootSelector((state) => state.auth.clientId);
 	let performerId = useRootSelector((state) => state.auth.performerId);
 	const [item, setItem] = useState<ClientEventsType[] | PerformerEventsType[] | null>(null);
@@ -73,7 +74,7 @@ function LoadApplication() {
 			const clientItem = item as ClientEventsType[];
 			const display = clientItem.map((event, idx) => {
 				return (
-					<div key={idx} style={{ width: 340, margin: 'auto' }}>
+					<div key={`${event.title}_${event.id}`} style={{ width: 340, margin: 'auto' }}>
 						<Card shadow='xl' p='lg' radius='md' withBorder>
 							<Text weight={800} mb={7} sx={{ lineHeight: 1 }}>
 								{event.title}
@@ -90,9 +91,20 @@ function LoadApplication() {
 										);
 									} else if (appItem.status === EventStatus.Accept) {
 										return (
-											<Button color='red' fullWidth>
-												Accepted
-											</Button>
+											<>
+												<Button color='red' fullWidth>
+													Accepted
+												</Button>
+												<Button
+													color='red'
+													fullWidth
+													onClick={() => {
+														navigate(`/${appItem.performers.users.uuid}`);
+													}}
+												>
+													Accepted
+												</Button>
+											</>
 										);
 									} else if (appItem.status === EventStatus.Reject) {
 										return (
@@ -103,7 +115,7 @@ function LoadApplication() {
 									}
 								};
 								return (
-									<div key={idx}>
+									<div>
 										<Group
 											position='apart'
 											style={{ marginBottom: 5, marginTop: theme.spacing.sm }}
@@ -156,7 +168,7 @@ function LoadApplication() {
 				};
 
 				return (
-					<div key={idx} style={{ width: 340, margin: 'auto' }}>
+					<div key={`${event.title}_${event.id}`} style={{ width: 340, margin: 'auto' }}>
 						<Group position='apart' style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
 							<Avatar size={40} src={`${REACT_APP_IMAGE_BASE}/${event.image}`} radius={40} />
 							<div>

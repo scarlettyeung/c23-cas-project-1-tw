@@ -1,6 +1,6 @@
 import React from 'react';
 import { PerformersSettingValue } from '../../../utils/userInfoType';
-import { Text, Button, Card, Title } from '@mantine/core';
+import { Text, Button, Card, Title, createStyles } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 import '../../../styles/userEdit.css';
 import logger from 'redux-logger';
@@ -9,18 +9,18 @@ type performerInfo = {
 	goBack: () => void;
 	edit: () => void;
 };
-
+const useStyles = createStyles((theme) => ({
+	datePicker: {
+		textAlign: 'end',
+	},
+}));
 function PerformersDisplay(props: performerInfo) {
 	const userInfo = props.info;
-	const tags = userInfo.performers_hashtags.map((tag) => {
-		console.log(tags);
-		return {};
-	});
 	const hashArray = userInfo.performers_hashtags?.map((tag) => '#' + tag.name).join(' ');
-
+	const { classes } = useStyles();
 	return (
 		<div className='Body'>
-			<Card classNames={'IdCard'} withBorder p='xl' radius='md'>
+			<Card className={'IdCard'} withBorder p='xl' radius='md'>
 				<Card.Section sx={{ height: 20 }} />
 				<Title order={2}>Performers Details</Title>
 				<div>
@@ -81,6 +81,7 @@ function PerformersDisplay(props: performerInfo) {
 							placeholder='Pick date'
 							value={new Date(userInfo.birthday!)}
 							variant='unstyled'
+							className={classes.datePicker}
 							readOnly
 						/>
 					</div>

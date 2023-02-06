@@ -16,6 +16,7 @@ import { useForm } from 'react-hook-form';
 import '../../../styles/event.css';
 import { useNavigate } from 'react-router-dom';
 import logger from 'redux-logger';
+import { useRootSelector } from '../../../redux/store';
 
 const useStyles = createStyles((theme) => {
 	const BREAKPOINT = theme.fn.smallerThan('sm');
@@ -119,7 +120,7 @@ export function CreateEvents() {
 	const [preview, setPreview] = useState<string>();
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const navigate = useNavigate();
-
+	const isCline = useRootSelector((state) => state.auth.clientId);
 	useEffect(() => {
 		if (image) {
 			const reader = new FileReader();
@@ -131,7 +132,9 @@ export function CreateEvents() {
 			setPreview(undefined);
 		}
 	}, [image]);
-
+	if (!isCline) {
+		return <>error identity</>;
+	}
 	return (
 		<div>
 			<form
@@ -139,7 +142,10 @@ export function CreateEvents() {
 					const formData = new FormData();
 					const path = process.env.REACT_APP_API_BASE;
 					const jwt = localStorage.getItem('token');
-
+					if (!image) {
+						alert('Please add the event image');
+						return;
+					}
 					formData.append('title', data.title);
 					formData.append('location', data.location);
 					formData.append('wage_offer', value.toString());
