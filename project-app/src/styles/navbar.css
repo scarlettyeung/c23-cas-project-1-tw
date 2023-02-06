@@ -15,7 +15,8 @@
 
 .navIcon:hover {
 	float: left;
-	color:  rgb(255 203 44);
+	color: rgb(255 203 44);
+	/* text-shadow: 10px 10px 10px rgb(95, 76, 21); */
 	text-align: center;
 	text-decoration: none;
 }

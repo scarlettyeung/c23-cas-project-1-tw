@@ -3,7 +3,8 @@ import { loginThunk } from '../redux/auth';
 import { useRootDispatch } from '../redux/store';
 import '../styles/login.css';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Button, Checkbox } from '@mantine/core';
+import { Button, Checkbox, TextInput } from '@mantine/core';
+import { IconMail, IconLock } from '@tabler/icons';
 
 function Login() {
 	const dispatch = useRootDispatch();
@@ -32,8 +33,9 @@ function Login() {
 		<div className='outerDiv'>
 			<img className='logo' src='../../joasisLogo.png' alt='Joasis logo' />
 			<form onSubmit={submitLogin}>
-				<div>
-					<input
+				<div className='login-input-div'>
+					<TextInput
+						icon={<IconMail size={14} />}
 						className='loginInput'
 						id='userEmail'
 						type='text'
@@ -42,8 +44,9 @@ function Login() {
 						onChange={(e) => setUserEmail(e.target.value)}
 					/>
 				</div>
-				<div>
-					<input
+				<div className='login-input-div'>
+					<TextInput
+						icon={<IconLock size={14} />}
 						className='loginInput'
 						id='userPassword'
 						type='password'
