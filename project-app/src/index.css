@@ -23,6 +23,7 @@ body {
 .mantine-ye2q1m {
 	border: 2px solid rgb(255 203 44);
 	display: flex !important;
+  width: 40vw;
 }
 .mantine-ye2q1m:hover {
 	background: rgb(245, 242, 202);
@@ -36,7 +37,8 @@ button {
 	border-radius: 5px !important;
 	background-color: black !important;
 	color: rgb(255 203 44) !important;
-	border: 2px solid rgb(255 203 44) !important;
+	border: 2px solid black !important;
+  font-weight:bold !important;
 }
 
 button:hover, button:active {
