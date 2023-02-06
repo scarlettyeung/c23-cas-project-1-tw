@@ -1,5 +1,5 @@
 .register-logo {
-	width: 200px;
+  width: 120px;
 	margin-bottom: 20px;
 	margin-top: 50px;
 }
@@ -45,7 +45,7 @@ textarea {
 	right: 0;
 	bottom: 0;
 	overflow-y: auto;
-	background: repeat linear-gradient(#ffb79d, hsl(336, 100%, 87%));
+
 	background-size: cover;
 }
 
@@ -65,7 +65,7 @@ textarea {
 	font-size: 40px;
 	padding-top: 1vh;
 	font-family: Impact, 'Arial Narrow Bold', sans-serif;
-	background: linear-gradient(#ffb79d, hsl(336, 100%, 87%));
+
 }
 
 /* .register-title {
