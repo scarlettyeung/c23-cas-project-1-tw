@@ -504,7 +504,7 @@ export class UserController {
         setEmail = contact_email
       }
 
-      let setIcon = "defaultImage.jpg"
+      const setIcon = "defaultImage.jpg"
 
       logger.info("businessAddress, businessBRNo, businessWebsiteUrl")
       logger.info(businessAddress, businessBRNo, businessWebsiteUrl)
@@ -527,7 +527,7 @@ export class UserController {
         }
       }
 
-      let setNumber: number = parseInt(contact_number, 10)
+      const setNumber: number = parseInt(contact_number, 10)
 
       //// --- end of check info --- ////
 
