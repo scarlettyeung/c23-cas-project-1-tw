@@ -1,5 +1,5 @@
 .register-logo {
-  width: 180px;
+	width: 180px;
 	margin-bottom: 20px;
 	margin-top: 50px;
 }
@@ -20,16 +20,13 @@
 }
 .register-basicInfo-psw-btn {
 	all: unset;
-	background: #75a488;
 	padding: 1vh;
-	color: white;
 	border-radius: 5px;
 }
 
 .register-basicInfo-psw-btn:active {
 	background: rgb(158, 88, 91);
 }
-
 
 .register-performer-outerDiv {
 	position: fixed;
@@ -57,9 +54,7 @@
 	font-size: 40px;
 	padding-top: 1vh;
 	font-family: Impact, 'Arial Narrow Bold', sans-serif;
-
 }
-
 
 .register-content {
 	padding-top: 2vh;
@@ -83,7 +78,8 @@
 }
 
 .register-input input {
-	padding: 1vh 5vw;
+	padding-top: 3vw;
+	padding-bottom: 3vw;
 	border: 1px solid rgb(81, 81, 81);
 	border-radius: 5px;
 }

@@ -1,17 +1,24 @@
 .logo {
-  width: 180px;
+	width: 180px;
 	margin-bottom: 20px;
 	margin-top: 50px;
 }
 .loginInput {
-	width: 65vw;
-	background: FFFFFFF;
-	padding: 12px;
-	border: 1px solid rgb(81, 81, 81);
+	all: unset;
+	padding: 1vh 14vw;
 	border-radius: 5px;
-	margin-bottom: 20px;
 }
 
+.loginInput input {
+	border: 1px solid rgb(81, 81, 81);
+	width: 65vw;
+}
+
+.login-input-div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
 .loginCheckbox input[type='checkbox'] {
 	-webkit-appearance: checkbox;
 	-moz-appearance: checkbox;
@@ -33,8 +40,7 @@
 	width: 65vw;
 	padding: 12px;
 	border-radius: 5px;
-  height:40px !important;
-
+	height: 40px !important;
 }
 
 .login-register {
@@ -44,8 +50,7 @@
 	border-radius: 5px;
 	margin-bottom: 20px;
 	margin-top: 60px;
-  height:40px !important;
-
+	height: 40px !important;
 }
 .outerDiv {
 	position: fixed;

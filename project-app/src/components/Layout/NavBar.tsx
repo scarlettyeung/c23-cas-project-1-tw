@@ -9,16 +9,23 @@ function Navbar() {
 	const uuidFromState = useRootSelector((state) => state.auth.uuid);
 	return (
 		<nav className='navbar'>
-			<IconHome className='navIcon' onClick={() => navigate('/', { replace: true })}></IconHome>
+			<IconHome
+				size={35}
+				className='navIcon'
+				onClick={() => navigate('/', { replace: true })}
+			></IconHome>
 			<IconCalendar
+				size={35}
 				className='navIcon'
 				onClick={() => navigate('events', { replace: true })}
 			></IconCalendar>
 			<IconHistory
+				size={35}
 				className='navIcon'
 				onClick={() => navigate(`history/application`, { replace: true })}
 			></IconHistory>
 			<IconUser
+				size={35}
 				className='navIcon'
 				onClick={() => navigate(`about/uuid/${uuidFromState}`, { replace: true })}
 			></IconUser>
