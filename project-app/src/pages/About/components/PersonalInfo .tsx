@@ -14,6 +14,7 @@ import {
 	IconBrandYoutube,
 } from '@tabler/icons';
 import '../../../styles/about.css';
+import UserBtnGroup from './UserBtnGroup';
 
 const useStyles = createStyles((theme) => ({
 	myCustomButton: {
@@ -63,7 +64,7 @@ function PersonalInfo(props: UserInfoProps) {
 						<img src={`${REACT_APP_IMAGE_BASE}/defaultImage.jpg`} alt={'defaultImage.jpg'} />
 					)}
 				</Avatar>
-
+				<UserBtnGroup />
 				<Text align='left' size='lg' weight={500} mt='sm'>
 					USER NAME : {performanceInfo.username}
 				</Text>
@@ -173,6 +174,7 @@ function PersonalInfo(props: UserInfoProps) {
 				<Card.Section sx={{ height: 20 }} />
 				<Title order={2}>Corporate Clients Info</Title>
 				<Avatar size={150} radius={80} mx='auto'>
+					<UserBtnGroup />
 					{corporateClientsInfo.icon ? (
 						<img
 							src={`${REACT_APP_IMAGE_BASE}/${corporateClientsInfo.icon}`}
@@ -207,8 +209,6 @@ function PersonalInfo(props: UserInfoProps) {
 					</Group>
 				</Text>
 
-				{uuidFromState !== uuidInPage && <button>ToChatRoom</button>}
-
 				<div style={{ flex: 1 }}>
 					<Text size='sm' weight={500}>
 						{corporateClientsInfo.events ? (
@@ -237,6 +237,7 @@ function PersonalInfo(props: UserInfoProps) {
 						<img src={`${REACT_APP_IMAGE_BASE}/defaultImage.jpg`} alt={'defaultImage.jpg'} />
 					)}
 				</Avatar>
+				<UserBtnGroup />
 				<Text align='left' size='lg' weight={500} mt='sm'>
 					USER NAME : {individualClientsInfo.username}
 				</Text>
@@ -247,8 +248,6 @@ function PersonalInfo(props: UserInfoProps) {
 						<> ({individualClientsInfo.avg_score}) </>
 					</Group>
 				</Text>
-
-				{uuidFromState !== uuidInPage && <button>ToChatRoom</button>}
 
 				<div style={{ flex: 1 }}>
 					<Text size='sm' weight={500}>

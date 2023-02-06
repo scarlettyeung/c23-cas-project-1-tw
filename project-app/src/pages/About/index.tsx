@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button } from '@mantine/core';
+import { Button, ActionIcon } from '@mantine/core';
 import useFetch from '../../hooks/useFetch';
 import PersonalInfo from './components/PersonalInfo ';
 import { useRootSelector } from '../../redux/store';
@@ -13,7 +13,7 @@ import {
 import '../../styles/about.css';
 import { useEffect, useState } from 'react';
 import { IconBrandWhatsapp } from '@tabler/icons';
-import { ActionIcon } from '@mantine/core';
+
 function About() {
 	const navigate = useNavigate();
 	const { uuid } = useParams<string>()!;
@@ -86,7 +86,7 @@ function About() {
 		<div className='Body'>
 			<div className='Title'>About</div>
 			<div className='About-ButtonGroup'>
-				{uuid === uuidFromState && (
+				{uuid !== uuidFromState && (
 					<ActionIcon
 						key={1}
 						onClick={() => {
