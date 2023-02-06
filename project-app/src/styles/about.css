@@ -8,7 +8,7 @@
 
 .AboutBtn {
 	background-color: #55836f !important;
-	border-color: #55836f !important;
+	border: 1px solid rgb(255, 203, 44);
 	color: white !important;
 }
 

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthState, JWTPayload } from './state';
-import { loginThunk, testThunk } from '../auth/index';
+import { loginThunk } from '../auth/index';
 import jwt_decode from 'jwt-decode';
 
 // Step 1 - InitState

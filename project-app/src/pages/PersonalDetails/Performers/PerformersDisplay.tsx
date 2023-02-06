@@ -1,8 +1,9 @@
 import React from 'react';
 import { PerformersSettingValue } from '../../../utils/userInfoType';
-import { Text, TextInput, Checkbox, Button, Group, Box, Center, Card, Title } from '@mantine/core';
+import { Text, Button, Card, Title } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 import '../../../styles/userEdit.css';
+import logger from 'redux-logger';
 type performerInfo = {
 	info: PerformersSettingValue;
 	goBack: () => void;
@@ -12,6 +13,7 @@ type performerInfo = {
 function PerformersDisplay(props: performerInfo) {
 	const userInfo = props.info;
 	const tags = userInfo.performers_hashtags.map((tag) => {
+		console.log(tags);
 		return {};
 	});
 	const hashArray = userInfo.performers_hashtags?.map((tag) => '#' + tag.name).join(' ');

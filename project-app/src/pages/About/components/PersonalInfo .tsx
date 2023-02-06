@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import HashTags from './HashTags';
 import EventInfo from './EventInfo';
 import { useRootSelector } from '../../../redux/store';
@@ -7,7 +7,7 @@ import {
 	CorporateClientsInfo,
 	IndividualClientsInfo,
 } from '../../../utils/userInfoType';
-import { Rating, Group, Card, Title, Avatar, Text, Badge } from '@mantine/core';
+import { Rating, Group, Card, Title, Avatar, Text } from '@mantine/core';
 import {
 	IconBrandInstagram,
 	IconBrandMeta,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { CorporateClientsSettingValue } from '../../../utils/userInfoType';
-import { Text, Button, Group, Title, Card } from '@mantine/core';
+import { Text, Button, Title, Card } from '@mantine/core';
 import '../../../styles/userEdit.css';
 
 type CorporateInfo = {

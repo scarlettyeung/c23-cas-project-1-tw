@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useFetch from '../../hooks/useFetch';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
 	PerformersSettingValue,
 	IndividualClientsSettingValue,

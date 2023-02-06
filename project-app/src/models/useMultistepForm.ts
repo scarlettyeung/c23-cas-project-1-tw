@@ -1,22 +1,10 @@
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { useRootSelector } from '../redux/store';
 export function useMultiStepForm(steps: ReactElement[]) {
 	const [currentStepIndex, setCurrentStepIndex] = useState(0);
 	const checkPsw = useRootSelector((state) => state.auth.password);
 	const checkHash = useRootSelector((state) => state.auth.hashTagArr);
 	const typeOfAccount = useRootSelector((state) => state.auth.accountType);
-	// const checkEmail = useRootSelector((state) => state.auth.email);
-	// const [email, setEmail] = useState<any>();
-	// useEffect(() => {
-	// 	async function getAllEmail() {
-	// 		const path = process.env.REACT_APP_API_BASE;
-	// 		let data = await fetch(`${path}users/getAllEmail`);
-	// 		let result = await data.json();
-	// 		console.log('Form', result);
-	// 		return setEmail(result);
-	// 	}
-	// 	getAllEmail();
-	// }, []);
 
 	function next() {
 		setCurrentStepIndex((i) => {
@@ -26,9 +14,6 @@ export function useMultiStepForm(steps: ReactElement[]) {
 			if (checkPsw === '' && i) {
 				return i;
 			}
-			// if (i && email?.includes(checkEmail!)) {
-			// 	return i;
-			// }
 			if (
 				(checkHash?.length === 0 || checkHash === null || checkHash === undefined) &&
 				i &&

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+import logger from 'redux-logger';
 import { HomeState } from './homeState';
 import { getAllDataThunk } from './thunk';
-import { Event, Performer } from './homeState';
 
 // Step 1 - InitState
 let auth_storage = localStorage.getItem('auth');

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
+import logger from 'redux-logger';
 
 interface PopDataType {
 	eventId: number;
@@ -26,6 +27,7 @@ function ApplyButton(props: PopDataType) {
 					);
 					const result = await resp.json();
 					alert('Matching SUCCESS!');
+					logger(result);
 					navigate('/');
 				}}
 				fullWidth

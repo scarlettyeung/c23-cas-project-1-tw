@@ -56,11 +56,10 @@ const useStyles = createStyles((theme) => ({
 		padding: '4px 12px',
 	},
 }));
+console.log(useStyles);
 
 function SelfIntroducePage(props: MediaPropsType) {
 	const { contents } = props;
-
-	const { classes } = useStyles();
 
 	if (contents) {
 		return <MediaContents content={contents} />;

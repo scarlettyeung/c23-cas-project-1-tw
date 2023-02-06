@@ -20,10 +20,10 @@
 }
 .register-basicInfo-psw-btn {
 	all: unset;
-	background: rgb(230, 124, 126);
+	background: #75a488;
 	padding: 1vh;
 	color: white;
-	border-radius: 12px;
+	border-radius: 5px;
 }
 
 .register-basicInfo-psw-btn:active {
@@ -64,6 +64,7 @@ textarea {
 	width: 100vw;
 	font-size: 40px;
 	padding-top: 1vh;
+	font-family: Impact, 'Arial Narrow Bold', sans-serif;
 	background: linear-gradient(#ffb79d, hsl(336, 100%, 87%));
 }
 
@@ -84,8 +85,8 @@ textarea {
 	margin: 3vh 3vw;
 	width: 85vw;
 	height: 8vh;
-	border-radius: 12px;
-	background: rgb(230, 124, 126);
+	border-radius: 5px;
+	background: #75a488;
 }
 
 .register-btn:active,
@@ -99,10 +100,10 @@ textarea {
 
 .register-user-back {
 	all: unset;
-	background: rgb(230, 124, 126);
+	background: #75a488;
 	padding: 1vh;
 	color: white;
-	border-radius: 12px;
+	border-radius: 5px;
 }
 
 .register-user-back:active,
@@ -115,15 +116,15 @@ textarea {
 	background: rgba(230, 124, 126, 0);
 	padding: 1vh;
 	color: rgba(255, 255, 255, 0);
-	border-radius: 12px;
+	border-radius: 5px;
 }
 
 .register-user-nextAndSubmit {
 	all: unset;
-	background: rgb(230, 124, 126);
+	background: #75a488;
 	padding: 1vh;
 	color: white;
-	border-radius: 12px;
+	border-radius: 5px;
 }
 .register-user-nextAndSubmit:active,
 .register-user-nextAndSubmit:hover {

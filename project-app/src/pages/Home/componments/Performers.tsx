@@ -57,18 +57,21 @@ export function CardsCarousel() {
 			</Carousel.Slide>
 		));
 
-	return (
-		<Carousel
-			slideSize='50%'
-			breakpoints={[{ maxWidth: 'sm', slideSize: '40%', slideGap: 4 }]}
-			slideGap='xl'
-			align='center'
-			slidesToScroll={mobile ? 1 : 2}
-			loop
-		>
-			{slides}
-		</Carousel>
-	);
+	if (loading) {
+		return <>loading...</>;
+	} else
+		return (
+			<Carousel
+				slideSize='50%'
+				breakpoints={[{ maxWidth: 'sm', slideSize: '40%', slideGap: 4 }]}
+				slideGap='xl'
+				align='center'
+				slidesToScroll={mobile ? 1 : 2}
+				loop
+			>
+				{slides}
+			</Carousel>
+		);
 }
 
 export default CardsCarousel;

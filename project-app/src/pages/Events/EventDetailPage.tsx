@@ -1,17 +1,18 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button } from '@mantine/core';
+import { Card, Image, Text, Group, Badge, Button } from '@mantine/core';
+import logger from 'redux-logger';
 
 interface EventDetailType {
 	id: number;
 	title: string;
 	wage_offer: number;
-	start_date?: Date | null;
-	end_date?: Date | null;
+	start_date?: any;
+	end_date?: any;
 	rehearsal_needed: boolean;
-	start_time?: Date | null;
-	end_time?: Date | null;
+	start_time?: any;
+	end_time?: any;
 	image: string;
 	venue_image_name?: string;
 	description: string;
@@ -43,12 +44,45 @@ function EventDetail() {
 
 	return (
 		<div>
-			<p>{event?.title}</p>
-			<p>{event?.wage_offer}</p>
-			<p>{event?.description}</p>
-			<p>{event?.rehearsal_needed}</p>
-			<p>{event?.image}</p>
-			<p>{event?.venue_image_name}</p>
+			<Card withBorder radius='md' p='md'>
+				<Card.Section>
+					<Image src={event?.image} alt={event?.image} height={180} />
+				</Card.Section>
+
+				<Card.Section className={event?.title} mt='md'>
+					<Group position='apart'>
+						<Text size='lg' weight={500}>
+							{event?.title}
+						</Text>
+						<Badge size='sm'>{event?.location}</Badge>
+					</Group>
+					<Text size='sm' mt='xs'>
+						{event?.description}
+					</Text>
+
+					<Group spacing={7} mt={5}>
+						<Text size='sm' mt='xs'>
+							<div>START DATE :</div>
+							{event?.start_date}
+						</Text>
+
+						<Text size='sm' mt='xs'>
+							<div>END DATE :</div>
+							{event?.end_date}{' '}
+						</Text>
+
+						<Text size='sm' mt='xs'>
+							<div>START TIME :</div>
+							{event?.start_time}{' '}
+						</Text>
+
+						<Text size='sm' mt='xs'>
+							<div>END TIME :</div>
+							{event?.end_time}{' '}
+						</Text>
+					</Group>
+				</Card.Section>
+			</Card>
 
 			<Button
 				onClick={async (e) => {
@@ -61,6 +95,7 @@ function EventDetail() {
 						},
 					});
 					const result = await resp.json();
+					logger(result);
 					alert('Application successfully');
 					navigate('/events');
 				}}

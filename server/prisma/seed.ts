@@ -542,7 +542,6 @@ async function main() {
   await prisma.event.createMany({
     data: [
       {
-        performers_id: userId[0].performers[0].id,
         clients_id: userId[8].clients[0].id,
         title: "Wedding",
         wage_offer: 8888,
@@ -560,7 +559,6 @@ async function main() {
         date_published: new Date("2023-3-15"),
       },
       {
-        performers_id: userId[1].performers[0].id,
         clients_id: userId[11].clients[0].id,
         title: "百日宴",
         wage_offer: 8888,
@@ -578,7 +576,6 @@ async function main() {
         date_published: new Date("2023-3-10"),
       },
       {
-        performers_id: userId[1].performers[0].id,
         clients_id: userId[9].clients[0].id,
         title: "生日會",
         wage_offer: 4800,

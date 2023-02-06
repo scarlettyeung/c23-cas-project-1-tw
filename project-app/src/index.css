@@ -14,8 +14,26 @@ body {
 	z-index: 1;
 }
 
+.mantine-5f6x53 {
+	display: flex !important;
+	flex-direction: row !important;
+	flex-wrap: nowrap !important;
+}
+
+.mantine-ye2q1m {
+	border: 2px solid rgb(255 203 44);
+	display: flex !important;
+}
+.mantine-ye2q1m:hover {
+	background: rgb(245, 242, 202);
+}
+
+.Select-wrapper {
+	text-align: right !important;
+}
+
 button {
-	border-radius: 4px !important;
+	border-radius: 5px !important;
 	background-color: white !important;
 	color: #75a488 !important;
 	border: 2px solid #75a488 !important;

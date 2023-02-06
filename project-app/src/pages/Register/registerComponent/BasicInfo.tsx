@@ -1,9 +1,6 @@
 import { useState } from 'react';
-import { PasswordInput, TextInput, Text, Button } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { TextInput, Text, Button } from '@mantine/core';
 import '../../../styles/register.css';
-import { useDispatch } from 'react-redux';
-import { checkEmailValidation } from '../../../redux/auth';
 
 export type BasicData = {
 	email: string;
@@ -22,7 +19,6 @@ function BasicInfo({ email, password, username, updateFields }: UserFormProps) {
 	const [errStatement, setErrStatement] = useState('');
 	const [isShown, setIsShown] = useState(false);
 	const [isShown2, setIsShown2] = useState(false);
-	const dispatch = useDispatch();
 
 	return (
 		<>

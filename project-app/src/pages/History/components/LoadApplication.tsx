@@ -35,11 +35,11 @@ interface PerformerEventsType {
 	image: string;
 }
 
-enum ApplicationStatus {
-	Pending = 'pending',
-	Accept = 'accept',
-	Reject = 'reject',
-}
+// enum ApplicationStatus {
+// 	Pending = 'pending',
+// 	Accept = 'accept',
+// 	Reject = 'reject',
+// }
 
 function LoadApplication() {
 	let clientId = useRootSelector((state) => state.auth.clientId);
@@ -47,7 +47,6 @@ function LoadApplication() {
 	const [item, setItem] = useState<ClientEventsType[] | PerformerEventsType[] | null>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 	const theme = useMantineTheme();
-	const navigate = useNavigate();
 	useEffect(() => {
 		async function loadData() {
 			const jwt = localStorage.getItem('token');

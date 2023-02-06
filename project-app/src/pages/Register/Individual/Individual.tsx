@@ -101,7 +101,7 @@ function Individual() {
 						) : (
 							<Button className='register-back-none'>Back</Button>
 						)}
-						<a className='register-performer-pageShow'>
+						<a className='register-performer-pageShow' href=''>
 							{currentStepIndex + 1} / {steps.length}
 						</a>
 						<Button className='register-user-nextAndSubmit' type='submit'>

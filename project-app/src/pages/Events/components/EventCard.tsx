@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import { IconHeart } from '@tabler/icons';
-import { Card, Image, Text, Group, Badge, Button, ActionIcon, createStyles } from '@mantine/core';
+import { Card, Image, Text, Group, Badge, Button, createStyles } from '@mantine/core';
 import { getAllDataThunk } from '../../../redux/home';
 import { useRootDispatch, useRootSelector } from '../../../redux/store';
 import { PacmanLoader } from 'react-spinners';
@@ -52,17 +51,6 @@ export function BadgeCard({ image, title, description, country, badges }: BadgeC
 	useEffect(() => {
 		dispatch(getAllDataThunk());
 	}, [dispatch]);
-	const { classes, theme } = useStyles();
-
-	const features = badges.map((badge) => (
-		<Badge
-			color={theme.colorScheme === 'dark' ? 'dark' : 'gray'}
-			key={badge.label}
-			leftSection={badge.emoji}
-		>
-			{badge.label}
-		</Badge>
-	));
 
 	return (
 		<>

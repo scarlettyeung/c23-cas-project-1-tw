@@ -15,6 +15,7 @@ import { TimeInput, DatePicker } from '@mantine/dates';
 import { useForm } from 'react-hook-form';
 import '../../../styles/event.css';
 import { useNavigate } from 'react-router-dom';
+import logger from 'redux-logger';
 
 const useStyles = createStyles((theme) => {
 	const BREAKPOINT = theme.fn.smallerThan('sm');
@@ -158,6 +159,7 @@ export function CreateEvents() {
 						body: formData,
 					});
 					const result = await resp.json();
+					logger(result);
 					alert('Create Event successfully!');
 					navigate('/events');
 				})}

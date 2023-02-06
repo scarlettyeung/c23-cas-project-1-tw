@@ -1,8 +1,6 @@
 import { SpotlightProvider, openSpotlight, SpotlightActionProps } from '@mantine/spotlight';
 import type { SpotlightAction } from '@mantine/spotlight';
-
-import { IconHome, IconDashboard, IconFileText, IconSearch } from '@tabler/icons';
-import { createStyles, Badge, Text, Image, Button, Center, Group, Select } from '@mantine/core';
+import { createStyles, Badge, Text, Image, Button, Center, Group } from '@mantine/core';
 const { REACT_APP_IMAGE_BASE } = process.env;
 interface PropsType {
 	data: SpotlightAction[];

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { SegmentedControl } from '@mantine/core';
 import PageBody from './PageBody';
 import { PropsDownAllData } from '../../../utils/EprofileType';
