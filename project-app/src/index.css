@@ -33,7 +33,20 @@ body {
 	text-align: right !important;
 }
 
-button {
+.sbar{
+	display: flex;
+    flex-direction: column;
+}
+
+.withoutMainBtn{
+display: flex;
+    flex-direction: column;
+    width: -webkit-fill-available;
+    background-color: white;
+    color: black;
+}
+
+button:not(.withoutMainBtn) {
 	border-radius: 5px !important;
 	background-color: black !important;
 	color: rgb(255 203 44) !important;

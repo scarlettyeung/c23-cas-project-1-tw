@@ -30,7 +30,8 @@ export class EventController {
           res.status(400).json({ message: "[uploadImage] Fail" })
           return
         }
-        if (!files["image"]) {
+        console.dir(files)
+        if (!files["cardImage"]) {
           return res.status(400).json({ message: "[uploadImage] missing file" })
         } else {
           if (!fields.title || !fields.wage_offer || !fields.rehearsal_needed) {
@@ -44,7 +45,7 @@ export class EventController {
           const clients_id = payload.clientId
           const start_time = new Date(fields.start_time as string)
           const end_time = new Date(fields.end_time as string)
-          const image = files.image as formidable.File | undefined
+          const image = files.cardImage as formidable.File | undefined
 
           console.log(clients_id)
           console.log(fields.title)

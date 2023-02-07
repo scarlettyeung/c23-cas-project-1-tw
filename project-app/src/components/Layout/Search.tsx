@@ -55,6 +55,7 @@ export function Search() {
 					</Text>
 				</Badge>
 				<Select
+					className='sbar'
 					rightSection={<IconChevronDown size={14} />}
 					rightSectionWidth={25}
 					styles={{ rightSection: { pointerEvents: 'none' } }}

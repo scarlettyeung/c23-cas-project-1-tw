@@ -1,8 +1,7 @@
 import { SpotlightProvider, openSpotlight, SpotlightActionProps } from '@mantine/spotlight';
 import type { SpotlightAction } from '@mantine/spotlight';
-import { createStyles, Badge, Text, Image, Button, Center, Group } from '@mantine/core';
+import { createStyles, Badge, Text, Avatar, Button, Center, Group } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
-
 const { REACT_APP_IMAGE_BASE } = process.env;
 interface PropsType {
 	data: SpotlightAction[];
@@ -36,23 +35,22 @@ function CustomAction({
 	const { classes, cx } = useStyles();
 	return (
 		<Button
-			className={cx(classes.action)}
+			className={(cx(classes.action), 'withoutMainBtn')}
 			tabIndex={-1}
 			onMouseDown={(event) => event.preventDefault()}
 			onClick={onTrigger}
 			{...others}
 		>
 			<Group noWrap>
-				{action.image && (
-					<Center>
-						<Image
-							src={`${REACT_APP_IMAGE_BASE}/${action.image}`}
-							alt={action.title}
-							width={50}
-							height={50}
-						/>
-					</Center>
-				)}
+				<Center>
+					<Avatar
+						src={`${REACT_APP_IMAGE_BASE}/${action.image}`}
+						alt={action.title}
+						// width={50}
+						// height={50}
+						key={`s_${action.image}_${action.id}`}
+					/>
+				</Center>
 
 				<div style={{ flex: 1 }}>
 					<Text>{action.title}</Text>

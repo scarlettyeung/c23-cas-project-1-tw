@@ -49,7 +49,7 @@ export class EventService {
     start_time: Date,
     end_time: Date,
     rehearsal_needed: any,
-    image: string | undefined,
+    cardImage: string | undefined,
     description: string,
     location: string
   ) {
@@ -66,7 +66,7 @@ export class EventService {
           start_time: start_time,
           end_time: end_time,
           rehearsal_needed: rehearsal_needed,
-          image: image,
+          image: cardImage,
           description: description,
           location: location,
           status: "valid",
