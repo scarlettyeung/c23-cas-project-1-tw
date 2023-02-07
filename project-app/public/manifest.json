@@ -28,8 +28,9 @@
       "type": "image/png"
   }
 	],
-	"start_url": "/",
+	"start_url": "./",
 	"display": "standalone",
+  "scope": "./",
 	"theme_color": "#000000",
 	"background_color": "#ffffff"
 }
