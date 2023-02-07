@@ -1,4 +1,5 @@
 import { Select, TextInput, Text } from '@mantine/core';
+import { IconCircleLetterG, IconCircleLetterN, IconMail, IconPhone } from '@tabler/icons';
 // enum Gender {
 //   Male = "male",
 //   Female = "female",
@@ -29,6 +30,7 @@ function IndividualInfo({
 		<div>
 			<Text style={{ fontSize: 25, marginBottom: 20 }}>Detail Information</Text>
 			<TextInput
+			icon={<IconCircleLetterN size={20} />}
 				size='lg'
 				placeholder='Enter Your First Name'
 				className='register-input'
@@ -40,6 +42,7 @@ function IndividualInfo({
 				onChange={(e) => updateFields({ firstName: e.target.value })}
 			/>
 			<TextInput
+			icon={<IconCircleLetterN size={20} />}
 				size='lg'
 				placeholder='Enter Your Last Name'
 				className='register-input'
@@ -50,6 +53,7 @@ function IndividualInfo({
 				onChange={(e) => updateFields({ lastName: e.target.value })}
 			/>
 			<TextInput
+			icon={<IconPhone size={20} />}
 				size='lg'
 				className='register-input'
 				label='Contact Number'
@@ -63,6 +67,7 @@ function IndividualInfo({
 				onChange={(e) => updateFields({ contact: e.target.value })}
 			/>
 			<TextInput
+			icon={<IconMail size={20} />}
 				size='lg'
 				className='register-input'
 				label='Contact Email'
@@ -71,6 +76,7 @@ function IndividualInfo({
 				onChange={(e) => updateFields({ contactEmail: e.target.value })}
 			/>
 			<Select
+			icon={<IconCircleLetterG size={20} />}
 				size='lg'
 				className='register-input'
 				required

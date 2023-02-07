@@ -1,4 +1,5 @@
 import { Select, TextInput } from '@mantine/core';
+import { IconBuildingSkyscraper, IconPhone, IconMail, IconMap2, Icon123, IconWorldWww, IconListDetails, IconCircleLetterG } from '@tabler/icons';
 import '../../../../styles/register.css';
 
 export type PerformData = {
@@ -33,6 +34,7 @@ function CorporateInfo({
 			{/* <label>Company Name</label>
       <input autoFocus required type="text" value={companyName} onChange={e => updateFields({ companyName: e.target.value })} /> */}
 			<TextInput
+			icon={<IconBuildingSkyscraper size={20} />}
 				size='lg'
 				label='Company Name'
 				className='register-input'
@@ -43,6 +45,7 @@ function CorporateInfo({
 				onChange={(e) => updateFields({ companyName: e.target.value })}
 			/>
 			<TextInput
+			icon={<IconPhone size={20} />}
 				size='lg'
 				className='register-input'
 				label='Contact Number'
@@ -56,6 +59,7 @@ function CorporateInfo({
 				onChange={(e) => updateFields({ contact: e.target.value })}
 			/>
 			<TextInput
+			icon={<IconMail size={20} />}
 				size='lg'
 				className='register-input'
 				label='Contact Email'
@@ -64,6 +68,8 @@ function CorporateInfo({
 				onChange={(e) => updateFields({ contactEmail: e.target.value })}
 			/>
 			<TextInput
+			icon={<IconMap2 size={20} />}
+			
 				size='lg'
 				className='register-input'
 				label='Business Address'
@@ -74,6 +80,7 @@ function CorporateInfo({
 				onChange={(e) => updateFields({ businessAddress: e.target.value })}
 			/>
 			<TextInput
+			icon={<Icon123 size={20} />}
 				size='lg'
 				className='register-input'
 				label='BR Number'
@@ -84,6 +91,7 @@ function CorporateInfo({
 				onChange={(e) => updateFields({ bRNumber: e.target.value })}
 			/>
 			<TextInput
+			icon={<IconWorldWww size={20} />}
 				size='lg'
 				className='register-input'
 				label='Website'
@@ -93,6 +101,7 @@ function CorporateInfo({
 				onChange={(e) => updateFields({ website: e.target.value })}
 			/>
 			<TextInput
+			icon={<IconListDetails size={20}/>}
 				size='lg'
 				className='register-input'
 				label='Description'
@@ -102,6 +111,7 @@ function CorporateInfo({
 				onChange={(e) => updateFields({ description: e.target.value })}
 			/>
 			<Select
+			icon={<IconCircleLetterG size={20} />}
 				size='lg'
 				className='register-input'
 				required

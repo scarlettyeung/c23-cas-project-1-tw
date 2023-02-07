@@ -1,6 +1,6 @@
 import '../../../../styles/register.css';
 import { Select, TextInput, Text, NumberInput } from '@mantine/core';
-import { IconCircleLetterN, IconPhone, Icon123, IconMail } from '@tabler/icons';
+import { IconCircleLetterN, IconPhone, Icon123, IconMail, IconCircleLetterG,IconListDetails, IconBrandMeta, IconBrandYoutube, IconBrandTwitter, IconBrandInstagram } from '@tabler/icons';
 
 export type PerformData = {
 	firstName: string;
@@ -113,6 +113,7 @@ function PerformerInfo({
 				}
 			/>
 			<Select
+			icon={<IconCircleLetterG size={20} />}
 				size='lg'
 				className='register-input'
 				required
@@ -128,6 +129,7 @@ function PerformerInfo({
 				}}
 			/>
 			<TextInput
+			icon={<IconListDetails size={20}/>}
 				size='lg'
 				className='register-input'
 				label='Description'
@@ -137,6 +139,7 @@ function PerformerInfo({
 				onChange={(e) => updateFields({ description: e.target.value })}
 			/>
 			<TextInput
+			icon={<IconBrandMeta size={20}/>}
 				size='lg'
 				className='register-input'
 				label='FaceBook Link'
@@ -146,6 +149,7 @@ function PerformerInfo({
 				onChange={(e) => updateFields({ facebookURL: e.target.value })}
 			/>
 			<TextInput
+			icon={<IconBrandTwitter size={20}/>}
 				size='lg'
 				className='register-input'
 				label='Twitter Link'
@@ -155,6 +159,7 @@ function PerformerInfo({
 				onChange={(e) => updateFields({ twitterURL: e.target.value })}
 			/>
 			<TextInput
+			icon={<IconBrandYoutube size={20}/>}
 				size='lg'
 				className='register-input'
 				label='YouTube Link'
@@ -164,6 +169,7 @@ function PerformerInfo({
 				onChange={(e) => updateFields({ youtubeURL: e.target.value })}
 			/>
 			<TextInput
+			icon={<IconBrandInstagram size={20}/>}
 				size='lg'
 				className='register-input'
 				label='Instagram Link'
