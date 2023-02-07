@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Card, Image, Text, Group, Badge, Button } from '@mantine/core';
 import logger from 'redux-logger';
-
 interface EventDetailType {
 	id: number;
 	title: string;
@@ -49,46 +48,51 @@ function EventDetail() {
 		<div>
 			<Card withBorder radius='md' p='md'>
 				<Card.Section>
-					<Image src={event?.image} alt={event?.image} height={180} />
+					<Image src={`${process.env.REACT_APP_IMAGE_BASE}/${event?.image}`} alt='' height={180} />
 				</Card.Section>
 
 				<Card.Section className={event?.title} mt='md'>
-					<Group position='apart'>
+				
+					<div className='event-detailPage-titleDescription'>
+					<Badge size='sm'>{event?.location}</Badge>
+					<Group >
+					{/* <Badge size='sm'>{event?.location}</Badge> */}
 						<Text size='lg' weight={500}>
 							{event?.title}
 						</Text>
-						<Badge size='sm'>{event?.location}</Badge>
+						{/* <Badge size='sm'>{event?.location}</Badge> */}
 					</Group>
 					<Text size='sm' mt='xs'>
 						{event?.description}
 					</Text>
+					</div>
 
-					<Group spacing={7} mt={5}>
+					<Group spacing={7} mt={5} className="event-detailPage-dateTime">
 						<Text size='sm' mt='xs'>
 							<div>START DATE :</div>
-							{event?.start_date}
+							{(new Date(event?.start_date).getFullYear())+'-'+(new Date(event?.start_date).getMonth()+1)+"-"+(new Date(event?.start_date).getDate())}
 						</Text>
 
 						<Text size='sm' mt='xs'>
 							<div>END DATE :</div>
-							{event?.end_date}{' '}
+							{(new Date(event?.end_date).getFullYear())+'-'+(new Date(event?.end_date).getMonth()+1)+"-"+(new Date(event?.end_date).getDate())}{' '}
 						</Text>
 
 						<Text size='sm' mt='xs'>
 							<div>START TIME :</div>
-							{event?.start_time}{' '}
+							{(new Date(event?.start_time).getHours())+':'+(new Date(event?.start_time).getMinutes())+":"+(new Date(event?.start_time).getSeconds())}
 						</Text>
 
 						<Text size='sm' mt='xs'>
 							<div>END TIME :</div>
-							{event?.end_time}{' '}
+							{(new Date(event?.end_time).getHours())+':'+(new Date(event?.end_time).getMinutes())+":"+(new Date(event?.end_time).getSeconds())}
 						</Text>
 					</Group>
 				</Card.Section>
 			</Card>
-
-			<Button
-				onClick={async (e) => {
+			<div style={{display:"flex",justifyContent:"center", marginTop:"2vh"}}>
+			<Button 
+				onClick={async () => {
 					const path = process.env.REACT_APP_API_BASE;
 					const jwt = localStorage.getItem('token');
 					const resp = await fetch(`${path}events/${eventId.eventsId}`, {
@@ -105,6 +109,7 @@ function EventDetail() {
 			>
 				Apply
 			</Button>
+			</div>
 		</div>
 	);
 }

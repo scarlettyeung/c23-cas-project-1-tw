@@ -75,14 +75,15 @@ function PerformersDisplay(props: performerInfo) {
             <Text fw={700} ta='left' tt='uppercase'>
               Birthday:
             </Text>
-            <DatePicker
+            <Text c='dimmed'>{(new Date(userInfo.birthday!).getFullYear()) + "/" + (new Date(userInfo.birthday!).getMonth() + 1)+"/"+ new Date(userInfo.birthday!).getDate()}</Text>
+            {/* <DatePicker
               c='dimmed'
               placeholder='Pick date'
               value={new Date(userInfo.birthday!)}
               variant='unstyled'
               className={classes.datePicker}
               readOnly
-            />
+            /> */}
           </div>
           <div className='userDisplay'>
             <Text fw={700} ta='left' tt='uppercase'>

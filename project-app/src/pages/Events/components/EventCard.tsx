@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Card, Image, Text, Group, Badge, Button } from '@mantine/core';
+import { Card, Image, Text, Group, Badge, Button, Flex } from '@mantine/core';
 import { getAllDataThunk } from '../../../redux/home';
 import { useRootDispatch, useRootSelector } from '../../../redux/store';
 import { PacmanLoader } from 'react-spinners';
@@ -46,7 +46,7 @@ export function BadgeCard({ image, title, description, country, badges }: BadgeC
 									</Card.Section>
 
 									<Card.Section className='Card' mt='md'>
-										<Group position='apart'>
+										<Group position='apart' style={{marginLeft:"5vw", marginRight:"5vw"}}>
 											<Text size='lg' weight={500}>
 												{event.title}
 											</Text>
@@ -54,15 +54,15 @@ export function BadgeCard({ image, title, description, country, badges }: BadgeC
 										</Group>
 
 										<Card.Section className='Card'>
-											<Group spacing={7} mt={5}>
+											<Group spacing={7} mt={5} style={{display:"flex", justifyContent:"center"}}>
 												<Text mt='md' className='Card' color='dimmed'>
 													{event.description}
 												</Text>
 											</Group>
 										</Card.Section>
 
-										<Group mt='xs'>
-											<Link to={`/events/${event.id}`}>
+										<Group mt='xs' style={{display:"flex", justifyContent:"center", marginBottom:"3vh"}}>
+											<Link to={`/events/${event.id}`} >
 												<Button btn-id={event.id} uppercase>
 													Show details
 												</Button>

@@ -27,11 +27,7 @@
 	margin: 10px !important;
 }
 
-.User-EditButtonGroup {
-	background-color: #55836f !important;
-	border-color: #55836f !important;
-	color: white !important;
-}
+
 
 button:hover {
 	background-color: white !important;
