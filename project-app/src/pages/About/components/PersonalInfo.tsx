@@ -169,6 +169,7 @@ function PersonalInfo(props: UserInfoProps) {
 				<Card.Section sx={{ height: 20 }} />
 				<Title order={2}>Corporate Clients Info</Title>
 				<Avatar size={150} radius={80} mx='auto'>
+				<div style={{marginTop:"2vh"}}></div>
 					<UserBtnGroup />
 					{corporateClientsInfo.icon ? (
 						<img
@@ -179,6 +180,7 @@ function PersonalInfo(props: UserInfoProps) {
 						<img src={`${REACT_APP_IMAGE_BASE}/defaultImage.jpg`} alt={'defaultImage.jpg'} />
 					)}
 				</Avatar>
+				<div style={{display:"flex",flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
 				<Text align='left' size='lg' weight={500} mt='sm'>
 					USER NAME : {corporateClientsInfo.username}
 				</Text>
@@ -213,6 +215,7 @@ function PersonalInfo(props: UserInfoProps) {
 						)}
 					</Text>
 				</div>
+				</div>
 			</Card>
 		);
 	}
@@ -232,7 +235,9 @@ function PersonalInfo(props: UserInfoProps) {
 						<img src={`${REACT_APP_IMAGE_BASE}/defaultImage.jpg`} alt={'defaultImage.jpg'} />
 					)}
 				</Avatar>
+				<div style={{marginTop:"2vh"}}></div>
 				<UserBtnGroup />
+				<div style={{display:"flex",flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
 				<Text align='left' size='lg' weight={500} mt='sm'>
 					USER NAME : {individualClientsInfo.username}
 				</Text>
@@ -252,6 +257,7 @@ function PersonalInfo(props: UserInfoProps) {
 							<div>No Event</div>
 						)}
 					</Text>
+				</div>
 				</div>
 			</Card>
 		);
