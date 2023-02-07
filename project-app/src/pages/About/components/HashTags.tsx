@@ -8,11 +8,11 @@ function HashTags(props: HashTagsProps) {
 	return (
 		<>
 			<div className='EventHistory'>
-				<Title align='left' order={4}>
+				<Title align='center' order={4}>
 					HASH TAGS
 				</Title>
 
-				<Flex mih={50} gap='xs' justify='flex-start' align='flex-start' direction='row' wrap='wrap'>
+				<Flex mih={50} gap='xs' justify='center' align='center' direction='row' wrap='wrap'>
 					{props.tags &&
 						props.tags.map((tag) => (
 							<div className='HashTagsKey' key={`userTag_${tag.id}`}>

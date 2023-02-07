@@ -21,9 +21,14 @@
 			"src": "joasisLogo.png",
 			"type": "image/png",
 			"sizes": "512x512"
-		}
+		},
+    {
+      "src": "joasisLogo.png",
+      "sizes": "250x250",
+      "type": "image/png"
+  }
 	],
-	"start_url": ".",
+	"start_url": "/",
 	"display": "standalone",
 	"theme_color": "#000000",
 	"background_color": "#ffffff"
