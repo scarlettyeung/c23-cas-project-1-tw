@@ -1,4 +1,4 @@
-import { Badge, Group, Title, Flex } from '@mantine/core';
+import { Badge, Title, Flex } from '@mantine/core';
 import { HashTag } from '../../../utils/userInfoType';
 
 type HashTagsProps = {
@@ -7,7 +7,6 @@ type HashTagsProps = {
 function HashTags(props: HashTagsProps) {
 	return (
 		<>
-			{/* <Group position='center' spacing='lg'> */}
 			<div className='EventHistory'>
 				<Title align='left' order={4}>
 					HASH TAGS
@@ -24,7 +23,6 @@ function HashTags(props: HashTagsProps) {
 						))}
 				</Flex>
 			</div>
-			{/* </Group> */}
 		</>
 	);
 }

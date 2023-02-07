@@ -67,12 +67,12 @@ export class HomeService {
         },
         take: 10,
       })
-      await this.prisma.$disconnect()
+      // await this.prisma.$disconnect()
       logger.info(performers)
       return performers
     } catch (e) {
       logger.info(e)
-      await this.prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -118,11 +118,12 @@ export class HomeService {
           },
         },
       })
-      await this.prisma.$disconnect()
+      console.dir(tags)
+      // await this.prisma.$disconnect()
       return tags
     } catch (e) {
       logger.info(e)
-      await this.prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }

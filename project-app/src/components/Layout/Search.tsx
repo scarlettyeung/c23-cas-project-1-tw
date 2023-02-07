@@ -46,6 +46,8 @@ export function Search() {
 			return performerData;
 		});
 		const toOneArr: SpotlightAction[] = mapPerformerHashtag.flat(2);
+		console.log('performerData toOneArr');
+		console.dir(toOneArr);
 		return (
 			<Group>
 				<Badge color='gray' size='xl' variant='outline'>
@@ -81,7 +83,7 @@ export function Search() {
 		hashtagArr as FetchEventDataType[];
 		const mapEventHashtag = hashtagArr.map((TagObj) => {
 			const eventData = TagObj.events_hashtags.map((data) => {
-				console.log(TagObj.name, data.events.title);
+				console.log(data);
 				return {
 					id: `${TagObj.name}_${data.events.id}`,
 					title: data.events.title,
@@ -96,6 +98,8 @@ export function Search() {
 			return eventData;
 		});
 		const toOneArr: SpotlightAction[] = mapEventHashtag.flat(2);
+		console.log('event data toOneArr');
+		console.dir(toOneArr);
 		return (
 			<Group>
 				<Badge color='gray' size='xl' variant='outline'>

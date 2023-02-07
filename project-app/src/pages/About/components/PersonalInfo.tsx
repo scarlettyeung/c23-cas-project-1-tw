@@ -1,6 +1,5 @@
 import HashTags from './HashTags';
 import EventInfo from './EventInfo';
-import { useRootSelector } from '../../../redux/store';
 import {
 	PerformanceInfo,
 	CorporateClientsInfo,

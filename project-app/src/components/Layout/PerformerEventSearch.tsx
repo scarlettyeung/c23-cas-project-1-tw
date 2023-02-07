@@ -33,6 +33,7 @@ function CustomAction({
 	...others
 }: SpotlightActionProps) {
 	const { classes, cx } = useStyles();
+	console.log(action.title);
 	return (
 		<Button
 			className={(cx(classes.action), 'withoutMainBtn')}
@@ -46,8 +47,6 @@ function CustomAction({
 					<Avatar
 						src={`${REACT_APP_IMAGE_BASE}/${action.image}`}
 						alt={action.title}
-						// width={50}
-						// height={50}
 						key={`s_${action.image}_${action.id}`}
 					/>
 				</Center>
@@ -69,13 +68,14 @@ function CustomAction({
 }
 
 function PerformerEventSearch(props: PropsType) {
+	console.dir(props.data);
 	return (
 		<>
 			<SpotlightProvider
 				actions={props.data}
 				actionComponent={CustomAction}
+				limit={7}
 				searchPlaceholder='Search...'
-				shortcut='mod + shift + 1'
 				nothingFoundMessage='Nothing found...'
 			>
 				<SpotlightControl />
