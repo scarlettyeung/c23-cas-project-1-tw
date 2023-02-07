@@ -19,3 +19,14 @@
 	background: #fef289;
 	color: #000;
 }
+
+.event-detailPage-dateTime{
+	display: flex;
+    justify-content: center;
+}
+
+.event-detailPage-titleDescription{
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+}

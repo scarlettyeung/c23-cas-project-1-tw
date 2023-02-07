@@ -23,7 +23,6 @@ const uploadDir = "./uploads"
 fs.mkdirSync(uploadDir, { recursive: true })
 
 let counter = 0
-
 export const form = formidable({
   uploadDir,
   keepExtensions: true,

@@ -3,7 +3,6 @@ version: "3"
 services:
   db:
     image: "postgres:13"
-    user: postgres
     healthcheck:
       test: /usr/bin/pg_isready
       interval: 5s
@@ -23,10 +22,10 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    build:
-      context: ./
-      dockerfile: ./Dockerfile
-    image: "jserver"
+    # build:
+    #   context: ./
+    #   dockerfile: ./Dockerfile
+    image: "scarlettymw/scarlett:latest"
     ports:
       - "8080:8080"
       - "5555:5555"

@@ -5,7 +5,7 @@ import { EventsCard } from './components/EventsCard';
 function Home() {
 	return (
 		<div className='Body'>
-			<div className='Title'>PERFORMANCE</div>
+			<div className='Title'>PERFORMERS</div>
 			<CardsCarousel />
 			<div className='Title'>EVENTS</div>
 			<EventsCard />
