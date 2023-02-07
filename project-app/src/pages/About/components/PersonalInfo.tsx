@@ -61,6 +61,7 @@ function PersonalInfo(props: UserInfoProps) {
 					)}
 				</Avatar>
 				<UserBtnGroup />
+				<div style={{display:"flex",flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
 				<Text align='left' size='lg' weight={500} mt='sm'>
 					USER NAME : {performanceInfo.username}
 				</Text>
@@ -75,17 +76,17 @@ function PersonalInfo(props: UserInfoProps) {
 				</Text>
 				<Text align='left' size='lg' weight={500} mt='sm'>
 					SCORE (EVENTS) :{' '}
-					<Group align='left'>
+					<Group align='center'>
 						<Rating defaultValue={performanceInfo.avg_score} readOnly />
 						<div> ({performanceInfo.sum_of_even}) </div>
 					</Group>
 				</Text>
-
-				<>
+				<Text style={{display:"flex", justifyContent:"center"}}>
 					{performanceInfo.performers_hashtags && (
 						<HashTags tags={performanceInfo.performers_hashtags} />
 					)}
-				</>
+				</Text>
+				</div>
 
 				<div className='IconGroup'>
 					{fb ? (
