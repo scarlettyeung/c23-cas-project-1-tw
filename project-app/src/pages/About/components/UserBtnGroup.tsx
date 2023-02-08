@@ -32,7 +32,7 @@ function UserBtnGroup() {
 	}, [uuid]);
 	return (
 		<>
-			<Group position='center' spacing='xl'>
+			<Group position='center'  spacing='xl'>
 				{uuidFromState !== uuid && (
 					<ActionIcon
 						key={1}

@@ -8,7 +8,6 @@ function NotFound() {
 	useEffect(() => {
 		const timerToHome = setTimeout(() => {
 			navigate('/');
-			console.log('1231');
 		}, 5000);
 
 		return () => {
@@ -24,14 +23,14 @@ function NotFound() {
 		return () => {
 			clearTimeout(timerToCount);
 		};
-	});
+	}, [time]);
 
 	return (
-		<>
+		<div>
 			<h1>404 Not Found</h1>
-			<br></br>
-			<h1>will go home after {time}s</h1>
+			<img src='../../public/404.jpeg' alt=''></img>
 
+			<div>Will Go back at {time}s</div>
 			<button
 				onClick={() => {
 					navigate('/');
@@ -39,7 +38,7 @@ function NotFound() {
 			>
 				back to home
 			</button>
-		</>
+		</div>
 	);
 }
 

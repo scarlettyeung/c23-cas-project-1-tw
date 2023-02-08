@@ -31,12 +31,12 @@ function PerformerHash({ tagId, updateFields }: UserFormProps) {
 
 	return (
 		<div>
-			<div style={{ fontSize: 25, marginBottom: 20 }}>Choose upto 5 hashtags</div>
+			<div style={{ fontSize: 25, marginBottom: 20 }}>Choose up to 5 hashtags</div>
 
 			{tags.map((tag) => (
 				<Badge
 					key={tag.tagId}
-					onClick={(e) => {
+					onClick={() => {
 						console.log('check id', tag.tagId);
 						let arr = [...ids];
 						if (arr.includes(tag.tagId)) {
