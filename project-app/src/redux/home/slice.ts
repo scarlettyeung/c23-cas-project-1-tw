@@ -23,7 +23,6 @@ const homeSlice = createSlice({
 				state.loading = 'succeeded';
 				state.eventArr = action.payload.events;
 				state.performersArr = action.payload.performers;
-				console.log('show me fucking bitch!', action);
 			}),
 });
 
