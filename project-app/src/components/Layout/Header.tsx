@@ -15,13 +15,25 @@ function Header() {
 	// const path = process.env.REACT_APP_API_BASE;
 	// if (typeof EventSource !== 'undefined' && path) {
 	// 	const sse = new EventSource(path, { withCredentials: true });
-	// 	sse.onmessage = function (event) {
-	// 		const newElement = document.createElement('li');
-	// 		const eventList = document.getElementById('list');
 
-	// 		newElement.innerHTML = 'message: ' + event.data;
-	// 		if (newElement && eventList) eventList.appendChild(newElement);
+	// 	sse.onmessage = function (e) {
+	// 		console.log(e.data);
 	// 	};
+	// 	// source.addEventListener(
+	// 	// 	'message',
+	// 	// 	function (e) {
+	// 	// 		console.log(e.data);
+	// 	// 	},
+	// 	// 	false,
+	// 	// );
+
+	// 	// sse.onmessage = function (event) {
+	// 	// 	const newElement = document.createElement('li');
+	// 	// 	const eventList = document.getElementById('list');
+
+	// 	// 	newElement.innerHTML = 'message: ' + event.data;
+	// 	// 	if (newElement && eventList) eventList.appendChild(newElement);
+	// 	// };
 	// } else {
 	// 	alert('browser does not support sse function, message may not be received');
 	// }
@@ -60,6 +72,7 @@ function Header() {
 					</Text>
 				</Badge>
 				<Select
+					className='sbar'
 					rightSection={<IconChevronDown size={14} />}
 					rightSectionWidth={25}
 					placeholder='Pick one'
@@ -75,7 +88,9 @@ function Header() {
 					}}
 				/>
 				<Search query={query} hashtagArr={hashtagArr} />
-				<Logout />
+				<div className='logOut-Btn'>
+					<Logout />
+				</div>
 			</Group>
 		</div>
 	);

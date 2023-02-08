@@ -2,6 +2,7 @@ import dotenv from "dotenv"
 dotenv.config()
 
 import express from "express"
+// import express, { Request, Response } from "express"
 import { logger } from "./utils/logger"
 import cors from "cors"
 import { PrismaClient } from "@prisma/client"
@@ -10,16 +11,28 @@ import { routes } from "./routes"
 import formidable from "formidable"
 import fs from "fs"
 
+const originPath = process.env.REACT_APP_API_PATH ?? "http://localhost:3000"
 const app = express()
 app.use(express.json())
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: [originPath],
     credentials: true,
   })
 )
 app.use(routes)
 app.use(express.static("./uploads"))
+
+///// test for sse
+// function sendServerSendEvent(req: Request, res: Response) {
+//   res.writeHead(200, {
+//     "Content-Type": "text/event-stream",
+//     "Cache-Control": "no-cache",
+//     Connection: "keep-alive",
+//   })
+// }
+
+///// test for sse
 
 // formidable
 const uploadDir = "./uploads"

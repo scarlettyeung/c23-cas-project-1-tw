@@ -55,9 +55,9 @@ export function Search({ query, hashtagArr }: propsType) {
 		});
 
 		return (
-			<>
+			<div className='search-Btn'>
 				<PerformerEventSearch data={toOneArr} />
-			</>
+			</div>
 		);
 	} else if (query === SearchTagType.Event && hashtagArr) {
 		hashtagArr as FetchEventDataType[];
@@ -80,9 +80,9 @@ export function Search({ query, hashtagArr }: propsType) {
 		const toOneArr: SpotlightAction[] = mapEventHashtag.flat(2);
 
 		return (
-			<>
+			<div className='search-Btn'>
 				<PerformerEventSearch data={toOneArr} />
-			</>
+			</div>
 		);
 	}
 	return <div className='SearchBox'>err</div>;
