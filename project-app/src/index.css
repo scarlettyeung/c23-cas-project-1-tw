@@ -74,17 +74,7 @@ button:hover, button:active {
   text-transform: uppercase;
 }
 
-/* container */
-.container {
-  position: absolute;
-  top: var(--header-hight);
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 24px 24px calc(90px + 36px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  overflow: auto;
+.errorImage{
+  size: 100%;
 }
+
