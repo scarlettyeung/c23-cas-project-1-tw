@@ -30,3 +30,45 @@
 	margin: 10px !important;
 }
 
+.UserBtnGroup_BtnGp {
+  background-color: #000000;
+	padding: 1vh;
+	color: #FFFFFF;
+  text-transform: uppercase;
+	border-radius: 5px;
+  width: 30vw;
+  gap: 5vw;
+}
+
+.Eprofile__Text {
+  text-transform: uppercase;
+  font-weight: bolder;
+  font-size: x-large;
+}
+
+.Eprofile__create_EProfile {
+  margin-top: 20px;
+  background-color: #000000;
+	padding: 1vh;
+	color: #FFFFFF;
+  text-transform: uppercase;
+	border-radius: 5px;
+  width: 40vw;
+  gap: 5vw;
+}
+
+.Client-EditButtonGroup {
+  margin-top: 20px;
+  background-color: #000000;
+	padding: 1vh;
+	color: #FFFFFF;
+  text-transform: uppercase;
+	border-radius: 5px;
+  width: 20vw;
+  gap: 5vw;
+}
+
+.EditButtonGroup{
+  display: flex;
+}
+

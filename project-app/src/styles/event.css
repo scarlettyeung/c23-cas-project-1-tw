@@ -56,3 +56,13 @@
 	border-radius: 5px;
   width: 70%;
 }
+
+.EventInfo__Details_Btn{
+  background-color: #000000;
+	padding: 1vh;
+	color: #FFFFFF;
+  text-transform: uppercase;
+	border-radius: 5px;
+  width: 20vw;
+  gap: 5vw;
+}

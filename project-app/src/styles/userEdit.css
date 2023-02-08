@@ -27,9 +27,19 @@
 	margin: 10px !important;
 }
 
-
-
 button:hover {
 	background-color:#000 !important;
   border: #000 !important;
+}
+
+.User-EditButtonGroup {
+  margin-top: 20px;
+  background-color: #000000;
+	padding: 1vh;
+	color: #FFFFFF;
+  text-transform: uppercase;
+	border-radius: 5px;
+  width: 40vw;
+  gap: 5vw;
+
 }
