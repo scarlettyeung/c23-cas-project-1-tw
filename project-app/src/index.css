@@ -39,27 +39,6 @@ body {
     flex-direction: column;
 }
 
-.withoutMainBtn{
-display: flex;
-    flex-direction: column;
-    width: -webkit-fill-available;
-    background-color: white;
-    color: black;
-}
-
-button:not(.withoutMainBtn) {
-	border-radius: 5px !important;
-	background-color: black !important;
-	color: rgb(255 203 44) !important;
-	border: 2px solid black !important;
-  font-weight:bold !important;
-}
-
-button:hover, button:active {
-	background-color:rgb(255 203 44);
-	color: black !important;
-  border: 2px solid black !important;
-}
 
 .HeaderLogo {
 	width: 50px;
@@ -87,3 +66,4 @@ button:hover, button:active {
   padding-bottom: 3vw;
   border-top: 1px solid rgba(128, 128, 128, 0.283) ;
 }
+
