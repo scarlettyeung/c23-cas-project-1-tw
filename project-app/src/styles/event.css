@@ -20,13 +20,24 @@
 	color: #000;
 }
 
-.event-detailPage-dateTime{
-	display: flex;
-    justify-content: center;
+.event-detailPage-titleDescription {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-left: 3vw;
+  padding-right: 3vw;
 }
 
-.event-detailPage-titleDescription{
-	display: flex;
-	flex-direction: column;
-    align-items: center;
+.event-title-tag {
+  display: flex;
+}
+
+.mantine-17sxzhi{
+  flex-direction: column
+}
+
+.detail-Time{
+  display: flex;
+  justify-content: space-between;
 }
