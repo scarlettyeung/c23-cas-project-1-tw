@@ -32,13 +32,13 @@ export default function Register() {
   };
 
   return (
-    <div className='register-outerDiv'>
-      <img className='register-logo' src='../../joasisLogo.png' alt='Joasis logo' />
-      <div className='register-content'>Choose your account type!!</div>
+    <div className='register__outerDiv'>
+      <img className='register__logo' src='../../joasisLogo.png' alt='Joasis logo' />
+      <div className='register__content'>Choose your account type!!</div>
 
-      <div className='register-btnContainer'>
+      <div className='register__btnContainer'>
         <Button
-          className='register-btn'
+          className='register__btn'
           uppercase
           id='performer'
           value={performer}
@@ -47,7 +47,7 @@ export default function Register() {
           Performer
         </Button>
         <Button
-          className='register-btn'
+          className='register__btn'
           uppercase
           id='client'
           value={client}
@@ -56,7 +56,7 @@ export default function Register() {
           Individual Client
         </Button>
         <Button
-          className='register-btn'
+          className='register__btn'
           uppercase
           id='corporate'
           value={corporateClient}
