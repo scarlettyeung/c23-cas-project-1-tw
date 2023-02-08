@@ -2,25 +2,27 @@ import React from 'react';
 import { logout } from '../redux/auth';
 import { useRootDispatch } from '../redux/store';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Button } from '@mantine/core';
 import { IconLogout } from '@tabler/icons-react';
+import '../../src/styles/header.css'
+
+
 function Logout() {
-	const dispatch = useRootDispatch();
-	const navigate = useNavigate();
-	const location = useLocation();
-	const targetPathname = location.state?.from.pathname || '/';
+  const dispatch = useRootDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const targetPathname = location.state?.from.pathname || '/';
 
-	const logoutBtn = () => {
-		dispatch(logout());
-		navigate('/login');
+  const logoutBtn = () => {
+    dispatch(logout());
+    navigate('/login');
 
-		navigate(targetPathname);
-	};
-	return (
-		<Button onClick={logoutBtn}>
-			<IconLogout />
-		</Button>
-	);
+    navigate(targetPathname);
+  };
+  return (
+    <button className='logOut-Btn' onClick={logoutBtn}>
+      <IconLogout />
+    </button>
+  );
 }
 
 export default Logout;

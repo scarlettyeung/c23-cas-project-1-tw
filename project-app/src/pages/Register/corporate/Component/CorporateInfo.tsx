@@ -37,7 +37,7 @@ function CorporateInfo({
 			icon={<IconBuildingSkyscraper size={20} />}
 				size='lg'
 				label='Company Name'
-				className='register-input'
+				className='register__input'
 				autoFocus
 				required
 				type='text'
@@ -47,7 +47,7 @@ function CorporateInfo({
 			<TextInput
 			icon={<IconPhone size={20} />}
 				size='lg'
-				className='register-input'
+				className='register__input'
 				label='Contact Number'
 				required
 				min={1}
@@ -61,7 +61,7 @@ function CorporateInfo({
 			<TextInput
 			icon={<IconMail size={20} />}
 				size='lg'
-				className='register-input'
+				className='register__input'
 				label='Contact Email'
 				type='email'
 				value={contactEmail}
@@ -71,7 +71,7 @@ function CorporateInfo({
 			icon={<IconMap2 size={20} />}
 			
 				size='lg'
-				className='register-input'
+				className='register__input'
 				label='Business Address'
 				required
 				min={1}
@@ -82,7 +82,7 @@ function CorporateInfo({
 			<TextInput
 			icon={<Icon123 size={20} />}
 				size='lg'
-				className='register-input'
+				className='register__input'
 				label='BR Number'
 				required
 				min={1}
@@ -93,7 +93,7 @@ function CorporateInfo({
 			<TextInput
 			icon={<IconWorldWww size={20} />}
 				size='lg'
-				className='register-input'
+				className='register__input'
 				label='Website'
 				min={1}
 				type='text'
@@ -103,7 +103,7 @@ function CorporateInfo({
 			<TextInput
 			icon={<IconListDetails size={20}/>}
 				size='lg'
-				className='register-input'
+				className='register__input'
 				label='Description'
 				aria-colcount={3}
 				type='text'
@@ -113,7 +113,7 @@ function CorporateInfo({
 			<Select
 			icon={<IconCircleLetterG size={20} />}
 				size='lg'
-				className='register-input'
+				className='register__input'
 				required
 				label='Gender'
 				data={[

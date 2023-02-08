@@ -174,7 +174,6 @@ export function CreateEvents() {
 							<div>
 								{preview ? (
 									<img
-										className='Create'
 										alt='Upload cardImage'
 										src={preview}
 										width='300'
@@ -185,7 +184,6 @@ export function CreateEvents() {
 									/>
 								) : (
 									<Button
-										className='CreateEvent'
 										onClick={(event) => {
 											event.preventDefault();
 											fileInputRef.current?.click();

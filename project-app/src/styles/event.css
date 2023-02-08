@@ -3,30 +3,25 @@
 	justify-content: space-between;
 }
 
-#Create #CreateEvent {
-	width: 200px;
-	height: 200px;
-	border-radius: 5px;
-	cursor: pointer;
-}
-
-#Create #CreateEvent {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 18px;
-	border: none;
-	background: #fef289;
-	color: #000;
-}
-
-.event-detailPage-dateTime{
+.event__detailPage__dateTime{
 	display: flex;
     justify-content: center;
 }
 
-.event-detailPage-titleDescription{
+.event__detailPage__titleDescription{
 	display: flex;
 	flex-direction: column;
-    align-items: center;
+	align-items: baseline;
+	justify-content: space-between;
+	padding-left: 3vw;
+	padding-right: 3vw;
+ 
 }
+
+.event-title-tag {
+	display: flex;
+  }
+  
+.mantine-17sxzhi{
+	flex-direction: column
+  }

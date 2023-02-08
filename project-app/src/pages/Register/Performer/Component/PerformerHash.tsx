@@ -50,7 +50,7 @@ function PerformerHash({ tagId, updateFields }: UserFormProps) {
 						updateFields({ tagId: arr });
 						tagId = arr;
 					}}
-					className={tagId?.includes(tag.tagId) ? 'tagStyle2' : 'tagStyle'}
+					className={tagId?.includes(tag.tagId) ? 'register__performer__tagStyle2' : 'register__performer__tagStyle'}
 				>
 					{tag.name}
 				</Badge>

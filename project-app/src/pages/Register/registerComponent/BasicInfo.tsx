@@ -23,12 +23,12 @@ function BasicInfo({ email, password, username, updateFields }: UserFormProps) {
 
 	return (
 		<>
-			<div className='register-basicInfo-outerDiv'>
+			<div >
 				<Text style={{ fontSize: 25, marginBottom: 20 }}>Basic Information</Text>
 				<TextInput
 					icon={<IconMail size={20} />}
 					size='lg'
-					className='register-input'
+					className='register__input'
 					label='Email'
 					autoFocus
 					required
@@ -40,9 +40,9 @@ function BasicInfo({ email, password, username, updateFields }: UserFormProps) {
 				/>
 				<TextInput
 					icon={<IconLock size={20} />}
-					id='register-password'
+					id='register__password'
 					size='lg'
-					className='register-input'
+					className='register__input'
 					label='Password'
 					required
 					minLength={8}
@@ -55,21 +55,20 @@ function BasicInfo({ email, password, username, updateFields }: UserFormProps) {
 					}}
 				/>
 				<Button
-					className='register-basicInfo-disableBtn'
 					onClick={() => {
 						setIsShown((cur) => !cur);
 						isShown === true
-							? document.getElementById('register-password')?.setAttribute('type', 'text')
-							: document.getElementById('register-password')?.setAttribute('type', 'password');
+							? document.getElementById('register__password')?.setAttribute('type', 'text')
+							: document.getElementById('register__password')?.setAttribute('type', 'password');
 					}}
 				>
 					{isShown === false ? <>Disable Password</> : <>Show Password</>}
 				</Button>
 				<TextInput
 					icon={<IconLock size={20} />}
-					id='register-password2'
+					id='register__password2'
 					size='lg'
-					className='register-input'
+					className='register__input'
 					label='Confirm Password'
 					required
 					minLength={8}
@@ -94,12 +93,11 @@ function BasicInfo({ email, password, username, updateFields }: UserFormProps) {
 					}}
 				/>
 				<Button
-					className='register-basicInfo-disableBtn'
 					onClick={() => {
 						setIsShown2((cur) => !cur);
 						isShown2 === true
-							? document.getElementById('register-password2')?.setAttribute('type', 'text')
-							: document.getElementById('register-password2')?.setAttribute('type', 'password');
+							? document.getElementById('register__password2')?.setAttribute('type', 'text')
+							: document.getElementById('register__password2')?.setAttribute('type', 'password');
 					}}
 				>
 					{isShown2 === false ? <>Disable Password</> : <>Show Password</>}
@@ -107,7 +105,7 @@ function BasicInfo({ email, password, username, updateFields }: UserFormProps) {
 				<TextInput
 					icon={<IconUser size={20} />}
 					size='lg'
-					className='register-input'
+					className='register__input'
 					label='Username'
 					required
 					type='text'

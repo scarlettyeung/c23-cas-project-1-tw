@@ -116,7 +116,7 @@ function Performer() {
 	}
 	return (
 		<div>
-			<form onSubmit={onSubmit} className='register-performer-outerDiv'>
+			<form onSubmit={onSubmit} className='register__performer__outerDiv'>
 				<div style={{ marginTop: 70, fontSize: 30, fontWeight: 'bold', marginBottom: 20 }}>
 					Performer Registration
 				</div>
@@ -127,24 +127,24 @@ function Performer() {
 						marginBottom: '10vh',
 					}}
 				>
-					<div className='register-user-backPageSubmit'>
+					<div className='register__user__backPageSubmit'>
 						{!isFirstStep ? (
-							<Button className='register-user-back' type='button' onClick={back}>
+							<Button className='register__user__back' type='button' onClick={back}>
 								Back
 							</Button>
 						) : (
 							<Button
-								className='register-back-none'
+								className='register__back__none'
 								type='button'
 								onClick={() => navigate('/register')}
 							>
 								Back
 							</Button>
 						)}
-						<div className='register-performer-pageShow'>
+						<div className='register__performer__pageShow'>
 							{currentStepIndex + 1} / {steps.length}
 						</div>
-						<Button className='register-user-nextAndSubmit' type='submit'>
+						<Button className='register__user__nextAndSubmit' type='submit'>
 							{isLastStep ? 'Submit' : 'Next'}
 						</Button>
 					</div>

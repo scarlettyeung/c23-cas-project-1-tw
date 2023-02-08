@@ -55,7 +55,7 @@ function About() {
 	return (
 		<div className='Body'>
 			<div className='Title'>About</div>
-			<div className='About-ButtonGroup'></div>
+			
 			{resp && role === Role.Performer && <div>{returnPerformer()}</div>}
 
 			{resp && role === Role.Corporate && <div>{returnCorporate()}</div>}

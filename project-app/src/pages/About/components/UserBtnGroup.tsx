@@ -44,12 +44,11 @@ function UserBtnGroup() {
 					</ActionIcon>
 				)}
 				{uuidFromState === uuid && (
-					<Button className='AboutBtn' onClick={() => navigate('/about')}>
+					<Button  onClick={() => navigate('/about')}>
 						Edit
 					</Button>
 				)}
 				<Button
-					className='AboutBtn'
 					onClick={() => navigate(`/eProfile/uuid/${uuidFromState}/get`)}
 				>
 					E-Profile

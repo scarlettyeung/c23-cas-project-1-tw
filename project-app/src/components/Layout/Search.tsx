@@ -1,6 +1,5 @@
 import type { SpotlightAction } from '@mantine/spotlight';
-// import { getAllHashTags } from '../../redux/search';
-// import { useRootDispatch, useRootSelector } from '../../redux/store';
+
 import { SearchTagType, FetchPerformerType, FetchEventDataType } from '../../utils/SearchType';
 import PerformerEventSearch from './PerformerEventSearch';
 import { useNavigate } from 'react-router-dom';

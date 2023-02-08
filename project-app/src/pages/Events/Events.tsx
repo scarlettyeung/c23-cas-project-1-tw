@@ -7,7 +7,7 @@ import { useRootSelector } from '../../redux/store';
 function Events() {
 	const isCline = useRootSelector((state) => state.auth.clientId);
 	return (
-		<div className='Body'>
+		<div>
 			<div className='Title Header' id='EventHeader'>
 				Events
 				{isCline && (

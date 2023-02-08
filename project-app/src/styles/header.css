@@ -14,3 +14,19 @@
 	z-index: 99;
 	gap: 0px !important;
 }
+
+.logOut-Btn {
+  background-color: rgba(128, 128, 128, 0.131) !important;
+  border-radius: 100% !important;
+  color: rgba(0, 0, 0) !important;
+  width: auto;
+}
+
+.search-Btn{
+  background-color: rgba(128, 128, 128, 0.131) !important;
+  border-radius: 100% !important;
+  color: rgba(0,0,0) !important;
+  width: auto;
+}
+
+

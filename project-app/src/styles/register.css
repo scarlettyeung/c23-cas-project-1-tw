@@ -1,34 +1,25 @@
-.register-logo {
+.register__logo {
 	width: 180px;
 	margin-bottom: 20px;
 	margin-top: 50px;
 }
 
-.tagStyle {
+.register__performer__tagStyle {
 	padding: 20px;
 	margin: 5px;
 	border: 0px;
 	background: rgb(215, 248, 255);
 }
 
-.tagStyle2 {
+.register__performer__tagStyle2 {
 	padding: 20px;
 	margin: 5px;
 	border: 0px;
 	background: rgb(255, 243, 151);
 	color: rgb(141, 135, 87);
 }
-.register-basicInfo-psw-btn {
-	all: unset;
-	padding: 1vh;
-	border-radius: 5px;
-}
 
-.register-basicInfo-psw-btn:active {
-	background: rgb(158, 88, 91);
-}
-
-.register-performer-outerDiv {
+.register__performer__outerDiv {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -39,11 +30,11 @@
 	background-size: cover;
 }
 
-.register-performer-pageShow {
+.register__performer__pageShow {
 	text-align: center;
 }
 
-.register-outerDiv {
+.register__outerDiv {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -56,15 +47,14 @@
 	font-family: Impact, 'Arial Narrow Bold', sans-serif;
 }
 
-.register-content {
-	padding-top: 2vh;
-	padding-bottom: 2vh;
+.register__content {
+	padding: 2vh 3vw;
 }
-.register-btnContainer {
+.register__btnContainer {
 	margin-top: 3vh;
 }
 
-.register-btn {
+.register__btn {
 	font-size: 3vh;
 	margin: 3vh 3vw;
 	width: 85vw;
@@ -73,18 +63,18 @@
 	background: #75a488;
 }
 
-.register-input {
+.register__input {
 	padding: 1vh 14vw;
 }
 
-.register-input input {
+.register__input input {
 	padding-top: 3vw;
 	padding-bottom: 3vw;
 	border: 1px solid rgb(81, 81, 81);
 	border-radius: 5px;
 }
 
-.register-user-back {
+.register__user__back {
 	all: unset;
 	background: #75a488;
 	padding: 1vh;
@@ -92,7 +82,7 @@
 	border-radius: 5px;
 }
 
-.register-back-none {
+.register__back__none {
 	all: unset;
 	background: rgba(230, 124, 126, 0);
 	padding: 1vh;
@@ -100,7 +90,7 @@
 	border-radius: 5px;
 }
 
-.register-user-nextAndSubmit {
+.register__user__nextAndSubmit {
 	all: unset;
 	background: #75a488;
 	padding: 1vh;
@@ -108,11 +98,11 @@
 	border-radius: 5px;
 }
 
-.register-performer-pageShow {
+.register__performer__pageShow {
 	padding: 1vh;
 }
 
-.register-user-backPageSubmit {
+.register__user__backPageSubmit {
 	display: flex;
 	justify-content: space-evenly;
 }

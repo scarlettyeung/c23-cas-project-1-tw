@@ -43,7 +43,7 @@ function PerformerInfo({
 				icon={<IconCircleLetterN size={20} />}
 				size='lg'
 				placeholder='Enter Your First Name'
-				className='register-input'
+				className='register__input'
 				label='First Name'
 				autoFocus
 				required
@@ -55,7 +55,7 @@ function PerformerInfo({
 				icon={<IconCircleLetterN size={20} />}
 				size='lg'
 				placeholder='Enter Your Last Name'
-				className='register-input'
+				className='register__input'
 				label='Last Name'
 				required
 				type='text'
@@ -66,7 +66,7 @@ function PerformerInfo({
 				icon={<Icon123 size={20} />}
 				size='lg'
 				placeholder='Enter Number of Years'
-				className='register-input'
+				className='register__input'
 				label='Experience'
 				required
 				min={0}
@@ -78,7 +78,7 @@ function PerformerInfo({
 			<TextInput
 				icon={<IconPhone size={20} />}
 				size='lg'
-				className='register-input'
+				className='register__input'
 				label='Contact Number'
 				required
 				min={1}
@@ -92,7 +92,7 @@ function PerformerInfo({
 			<TextInput
 				icon={<IconMail size={20} />}
 				size='lg'
-				className='register-input'
+				className='register__input'
 				label='Contact Email'
 				type='email'
 				value={contactEmail}
@@ -100,7 +100,7 @@ function PerformerInfo({
 			/>
 			<TextInput
 				size='lg'
-				className='register-input'
+				className='register__input'
 				label='Birthday'
 				required
 				min={1}
@@ -115,7 +115,7 @@ function PerformerInfo({
 			<Select
 			icon={<IconCircleLetterG size={20} />}
 				size='lg'
-				className='register-input'
+				className='register__input'
 				required
 				label='Gender'
 				data={[
@@ -131,7 +131,7 @@ function PerformerInfo({
 			<TextInput
 			icon={<IconListDetails size={20}/>}
 				size='lg'
-				className='register-input'
+				className='register__input'
 				label='Description'
 				aria-colcount={3}
 				type='text'
@@ -141,7 +141,7 @@ function PerformerInfo({
 			<TextInput
 			icon={<IconBrandMeta size={20}/>}
 				size='lg'
-				className='register-input'
+				className='register__input'
 				label='FaceBook Link'
 				min={1}
 				type='url'
@@ -151,7 +151,7 @@ function PerformerInfo({
 			<TextInput
 			icon={<IconBrandTwitter size={20}/>}
 				size='lg'
-				className='register-input'
+				className='register__input'
 				label='Twitter Link'
 				min={1}
 				type='url'
@@ -161,7 +161,7 @@ function PerformerInfo({
 			<TextInput
 			icon={<IconBrandYoutube size={20}/>}
 				size='lg'
-				className='register-input'
+				className='register__input'
 				label='YouTube Link'
 				min={1}
 				type='url'
@@ -171,7 +171,7 @@ function PerformerInfo({
 			<TextInput
 			icon={<IconBrandInstagram size={20}/>}
 				size='lg'
-				className='register-input'
+				className='register__input'
 				label='Instagram Link'
 				min={1}
 				type='url'

@@ -2,6 +2,7 @@ import { SpotlightProvider, openSpotlight, SpotlightActionProps } from '@mantine
 import type { SpotlightAction } from '@mantine/spotlight';
 import { createStyles, Badge, Text, Avatar, Button, Center, Group } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
+import '../../index.css';
 const { REACT_APP_IMAGE_BASE } = process.env;
 interface PropsType {
 	data: SpotlightAction[];
@@ -10,9 +11,9 @@ interface PropsType {
 function SpotlightControl() {
 	return (
 		<Group position='center'>
-			<Button onClick={() => openSpotlight()}>
+			<button className='search-Btn' onClick={() => openSpotlight()}>
 				<IconSearch />
-			</Button>
+			</button>
 		</Group>
 	);
 }
@@ -33,10 +34,10 @@ function CustomAction({
 	...others
 }: SpotlightActionProps) {
 	const { classes, cx } = useStyles();
-	// console.log(action.title);
+	console.log(action.title);
 	return (
 		<Button
-			className={(cx(classes.action), 'withoutMainBtn')}
+			className={(cx(classes.action), 'search-Btn')}
 			tabIndex={-1}
 			onMouseDown={(event) => event.preventDefault()}
 			onClick={onTrigger}

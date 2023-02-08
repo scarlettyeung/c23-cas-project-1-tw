@@ -28,15 +28,15 @@ function Login() {
 		const targetPathname = location.state?.from.pathname || '/';
 		navigate(targetPathname);
 	};
-	const [isClicked, serIsClicked] = useState(false);
+	const [isClicked, setIsClicked] = useState(false);
 	return (
-		<div className='outerDiv'>
-			<img className='logo' src='../../joasisLogo.png' alt='Joasis logo' />
+		<div className='login__outerDiv'>
+			<img className='login__logo' src='../../joasisLogo.png' alt='Joasis logo' />
 			<form onSubmit={submitLogin}>
-				<div className='login-input-div'>
+				<div className='login__inputDiv'>
 					<TextInput
 						icon={<IconMail size={14} />}
-						className='loginInput'
+						className='login__loginInput'
 						id='userEmail'
 						type='text'
 						placeholder='Email'
@@ -44,10 +44,10 @@ function Login() {
 						onChange={(e) => setUserEmail(e.target.value)}
 					/>
 				</div>
-				<div className='login-input-div'>
+				<div className='login__inputDiv'>
 					<TextInput
 						icon={<IconLock size={14} />}
-						className='loginInput'
+						className='login__loginInput'
 						id='userPassword'
 						type='password'
 						placeholder='Password'
@@ -57,14 +57,14 @@ function Login() {
 					/>
 				</div>
 				<div>
-					<Button type='submit' className='login-login'>
+					<Button type='submit' className='login__loginBtn'>
 						LOGIN
 					</Button>
 				</div>
-				<img className='break' src='../../break.png' alt='break' />
+				<img className='login__break' src='../../break.png' alt='break' />
 				<div>
 					<Button
-						className='login-register'
+						className='login__registerBtn'
 						onClick={() =>
 							isClicked === true
 								? navigate('/register')
@@ -75,10 +75,10 @@ function Login() {
 					</Button>
 				</div>
 			</form>
-			<div className='checkbox'>
+			<div className='login__checkboxDiv'>
 				<Checkbox
-					className='loginCheckbox'
-					onClick={() => serIsClicked((current) => !current)}
+					className='login__Checkbox'
+					onClick={() => setIsClicked((current) => !current)}
 					label='Logging in means you agree to our Terms of Use & Privacy Policy'
 					color='red'
 					radius='md'
