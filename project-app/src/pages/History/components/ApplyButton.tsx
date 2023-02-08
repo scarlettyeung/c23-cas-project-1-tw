@@ -17,7 +17,7 @@ function ApplyButton(props: PopDataType) {
 					const path = process.env.REACT_APP_API_BASE;
 					const jwt = localStorage.getItem('token');
 					const resp = await fetch(
-						`${path}history/application/${props.eventId}/${props.performerUserId}`,
+						`${path}/history/application/${props.eventId}/${props.performerUserId}`,
 						{
 							method: 'POST',
 							headers: {

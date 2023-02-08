@@ -11,11 +11,11 @@ export class EventService {
           id: Id,
         },
       })
-      await this.prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return eventDetail
     } catch (e) {
       logger.info(e)
-      await this.prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -30,12 +30,12 @@ export class EventService {
           status: "pending",
         },
       })
-      await this.prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     } catch (e) {
       logger.info("in service")
       logger.debug(e)
-      await this.prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -73,14 +73,18 @@ export class EventService {
           properties: "public",
           is_shown: true,
           date_published: now,
+          events_hashtags: {
+            create: [{ hashtag_details_id: 35 }],
+          },
         },
       })
-      await this.prisma.$disconnect()
+
+      // await this.prisma.$disconnect()
       return
     } catch (e) {
       logger.info("in service")
       logger.debug(e)
-      await this.prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -120,11 +124,11 @@ export class EventService {
           },
         },
       })
-      await this.prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return review
     } catch (e) {
       logger.info(e)
-      await this.prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }
@@ -159,11 +163,11 @@ export class EventService {
           },
         },
       })
-      await this.prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return review
     } catch (e) {
       logger.info(e)
-      await this.prisma.$disconnect()
+      // await this.prisma.$disconnect()
       return
     }
   }

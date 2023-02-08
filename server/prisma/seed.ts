@@ -1519,127 +1519,102 @@ async function main() {
   await prisma.eventsHashtag.createMany({
     data: [
       {
-        id: 1,
         events_id: 1,
         hashtag_details_id: 27,
       },
       {
-        id: 2,
         events_id: 2,
         hashtag_details_id: 29,
       },
       {
-        id: 3,
         events_id: 3,
         hashtag_details_id: 26,
       },
       {
-        id: 4,
         events_id: 4,
         hashtag_details_id: 27,
       },
       {
-        id: 5,
         events_id: 5,
         hashtag_details_id: 28,
       },
       {
-        id: 6,
         events_id: 6,
         hashtag_details_id: 31,
       },
       {
-        id: 7,
         events_id: 7,
         hashtag_details_id: 26,
       },
       {
-        id: 8,
         events_id: 8,
         hashtag_details_id: 34,
       },
       {
-        id: 9,
         events_id: 9,
         hashtag_details_id: 30,
       },
       {
-        id: 10,
         events_id: 10,
         hashtag_details_id: 30,
       },
       {
-        id: 11,
         events_id: 11,
         hashtag_details_id: 26,
       },
       {
-        id: 12,
         events_id: 12,
         hashtag_details_id: 30,
       },
       {
-        id: 13,
         events_id: 13,
         hashtag_details_id: 30,
       },
       {
-        id: 14,
         events_id: 14,
         hashtag_details_id: 34,
       },
       {
-        id: 15,
         events_id: 15,
         hashtag_details_id: 29,
       },
       {
-        id: 16,
         events_id: 16,
         hashtag_details_id: 32,
       },
       {
-        id: 17,
         events_id: 17,
         hashtag_details_id: 27,
       },
       {
-        id: 18,
         events_id: 18,
         hashtag_details_id: 26,
       },
       {
-        id: 19,
         events_id: 19,
         hashtag_details_id: 30,
       },
       {
-        id: 20,
         events_id: 20,
         hashtag_details_id: 32,
       },
       {
-        id: 21,
         events_id: 21,
         hashtag_details_id: 35,
       },
       {
-        id: 22,
         events_id: 22,
         hashtag_details_id: 28,
       },
       {
-        id: 23,
         events_id: 23,
         hashtag_details_id: 25,
       },
       {
-        id: 24,
         events_id: 24,
         hashtag_details_id: 34,
       },
       {
-        id: 25,
         events_id: 25,
         hashtag_details_id: 32,
       },

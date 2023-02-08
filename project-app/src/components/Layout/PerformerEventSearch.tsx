@@ -33,7 +33,7 @@ function CustomAction({
 	...others
 }: SpotlightActionProps) {
 	const { classes, cx } = useStyles();
-	console.log(action.title);
+	// console.log(action.title);
 	return (
 		<Button
 			className={(cx(classes.action), 'withoutMainBtn')}

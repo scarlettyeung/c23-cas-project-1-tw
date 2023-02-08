@@ -78,7 +78,7 @@ function Corporate() {
 		e.preventDefault();
 		if (!isLastStep) return next();
 		const path = process.env.REACT_APP_API_BASE;
-		await fetch(`${path}users/createUser`, {
+		await fetch(`${path}/users/createUser`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

@@ -15,7 +15,7 @@ function UserBtnGroup() {
 		async function getNumber() {
 			const jwt = localStorage.getItem('token');
 			const path = process.env.REACT_APP_API_BASE;
-			let data = await fetch(`${path}users/contact/${uuid}`, {
+			let data = await fetch(`${path}/users/contact/${uuid}`, {
 				headers: {
 					'Content-Type': 'application/json',
 					Authorization: `Bearer ${jwt}`,
@@ -32,7 +32,7 @@ function UserBtnGroup() {
 	}, [uuid]);
 	return (
 		<>
-			<Group position='center'  spacing='xl'>
+			<Group position='center' spacing='xl'>
 				{uuidFromState !== uuid && (
 					<ActionIcon
 						key={1}

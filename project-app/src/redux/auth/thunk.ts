@@ -7,7 +7,7 @@ export const loginThunk = createAsyncThunk<
 >('users/login', async ({ userEmail, userPassword }, thunkAPI) => {
 	try {
 		const path = process.env.REACT_APP_API_BASE;
-		const resp = await fetch(`${path}users/login`, {
+		const resp = await fetch(`${path}/users/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ export const testThunk = createAsyncThunk<{ rejectValue: string }>(
 		try {
 			const path = process.env.REACT_APP_API_BASE;
 			const jwt = localStorage.getItem('token');
-			const resp = await fetch(`${path}users/forTest`, {
+			const resp = await fetch(`${path}/users/forTest`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

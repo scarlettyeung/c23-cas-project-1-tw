@@ -69,8 +69,8 @@ model User {
 
 model UserLike {
   id           Int      @id @default(autoincrement())
-  subject_uuid String     
-  target_uuid  String    
+  subject_uuid String
+  target_uuid  String
   createdAt    DateTime @default(now()) @map("create_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
 
@@ -183,8 +183,9 @@ model EventsHashtag {
   events_id          Int
   hashtag_details    HashtagDetail @relation(fields: [hashtag_details_id], references: [id])
   hashtag_details_id Int
-  createdAt           DateTime            @default(now()) @map("create_at")
-  updatedAt           DateTime            @updatedAt @map("updated_at")
+  createdAt          DateTime      @default(now()) @map("create_at")
+  updatedAt          DateTime      @updatedAt @map("updated_at")
+
   @@map("events_hashtag")
 }
 
@@ -206,8 +207,8 @@ model PerformersHashtag {
   performers_id      Int
   hashtag_details    HashtagDetail @relation(fields: [hashtag_details_id], references: [id])
   hashtag_details_id Int
-  createdAt           DateTime            @default(now()) @map("create_at")
-  updatedAt           DateTime            @updatedAt @map("updated_at")
+  createdAt          DateTime      @default(now()) @map("create_at")
+  updatedAt          DateTime      @updatedAt @map("updated_at")
 
   @@map("performers_hashtag")
 }
@@ -229,7 +230,7 @@ model EventsApplication {
 model Visits {
   id         Int      @id @default(autoincrement())
   users      User     @relation(fields: [user_uuid], references: [uuid])
-  user_uuid  String      
+  user_uuid  String
   device     String?  @db.VarChar(255)
   ip_address String?  @db.VarChar(255)
   createdAt  DateTime @default(now()) @map("create_at")

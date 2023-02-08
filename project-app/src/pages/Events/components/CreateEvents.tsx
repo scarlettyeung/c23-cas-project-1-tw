@@ -151,7 +151,7 @@ export function CreateEvents() {
 					formData.append('rehearsal_needed', data.rehearsal_needed);
 					formData.append('cardImage', cardImage! as Blob);
 
-					const resp = await fetch(`${path}events/createEvents`, {
+					const resp = await fetch(`${path}/events/createEvents`, {
 						method: 'POST',
 						headers: {
 							Authorization: `Bearer ${jwt}`,
