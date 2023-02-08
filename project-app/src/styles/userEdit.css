@@ -30,6 +30,6 @@
 
 
 button:hover {
-	background-color: white !important;
-	/* color: #75a488 !important; */
+	background-color:#000 !important;
+  border: #000 !important;
 }

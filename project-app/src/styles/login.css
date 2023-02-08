@@ -29,8 +29,10 @@
 
 
 .login__loginBtn {
+  background-color: black;
 	margin-top: 20px;
-	border: 0;
+	border: 0 #000000;
+  font-weight: bolder;
 	width: 65vw;
 	padding: 12px;
 	border-radius: 5px;
@@ -38,7 +40,9 @@
 }
 
 .login__registerBtn {
-	border: 0;
+  background-color: black;
+	border: 0 #000000;
+  font-weight: bolder;
 	width: 65vw;
 	padding: 12px;
 	border-radius: 5px;

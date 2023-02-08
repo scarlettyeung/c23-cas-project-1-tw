@@ -48,6 +48,11 @@
 }
 
 .register__content {
+  font-size: 30px;
+  font-weight: bolder;
+  text-transform: uppercase;
+	padding-top: 1vh;
+	font-family: Impact, 'Arial Narrow Bold', sans-serif;
 	padding: 2vh 3vw;
 }
 .register__btnContainer {
@@ -55,12 +60,13 @@
 }
 
 .register__btn {
-	font-size: 3vh;
-	margin: 3vh 3vw;
-	width: 85vw;
-	height: 8vh;
+  background-color: black;
+	margin-top: 20px;
+	border: 0 #000000;
+	width: 65vw;
+	padding: 12px;
 	border-radius: 5px;
-	background: #75a488;
+	height: 40px !important;
 }
 
 .register__input {
@@ -76,9 +82,9 @@
 
 .register__user__back {
 	all: unset;
-	background: #75a488;
+  background-color: #000000;
 	padding: 1vh;
-	color: white;
+	color: #FFFFFF;
 	border-radius: 5px;
 }
 
@@ -92,9 +98,9 @@
 
 .register__user__nextAndSubmit {
 	all: unset;
-	background: #75a488;
+  background-color: #000000;
 	padding: 1vh;
-	color: white;
+	color: #FFFFFF;
 	border-radius: 5px;
 }
 
@@ -105,4 +111,8 @@
 .register__user__backPageSubmit {
 	display: flex;
 	justify-content: space-evenly;
+}
+
+.register__basicInfo__checkPassword{
+  background-color: #000000;
 }
