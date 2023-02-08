@@ -38,7 +38,7 @@ function CustomAction({
   console.log(action.title);
   return (
     <Button
-      className={(cx(classes.action), 'search-Btn')}
+      className={(cx(classes.action), 'header__performerEventSearch')}
       tabIndex={-1}
       onMouseDown={(event) => event.preventDefault()}
       onClick={onTrigger}

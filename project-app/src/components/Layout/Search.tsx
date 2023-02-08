@@ -50,9 +50,9 @@ export function Search() {
     console.log('performerData toOneArr');
     console.dir(toOneArr);
     return (
-      <Group>
-        <div>
-          Hi,{userName}
+      <Group className='header__search__outerDiv'>
+        <div className='header_search_username'>
+          {userName}
         </div>
         <Select
           className='sbar'
@@ -71,13 +71,14 @@ export function Search() {
             }
           }}
         />
-
+        <div className='header__search__btnGroup'>
         <div className='search-Btn'>
           <PerformerEventSearch data={toOneArr} />
         </div>
 
         <div className='logOut-Btn'>
           <Logout />
+        </div>
         </div>
       </Group>
     );
@@ -102,9 +103,9 @@ export function Search() {
     const toOneArr: SpotlightAction[] = mapEventHashtag.flat(2);
     console.dir(toOneArr);
     return (
-      <Group>
-        <div>
-          Hi,{userName}
+      <Group className='header__search__outerDiv'>
+        <div className='header_search_username'>
+          {userName}
         </div>
         <Select
           rightSection={<IconChevronDown size={14} />}
@@ -121,8 +122,14 @@ export function Search() {
             }
           }}
         />
+        <div className='header__search__btnGroup'>
+        <div className='search-Btn'>
         <PerformerEventSearch data={toOneArr} />
-        <Logout />
+        </div>
+        <div className='logOut-Btn'>
+          <Logout />
+        </div>
+        </div>
       </Group>
     );
   }
