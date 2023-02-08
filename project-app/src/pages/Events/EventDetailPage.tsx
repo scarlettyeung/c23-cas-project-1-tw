@@ -46,6 +46,8 @@ function EventDetail() {
 
 	return (
 		<div>
+			<div style={{display:"flex", justifyContent:"flex-start", paddingBottom:"1.5vh", fontWeight:"bold", fontSize:25}}><div>EVENT DETAIL</div></div>
+			
 			<Card withBorder radius='md' p='md'>
 				<Card.Section>
 					<Image src={`${process.env.REACT_APP_IMAGE_BASE}/${event?.image}`} alt='' height={180} />
