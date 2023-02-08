@@ -52,7 +52,7 @@ function LoadApplication() {
     async function loadData() {
       const jwt = localStorage.getItem('token');
       const path = process.env.REACT_APP_API_BASE;
-      let url = `${path}history/application`;
+      let url = `${path}/history/application`;
       const res = await fetch(url, {
         headers: {
           Authorization: `Bearer ${jwt}`,

@@ -29,3 +29,13 @@
   display: flex;
   justify-content: space-between;
 }
+
+.mantine-Group-root.event-detailPage-dateTime.mantine-17sxzhi {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  padding-bottom: 3vw;
+  border-top: 1px solid rgba(128, 128, 128, 0.283) ;
+}
