@@ -142,6 +142,7 @@ function CorporateClientsEdit(props: CorporateInfo) {
           label='Business Website: '
         />
         <Group
+          className='EditButtonGroup'
           position='center'
           mt='md'
           style={{ display: 'flex', justifyContent: 'space-between' }}
