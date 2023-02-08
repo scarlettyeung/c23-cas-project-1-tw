@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import PersonalInfo from './components/PersonalInfo';
-
+import { Button } from '@mantine/core';
 import {
 	Role,
 	RespTypeInProfile,
@@ -10,6 +10,7 @@ import {
 	CorporateClientsInfo,
 } from '../../utils/userInfoType';
 import '../../styles/about.css';
+import { useNavigate } from 'react-router-dom';
 
 function About() {
 	const { uuid } = useParams<string>()!;
@@ -18,7 +19,10 @@ function About() {
 		isLoading,
 		error,
 	} = useFetch<RespTypeInProfile | null>(`users/getInfo/${uuid}`, 'GET', null, uuid);
-
+	const navigate = useNavigate();
+	const goBack = () => {
+		navigate(-1);
+	};
 	let role: Role = Role.Performer;
 	if (resp?.data && resp.data.identity === 'client') {
 		const userInfo = resp.data as IndividualClientsInfo | CorporateClientsInfo;
@@ -32,6 +36,7 @@ function About() {
 		return (
 			<div>
 				<div>Who are You?</div>
+				<Button onClick={goBack}>Go back</Button>
 			</div>
 		);
 	}
@@ -55,7 +60,7 @@ function About() {
 	return (
 		<div className='Body'>
 			<div className='Title'>About</div>
-			
+
 			{resp && role === Role.Performer && <div>{returnPerformer()}</div>}
 
 			{resp && role === Role.Corporate && <div>{returnCorporate()}</div>}

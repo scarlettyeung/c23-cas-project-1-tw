@@ -6,9 +6,13 @@ import Tag from './components/Tag';
 import { useParams } from 'react-router-dom';
 import { useRootSelector } from '../../redux/store';
 import { Button } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
 
-const createEprofile = () => {};
 function Eprofile() {
+	const navigate = useNavigate();
+	const goBack = () => {
+		navigate(-1);
+	};
 	const { uuid } = useParams<string>()!;
 	const uuidFromState = useRootSelector((state) => state.auth.uuid);
 	const {
@@ -22,13 +26,14 @@ function Eprofile() {
 			return (
 				<>
 					<div>empty eProfile</div>
-					<Button onClick={createEprofile}>create eProfile</Button>
+					<Button onClick={goBack}>Go back</Button>
 				</>
 			);
 		}
 		return (
 			<>
 				<div>empty eProfile</div>
+				<Button onClick={goBack}>Go back</Button>
 			</>
 		);
 	}
@@ -57,7 +62,11 @@ function Eprofile() {
 			</div>
 		);
 	} else {
-		return <div>Loading...</div>;
+		return (
+			<>
+				<div>This user done not has eProfile</div>
+			</>
+		);
 	}
 }
 

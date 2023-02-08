@@ -275,38 +275,38 @@ export class UserService {
         hashtagToInput.push(id)
       }
 
-      const defaultObj = {
-        header: {
-          iconPosition: "mid",
-          headerImage: "default",
-          colorStyle: "black",
-          displayTab: "about",
-        },
-        page: [
-          {
-            page: 1,
-            title: "About me",
-            style: "about",
-            main_color: "black",
-            contents: [
-              {
-                headline: "",
-                content: "",
-                media: [
-                  {
-                    media_id: 1,
-                    media_name: "",
-                    media_type: "",
-                    is_main: "true",
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      }
+      // const defaultObj = {
+      //   header: {
+      //     iconPosition: "mid",
+      //     headerImage: "default",
+      //     colorStyle: "black",
+      //     displayTab: "about",
+      //   },
+      //   page: [
+      //     {
+      //       page: 1,
+      //       title: "About me",
+      //       style: "about",
+      //       main_color: "black",
+      //       contents: [
+      //         {
+      //           headline: "",
+      //           content: "",
+      //           media: [
+      //             {
+      //               media_id: 1,
+      //               media_name: "",
+      //               media_type: "",
+      //               is_main: "true",
+      //             },
+      //           ],
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // }
 
-      const defaultJson = JSON.stringify(defaultObj)
+      // const defaultJson = JSON.stringify(defaultObj)
 
       await this.prisma.user.create({
         data: {
@@ -333,11 +333,11 @@ export class UserService {
                   data: hashtagToInput,
                 },
               },
-              e_profile: {
-                create: {
-                  content: defaultJson,
-                },
-              },
+              // e_profile: {
+              //   create: {
+              //     content: defaultJson,
+              //   },
+              // },
             },
           },
         },

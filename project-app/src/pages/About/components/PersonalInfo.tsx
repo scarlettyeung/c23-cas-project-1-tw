@@ -38,7 +38,7 @@ function PersonalInfo(props: UserInfoProps) {
 	const corporateClientsInfo = props.corporateClientsInfo;
 	const individualClientsInfo = props.individualClientsInfo;
 	const openURL = (url: string) => {
-		window.location.href = url;
+		window.location.assign(`https://${url}`);
 	};
 
 	if (performanceInfo) {
@@ -61,31 +61,38 @@ function PersonalInfo(props: UserInfoProps) {
 					)}
 				</Avatar>
 				<UserBtnGroup />
-				<div style={{display:"flex",flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
-				<Text align='left' size='lg' weight={500} mt='sm'>
-					USER NAME : {performanceInfo.username}
-				</Text>
-				<Text align='left' size='lg' weight={500} mt='sm'>
-					GENDER : {performanceInfo.gender}
-				</Text>
-				<Text align='left' size='lg' weight={500} mt='sm'>
-					USER NAME : {performanceInfo.username}
-				</Text>
-				<Text align='left' size='lg' weight={500} mt='sm'>
-					EXPERIENCE : {performanceInfo.years_of_exp}
-				</Text>
-				<Text align='left' size='lg' weight={500} mt='sm'>
-					SCORE (EVENTS) :{' '}
-					<Group align='center'>
-						<Rating defaultValue={performanceInfo.avg_score} readOnly />
-						<div> ({performanceInfo.sum_of_even}) </div>
-					</Group>
-				</Text>
-				<Text style={{display:"flex", justifyContent:"center"}}>
-					{performanceInfo.performers_hashtags && (
-						<HashTags tags={performanceInfo.performers_hashtags} />
-					)}
-				</Text>
+				<div
+					style={{
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'center',
+						alignItems: 'center',
+					}}
+				>
+					<Text align='left' size='lg' weight={500} mt='sm'>
+						USER NAME : {performanceInfo.username}
+					</Text>
+					<Text align='left' size='lg' weight={500} mt='sm'>
+						GENDER : {performanceInfo.gender}
+					</Text>
+					<Text align='left' size='lg' weight={500} mt='sm'>
+						USER NAME : {performanceInfo.username}
+					</Text>
+					<Text align='left' size='lg' weight={500} mt='sm'>
+						EXPERIENCE : {performanceInfo.years_of_exp}
+					</Text>
+					<Text align='left' size='lg' weight={500} mt='sm'>
+						SCORE (EVENTS) :{' '}
+						<Group align='center'>
+							<Rating defaultValue={performanceInfo.avg_score} readOnly />
+							<div> ({performanceInfo.sum_of_even}) </div>
+						</Group>
+					</Text>
+					<Text style={{ display: 'flex', justifyContent: 'center' }}>
+						{performanceInfo.performers_hashtags && (
+							<HashTags tags={performanceInfo.performers_hashtags} />
+						)}
+					</Text>
 				</div>
 
 				<div className='about__personalInfo__iconGroup'>
@@ -165,11 +172,11 @@ function PersonalInfo(props: UserInfoProps) {
 
 	if (corporateClientsInfo) {
 		return (
-			<Card  withBorder p='xl' radius='md'>
+			<Card withBorder p='xl' radius='md'>
 				<Card.Section sx={{ height: 20 }} />
 				<Title order={2}>Corporate Clients Info</Title>
 				<Avatar size={150} radius={80} mx='auto'>
-				<div style={{marginTop:"2vh"}}></div>
+					<div style={{ marginTop: '2vh' }}></div>
 					<UserBtnGroup />
 					{corporateClientsInfo.icon ? (
 						<img
@@ -180,41 +187,48 @@ function PersonalInfo(props: UserInfoProps) {
 						<img src={`${REACT_APP_IMAGE_BASE}/defaultImage.jpg`} alt={'defaultImage.jpg'} />
 					)}
 				</Avatar>
-				<div style={{display:"flex",flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
-				<Text align='left' size='lg' weight={500} mt='sm'>
-					USER NAME : {corporateClientsInfo.username}
-				</Text>
-				<Text align='left' size='lg' weight={500} mt='sm'>
-					BR NO. : {corporateClientsInfo.business_BR_no}
-				</Text>
-				<Text align='left' size='lg' weight={500} mt='sm'>
-					BUSINESS ADDRESS : {corporateClientsInfo.business_address}
-				</Text>
-				<Text align='left' size='lg' weight={500} mt='sm'>
-					WEBSITE :
-					{corporateClientsInfo.business_website_url ? (
-						<>business website:{corporateClientsInfo.business_website_url} </>
-					) : (
-						<></>
-					)}
-				</Text>
-				<Text align='left' size='lg' weight={500} mt='sm'>
-					SCORE (EVENTS) :{' '}
-					<Group position='left'>
-						<Rating defaultValue={corporateClientsInfo.avg_score} readOnly />
-						<> ({corporateClientsInfo.sum_of_even}) </>
-					</Group>
-				</Text>
-
-				<div style={{ flex: 1 }}>
-					<Text size='sm' weight={500}>
-						{corporateClientsInfo.events ? (
-							<EventInfo info={corporateClientsInfo.events} />
+				<div
+					style={{
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'center',
+						alignItems: 'center',
+					}}
+				>
+					<Text align='left' size='lg' weight={500} mt='sm'>
+						USER NAME : {corporateClientsInfo.username}
+					</Text>
+					<Text align='left' size='lg' weight={500} mt='sm'>
+						BR NO. : {corporateClientsInfo.business_BR_no}
+					</Text>
+					<Text align='left' size='lg' weight={500} mt='sm'>
+						BUSINESS ADDRESS : {corporateClientsInfo.business_address}
+					</Text>
+					<Text align='left' size='lg' weight={500} mt='sm'>
+						WEBSITE :
+						{corporateClientsInfo.business_website_url ? (
+							<>business website:{corporateClientsInfo.business_website_url} </>
 						) : (
-							<div>No Event</div>
+							<></>
 						)}
 					</Text>
-				</div>
+					<Text align='left' size='lg' weight={500} mt='sm'>
+						SCORE (EVENTS) :{' '}
+						<Group position='left'>
+							<Rating defaultValue={corporateClientsInfo.avg_score} readOnly />
+							<> ({corporateClientsInfo.sum_of_even}) </>
+						</Group>
+					</Text>
+
+					<div style={{ flex: 1 }}>
+						<Text size='sm' weight={500}>
+							{corporateClientsInfo.events ? (
+								<EventInfo info={corporateClientsInfo.events} />
+							) : (
+								<div>No Event</div>
+							)}
+						</Text>
+					</div>
 				</div>
 			</Card>
 		);
@@ -235,29 +249,36 @@ function PersonalInfo(props: UserInfoProps) {
 						<img src={`${REACT_APP_IMAGE_BASE}/defaultImage.jpg`} alt={'defaultImage.jpg'} />
 					)}
 				</Avatar>
-				<div style={{marginTop:"2vh"}}></div>
+				<div style={{ marginTop: '2vh' }}></div>
 				<UserBtnGroup />
-				<div style={{display:"flex",flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
-				<Text align='left' size='lg' weight={500} mt='sm'>
-					USER NAME : {individualClientsInfo.username}
-				</Text>
-				<Text align='left' size='lg' weight={500} mt='sm'>
-					SCORE (EVENTS) :{' '}
-					<Group position='left'>
-						<Rating defaultValue={individualClientsInfo.avg_score} readOnly />
-						<> ({individualClientsInfo.avg_score}) </>
-					</Group>
-				</Text>
-
-				<div style={{ flex: 1 }}>
-					<Text size='sm' weight={500}>
-						{individualClientsInfo.events ? (
-							<EventInfo info={individualClientsInfo.events} />
-						) : (
-							<div>No Event</div>
-						)}
+				<div
+					style={{
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'center',
+						alignItems: 'center',
+					}}
+				>
+					<Text align='left' size='lg' weight={500} mt='sm'>
+						USER NAME : {individualClientsInfo.username}
 					</Text>
-				</div>
+					<Text align='left' size='lg' weight={500} mt='sm'>
+						SCORE (EVENTS) :{' '}
+						<Group position='left'>
+							<Rating defaultValue={individualClientsInfo.avg_score} readOnly />
+							<> ({individualClientsInfo.avg_score}) </>
+						</Group>
+					</Text>
+
+					<div style={{ flex: 1 }}>
+						<Text size='sm' weight={500}>
+							{individualClientsInfo.events ? (
+								<EventInfo info={individualClientsInfo.events} />
+							) : (
+								<div>No Event</div>
+							)}
+						</Text>
+					</div>
 				</div>
 			</Card>
 		);

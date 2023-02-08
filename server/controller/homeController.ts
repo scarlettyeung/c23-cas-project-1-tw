@@ -37,6 +37,7 @@ export class HomeController {
         message: "Load hashtags success!",
         hashtags,
       })
+      console.log(hashtags)
       return
     } catch (e) {
       logger.info(e)
