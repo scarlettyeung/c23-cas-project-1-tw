@@ -7,9 +7,10 @@ export const getAllDataThunk = createAsyncThunk<{
 	performers: Performer[];
 }>('home', async (_, _thunkAPI) => {
 	try {
+		console.log('find data');
 		const path = process.env.REACT_APP_API_BASE;
 		const jwt = localStorage.getItem('token');
-		const resp = await fetch(`${path}home`, {
+		const resp = await fetch(`${path}/home`, {
 			headers: {
 				Authorization: `Bearer ${jwt}`,
 			},

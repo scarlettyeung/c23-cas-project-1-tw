@@ -8,14 +8,13 @@ export const getAllHashTags = createAsyncThunk<
 	try {
 		const path = process.env.REACT_APP_API_BASE;
 		const jwt = localStorage.getItem('token');
-		let url = `${path}home/hashtags?tag_type=${hashTags}`;
+		let url = `${path}/home/hashtags?tag_type=${hashTags}`;
 		if (name) {
 			url += `&tag_name=${name}`;
 		}
+		console.log(url);
 		const resp = await fetch(url, {
-			headers: {
-				Authorization: `Bearer ${jwt}`,
-			},
+			headers: { Authorization: `Bearer ${jwt}` },
 		});
 		const data = await resp.json();
 		return data;

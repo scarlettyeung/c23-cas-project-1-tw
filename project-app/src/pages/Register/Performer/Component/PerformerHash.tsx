@@ -20,7 +20,7 @@ function PerformerHash({ tagId, updateFields }: UserFormProps) {
 	useEffect(() => {
 		async function getAllTags() {
 			const path = process.env.REACT_APP_API_BASE;
-			let data = await fetch(`${path}users/getPerformerHashtag`);
+			let data = await fetch(`${path}/users/getPerformerHashtag`);
 			let result = await data.json();
 			return setTags(
 				result.map((r: { name: string; id: number }) => ({ name: r.name, tagId: r.id })),

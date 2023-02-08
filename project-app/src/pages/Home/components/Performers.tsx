@@ -10,12 +10,14 @@ const { REACT_APP_IMAGE_BASE } = process.env;
 const useStyles = createStyles((theme) => ({
 	card: {
 		height: 150,
+		width: 150,
 		display: 'flex',
 		flexDirection: 'column',
 		justifyContent: 'space-between',
 		alignItems: 'flex-start',
 		backgroundSize: 'cover',
 		backgroundPosition: 'center',
+		marginLeft: 5
 	},
 }));
 

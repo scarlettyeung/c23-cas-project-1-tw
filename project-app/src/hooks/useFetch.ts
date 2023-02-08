@@ -1,17 +1,21 @@
 import { useEffect, useState } from 'react';
 // import axios from "axios"
-export default function useFetch<T = unknown>(url: string, method: string, initValue: T, refresh?: any) {
+export default function useFetch<T = unknown>(
+	url: string,
+	method: string,
+	initValue: T,
+	refresh?: any,
+) {
 	const [data, setData] = useState<T>(initValue);
 	const [error, setError] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-
 		const fetchData = async () => {
 			const jwt = localStorage.getItem('token');
 			const path = process.env.REACT_APP_API_BASE;
 
-			const resp = await fetch(`${path}${url}`, {
+			const resp = await fetch(`${path}/${url}`, {
 				method: method,
 				headers: {
 					'Content-Type': 'application/json',
@@ -27,20 +31,13 @@ export default function useFetch<T = unknown>(url: string, method: string, initV
 			setData(data);
 			setIsLoading(false);
 			// }
-
-
-
 		};
 
 		fetchData();
 		return () => {
 			// setIsLoading(true)
-		}
-
-
-
+		};
 	}, [url, method, isLoading, refresh]);
 
-
-	return { data, error, isLoading, };
+	return { data, error, isLoading };
 }

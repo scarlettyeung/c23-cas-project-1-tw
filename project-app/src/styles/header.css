@@ -1,7 +1,9 @@
 .header-bar {
+	padding: 10px 15px;
 	position: fixed;
-	/* display: flex; */
-	/* justify-content: space-evenly; */
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	background-color: #ffffff;
 	opacity: 0.95;
 	top: 0;
@@ -9,7 +11,12 @@
 	right: 0;
 	width: 100%;
 	z-index: 99;
-	/* height: 6%; */
+}
+
+.header-bar P {
+	text-transform: uppercase;
+	font-size: large;
+	font-weight: 500;
 }
 
 .logOut-Btn {

@@ -10,11 +10,14 @@ import { routes } from "./routes"
 import formidable from "formidable"
 import fs from "fs"
 
-dotenv.config()
-
 const app = express()
 app.use(express.json())
-app.use(cors())
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    credentials: true,
+  })
+)
 app.use(routes)
 app.use(express.static("./uploads"))
 

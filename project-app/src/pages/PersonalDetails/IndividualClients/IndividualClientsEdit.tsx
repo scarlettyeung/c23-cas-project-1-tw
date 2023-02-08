@@ -39,7 +39,7 @@ function IndividualClientsEdit(props: individualClientsInfo) {
 					async function fetchData() {
 						const path = process.env.REACT_APP_API_BASE;
 						const jwt = localStorage.getItem('token');
-						await fetch(`${path}users/editInfo`, {
+						await fetch(`${path}/users/editInfo`, {
 							method: 'PUT',
 							headers: {
 								'Content-Type': 'application/json',
