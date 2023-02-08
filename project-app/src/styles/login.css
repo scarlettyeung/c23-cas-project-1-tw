@@ -28,7 +28,7 @@
 }
 
 
-.login_loginBtn {
+.login__loginBtn {
 	margin-top: 20px;
 	border: 0;
 	width: 65vw;
@@ -46,7 +46,7 @@
 	margin-top: 60px;
 	height: 40px !important;
 }
-.outerDiv {
+.login__outerDiv {
 	position: fixed;
 	top: 0;
 	left: 0;

@@ -30,7 +30,7 @@ function Login() {
 	};
 	const [isClicked, setIsClicked] = useState(false);
 	return (
-		<div className='outerDiv'>
+		<div className='login__outerDiv'>
 			<img className='login__logo' src='../../joasisLogo.png' alt='Joasis logo' />
 			<form onSubmit={submitLogin}>
 				<div className='login__inputDiv'>
@@ -57,7 +57,7 @@ function Login() {
 					/>
 				</div>
 				<div>
-					<Button type='submit' className='login_loginBtn'>
+					<Button type='submit' className='login__loginBtn'>
 						LOGIN
 					</Button>
 				</div>
