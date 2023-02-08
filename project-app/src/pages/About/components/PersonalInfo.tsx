@@ -46,6 +46,7 @@ function PersonalInfo(props: UserInfoProps) {
 		const ig = performanceInfo.ig_url;
 		const twitter = performanceInfo.twitter_url;
 		const youtube = performanceInfo.youtube_url;
+
 		return (
 			<Card withBorder p='xl' radius='md'>
 				<Card.Section sx={{ height: 20 }} />
@@ -159,7 +160,7 @@ function PersonalInfo(props: UserInfoProps) {
 
 				<div style={{ flex: 1 }}>
 					<Text size='sm' weight={500}>
-						{performanceInfo.events ? (
+						{performanceInfo.events && performanceInfo.events?.length !== 0 ? (
 							<EventInfo info={performanceInfo.events} />
 						) : (
 							<div>No Event History</div>
@@ -222,7 +223,7 @@ function PersonalInfo(props: UserInfoProps) {
 
 					<div style={{ flex: 1 }}>
 						<Text size='sm' weight={500}>
-							{corporateClientsInfo.events ? (
+							{corporateClientsInfo.events && corporateClientsInfo.events?.length !== 0 ? (
 								<EventInfo info={corporateClientsInfo.events} />
 							) : (
 								<div>No Event</div>
@@ -235,6 +236,7 @@ function PersonalInfo(props: UserInfoProps) {
 	}
 
 	if (individualClientsInfo) {
+		console.log(individualClientsInfo.events);
 		return (
 			<Card withBorder p='xl' radius='md'>
 				<Card.Section sx={{ height: 20 }} />
@@ -272,7 +274,7 @@ function PersonalInfo(props: UserInfoProps) {
 
 					<div style={{ flex: 1 }}>
 						<Text size='sm' weight={500}>
-							{individualClientsInfo.events ? (
+							{individualClientsInfo.events && individualClientsInfo.events?.length !== 0 ? (
 								<EventInfo info={individualClientsInfo.events} />
 							) : (
 								<div>No Event</div>
