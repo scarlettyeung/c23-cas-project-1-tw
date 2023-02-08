@@ -39,27 +39,6 @@ body {
     flex-direction: column;
 }
 
-.withoutMainBtn{
-display: flex;
-    flex-direction: column;
-    width: -webkit-fill-available;
-    background-color: white;
-    color: black;
-}
-
-button:not(.withoutMainBtn) {
-	border-radius: 5px !important;
-	background-color: black !important;
-	color: rgb(255 203 44) !important;
-	border: 2px solid black !important;
-  font-weight:bold !important;
-}
-
-button:hover, button:active {
-	background-color:rgb(255 203 44);
-	color: black !important;
-  border: 2px solid black !important;
-}
 
 .HeaderLogo {
 	width: 50px;
@@ -74,17 +53,17 @@ button:hover, button:active {
   text-transform: uppercase;
 }
 
-/* container */
-.container {
-  position: absolute;
-  top: var(--header-hight);
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 24px 24px calc(90px + 36px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  overflow: auto;
+.errorImage{
+  size: 100%;
 }
+
+.mantine-Group-root.event-detailPage-dateTime.mantine-17sxzhi {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  padding-bottom: 3vw;
+  border-top: 1px solid rgba(128, 128, 128, 0.283) ;
+}
+
