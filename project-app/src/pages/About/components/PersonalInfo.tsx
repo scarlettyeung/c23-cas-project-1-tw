@@ -47,7 +47,7 @@ function PersonalInfo(props: UserInfoProps) {
 		const twitter = performanceInfo.twitter_url;
 		const youtube = performanceInfo.youtube_url;
 		return (
-			<Card classNames={'IdCard'} withBorder p='xl' radius='md'>
+			<Card withBorder p='xl' radius='md'>
 				<Card.Section sx={{ height: 20 }} />
 				<Title order={2}>Personal Info</Title>
 				<Avatar size={150} radius={80} mx='auto' style={{ marginBottom: '1vh' }}>
@@ -88,7 +88,7 @@ function PersonalInfo(props: UserInfoProps) {
 				</Text>
 				</div>
 
-				<div className='IconGroup'>
+				<div className='about__personalInfo__iconGroup'>
 					{fb ? (
 						<ActionIcon
 							className={classes.myCustomButton}
@@ -165,7 +165,7 @@ function PersonalInfo(props: UserInfoProps) {
 
 	if (corporateClientsInfo) {
 		return (
-			<Card classNames={'IdCard'} withBorder p='xl' radius='md'>
+			<Card  withBorder p='xl' radius='md'>
 				<Card.Section sx={{ height: 20 }} />
 				<Title order={2}>Corporate Clients Info</Title>
 				<Avatar size={150} radius={80} mx='auto'>
@@ -222,7 +222,7 @@ function PersonalInfo(props: UserInfoProps) {
 
 	if (individualClientsInfo) {
 		return (
-			<Card classNames={'IdCard'} withBorder p='xl' radius='md'>
+			<Card withBorder p='xl' radius='md'>
 				<Card.Section sx={{ height: 20 }} />
 				<Title order={2}>Clients Info</Title>
 				<Avatar size={150} radius={80} mx='auto'>

@@ -14,9 +14,9 @@ function EventInfo(props: EventInfoProps) {
 	return (
 		<>
 			<Title order={4}>Event Info</Title>
-			<div className='EventHistory'>
+			<div className='about__hashtags__eventHistory'>
 				{props.info.map((event) => (
-					<div className='EventKey' key={`event-${event.id}`}>
+					<div className='about__hashtags__eventKey' key={`event-${event.id}`}>
 						{event.title}
 						<div>
 							<Button

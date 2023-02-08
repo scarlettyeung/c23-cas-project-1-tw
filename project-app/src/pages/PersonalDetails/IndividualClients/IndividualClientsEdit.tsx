@@ -52,7 +52,8 @@ function IndividualClientsEdit(props: individualClientsInfo) {
 					navigate(-1);
 				})}
 			>
-				<div>Individual Clients EDIT</div>
+				        <div style={{display:"flex",justifyContent:"center"}}>
+        <div className='Title' style={{padding:0, paddingBottom:"3vh"}}>Individual Client Edit</div></div>
 				<TextInput disabled readOnly {...form.getInputProps('email')} label='email: ' />
 				<TextInput {...form.getInputProps('contact_email')} label='contact email:' type='email' />
 				<TextInput

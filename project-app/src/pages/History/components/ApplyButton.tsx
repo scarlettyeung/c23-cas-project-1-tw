@@ -13,7 +13,7 @@ function ApplyButton(props: PopDataType) {
 	return (
 		<div>
 			<Button
-				onClick={async (e) => {
+				onClick={async () => {
 					const path = process.env.REACT_APP_API_BASE;
 					const jwt = localStorage.getItem('token');
 					const resp = await fetch(

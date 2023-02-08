@@ -55,7 +55,7 @@ function EventDetail() {
 
 				<Card.Section className={event?.title} mt='md'>
 				
-					<div className='event-detailPage-titleDescription'>
+					<div className='event__detailPage__titleDescription'>
 					<Badge size='sm'>{event?.location}</Badge>
 					<Group >
 					{/* <Badge size='sm'>{event?.location}</Badge> */}
@@ -69,7 +69,7 @@ function EventDetail() {
 					</Text>
 					</div>
 
-					<Group spacing={7} mt={5} className="event-detailPage-dateTime">
+					<Group spacing={7} mt={5} className="event__detailPage__dateTime">
 						<Text size='sm' mt='xs'>
 							<div>START DATE :</div>
 							{(new Date(event?.start_date).getFullYear())+'-'+(new Date(event?.start_date).getMonth()+1)+"-"+(new Date(event?.start_date).getDate())}

@@ -66,7 +66,8 @@ function PerformersEdit(props: PerformerInfo) {
           navigate(-1);
         })}
       >
-        <div>Performers Edit</div>
+        <div style={{display:"flex",justifyContent:"center"}}>
+        <div className='Title' style={{padding:0, paddingBottom:"3vh"}}>Performers Edit</div></div>
         <TextInput disabled readOnly {...form.getInputProps('email')} label='email: ' />
         <TextInput {...form.getInputProps('contact_email')} label='contact email: ' type='email' />
         <TextInput

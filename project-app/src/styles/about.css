@@ -1,18 +1,12 @@
-.About-ButtonGroup {
+/* .About-ButtonGroup {
 	display: flex;
 	flex-direction: row-reverse;
 	flex-wrap: nowrap;
 	justify-content: space-evenly;
 	margin: 10px !important;
-}
-
-/* .AboutBtn {
-	background-color: #55836f !important;
-	border: 1px solid rgb(255, 203, 44);
-	color: white !important;
 } */
 
-.IconGroup {
+.about__personalInfo__iconGroup {
 	display: flex;
 	flex-direction: row-reverse;
 	flex-wrap: nowrap;
@@ -20,23 +14,19 @@
 	margin: 10px !important;
 }
 
-.EventHistory {
+.about__hashtags__eventHistory {
 	display: flex;
 	flex-direction: column;
 }
 
-.EventKey {
+.about__hashtags__eventKey {
 	display: flex;
 	justify-content: space-between;
 	margin: 10px !important;
 }
-.HashTagsKey {
+.about__hashtags__hashTagsKey {
 	display: flex;
 	align-items: flex-end;
 	margin: 10px !important;
 }
 
-button:hover {
-	background-color: white !important;
-	/* color: #75a488 !important; */
-}
