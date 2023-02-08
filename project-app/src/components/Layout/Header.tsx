@@ -65,12 +65,9 @@ function Header() {
 	return (
 		<div className='header-bar'>
 			<Group>
-				<Badge color='gray' size='xl' variant='outline'>
-					<Text size={'xs'}>
-						Hi,{userName}
-						<br></br>({userIdentity})
-					</Text>
-				</Badge>
+				<p>Hi, {userName}</p>
+			</Group>
+			<Group>
 				<Select
 					className='sbar'
 					rightSection={<IconChevronDown size={14} />}

@@ -64,6 +64,7 @@ function EventDetail() {
 					<Image src={`${process.env.REACT_APP_IMAGE_BASE}/${event?.image}`} alt='' height={180} />
 				</Card.Section>
 
+<<<<<<< HEAD
 				<Card.Section className={event?.title} mt='md'>
 					<div className='event-detailPage-titleDescription'>
 						{/* <Badge size='sm'>{event?.location}</Badge> */}
@@ -95,6 +96,32 @@ function EventDetail() {
 								'-' +
 								new Date(event?.start_date).getDate()}
 						</Text>
+=======
+        <Card.Section className={event?.title} mt='md'>
+
+          <div className='event__detailPage__titleDescription'>
+            <Badge size='sm'>{event?.location}</Badge>
+            <Group >
+              {/* <Badge size='sm'>{event?.location}</Badge> */}
+              <Text size='lg' weight={500}>
+                {event?.title}
+              </Text>
+            </Group>
+            <Text size='sm' mt='xs'>
+              {event?.description}
+            </Text>
+          </div>
+
+          <Group spacing={7} mt={5} className="event__detailPage__dateTime">
+            <Text size='sm' mt='xs'>
+              <div>START DATE :</div>
+              {new Date(event?.start_date).getFullYear() +
+                '-' +
+                (new Date(event?.start_date).getMonth() + 1) +
+                '-' +
+                new Date(event?.start_date).getDate()}
+            </Text>
+>>>>>>> 5eec9559c79262390b2e8b9d7a00c6cdacdc9a81
 
 						<Text className='detail-Time' size='sm' mt='xs'>
 							<Text fw={700} ta='left' tt='uppercase'>

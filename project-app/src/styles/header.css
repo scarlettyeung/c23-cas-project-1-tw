@@ -1,32 +1,77 @@
 .header-bar {
+	padding: 10px 15px;
 	position: fixed;
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: space-between;
+	align-items: center;
 	background-color: #ffffff;
 	opacity: 0.95;
 	top: 0;
 	left: 0;
 	right: 0;
-	margin: 0;
-	padding: 0;
 	width: 100%;
-	height: 120px;
 	z-index: 99;
-	gap: 0px !important;
+}
+
+.header-bar P {
+	text-transform: uppercase;
+	font-size: large;
+	font-weight: 500;
 }
 
 .logOut-Btn {
-  background-color: rgba(128, 128, 128, 0.131) !important;
-  border-radius: 100% !important;
+  background-color: rgb(240, 240, 240) !important;
+  border-radius: 100vw !important;
+  border:rgba(0, 0, 0, 0) !important;
   color: rgba(0, 0, 0) !important;
-  width: auto;
+  width: 40px;
+  height: 40px;
 }
 
 .search-Btn{
-  background-color: rgba(128, 128, 128, 0.131) !important;
-  border-radius: 100% !important;
-  color: rgba(0,0,0) !important;
+  background-color: rgb(240, 240, 240) !important;
+  border-radius: 100vw !important;
+  border:rgba(0, 0, 0, 0) !important;
+  color: rgba(0, 0, 0) !important;
+  width: 40px !important;
+  height: 40px;
+  /* margin-right: 1vw !important; */
   width: auto;
 }
 
+.header__search__outerDiv {
 
+	padding-top: 3vh;
+	padding-bottom: 3vh;
+	display: flex;
+	justify-content: space-between;
+	margin-right:4vw;
+	margin-left:4vw;
+}
+
+.header__search__btnGroup {
+	display: flex;
+	justify-content:space-between;
+	width:90px;
+
+}
+
+.header__search__searchBtn {
+	padding-right:1vw;
+}
+
+.header_search_username {
+	text-transform:uppercase;
+	font-weight: bold;
+	font-size: 8.5vmin;
+	color:rgb(66,103,178);
+}
+
+.header__performerEventSearch{
+	display: flex;
+    flex-direction: column;
+    width: -webkit-fill-available;
+    background-color: white;
+    color: black;
+	height: max-content;
+}
