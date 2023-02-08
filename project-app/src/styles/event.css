@@ -66,3 +66,7 @@
   width: 20vw;
   gap: 5vw;
 }
+
+.events_createEvent_SubmitBtn{
+  background-color: #000000 !important;
+}

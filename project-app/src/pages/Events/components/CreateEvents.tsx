@@ -149,19 +149,25 @@ export function CreateEvents() {
           formData.append('description', data.description);
           formData.append('rehearsal_needed', data.rehearsal_needed);
           formData.append('cardImage', cardImage! as Blob);
+          if (!cardImage || cardImage === undefined) {
+            alert("PLEASE UPLOAD IMAGE!!")
+          } else {
+            const resp = await fetch(`${path}/events/createEvents`, {
+              method: 'POST',
+              headers: {
+                Authorization: `Bearer ${jwt}`,
+              },
+              body: formData,
+            });
+            const result = await resp.json();
+            logger(result);
+            console.log(result);
+            alert('Create Event successfully!');
+            navigate('/events');
+          }
 
-          const resp = await fetch(`${path}/events/createEvents`, {
-            method: 'POST',
-            headers: {
-              Authorization: `Bearer ${jwt}`,
-            },
-            body: formData,
-          });
-          const result = await resp.json();
-          logger(result);
-          console.log(result);
-          alert('Create Event successfully!');
-          navigate('/events');
+
+
         })}
       >
         <Paper shadow='md' radius='lg'>
@@ -183,12 +189,13 @@ export function CreateEvents() {
                   />
                 ) : (
                   <Button
+                    className='events_createEvent_SubmitBtn'
                     onClick={(event) => {
                       event.preventDefault();
                       fileInputRef.current?.click();
                     }}
                   >
-                    Add cardImage
+                    ADD IMAGE
                   </Button>
                 )}
                 <input
@@ -275,8 +282,10 @@ export function CreateEvents() {
                 {...register('description')}
               />
 
-              <Group position='right' mt='md'>
-                <Button type='submit' className={classes.control}>
+              <Group position='center' mt='md'>
+
+                <Button
+                  type='submit' className={((classes.control), 'events_createEvent_SubmitBtn')}>
                   Submit
                 </Button>
               </Group>

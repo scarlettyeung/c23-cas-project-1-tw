@@ -47,7 +47,7 @@ export function BadgeCard({ image, title, description, country, badges }: BadgeC
 
                   <Card.Section className='Card' mt='md'>
                     <Group position='apart' style={{ marginLeft: '5vw', marginRight: '5vw' }}>
-                      <Text size='lg' weight={500}>
+                      <Text tt="uppercase" fz="xl" fw={700}>
                         {event.title}
                       </Text>
                       <Badge size='sm'>{event.location}</Badge>
@@ -59,7 +59,7 @@ export function BadgeCard({ image, title, description, country, badges }: BadgeC
                         mt={5}
                         style={{ display: 'flex', justifyContent: 'center' }}
                       >
-                        <Text mt='md' className='Card' color='dimmed'>
+                        <Text ta="left" mt='md' className='Card' color='dimmed'>
                           {event.description}
                         </Text>
                       </Group>
