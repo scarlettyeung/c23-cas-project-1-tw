@@ -39,3 +39,20 @@
   padding-bottom: 3vw;
   border-top: 1px solid rgba(128, 128, 128, 0.283) ;
 }
+
+.Event_create_event_btn{
+  background-color: #000000;
+	padding: 1vh;
+	color: #FFFFFF;
+  text-transform: uppercase;
+	border-radius: 5px;
+}
+
+.eventDetailPage__Apply__btn{
+  background-color: #000000;
+	padding: 1vh;
+	color: #FFFFFF;
+  text-transform: uppercase;
+	border-radius: 5px;
+  width: 70%;
+}

@@ -128,7 +128,7 @@ function EventDetail() {
         </Card.Section>
       </Card>
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2vh' }}>
-        <Button
+        <Button className='eventDetailPage__Apply__btn'
           onClick={async () => {
             const path = process.env.REACT_APP_API_BASE;
             const jwt = localStorage.getItem('token');
